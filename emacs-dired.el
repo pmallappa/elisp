@@ -21,7 +21,7 @@
 (auto-compression-mode t)
 
 ;; Set the ls switches
-(setq dired-listing-switches "-l")
+(setq dired-listing-switches "-la")
 
 ;; dired-a provides support functions, including archiving, for dired
 (load "dired-a")

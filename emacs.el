@@ -1,11 +1,11 @@
-;;;_. -*-mode: emacs-lisp -*-
-;;;=====================================================================
-;;; .emacs --- Emacs configuration file
+;; -*-mode: emacs-lisp -*-
+;;=====================================================================
+;; .emacs --- Emacs configuration file
 
 ;; Author: Chris McMahan <cmcmahan@one.net>
-;; Time-stamp: 02 Nov 2007 07:55
-;; Emacsen Compatibility: Emacs22
-;; OS Compatibility:      Win32 (with Cygwin utils)
+;; Time-stamp: 2011-03-17 Thu 11:15
+;; Emacsen Compatibility: Emacs23
+;; OS Compatibility:      Win32 (with Cygwin utils) / OS X
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of version 2 of the GNU General Public License
@@ -36,7 +36,7 @@
 (defconst HOME_DIR 
   (if (eq system-type 'darwin)
       (concat "/Users/" (getenv "USER"))
-    (concat CYGWIN_DIR "/" (getenv "USER")))
+    (concat CYGWIN_DIR "/" (getenv "USERNAME")))
   "Home directory. I could rely on the HOME environment variable,
   but I'm being retentive.")
 

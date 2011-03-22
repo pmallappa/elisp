@@ -1,9 +1,4 @@
-
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Initial setup
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
+;;;======================================================================
 (require 'cygwin-mount)
 (cygwin-mount-activate)
 
@@ -32,10 +27,8 @@
 	 (null (getenv "LOGNAME")))
     (setenv "LOGNAME" (getenv "USER")))
 
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;============================================================
 ;; (A) M-x shell: This change M-x shell permanently
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;; Would call Windows command interpreter. Change it.
 
 (setq shell-file-name "bash")
@@ -43,7 +36,6 @@
 (setq explicit-shell-file-name shell-file-name)
 
 ;; Remove C-m (^M) characters that appear in output
-
 (add-hook 'comint-output-filter-functions
           'comint-strip-ctrl-m)
 

@@ -63,18 +63,18 @@ The default value is the same as the primary monitor")
 (defun get-frame-width(screen-width)
   "Return the number of columns for a frame in a given screen width. 
 Final frame size is determined by the value returned by
-`is-enlarged`, which shows whether a large or standard frame is
+`is-enlarged', which shows whether a large or standard frame is
 desired
 If the size of the frame exceeds the screen width, shrink to fit the screen"
   ; standard or enlarged frame? Use 3x the margin for slop
   (if (is-enlarged)
-      (pixels-to-cols (- screen-width (* 3 cmframe-horizontal-margin)))
+      (pixels-to-cols (- screen-width (* 2 cmframe-horizontal-margin)))
 
     ; standard frame, but test to ensure the default number of columns
     ; will fit. If it's too big, use enlarged size, which recalculates
     ; based on resolution width
-    (if (> MY_DEFAULT_WIDTH (pixels-to-cols (- screen-width (* 3 cmframe-horizontal-margin))))
-      (pixels-to-cols (- screen-width (* 3 cmframe-horizontal-margin)))
+    (if (> MY_DEFAULT_WIDTH (pixels-to-cols (- screen-width (* 2 cmframe-horizontal-margin))))
+      (pixels-to-cols (- screen-width (* 2 cmframe-horizontal-margin)))
       MY_DEFAULT_WIDTH)))
 
 (defun get-frame-height(screen-height)
@@ -96,20 +96,20 @@ If the size of the frame exceeds the screen width, shrink to fit the screen"
 (defun cols-to-pixels(columns)
   "Return the frame pixel width for the given number of columns"
   ; take the fringe on either side into account
-  (+ (* columns (frame-char-width)) 16))
+  (* (+ 2 columns) (frame-char-width)))
 
 (defun frame-adjust()
   "Resize the frame size to an enlarged or standard size, based
-on the status returned by `is-enlarged`, and move to the screen
+on the status returned by `is-enlarged', and move to the screen
 determined by `is-right-monitor`"
   (interactive)
 
+  ; determine and set the frame size
   (set-frame-size (selected-frame)
                   (get-frame-width 
                    (if (is-right-monitor)
                        cmframe-monitor2-width
                      (display-pixel-width)))
-
                   (get-frame-height
                    (if (is-right-monitor)
                        cmframe-monitor2-height
@@ -130,14 +130,13 @@ determined by `is-right-monitor`"
 ;;;_.======================================================================
 ;;;_. define the interactive frame functions
 (defun frame-enlarge()
-  "Adjust the frame size to slightly less than the screen size
-and move to the right side of the screen"
+  "Adjust the frame size to fill the current screen"
   (interactive)
   (set-enlarged-on)
   (frame-adjust))
 
 (defun frame-shrink()
-  "Adjust the frame size to a width of `MY_DEFAULT_WIDTH` and
+  "Adjust the frame size to a width of `MY_DEFAULT_WIDTH' and
 move to the right side of the screen"
   (interactive)
   (set-enlarged-off)
@@ -182,7 +181,7 @@ With prefix argument ARG, include proportional fonts"
 (defun my-frame-maximize ()
   "Maximize Emacs window in Win32"
   (interactive)
-  (modify-frame-parameters nil '((my-frame-state . t)))
+  (modify-frame-parameters nil '((my-frame-state . 't)))
    (if (eq system-type 'darwin)
        (frame-enlarge)
      (w32-send-sys-command ?\xf030)))
@@ -198,7 +197,7 @@ With prefix argument ARG, include proportional fonts"
 (defun my-frame-toggle ()
   "Maximize/Restore Emacs frame based on `my-frame-state'"
   (interactive)
-  (if my-frame-state
+  (if (cdr (assoc 'my-frame-state (frame-parameters)))
 	  (my-frame-restore)
     (my-frame-maximize)))
 

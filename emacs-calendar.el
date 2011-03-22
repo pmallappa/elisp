@@ -44,9 +44,16 @@
 ;;;------------------------------
 ;;; Holidays
 ;;;------------------------------
-(setq islamic-holidays 'nil)
-(setq hebrew-holidays 'nil)
-(setq oriental-holidays 'nil)
+;(setq holiday-general-holidays t)
+
+(setq holiday-bahai-holidays 'nil)
+(setq holiday-christian-holidays 'nil)
+(setq holiday-hebrew-holidays 'nil)
+(setq holiday-islamic-holidays 'nil)
+(setq holiday-local-holidays 'nil)
+(setq holiday-oriental-holidays 'nil)
+(setq holiday-other-holidays 'nil)
+(setq holiday-solar-holidays 'nil)
 
 (setq diary-show-holidays-flag t)
 (setq calendar-mark-holidays-flag t)

@@ -11,5 +11,7 @@
 ; set the right margin (add window manager space here as well)
 (setq cmframe-right-margin 15)
 
+(add-hook 'window-setup-hook 'frame-adjust t)
+
 (provide 'emacs-frame)
 

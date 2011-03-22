@@ -36,7 +36,6 @@
 ;(custom-set-variables
 ;'(org-contacts-files '("~/org/contacts.org")))
 
-
 ;;;_.============================================================
 ;;;_. capture templates (replaces remember)
 
@@ -97,20 +96,9 @@
 ;;;_. various settings
 (setq org-agenda-include-diary t)
 (setq org-agenda-include-all-todo t)
-(setq org-log-done t)
 (setq org-use-fast-todo-selection t)
 (setq org-confirm-elisp-link-function `y-or-n-p)
 (setq org-attach-directory "/Users/cmcmahan/org/data/")
-
-;; place any notes and state change entries into a drawer
-(setq org-log-into-drawer t)
-
-;; set the text for various notes
-(setq org-log-note-headings
-      '((done . "CLOSING NOTE %t")
-        (state . "State %s from %S %t")
-        (note . "Note %t")
-        (clock-out . "")))
 
 ; set the column for tags. Negative number right-justifies on that
 ; column
@@ -122,10 +110,8 @@
 ;;;_. Set up org files
 (setq org-agenda-files 
       (list 
-       ;(concat HOME_DIR "/org/PEO(A).gpg")
        (concat HOME_DIR "/org/fun.org")
        (concat HOME_DIR "/org/journal.org")
-       ;(concat HOME_DIR "/org/passwords.gpg")
        (concat HOME_DIR "/org/reference.org")
        (concat HOME_DIR "/org/Xetron.org")))
 
@@ -167,20 +153,42 @@
 
 ;;;_.============================================================
 ;;;_. Set up the TODO states
-(setq org-todo-keyword-faces
-      '(("TODO"      . (:foreground "red"          :weight bold))
-	("NEXT"      . (:foreground "white"        :weight bold))
-	("WAITING"   . (:foreground "orange"       :weight bold))
-	("DELEGATED" . (:foreground "orange"       :weight bold))
-	("OPEN"      . (:foreground "gray"         :weight bold))
-	("DONE"      . (:foreground "forest green" :weight bold))
-	("CANCELLED" . (:foreground "forest green" :weight bold))
-	("CLOSED"    . (:foreground "forest green" :weight bold))))
 
+;; place any TODO notes and state change entries into a drawer
+(setq org-log-done 'note)
+(setq org-log-into-drawer t)
+
+;; templates for the task log entries
+(setq org-log-note-headings 
+      '((done        . "CLOSING NOTE %t")
+        (state       . "State %s from %S %t")
+        (note        . "Note taken on %t")
+        (next        . "Next from %S on %t")
+        (rescheduled . "Rescheduled from %S on %t")
+        (waiting     . "Waiting from %S on %t")
+        (delegated   . "Delegated from %S on %t")
+        (open        . "Open from %S on %t")
+        (clock-out   . "")))
+
+
+;; set up the TODO states a
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
-	(sequence "WAITING(w@/!)" "DELEGATED(g@/!)" "|" "CANCELLED(c!/!)")
-	(sequence "OPEN(o!)" "|" "CLOSED(C!)")))
+      '((sequence "TODO(t)" "NEXT(n@/!)" "|" "DONE(d!/!)")
+	(sequence "WAITING(w@/!)" "DELEGATED(g@/!)" "RESCHEDULED(r@/!)" "|" "CANCELLED(C!/!)")
+	(sequence "OPEN(o!)" "|" "CLOSED(c!)")))
+
+;; fancy faces!
+(setq org-todo-keyword-faces
+      '(("TODO"        . (:foreground "red"          :weight bold))
+	("NEXT"        . (:foreground "white"        :weight bold))
+	("WAITING"     . (:foreground "orange"       :weight bold))
+	("DELEGATED"   . (:foreground "orange"       :weight bold))
+	("RESCHEDULED" . (:foreground "orange"       :weight bold))
+	("OPEN"        . (:foreground "gray"         :weight bold))
+	("DONE"        . (:foreground "forest green" :weight bold))
+	("CANCELLED"   . (:foreground "forest green" :weight bold))
+	("CLOSED"      . (:foreground "forest green" :weight bold))))
+
 
 ;;;_.============================================================
 ;;;_. Export to HTML options

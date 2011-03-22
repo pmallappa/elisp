@@ -16,9 +16,9 @@
 (color-theme-initialize)
 
 ;prevent color theme from loading all of the themes (nil)
-(setq color-theme-load-all-themes 't)
+(setq color-theme-load-all-themes 'nil)
 
-(load (concat EMACS_PKGS "/color-theme/themes/color-theme-library.el"))
+;(load (concat EMACS_PKGS "/color-theme/themes/color-theme-library.el"))
 
 ; empty the existing list of color themes
 ;(setq color-themes 'nil)
@@ -28,7 +28,7 @@
 ;; use on starting up emacs. Any other theme or library located in the
 ;; color-theme/themes directory will automatically be loaded
 (load (concat EMACS_PKGS "/color-theme/themes/color-theme-darkgray"))
-(load (concat EMACS_PKGS "/color-theme/themes/zenburn"))
+(load (concat EMACS_PKGS "/color-theme/themes/color-theme-zenburn"))
 
 ;;======================================================================
 ; now use this color theme at startup
@@ -40,7 +40,7 @@
           (lambda ()
             (if window-system
 ;                (color-theme-zenburn)
-                (color-theme-darkgray)
+;                (color-theme-darkgray)
 	      nil)))
 
 ;;;_.======================================================================
