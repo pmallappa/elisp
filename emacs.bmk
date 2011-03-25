@@ -2,16 +2,26 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("dwhelper"
+(("JAVA_LIB01"
+ (filename . "/Volumes/JAVA_LIB01/")
+ (front-context-string . ".Trashes\n  -rwxr")
+ (rear-context-string . "92 Mar 24 22:05 ")
+ (position . 230))
+("links.gpg"
+ (filename . "~/archive/Programming/libs/links.gpg")
+ (front-context-string . "# -*- mode: org;")
+ (rear-context-string)
+ (position . 1))
+("dwhelper"
  (filename . "~/dwhelper/")
  (front-context-string . "Good Morning.flv")
  (rear-context-string . "24 Mar 20 18:17 ")
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/org/journal.org")
- (front-context-string . "** TODO Contact ")
- (rear-context-string . "NR_PEO(A).doc]]\n")
- (position . 32805))
+ (front-context-string . "** TODO Call LCD")
+ (rear-context-string . "read.php?t=1012\n")
+ (position . 39055))
 ("webjump"
  (filename . "~/Emacs-pkgs/emacs-webjump.el")
  (front-context-string . ";;;_.===========")

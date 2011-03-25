@@ -2,7 +2,7 @@
 ;;=====================================================================
 ;; .emacs --- Emacs configuration file
 
-;; Author: Chris McMahan <cmcmahan@one.net>
+;; Author: Chris McMahan <cmcmahan@gmail.com>
 ;; Time-stamp: 2011-03-17 Thu 11:15
 ;; Emacsen Compatibility: Emacs23
 ;; OS Compatibility:      Win32 (with Cygwin utils) / OS X
@@ -22,12 +22,11 @@
 
 
 ;;=====================================================================
-;; set to t for debugging
+;; set debugging flag
 (setq debug-on-error nil)
 
 ;;=====================================================================
 ;; set the location of various directories
-
 (defconst CYGWIN_DIR
   (if (eq system-type 'darwin)
       ""
@@ -54,6 +53,7 @@
   "http proxy username, taken from user env variable")
 
 (defvar MY_DEFAULT_WIDTH 132)
+
 ;;=====================================================================
 ;; select your preferred programs for html and media here
 ; Mac OS X
@@ -82,11 +82,10 @@
 ; set the location of firefox for the browse-url-package
 (setq browse-url-firefox-program FRFXPRG)
 
-
 ;;=====================================================================
 ;; various startup settings
 
-; Toggle whether or not the selected frame should auto-raise.
+;; Toggle whether or not the selected frame should auto-raise.
 (auto-raise-mode 1)
 
 ;; Set the command key to act as the meta key for OS-X
@@ -105,6 +104,7 @@
 ;; allow narrow-to-region commands
 (put 'narrow-to-region 'disabled nil)
 
+;; highlight the current line
 (global-hl-line-mode)
 
 ;;==============================
@@ -121,11 +121,10 @@
 (setq initial-frame-alist default-frame-alist)
 
 ; now modify the initial frame sizes
-(add-to-list 'initial-frame-alist '(top    . 5))
-(add-to-list 'initial-frame-alist '(left   . -5))
+(add-to-list 'initial-frame-alist '(top    .   5))
+(add-to-list 'initial-frame-alist '(left   .  -5))
 (add-to-list 'initial-frame-alist '(width  . 132))
-(add-to-list 'initial-frame-alist '(height . 80))
-
+(add-to-list 'initial-frame-alist '(height .  80))
 
 ; Syntax highlighting
 (global-font-lock-mode t)
@@ -143,11 +142,20 @@
 
 ; set colors
 (defconst MY_BG_COLOR "gray15")
-(set-face-background 'default MY_BG_COLOR)
-(set-face-background 'fringe  MY_BG_COLOR)
 (set-face-foreground 'default "NavajoWhite3")
+(set-face-background 'default MY_BG_COLOR)
+
+(set-face-background 'fringe  MY_BG_COLOR)
 (set-face-background 'region  "gray35")
 (set-face-background 'hl-line "gray12")
+
+(set-face-foreground 'mode-line "gray75")
+(set-face-background 'mode-line "gray25")
+(set-face-attribute  'mode-line nil :box "gray60")
+
+(set-face-foreground 'mode-line-inactive "gray45")
+(set-face-background 'mode-line-inactive MY_BG_COLOR)
+(set-face-attribute  'mode-line-inactive nil :box "gray40")
 
 ;;=====================================================================
 ;; load path for various single-file packages
@@ -166,7 +174,6 @@
 (require 'emacs-bm)        ; bookmark enhancements
 (require 'emacs-bs)        ; buffer switch setting
 (require 'emacs-calendar)  ; calendar settings
-;(require 'emacs-colors)    ; color theme settings
 (require 'emacs-dired)     ; dired settings
 (require 'emacs-epa)       ; emacs gpg encryption settings
 (require 'emacs-frame)     ; customized frame functions
@@ -178,6 +185,7 @@
 (require 'emacs-undo)      ; Tree-based undo visualizetions
 (require 'emacs-w3m)       ; w3m web browser settings
 (require 'emacs-webjump)   ; webjump settings
+(require 'emacs-yasnippet) ; webjump settings
 
 (cond ((eq system-type 'darwin)
       (require 'emacs-todochiku))) ; notification using growl
