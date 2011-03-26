@@ -140,7 +140,7 @@
 (setq org-agenda-custom-commands
  '(("d" "Daily Agenda"
     ((agenda ""
-             ((org-agenda-todo-keyword-format "%-8s")
+             ((org-agenda-todo-keyword-format "%-11s")
               (org-agenda-remove-tags t)))
      (todo "NEXT" 
            ((org-agenda-sorting-strategy '(tag-up))

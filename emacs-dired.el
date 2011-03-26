@@ -164,14 +164,24 @@
 ;(setq ls-lisp-use-insert-directory-program t)
 ;(setq insert-directory-program (concat CYGWIN_DIR "/bin/ls"))
 ;(setq dired-listing-switches "-laG")
-;
-;;;; set the find program to which dired-find point for executing find
-;;;; commands and placing the output into a dired buffer.
-;;(setq find-dired-find-program (concat CYGWIN_DIR "/bin/find.exe"))
-;;(setq find-ls-option '("-ls" . "-la"))
 
 ;;======================================================================
-;; various grep and find commands
+;; find-dired
+;; set the find program to which dired-find point for executing find
+;; commands and placing the output into a dired buffer.  Use the
+;; command `find-name-dired' to create a list of find results in a
+;; dired buffer
+(require 'find-dired)
+(setq find-ls-option '("-print0 | xargs -0 ls -ld" . "-ld"))
+
+;;======================================================================
+;; find-lisp-dired
+;; replaces the find program with a lisp equivalent, using emacs regex
+;; engine. Because of this, the patterns will be different. Instead of
+;; *.foo you would enter .foo$
+;; example for all .el files in the emacs subdirectory
+;; M-x find-lisp-find-dired  .el$
+;;
 ;; search for files with names matching a wild card pattern and Dired the
 ;; output
 (global-set-key [(control c) ?1] 'find-name-dired)
