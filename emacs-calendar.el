@@ -4,7 +4,7 @@
 (require 'calendar)
 
 (setq calendar-view-diary-initially-flag nil)
-(setq diary-entry-marker 'font-lock-reference-face)
+;(setq diary-entry-marker 'font-lock-reference-face)
 
 (setq calendar-time-zone -300)
 (setq calendar-standard-time-zone-name "EST")

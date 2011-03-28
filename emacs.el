@@ -20,22 +20,21 @@
 ;; If you're using GNU Emacs, try typing C-h C-c to bring it up. If
 ;; you're using XEmacs, C-h C-l does this.
 
-
 ;;=====================================================================
 ;; set debugging flag
 (setq debug-on-error nil)
 
 ;;=====================================================================
 ;; set the location of various directories
-(defconst CYGWIN_DIR
-  (if (eq system-type 'darwin)
-      ""
-    "c:/cygwin/home"))
+;(defconst CYGWIN_DIR
+;  (if (eq system-type 'darwin)
+;      ""
+;    "c:/cygwin/home"))
 
 (defconst HOME_DIR 
   (if (eq system-type 'darwin)
       (concat "/Users/" (getenv "USER"))
-    (concat CYGWIN_DIR "/" (getenv "USERNAME")))
+    (concat "c:/cygwin/home/" (getenv "USERNAME")))
   "Home directory. I could rely on the HOME environment variable,
   but I'm being retentive.")
 
@@ -153,9 +152,10 @@
 (set-face-background 'mode-line "gray25")
 (set-face-attribute  'mode-line nil :box "gray60")
 
-(set-face-foreground 'mode-line-inactive "gray45")
-(set-face-background 'mode-line-inactive MY_BG_COLOR)
-(set-face-attribute  'mode-line-inactive nil :box "gray40")
+(set-face-attribute  'mode-line
+                     nil :background "gray30" :box '(:line-width 1 :style released-button))
+(set-face-attribute  'mode-line-inactive nil
+                     :foreground "gray45" :background MY_BG_COLOR :box '(:line-width 1))
 
 ;;=====================================================================
 ;; load path for various single-file packages
@@ -185,7 +185,7 @@
 (require 'emacs-undo)      ; Tree-based undo visualizetions
 (require 'emacs-w3m)       ; w3m web browser settings
 (require 'emacs-webjump)   ; webjump settings
-(require 'emacs-yasnippet) ; webjump settings
+;(require 'emacs-yasnippet) ; yasnippet settings
 
 (cond ((eq system-type 'darwin)
       (require 'emacs-todochiku))) ; notification using growl
