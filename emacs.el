@@ -125,6 +125,11 @@
 (add-to-list 'initial-frame-alist '(width  . 132))
 (add-to-list 'initial-frame-alist '(height .  80))
 
+;; (set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
+;; in emacs-frame.el, you can use C-c t to toggle transparency
+(set-frame-parameter (selected-frame) 'alpha '(85 50))
+(add-to-list 'default-frame-alist '(alpha 85 50))
+
 ; Syntax highlighting
 (global-font-lock-mode t)
 
