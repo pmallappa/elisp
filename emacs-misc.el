@@ -129,6 +129,11 @@
 	      " -- %f"))
 
 ;;;_.======================================================================
+;;;_. provide unique names for buffers with the same filename loaded
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+;;;_.======================================================================
 ;;;_. re-enable the commands upcase region and downcase-region
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)

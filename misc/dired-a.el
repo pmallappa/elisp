@@ -140,57 +140,57 @@ The optional argument BUF is:
 ;; dired must be loaded as we redefine dired-internal-do-deletions.
 (require 'dired)
 
-;; Redefine dired-internal-do-deletions to use dired-delete-directory
-;; instead of delete-directory.
-(defun dired-internal-do-deletions (l arg)
-  ;; L is an alist of files to delete, with their buffer positions.
-  ;; ARG is the prefix arg.
-  ;; Filenames are absolute (VMS needs this for logical search paths).
-  ;; (car L) *must* be the *last* (bottommost) file in the dired buffer.
-  ;; That way as changes are made in the buffer they do not shift the
-  ;; lines still to be changed, so the (point) values in L stay valid.
-  ;; Also, for subdirs in natural order, a subdir's files are deleted
-  ;; before the subdir itself - the other way around would not work.
-  (let ((files (mapcar (function car) l))
-	(count (length l))
-	(succ 0))
-    ;; canonicalize file list for pop up
-    (setq files (nreverse (mapcar (function dired-make-relative) files)))
-    (if (dired-mark-pop-up
-	 " *Deletions*" 'delete files dired-deletion-confirmer
-	 (format "Delete %s " (dired-mark-prompt arg files)))
-	(save-excursion
-	  (let (failures);; files better be in reverse order for this loop!
-	    (while l
-	      (goto-char (cdr (car l)))
-	      (let (buffer-read-only)
-		(condition-case err
-		    (let ((fn (car (car l))))
-		      ;; This test is equivalent to
-		      ;; (and (file-directory-p fn) (not (file-symlink-p fn)))
-		      ;; but more efficient
-		      (if (eq t (car (file-attributes fn)))
-			  (dired-delete-directory fn)
-			(delete-file fn))
-		      ;; if we get here, removing worked
-		      (setq succ (1+ succ))
-		      (message "%s of %s deletions" succ count)
-		      (delete-region (progn (beginning-of-line) (point))
-				     (progn (forward-line 1) (point)))
-		      (dired-clean-up-after-deletion fn))
-		  (error;; catch errors from failed deletions
-		   (dired-log "%s\n" err)
-		   (setq failures (cons (car (car l)) failures)))))
-	      (setq l (cdr l)))
-	    (if (not failures)
-		(message "%d deletion%s done" count (dired-plural-s count))
-	      (dired-log-summary
-	       (format "%d of %d deletion%s failed"
-		       (length failures) count
-		       (dired-plural-s count))
-	       failures))))
-      (message "(No deletions performed)")))
-  (dired-move-to-filename))
+;;; Redefine dired-internal-do-deletions to use dired-delete-directory
+;;; instead of delete-directory.
+;(defun dired-internal-do-deletions (l arg)
+;  ;; L is an alist of files to delete, with their buffer positions.
+;  ;; ARG is the prefix arg.
+;  ;; Filenames are absolute (VMS needs this for logical search paths).
+;  ;; (car L) *must* be the *last* (bottommost) file in the dired buffer.
+;  ;; That way as changes are made in the buffer they do not shift the
+;  ;; lines still to be changed, so the (point) values in L stay valid.
+;  ;; Also, for subdirs in natural order, a subdir's files are deleted
+;  ;; before the subdir itself - the other way around would not work.
+;  (let ((files (mapcar (function car) l))
+;	(count (length l))
+;	(succ 0))
+;    ;; canonicalize file list for pop up
+;    (setq files (nreverse (mapcar (function dired-make-relative) files)))
+;    (if (dired-mark-pop-up
+;	 " *Deletions*" 'delete files dired-deletion-confirmer
+;	 (format "Delete %s " (dired-mark-prompt arg files)))
+;	(save-excursion
+;	  (let (failures);; files better be in reverse order for this loop!
+;	    (while l
+;	      (goto-char (cdr (car l)))
+;	      (let (buffer-read-only)
+;		(condition-case err
+;		    (let ((fn (car (car l))))
+;		      ;; This test is equivalent to
+;		      ;; (and (file-directory-p fn) (not (file-symlink-p fn)))
+;		      ;; but more efficient
+;		      (if (eq t (car (file-attributes fn)))
+;			  (dired-delete-directory fn)
+;			(delete-file fn))
+;		      ;; if we get here, removing worked
+;		      (setq succ (1+ succ))
+;		      (message "%s of %s deletions" succ count)
+;		      (delete-region (progn (beginning-of-line) (point))
+;				     (progn (forward-line 1) (point)))
+;		      (dired-clean-up-after-deletion fn))
+;		  (error;; catch errors from failed deletions
+;		   (dired-log "%s\n" err)
+;		   (setq failures (cons (car (car l)) failures)))))
+;	      (setq l (cdr l)))
+;	    (if (not failures)
+;		(message "%d deletion%s done" count (dired-plural-s count))
+;	      (dired-log-summary
+;	       (format "%d of %d deletion%s failed"
+;		       (length failures) count
+;		       (dired-plural-s count))
+;	       failures))))
+;      (message "(No deletions performed)")))
+;  (dired-move-to-filename))
 
 (defvar dired-recursive-deletes `top
   "*Decide whether recursive deletes are allowed.
