@@ -55,6 +55,11 @@
 ;;; Code:
 (require 'cl)
 
+(defcustom org-mime-use-property-inheritance nil
+  "Non-nil means al MAIL_ properties apply also for sublevels."
+  :group 'org-mime
+  :type 'boolean)
+
 (defcustom org-mime-default-header
   "#+OPTIONS: latex:t\n"
   "Default header to control html export options, and ensure
@@ -230,21 +235,22 @@ export that region, otherwise export the entire body."
   (save-restriction
     (org-narrow-to-subtree)
     (run-hooks 'org-mime-send-subtree-hook)
-    (let* ((file (buffer-file-name (current-buffer)))
-	   (subject (nth 4 (org-heading-components)))
-	   (to (org-entry-get nil "MAIL_TO"))
-	   (cc (org-entry-get nil "MAIL_CC"))
-	   (bcc (org-entry-get nil "MAIL_BCC"))
-	   (body (buffer-substring
-		  (save-excursion (goto-char (point-min))
-				  (forward-line 1)
-				  (when (looking-at "[ \t]*:PROPERTIES:")
-				    (re-search-forward ":END:" nil)
-				    (forward-char))
-				  (point))
-		  (point-max))))
-      (org-mime-compose body (or fmt 'org) file to subject
-			`((cc . ,cc) (bcc . ,bcc))))))
+    (flet ((mp (p) (org-entry-get nil p org-mime-use-property-inheritance)))
+      (let* ((file (buffer-file-name (current-buffer)))
+	     (subject (or (mp "MAIL_SUBJECT") (nth 4 (org-heading-components))))
+	     (to (mp "MAIL_TO"))
+	     (cc (mp "MAIL_CC"))
+	     (bcc (mp "MAIL_BCC"))
+	     (body (buffer-substring
+		    (save-excursion (goto-char (point-min))
+				    (forward-line 1)
+				    (when (looking-at "[ \t]*:PROPERTIES:")
+				      (re-search-forward ":END:" nil)
+				      (forward-char))
+				    (point))
+		    (point-max))))
+	(org-mime-compose body (or fmt 'org) file to subject
+			  `((cc . ,cc) (bcc . ,bcc)))))))
 
 (defun org-mime-send-buffer (&optional fmt)
   (run-hooks 'org-mime-send-buffer-hook)
@@ -311,6 +317,7 @@ export that region, otherwise export the entire body."
   exported to a org format or to the format specified by the
   MAIL_FMT property of the subtree."
   (interactive)
-  (org-mime-send-subtree (or (org-entry-get nil "MAIL_FMT") 'org)))
+  (org-mime-send-subtree
+   (or (org-entry-get nil "MAIL_FMT" org-mime-use-property-inheritance) 'org)))
 
 (provide 'org-mime)

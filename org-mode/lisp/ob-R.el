@@ -5,7 +5,7 @@
 ;; Author: Eric Schulte, Dan Davison
 ;; Keywords: literate programming, reproducible research, R, statistics
 ;; Homepage: http://orgmode.org
-;; Version: 7.4
+;; Version: 7.5
 
 ;; This file is part of GNU Emacs.
 
@@ -51,6 +51,12 @@
 (defvar org-babel-R-command "R --slave --no-save"
   "Name of command to use for executing R code.")
 
+(defun org-babel-edit-prep:R (info)
+  (let ((session (cdr (assoc :session (nth 2 info)))))
+    (when (and session (string-match "^\\*\\(.+?\\)\\*$" session))
+      (save-match-data (org-babel-R-initiate-session session nil))
+      (setq ess-local-process-name (match-string 1 session)))))
+
 (defun org-babel-expand-body:R (body params &optional graphics-file)
   "Expand BODY according to PARAMS, return the expanded body."
   (let ((graphics-file
@@ -88,7 +94,6 @@ This function is called by `org-babel-execute-src-block'."
 	     (or (equal "yes" rownames-p)
 		 (org-babel-pick-name
 		  (cdr (assoc :rowname-names params)) rownames-p)))))
-      (message "result is %S" result)
       (if graphics-file nil result))))
 
 (defun org-babel-prep-session:R (session params)

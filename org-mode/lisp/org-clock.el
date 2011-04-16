@@ -6,7 +6,7 @@
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;; Keywords: outlines, hypermedia, calendar, wp
 ;; Homepage: http://orgmode.org
-;; Version: 7.4
+;; Version: 7.5
 ;;
 ;; This file is part of GNU Emacs.
 ;;
@@ -29,6 +29,7 @@
 ;; This file contains the time clocking code for Org-mode
 
 (require 'org)
+(require 'org-exp)
 ;;; Code:
 
 (eval-when-compile
@@ -228,25 +229,26 @@ string as argument."
   :group 'org-clock)
 
 (defcustom org-clocktable-defaults
-  (list
-   :maxlevel 2
-   :scope 'file
-   :block nil
-   :tstart nil
-   :tend nil
-   :step nil
-   :stepskip0 nil
-   :fileskip0 nil
-   :tags nil
-   :emphasize nil
-   :link nil
-   :narrow '40!
-   :indent t
-   :formula nil
-   :timestamp nil
-   :level nil
-   :tcolumns nil
-   :formatter nil)
+  `(list
+    :maxlevel 2
+    :lang ,org-export-default-language
+    :scope 'file
+    :block nil
+    :tstart nil
+    :tend nil
+    :step nil
+    :stepskip0 nil
+    :fileskip0 nil
+    :tags nil
+    :emphasize nil
+    :link nil
+    :narrow '40!
+    :indent t
+    :formula nil
+    :timestamp nil
+    :level nil
+    :tcolumns nil
+    :formatter nil)
   "Default properties for clock tables."
   :group 'org-clock
   :type 'plist)
@@ -256,6 +258,16 @@ string as argument."
 For more information, see `org-clocktable-write-default'."
   :group 'org-clocktable
   :type 'function)
+
+;; FIXME: translate es and nl last string "Clock summary at"
+(defcustom org-clock-clocktable-language-setup
+  '(("en" "File"     "L"  "Timestamp"  "Headline" "Time"  "ALL"   "Total time"   "File time" "Clock summary at")
+    ("es" "Archivo"  "N"  "Fecha y hora" "Tarea" "Tiempo" "TODO" "Tiempo total" "Tiempo archivo" "Clock summary at")
+    ("fr" "Fichier"  "N"  "Horodatage" "En-tête"  "Durée" "TOUT"  "Durée totale" "Durée fichier" "Horodatage sommaire à")
+    ("nl" "Bestand"  "N"  "Tijdstip"   "Hoofding" "Duur"  "ALLES" "Totale duur"  "Bestandstijd" "Clock summary at"))
+  "Terms used in clocktable, translated to different languages."
+  :group 'org-clocktable
+  :type 'alist)
 
 (defcustom org-clock-clocktable-default-properties '(:maxlevel 2 :scope file)
   "Default properties for new clocktables.
@@ -388,6 +400,9 @@ of a different task.")
   "Return t when clocking a task."
   (not (equal (org-clocking-buffer) nil)))
 
+(defvar org-clock-before-select-task-hook nil
+  "Hook called in task selection just before prompting the user.")
+
 (defun org-clock-select-task (&optional prompt)
   "Select a task that recently was associated with clocking."
   (interactive)
@@ -420,6 +435,7 @@ of a different task.")
 	   (if (fboundp 'int-to-char) (setf (car s) (int-to-char (car s))))
 	   (push s sel-list)))
        org-clock-history)
+      (run-hooks 'org-clock-before-select-task-hook)
       (org-fit-window-to-buffer)
       (message (or prompt "Select task for clocking:"))
       (setq rpl (read-char-exclusive))
@@ -472,7 +488,7 @@ If not, show simply the clocked time like 01:50."
 	 (m (- clocked-time (* 60 h))))
     (if org-clock-effort
 	(let* ((effort-in-minutes
-		(org-hh:mm-string-to-minutes org-clock-effort))
+		(org-duration-string-to-minutes org-clock-effort))
 	       (effort-h (floor effort-in-minutes 60))
 	       (effort-m (- effort-in-minutes (* effort-h 60)))
 	       (work-done-str
@@ -546,10 +562,10 @@ the mode line."
        ;; A string.  See if it is a delta
        (setq sign (string-to-char value))
        (if (member sign '(?- ?+))
-	   (setq current (org-hh:mm-string-to-minutes current)
+	   (setq current (org-duration-string-to-minutes current)
 		 value (substring value 1))
 	 (setq current 0))
-       (setq value (org-hh:mm-string-to-minutes value))
+       (setq value (org-duration-string-to-minutes value))
        (if (equal ?- sign)
 	   (setq value (- current value))
 	 (if (equal ?+ sign) (setq value (+ current value)))))
@@ -566,7 +582,7 @@ the mode line."
   "Show notification if we spent more time than we estimated before.
 Notification is shown only once."
   (when (org-clocking-p)
-    (let ((effort-in-minutes (org-hh:mm-string-to-minutes org-clock-effort))
+    (let ((effort-in-minutes (org-duration-string-to-minutes org-clock-effort))
 	  (clocked-time (org-clock-get-clocked-time)))
       (if (setq org-task-overrun
 		(if (or (null effort-in-minutes) (zerop effort-in-minutes))
@@ -977,6 +993,7 @@ the clocking selection, associated with the letter `d'."
 	  ts selected-task target-pos (msg-extra "")
 	  (leftover (and (not org-clock-resolving-clocks)
 			  org-clock-leftover-time)))
+
       (when (and org-clock-auto-clock-resolution
 		 (or (not interrupting)
 		     (eq t org-clock-auto-clock-resolution))
@@ -985,11 +1002,17 @@ the clocking selection, associated with the letter `d'."
 	(setq org-clock-leftover-time nil)
 	(let ((org-clock-clocking-in t))
 	  (org-resolve-clocks)))	; check if any clocks are dangling
+
       (when (equal select '(4))
 	(setq selected-task (org-clock-select-task "Clock-in on task: "))
 	(if selected-task
 	    (setq selected-task (copy-marker selected-task))
 	  (error "Abort")))
+
+      (when (equal select '(16))
+	;; Mark as default clocking task
+	(org-clock-mark-default-task))
+
       (when interrupting
 	;; We are interrupting the clocking of a different task.
 	;; Save a marker to this task, so that we can go back.
@@ -1004,7 +1027,8 @@ the clocking selection, associated with the letter `d'."
 		     (= (marker-position org-clock-hd-marker)
 			(if selected-task
 			    (marker-position selected-task)
-			  (point)))))
+			  (point)))
+		     (equal org-clock-current-task (nth 4 (org-heading-components)))))
 	  (message "Clock continues in \"%s\"" org-clock-heading)
 	  (throw 'abort nil))
 	(move-marker org-clock-interrupted-task
@@ -1012,10 +1036,6 @@ the clocking selection, associated with the letter `d'."
 		     (marker-buffer org-clock-marker))
 	(let ((org-clock-clocking-in t))
 	  (org-clock-out t)))
-
-      (when (equal select '(16))
-	;; Mark as default clocking task
-	(org-clock-mark-default-task))
 
       ;; Clock in at which position?
       (setq target-pos
@@ -1238,7 +1258,10 @@ line and position cursor in that line."
 	(beginning-of-line 2)
 	(if (and (>= (org-get-indentation) ind-last)
 		 (org-at-item-p))
-	    (org-end-of-item))
+	    (when (and (>= (org-get-indentation) ind-last)
+		   (org-at-item-p))
+	      (let ((struct (org-list-struct)))
+		(goto-char (org-list-get-bottom-point struct)))))
 	(insert ":END:\n")
 	(beginning-of-line 0)
 	(org-indent-line-to ind-last)
@@ -1501,7 +1524,9 @@ nil are excluded from the clock summation."
 (defun org-clock-display (&optional total-only)
   "Show subtree times in the entire buffer.
 If TOTAL-ONLY is non-nil, only show the total time for the entire file
-in the echo area."
+in the echo area.
+
+Use \\[org-clock-remove-overlays] to remove the subtree times."
   (interactive)
   (org-clock-remove-overlays)
   (let (time h m p)
@@ -1627,7 +1652,10 @@ fontified, and then returned."
 (defun org-clock-report (&optional arg)
   "Create a table containing a report about clocked time.
 If the cursor is inside an existing clocktable block, then the table
-will be updated.  If not, a new clocktable will be inserted.
+will be updated.  If not, a new clocktable will be inserted.  The scope
+of the new clock will be subtree when called from within a subtree, and 
+file elsewhere.
+
 When called with a prefix argument, move to the first clock table in the
 buffer and update it."
   (interactive "P")
@@ -1637,8 +1665,12 @@ buffer and update it."
     (org-show-entry))
   (if (org-in-clocktable-p)
       (goto-char (org-in-clocktable-p))
-    (org-create-dblock (append (list :name "clocktable")
-			       org-clock-clocktable-default-properties)))
+    (let ((props (if (ignore-errors 
+		       (save-excursion (org-back-to-heading)))
+		     (list :name "clocktable" :scope 'subtree)
+		   (list :name "clocktable"))))
+      (org-create-dblock 
+       (org-combine-plists org-clock-clocktable-default-properties props))))
   (org-update-dblock))
 
 (defun org-in-clocktable-p ()
@@ -2006,12 +2038,16 @@ the currently selected interval size."
 TABLES is a list of tables with clocking data as produced by
 `org-clock-get-table-data'.  PARAMS is the parameter property list obtained
 from the dynamic block defintion."
-  ;; This function looks quite complicated, mainly because there are a lot
-  ;; of options which can add or remove columns.  I have massively commented
-  ;; function, to I hope it is understandable.  If someone want to write
-  ;; there own special formatter, this maybe much easier because there can
-  ;; be a fixed format with a well-defined number of columns...
+  ;; This function looks quite complicated, mainly because there are a
+  ;; lot of options which can add or remove columns.  I have massively
+  ;; commented this function, the I hope it is understandable.  If
+  ;; someone wants to write their own special formatter, this maybe
+  ;; much easier because there can be a fixed format with a
+  ;; well-defined number of columns...
   (let* ((hlchars '((1 . "*") (2 . "/")))
+	 (lwords (assoc (or (plist-get params :lang) 
+			    org-export-default-language)
+			org-clock-clocktable-language-setup))
 	 (multifile (plist-get params :multifile))
 	 (block (plist-get params :block))
 	 (ts (plist-get params :tstart))
@@ -2071,7 +2107,7 @@ from the dynamic block defintion."
        (or header
 	   ;; Format the standard header
 	   (concat
-	    "Clock summary at ["
+	    (nth 9 lwords) " ["
 	    (substring
 	     (format-time-string (cdr org-time-stamp-formats))
 	     1 -1)
@@ -2091,19 +2127,21 @@ from the dynamic block defintion."
       ;; Insert the table header line
       (insert-before-markers
        "|"                              ; table line starter
-       (if multifile "File|"      "")   ; file column, maybe
-       (if level-p   "L|"         "")   ; level column, maybe
-       (if timestamp "Timestamp|" "")   ; timestamp column, maybe
-       "Headline|Time|\n")              ; headline and time columns
+       (if multifile (concat (nth 1 lwords) "|") "")  ; file column, maybe
+       (if level-p   (concat (nth 2 lwords) "|") "")  ; level column, maybe
+       (if timestamp (concat (nth 3 lwords) "|") "")  ; timestamp column, maybe
+       (concat (nth 4 lwords) "|" 
+	       (nth 5 lwords) "|\n"))                 ; headline and time columns
 
       ;; Insert the total time in the table
       (insert-before-markers
-       "|-\n"                           ; a hline
-       "|"                              ; table line starter
-       (if multifile "| ALL " "")       ; file column, maybe
-       (if level-p   "|"      "")       ; level column, maybe
-       (if timestamp "|"      "")       ; timestamp column, maybe
-       "*Total time*| "                 ; instead of a headline
+       "|-\n"                            ; a hline
+       "|"                               ; table line starter
+       (if multifile (concat "| " (nth 6 lwords) " ") "") 
+				         ; file column, maybe
+       (if level-p   "|"      "")        ; level column, maybe
+       (if timestamp "|"      "")        ; timestamp column, maybe
+       (concat "*" (nth 7 lwords) "*| ") ; instead of a headline
        "*"
        (org-minutes-to-hh:mm-string (or total-time 0)) ; the time
        "*|\n")                          ; close line
@@ -2122,7 +2160,7 @@ from the dynamic block defintion."
 	    (when multifile
 	      ;; Summarize the time colleted from this file
 	      (insert-before-markers
-	       (format "| %s %s | %s*File time* | *%s*|\n"
+	       (format (concat "| %s %s | %s*" (nth 8 lwords) "* | *%s*|\n")
 		       (file-name-nondirectory (car tbl))
 		       (if level-p   "| " "") ; level column, maybe
 		       (if timestamp "| " "") ; timestamp column, maybe
@@ -2477,7 +2515,7 @@ The details of what will be saved are regulated by the variable
 	      (goto-char (cdr resume-clock))
 	      (let ((org-clock-auto-clock-resolution nil))
 		(org-clock-in)
-		(if (org-invisible-p)
+		(if (outline-invisible-p)
 		    (org-show-context))))))))))
 
 ;;;###autoload
