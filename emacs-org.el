@@ -110,8 +110,9 @@
 (setq org-agenda-custom-commands
       '(("d" "Agenda and all tasks"
          ((agenda)
-          (todo "OPEN")
-          (todo "NEXT")))
+          (todo))
+         ((org-agenda-start-on-weekday 1)) ; start on Monday
+         ("~/.org-agenda.txt"))
         ("n" "Agenda and Navy-related tasks"
          ((agenda)
           (tags-todo "Navy")))
@@ -133,8 +134,7 @@
           (org-agenda-include-all-todo nil)
           (org-agenda-repeating-timestamp-show-all t)
           (org-agenda-filter-preset '("-nocal1"))
-          (org-agenda-hide-tags-regexp ".*"))
-         ("~/.org-agenda.txt"))
+          (org-agenda-hide-tags-regexp ".*")))
         ))
 
 ;; To use the GeekTool agenda from a command line, put the following
@@ -272,24 +272,24 @@
 
 ;;;;_.======================================================================
 ;;;;_. Set up automatic reminders 
-;(require 'appt)
-;(setq org-agenda-include-diary t)
-;(setq appt-time-msg-list nil)
-;(org-agenda-to-appt)
-;
-;(defadvice  org-agenda-redo (after org-agenda-redo-add-appts)
-;  "Pressing `r' on the agenda will also add appointments."
-;  (progn 
-;    (setq appt-time-msg-list nil)
-;    (org-agenda-to-appt)))
-;
-;(ad-activate 'org-agenda-redo)
-;
-;;; enable appt reminders, set the format to 'window and provide
-;;; a display function that calls todochiku
-;(appt-activate 1)
-;(setq appt-display-format 'window)
-;  ;;(setq appt-disp-window-function (function my-appt-disp-window))
+(require 'appt)
+(setq org-agenda-include-diary t)
+(setq appt-time-msg-list nil)
+(org-agenda-to-appt)
+
+(defadvice  org-agenda-redo (after org-agenda-redo-add-appts)
+  "Pressing `r' on the agenda will also add appointments."
+  (progn 
+    (setq appt-time-msg-list nil)
+    (org-agenda-to-appt)))
+
+(ad-activate 'org-agenda-redo)
+
+;; enable appt reminders, set the format to 'window and provide
+;; a display function that calls todochiku
+(appt-activate 1)
+(setq appt-display-format 'window)
+  ;;(setq appt-disp-window-function (function my-appt-disp-window))
 
 
 

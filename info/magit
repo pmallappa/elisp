@@ -5,7 +5,8 @@ START-INFO-DIR-ENTRY
 * Magit: (magit).        Using Git from Emacs with Magit.
 END-INFO-DIR-ENTRY
 
-   Copyright (C) 2008, 2009, 2011 Marius Vollmer
+   Copyright (C) 2008, 2009, 2011 Marius Vollmer et al. (See the header
+of magit.el for the lengthy list of Magit contributors.)
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -43,6 +44,7 @@ an extension to Emacs.
 * Rebasing::
 * Rewriting::
 * Pushing and Pulling::
+* Bisecting::
 * Submodules::
 * Using Magit Extensions::
 * Using Git Directly::
@@ -415,7 +417,15 @@ File: magit.info,  Node: Diffing,  Next: Tagging,  Prev: Reflogs,  Up: Top
 9 Diffing
 *********
 
-To show the changes from you working tree to another revision, type
+Magit typically shows diffs in the "unified" format.
+
+   In any buffer that shows a diff, you can type `e' anywhere within
+the diff to show the two versions of the file in Ediff.  If the diff is
+of a file in the status buffer that needs to be merged, you will be
+able to use Ediff as an interactive merge tool.  Otherwise, Ediff will
+simply show the two versions of the file.
+
+   To show the changes from you working tree to another revision, type
 `d'.  To show the changes between two arbitrary revisions, type `D'.
 
    You can use `a' within the diff output to apply the changes to your
@@ -683,7 +693,7 @@ changes that you still need to rewrite, and you can apply hunks from
 it, like from any other diff.
 
 
-File: magit.info,  Node: Pushing and Pulling,  Next: Submodules,  Prev: Rewriting,  Up: Top
+File: magit.info,  Node: Pushing and Pulling,  Next: Bisecting,  Prev: Rewriting,  Up: Top
 
 19 Pushing and Pulling
 **********************
@@ -697,10 +707,11 @@ push the current branch to the remote.  In other words, it will run
 if it doesn't exist already.  The local branch will be configured so
 that it pulls from the new remote branch.
 
-   Typing `f f' will run `git remote update'.  With a prefix arg, it
-will prompt for the name of the remote to update.  Typing `F p' will
-run `git pull'.  When you don't have a default branch configured to be
-pulled into the current one, you will be asked for it.
+   Typing `f f' will run `git fetch'.  It will prompt for the name of
+the remote to update if there are no default one.  Typing `f o' will
+always prompt for the remote.  Typing `F F' will run `git pull'.  When
+you don't have a default branch configured to be pulled into the
+current one, you will be asked for it.
 
    If there is a default remote repository for the current branch, Magit
 will show that repository in the status buffer header.
@@ -718,7 +729,7 @@ branch, Magit shows them in a section called _Unpulled changes_.  Typing
 `F p' will merge them into the current branch.
 
 
-File: magit.info,  Node: Submodules,  Next: Using Magit Extensions,  Prev: Pushing and Pulling,  Up: Top
+File: magit.info,  Node: Submodules,  Next: Using Magit Extensions,  Prev: Bisecting,  Up: Top
 
 20 Submodules
 *************
@@ -737,9 +748,39 @@ File: magit.info,  Node: Submodules,  Next: Using Magit Extensions,  Prev: Pushi
      value specified in .gitmodules.
 
 
+File: magit.info,  Node: Bisecting,  Next: Submodules,  Prev: Pushing and Pulling,  Up: Top
+
+21 Bisecting
+************
+
+magit supports bisecting by showing how many revisions and steps are
+left to be tested in the status buffer. You can control the bisect
+session from both the status and from log buffers with the `B' key menu.
+
+   Typing `B s' will start a bisect session.  You will be prompted for
+a revision that is known to be bad (defaults to _HEAD_) and for a
+revision that is known to be good (defaults to the revision at point if
+there is one). git will select a revision for you to test, and magit
+will update its status buffer accordingly.
+
+   You can tell git that the current revision is good with `B g', that
+it is bad with `B b' or that git should skip it with `B k'. You can
+also tell git to go into full automatic mode by giving it the name of a
+script to run for each revision to test with `B u'.
+
+   The current status can be shown as a log with `B l'. It contains the
+revisions that have already been tested and your decisions about their
+state.
+
+   The revisions left to test can be visualized in gitk with `B v'.
+
+   When you're finished bisecting you have to reset the session with `B
+r'.
+
+
 File: magit.info,  Node: Using Magit Extensions,  Next: Using Git Directly,  Prev: Submodules,  Up: Top
 
-21 Magit Extensions
+22 Magit Extensions
 *******************
 
 * Menu:
@@ -751,7 +792,7 @@ File: magit.info,  Node: Using Magit Extensions,  Next: Using Git Directly,  Pre
 
 File: magit.info,  Node: Interfacing with Subversion,  Next: Interfacing with Topgit,  Up: Using Magit Extensions
 
-21.1 Interfacing with Subversion
+22.1 Interfacing with Subversion
 ================================
 
 Typing `N r' runs `git svn rebase', typing `N c' runs `git svn dcommit'
@@ -765,7 +806,7 @@ the user will also be prompted for a branch to search in.
 
 File: magit.info,  Node: Interfacing with Topgit,  Next: Developing Extensions,  Prev: Interfacing with Subversion,  Up: Using Magit Extensions
 
-21.2 Interfacing with Topgit
+22.2 Interfacing with Topgit
 ============================
 
 Topgit (http://repo.or.cz/r/topgit.git) is a patch queue manager that
@@ -789,7 +830,7 @@ in case of conflicts.
 
 File: magit.info,  Node: Developing Extensions,  Prev: Interfacing with Topgit,  Up: Using Magit Extensions
 
-21.3 Developing Extensions
+22.3 Developing Extensions
 ==========================
 
 Magit provides a generic mechanism to allow cooperation with Git-related
@@ -867,7 +908,7 @@ systems, such as foreign VCS, patch systems,…
 
 File: magit.info,  Node: Using Git Directly,  Prev: Using Magit Extensions,  Up: Top
 
-22 Using Git Directly
+23 Using Git Directly
 *********************
 
 For situations when Magit doesn't do everything you need, you can run
@@ -878,31 +919,32 @@ it, and refresh the status buffer.  The output can be viewed by typing
 
 
 Tag Table:
-Node: Top555
-Node: Introduction1119
-Node: Acknowledgments2590
-Node: Sections3214
-Node: Status5764
-Node: Untracked files8493
-Node: Staging and Committing9440
-Node: History12985
-Node: Reflogs15868
-Node: Diffing16266
-Node: Tagging16864
-Node: Resetting17312
-Node: Stashing18836
-Node: Branching19614
-Node: The branch list20597
-Node: Wazzup21585
-Node: Merging22373
-Node: Rebasing23424
-Node: Rewriting24239
-Node: Pushing and Pulling27094
-Node: Submodules28781
-Node: Using Magit Extensions29211
-Node: Interfacing with Subversion29455
-Node: Interfacing with Topgit30023
-Node: Developing Extensions31050
-Node: Using Git Directly33923
+Node: Top635
+Node: Introduction1213
+Node: Acknowledgments2684
+Node: Sections3308
+Node: Status5858
+Node: Untracked files8587
+Node: Staging and Committing9534
+Node: History13079
+Node: Reflogs15962
+Node: Diffing16360
+Node: Tagging17338
+Node: Resetting17786
+Node: Stashing19310
+Node: Branching20088
+Node: The branch list21071
+Node: Wazzup22059
+Node: Merging22847
+Node: Rebasing23898
+Node: Rewriting24713
+Node: Pushing and Pulling27568
+Node: Submodules29304
+Node: Bisecting29724
+Node: Using Magit Extensions30939
+Node: Interfacing with Subversion31183
+Node: Interfacing with Topgit31751
+Node: Developing Extensions32778
+Node: Using Git Directly35651
 
 End Tag Table
