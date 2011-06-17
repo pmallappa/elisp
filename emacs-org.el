@@ -88,6 +88,7 @@
 ;;;_. Set up the global tags list
 (setq org-tag-alist 
       '(("Appt"       . ?a)
+        ("ADSW"       . ?A)
         ("Emacs"      . ?e)
         ("KMA"        . ?k)
         ("Navy"       . ?n)
