@@ -36,6 +36,9 @@
 ;;
 ;;; Code:
 
+(eval-when-compile
+  (require 'cl))
+
 (eval-and-compile
   (require 'org))
 
@@ -54,8 +57,23 @@ If set to nil, all your Org files will be used."
   :type 'string
   :group 'org-contacts)
 
+(defcustom org-contacts-address-property "ADDRESS"
+  "Name of the property for contact address."
+  :type 'string
+  :group 'org-contacts)
+
 (defcustom org-contacts-birthday-property "BIRTHDAY"
   "Name of the property for contact birthday date."
+  :type 'string
+  :group 'org-contacts)
+
+(defcustom org-contacts-birthday-format "Birthday: %l (%Y)"
+  "Format of the anniversary agenda entry. The following replacements are available:
+
+  %h - Heading name
+  %l - Link to the heading
+  %y - Number of year
+  %Y - Number of year (ordinal)"
   :type 'string
   :group 'org-contacts)
 
@@ -105,6 +123,11 @@ This can be a tag name, or a property check."
 This overrides `org-email-link-description-format' if set."
   :group 'org-contacts
   :type 'string)
+
+(defcustom org-contacts-vcard-file "contacts.vcf"
+  "Default file for vcard export."
+  :group 'org-contacts
+  :type 'file)
 
 (defvar org-contacts-keymap
   (let ((map (make-sparse-keymap)))
@@ -214,11 +237,6 @@ If both match values are nil, return all contacts."
         (when (mail-abbrev-in-expansion-header-p)
           (org-contacts-complete-name))))
 
-(add-hook 'message-mode-hook
-          (lambda ()
-            (add-to-list 'completion-at-point-functions
-                         'org-contacts-message-complete-function)))
-
 (defun org-contacts-gnus-get-name-email ()
   "Get name and email address from Gnus message."
   (gnus-with-article-headers
@@ -263,6 +281,7 @@ Format is a string matching the following format specification:
   %Y - Number of year (ordinal)"
   (let ((calendar-date-style 'american)
         (entry ""))
+    (unless format (setq format org-contacts-birthday-format))
     (loop for contact in (org-contacts-filter)
           for anniv = (let ((anniv (cdr (assoc-string
                                          (or field org-contacts-birthday-property)
@@ -272,7 +291,7 @@ Format is a string matching the following format specification:
                            (org-time-string-to-absolute anniv))))
           ;; Use `diary-anniversary' to compute anniversary.
           if (and anniv (apply 'diary-anniversary anniv))
-          collect (format-spec (or format "Birthday: %l (%Y)")
+          collect (format-spec format
                                `((?l . ,(org-with-point-at (cadr contact) (org-store-link nil)))
                                  (?h . ,(car contact))
                                  (?y . ,(- (calendar-extract-year date)
@@ -392,6 +411,50 @@ This adds `org-contacts-gnus-check-mail-address' and
   (add-hook 'gnus-article-prepare-hook 'org-contacts-gnus-check-mail-address)
   (add-hook 'gnus-article-prepare-hook 'org-contacts-gnus-store-last-mail))
 
+(when (boundp 'completion-at-point-functions)
+  (add-hook 'message-mode-hook
+	    (lambda ()
+	      (add-to-list 'completion-at-point-functions
+			   'org-contacts-message-complete-function))))
+
+(defun org-contacts-wl-get-from-header-content ()
+  "Retrieve the content of the `From' header of an email.
+Works from wl-summary-mode and mime-view-mode - that is while viewing email.
+Depends on Wanderlust been loaded."
+  (with-current-buffer (org-capture-get :original-buffer)
+    (cond
+     ((eq major-mode 'wl-summary-mode) (when wl-summary-buffer-elmo-folder
+                                         (elmo-message-field
+                                          wl-summary-buffer-elmo-folder
+                                          (wl-summary-message-number)
+                                          'from)))
+     ((eq major-mode 'mime-view-mode) (std11-narrow-to-header)
+                                      (prog1
+                                          (std11-fetch-field "From")
+                                        (widen))))))
+
+(defun org-contacts-wl-get-name-email ()
+  "Get name and email address from wanderlust email.
+See `org-contacts-wl-get-from-header-content' for limitations."
+  (let ((from (org-contacts-wl-get-from-header-content)))
+    (when from
+      (list (wl-address-header-extract-realname from)
+	    (wl-address-header-extract-address from)))))
+
+(defun org-contacts-template-wl-name (&optional return-value)
+  "Try to return the contact name for a template from wl.
+If not found return RETURN-VALUE or something that would ask the user."
+  (or (car (org-contacts-wl-get-name-email))
+      return-value
+      "%^{Name}"))
+
+(defun org-contacts-template-wl-email (&optional return-value)
+  "Try to return the contact email for a template from wl.
+If not found return RETURN-VALUE or something that would ask the user."
+  (or (cadr (org-contacts-wl-get-name-email))
+      return-value
+      (concat "%^{" org-contacts-email-property "}p")))
+
 (defun org-contacts-view-send-email (&optional ask)
   "Send email to the contact at point.
 If ASK is set, ask for the email address even if there's only one address."
@@ -477,5 +540,78 @@ If ASK is set, ask for the email address even if there's only one address."
 
 (add-to-list 'org-property-set-functions-alist
              `(,org-contacts-nickname-property . org-contacts-completing-read-nickname))
+
+(defun org-contacts-vcard-escape (str)
+  "Escape ; , and \n in STR for use in the VCard format.
+Thanks to http://www.emacswiki.org/cgi-bin/wiki/bbdb-vcard-export.el for the regexp."
+  (when str
+    (replace-regexp-in-string "\n" "\\\\n" (replace-regexp-in-string "\\(;\\|,\\|\\\\\\)" "\\\\\\1" str))))
+
+(defun org-contacts-vcard-encode-name (name)
+  "Try to encode NAME as VCard's N property. The N property expects FamilyName;GivenName;AdditionalNames;Prefix;Postfix.
+Org-contacts does not specify how to encode the name. So we try to do our best."
+  (concat (replace-regexp-in-string "\\(\\w+\\) \\(.*\\)" "\\2;\\1" name) ";;;"))
+
+(defun org-contacts-vcard-format (contact)
+  "Formats CONTACT in VCard 3.0 format."
+  (let* ((properties (caddr contact))
+	 (name (org-contacts-vcard-escape (car contact)))
+	 (n (org-contacts-vcard-encode-name name))
+	 (email (org-contacts-vcard-escape (cdr (assoc-string org-contacts-email-property properties))))
+	 (bday (org-contacts-vcard-escape (cdr (assoc-string org-contacts-birthday-property properties))))
+	 (addr (cdr (assoc-string org-contacts-address-property properties)))
+	 (nick (org-contacts-vcard-escape (cdr (assoc-string org-contacts-nickname-property properties))))
+
+	 (head (format "BEGIN:VCARD\nVERSION:3.0\nN:%s\nFN:%s\n" n name)))
+    (concat head
+	    (when email (format "EMAIL:%s\n" email))
+	    (when addr
+	      (format "ADR:;;%s\n" (replace-regexp-in-string "\\, ?" ";" addr)))
+	    (when bday
+	      (let ((cal-bday (calendar-gregorian-from-absolute (org-time-string-to-absolute bday))))
+		(format "BDAY:%04d-%02d-%02d\n"
+			(calendar-extract-year cal-bday)
+			(calendar-extract-month cal-bday)
+			(calendar-extract-day cal-bday))))
+	    (when nick (format "NICKNAME:%s\n" nick))
+	    "END:VCARD\n\n")))
+
+(defun org-contacts-export-as-vcard (&optional name file to-buffer)
+  "Export all contacts matching NAME as VCard 3.0. It TO-BUFFER is nil, the content is written to FILE or `org-contacts-vcard-file'. If TO-BUFFER is non-nil, the buffer is created and the VCard is written into that buffer."
+  (interactive) ; TODO ask for name?
+  (let* ((filename (or file org-contacts-vcard-file))
+	 (buffer (if to-buffer
+		     (get-buffer-create to-buffer)
+		     (find-file-noselect filename))))
+
+    (message "Exporting...")
+
+    (set-buffer buffer)
+    (let ((inhibit-read-only t)) (erase-buffer))
+    (fundamental-mode)
+    (org-install-letbind)
+
+    (when (fboundp 'set-buffer-file-coding-system)
+      (set-buffer-file-coding-system coding-system-for-write))
+
+    (loop for contact in (org-contacts-filter name)
+	 do (insert (org-contacts-vcard-format contact)))
+
+    (if to-buffer
+	(current-buffer)
+	(progn (save-buffer) (kill-buffer)))))
+
+(defun org-contacts-show-map (&optional name)
+  "Show contacts on a map. Requires google-maps-el."
+  (interactive)
+  (unless (fboundp 'google-maps-static-show)
+    (error "org-contacts-show-map requires google-maps-el."))
+  (google-maps-static-show
+   :markers
+   (loop
+      for contact in (org-contacts-filter name)
+      for addr = (cdr (assoc-string org-contacts-address-property (caddr contact)))
+      if addr
+      collect (cons (list addr) (list :label (string-to-char (car contact)))))))
 
 (provide 'org-contacts)

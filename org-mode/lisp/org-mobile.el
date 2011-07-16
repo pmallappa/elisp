@@ -4,7 +4,7 @@
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;; Keywords: outlines, hypermedia, calendar, wp
 ;; Homepage: http://orgmode.org
-;; Version: 7.5
+;; Version: 7.6
 ;;
 ;; This file is part of GNU Emacs.
 ;;
@@ -133,7 +133,7 @@ been appended to the file given here.  This file should be in
 This should not be changed, because MobileOrg assumes this name.")
 
 (defcustom org-mobile-index-file "index.org"
-  "The index file with inks to all Org files that should be loaded by MobileOrg.
+  "The index file with links to all Org files that should be loaded by MobileOrg.
 Relative to `org-mobile-directory'.  The Address field in the MobileOrg setup
 should point to this file."
   :group 'org-mobile

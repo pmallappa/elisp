@@ -6,7 +6,7 @@
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;; Keywords: outlines, hypermedia, calendar, wp
 ;; Homepage: http://orgmode.org
-;; Version: 7.5
+;; Version: 7.6
 ;;
 ;; This file is part of GNU Emacs.
 ;;
@@ -89,16 +89,20 @@ only needed when the text to be killed contains more than N non-white lines."
 
 (defcustom org-agenda-compact-blocks nil
   "Non-nil means make the block agenda more compact.
-This is done by leaving out unnecessary lines."
+This is done globally by leaving out lines like the agenda span
+name and week number or the separator lines."
   :group 'org-agenda
   :type 'boolean)
 
 (defcustom org-agenda-block-separator ?=
   "The separator between blocks in the agenda.
 If this is a string, it will be used as the separator, with a newline added.
-If it is a character, it will be repeated to fill the window width."
+If it is a character, it will be repeated to fill the window width.
+If nil the separator is disabled.  In `org-agenda-custom-commands' this
+addresses the separator between the current and the previous block."
   :group 'org-agenda
   :type '(choice
+	  (const :tag "Disabled" nil)
 	  (character)
 	  (string)))
 
@@ -1095,6 +1099,49 @@ Note that instead of changing this variable, you can also press `C-u l' in
 the agenda to display all available LOG items temporarily."
   :group 'org-agenda-daily/weekly
   :type '(set :greedy t (const closed) (const clock) (const state)))
+
+(defcustom org-agenda-clock-consistency-checks
+  '(:max-duration "10:00" :min-duration 0 :max-gap "0:05"
+		  :gap-ok-around ("4:00")
+		  :default-face ((:background "DarkRed") (:foreground "white"))
+		  :overlap-face nil :gap-face nil :no-end-time-face nil
+		  :long-face nil :short-face nil)
+  "This is a property list, with the following keys:
+
+:max-duration    Mark clocking chunks that are longer than this time.
+                 This is a time string like \"HH:MM\", or the number
+                 of minutes as an integer.
+
+:min-duration    Mark clocking chunks that are shorter that this.
+                 This is a time string like \"HH:MM\", or the number
+                 of minutes as an integer.
+
+:max-gap         Mark gaps between clocking chunks that are longer than
+                 this duration.  A number of minutes, or a string
+                 like \"HH:MM\".
+
+:gap-ok-around   List of times during the day which are usually not working
+                 times.  When a gap is detected, but the gap contains any
+                 of these times, the gap is *not* reported.  For example,
+                 if this is (\"4:00\" \"13:00\") then gaps that contain
+                 4:00 in the morning (i.e. the night) and 13:00
+                 (i.e. a typical lunch time) do not cause a warning.
+                 You should have at least one time during the night in this
+                 list, or otherwise the first task each morning will trigger
+                 a warning because it follows a long gap.
+
+Furthermore, the following properties can be used to define faces for
+issue display.
+
+:default-face         the default face, if the specific face is undefined
+:overlap-face         face for overlapping clocks
+:gap-face             face for gaps between clocks
+:no-end-time-face     face for incomplete clocks
+:long-face            face for clock intervals that are too long
+:short-face           face for clock intervals that are too short"
+  :group 'org-agenda-daily/weekly
+  :group 'org-clock
+  :type 'plist)
 
 (defcustom org-agenda-log-mode-add-notes t
   "Non-nil means add first line of notes to log entries in agenda views.
@@ -2987,7 +3034,8 @@ the global options and expect it to be applied to the entire view.")
       (progn
 	(setq buffer-read-only nil)
 	(goto-char (point-max))
-	(unless (or (bobp) org-agenda-compact-blocks)
+	(unless (or (bobp) org-agenda-compact-blocks
+		    (not org-agenda-block-separator))
 	  (insert "\n"
 		  (if (stringp org-agenda-block-separator)
 		      org-agenda-block-separator
@@ -3446,7 +3494,7 @@ By default, all four types are turned on.
 
 Never set this variable globally using `setq', because then it
 will apply to all future agenda commands.  Instead, bind it with
-`let' to scope it dynamically into the the agenda-constructing
+`let' to scope it dynamically into the agenda-constructing
 command.  A good way to set it is through options in
 `org-agenda-custom-commands'.  For a more flexible (though
 somewhat less efficient) way of determining what is included in
@@ -3550,7 +3598,7 @@ given in `org-agenda-start-on-weekday'."
 	      (setq org-agenda-entry-types
 		    (delq :deadline org-agenda-entry-types)))
 	    (cond
-	     ((eq org-agenda-show-log 'only)
+	     ((memq org-agenda-show-log '(only clockcheck))
 	      (setq rtn (org-agenda-get-day-entries
 			 file date :closed)))
 	     (org-agenda-show-log
@@ -3621,6 +3669,8 @@ given in `org-agenda-start-on-weekday'."
 	    (recenter 1))))
     (goto-char (or start-pos 1))
     (add-text-properties (point-min) (point-max) '(org-agenda-type agenda))
+    (if (eq org-agenda-show-log 'clockcheck)
+	(org-agenda-show-clocking-issues))
     (org-finalize-agenda)
     (setq buffer-read-only t)
     (message "")))
@@ -4066,7 +4116,7 @@ This is basically a temporary global variable that can be set and then
 used by user-defined selections using `org-agenda-skip-function'.")
 
 (defvar org-agenda-overriding-header nil
-  "When this is set during todo and tags searches, will replace header.
+  "When set during agenda, todo and tags searches it replaces the header.
 This variable should not be set directly, but custom commands can bind it
 in the options section.")
 
@@ -4530,13 +4580,12 @@ the documentation of `org-diary'."
       (catch :skip
 	(save-match-data
 	  (beginning-of-line)
+	  (org-agenda-skip)
 	  (setq beg (point) end (save-excursion (outline-next-heading) (point)))
 	  (when (org-agenda-check-for-timestamp-as-reason-to-ignore-todo-item end)
 	    (goto-char (1+ beg))
 	    (or org-agenda-todo-list-sublevels (org-end-of-subtree 'invisible))
 	    (throw :skip nil)))
-	(goto-char beg)
-	(org-agenda-skip)
 	(goto-char (match-beginning 1))
 	(setq marker (org-agenda-new-marker (match-beginning 0))
 	      category (org-get-category)
@@ -4772,19 +4821,41 @@ This function is invoked if `org-agenda-todo-ignore-deadlines',
 	    (push txt ee)))))
     (nreverse ee)))
 
-(defun org-diary-class (m1 d1 y1 m2 d2 y2 dayname &rest skip-weeks)
+;; Calendar sanity: define some functions that are independent of
+;; `calendar-date-style'.
+;; Normally I would like to use ISO format when calling the diary functions,
+;; but to make sure we still have Emacs 22 compatibility we bind
+;; also `european-calendar-style' and use european format
+(defun org-anniversary (year month day &optional mark)
+  "Like `diary-anniversary', but with fixed (ISO) order of arguments."
+  (org-no-warnings
+   (let ((calendar-date-style 'european) (european-calendar-style t))
+     (diary-anniversary day month year mark))))
+(defun org-cyclic (N year month day &optional mark)
+  "Like `diary-cyclic', but with fixed (ISO) order of arguments."
+  (org-no-warnings
+   (let ((calendar-date-style 'european)	(european-calendar-style t))
+     (diary-cyclic N day month year mark))))
+(defun org-block (Y1 M1 D1 Y2 M2 D2 &optional mark)
+  "Like `diary-block', but with fixed (ISO) order of arguments."
+  (org-no-warnings
+   (let ((calendar-date-style 'european)	(european-calendar-style t))
+     (diary-block D1 M1 Y1 D2 M2 Y2 mark))))
+(defun org-date (year month day &optional mark)
+  "Like `diary-date', but with fixed (ISO) order of arguments."
+  (org-no-warnings
+   (let ((calendar-date-style 'european)	(european-calendar-style t))
+     (diary-date day month year mark))))
+(defalias 'org-float 'diary-float)
+
+;; Define the` org-class' function
+(defun org-class (y1 m1 d1 y2 m2 d2 dayname &rest skip-weeks)
   "Entry applies if date is between dates on DAYNAME, but skips SKIP-WEEKS.
-The order of the first 2 times 3 arguments depends on the variable
-`calendar-date-style' or, if that is not defined, on `european-calendar-style'.
-So for American calendars, give this as MONTH DAY YEAR, for European as
-DAY MONTH YEAR, and for ISO as YEAR MONTH DAY.
 DAYNAME is a number between 0 (Sunday) and 6 (Saturday).  SKIP-WEEKS
 is any number of ISO weeks in the block period for which the item should
 be skipped."
-  (let* ((date1 (calendar-absolute-from-gregorian
-		 (org-order-calendar-date-args m1 d1 y1)))
-	 (date2 (calendar-absolute-from-gregorian
-		 (org-order-calendar-date-args m2 d2 y2)))
+  (let* ((date1 (calendar-absolute-from-gregorian (list m1 d1 y1)))
+	 (date2 (calendar-absolute-from-gregorian (list m2 d2 y2)))
 	 (d (calendar-absolute-from-gregorian date)))
     (and
      (<= date1 d)
@@ -4795,6 +4866,25 @@ be skipped."
 	   (require 'cal-iso)
 	   (not (member (car (calendar-iso-from-absolute d)) skip-weeks))))
      entry)))
+
+(defun org-diary-class (m1 d1 y1 m2 d2 y2 dayname &rest skip-weeks)
+  "Like `org-class', but honor `calendar-date-style'.
+The order of the first 2 times 3 arguments depends on the variable
+`calendar-date-style' or, if that is not defined, on `european-calendar-style'.
+So for American calendars, give this as MONTH DAY YEAR, for European as
+DAY MONTH YEAR, and for ISO as YEAR MONTH DAY.
+DAYNAME is a number between 0 (Sunday) and 6 (Saturday).  SKIP-WEEKS
+is any number of ISO weeks in the block period for which the item should
+be skipped.
+
+This function is here only for backward compatibility and it is deprecated,
+please use `org-class' instead."
+  (let* ((date1 (org-order-calendar-date-args m1 d1 y1))
+	 (date2 (org-order-calendar-date-args m2 d2 y2)))
+    (org-class
+     (nth 2 date1) (car date1) (nth 1 date1)
+     (nth 2 date2) (car date2) (nth 1 date2)
+     dayname skip-weeks)))
 
 (defalias 'org-get-closed 'org-agenda-get-progress)
 (defun org-agenda-get-progress ()
@@ -4808,7 +4898,9 @@ be skipped."
 			      (abbreviate-file-name buffer-file-name))))
 	 (items (if (consp org-agenda-show-log)
 		    org-agenda-show-log
-		  org-agenda-log-mode-items))
+		  (if (eq org-agenda-show-log 'clockcheck)
+		      '(clock)
+		    org-agenda-log-mode-items)))
 	 (parts
 	  (delq nil
 		(list
@@ -4889,6 +4981,125 @@ be skipped."
 	  (push txt ee))
 	(goto-char (point-at-eol))))
     (nreverse ee)))
+
+(defun org-agenda-show-clocking-issues ()
+  "Add overlays, showing issues with clocking.
+See also the user option `org-agenda-clock-consistency-checks'."
+  (interactive)
+  (let* ((pl org-agenda-clock-consistency-checks)
+	 (re (concat "^[ \t]*"
+		     org-clock-string
+		     "[ \t]+"
+		     "\\(\\[.*?\\]\\)" ; group 1 is first stamp
+		     "\\(-\\{1,3\\}\\(\\[.*?\\]\\)\\)?")) ; group 3 is second
+	 (tlstart 0.)
+	 (tlend 0.)
+	 (maxtime (org-hh:mm-string-to-minutes 
+		   (or (plist-get pl :max-duration) "24:00")))
+	 (mintime (org-hh:mm-string-to-minutes 
+		   (or (plist-get pl :min-duration) 0)))
+	 (maxgap  (org-hh:mm-string-to-minutes
+		   ;; default 30:00 means never complain
+		   (or (plist-get pl :max-gap) "30:00")))
+	 (gapok (mapcar 'org-hh:mm-string-to-minutes
+			(plist-get pl :gap-ok-around)))
+	 (def-face (or (plist-get pl :default-face)
+		       '((:background "DarkRed") (:foreground "white"))))
+	 issue face m te ts dt ov)
+    (goto-char (point-min))
+    (while (re-search-forward " Clocked: +(-\\|\\([0-9]+:[0-9]+\\))" nil t)
+      (setq issue nil face def-face)
+      (catch 'next
+	(setq m (org-get-at-bol 'org-marker)
+	      te nil ts nil)
+	(unless (and m (markerp m))
+	  (setq issue "No valid clock line") (throw 'next t))
+	(org-with-point-at m
+	  (save-excursion
+	    (goto-char (point-at-bol))
+	    (unless (looking-at re)
+	      (error "No valid Clock line")
+	      (throw 'next t))
+	    (unless (match-end 3)
+	      (setq issue "No end time"
+		    face (or (plist-get pl :no-end-time-face) face))
+	      (throw 'next t))
+	    (setq ts (match-string 1)
+		  te (match-string 3)
+		  ts (org-float-time
+		      (apply 'encode-time (org-parse-time-string ts)))
+		  te (org-float-time
+		      (apply 'encode-time (org-parse-time-string te)))
+		  dt (- te ts))))
+	(cond
+	 ((> dt (* 60 maxtime))
+	  ;; a very long clocking chunk
+	  (setq issue (format "Clocking interval is very long: %s"
+			      (org-minutes-to-hh:mm-string
+			       (floor (/ (float dt) 60.))))
+		face (or (plist-get pl :long-face) face)))
+	 ((< dt (* 60 mintime))
+	  ;; a very short clocking chunk
+	  (setq issue (format "Clocking interval is very short: %s"
+			      (org-minutes-to-hh:mm-string
+			       (floor (/ (float dt) 60.))))
+		face (or (plist-get pl :short-face) face)))
+	 ((and (> tlend 0) (< ts tlend))
+	  ;; Two clock entries are overlapping
+	  (setq issue (format "Clocking overlap: %d minutes"
+			      (/ (- tlend ts) 60))
+		face (or (plist-get pl :overlap-face) face)))
+	 ((and (> tlend 0) (> ts (+ tlend (* 60 maxgap))))
+	  ;; There is a gap, lets see if we need to report it
+	  (unless (org-agenda-check-clock-gap tlend ts gapok)
+	    (setq issue (format "Clocking gap: %d minutes"
+				  (/ (- ts tlend) 60))
+		  face (or (plist-get pl :gap-face) face))))
+	 (t nil)))
+      (setq tlend (or te tlend) tlstart (or ts tlstart))
+      (when issue
+	;; OK, there was some issue, add an overlay to show the issue
+	(setq ov (make-overlay (point-at-bol) (point-at-eol)))
+	(overlay-put ov 'before-string
+		     (concat
+		      (org-add-props
+			  (format "%-43s" (concat " " issue))
+			  nil
+			'face face)
+		      "\n"))
+	(overlay-put ov 'evaporate t)))))
+
+(defun org-agenda-check-clock-gap (t1 t2 ok-list)
+  "Check if gap T1 -> T2 contains one of the OK-LIST time-of-day values."
+  (catch 'exit
+    (unless ok-list
+      ;; there are no OK times for gaps...
+      (throw 'exit nil))
+    (if (> (- (/ t2 36000) (/ t1 36000)) 24)
+	;; This is more than 24 hours, so it is OK.
+	;; because we have at least one OK time, that must be in the
+	;; 24 hour interval.
+	(throw 'exit t))
+    ;; We have a shorter gap.
+    ;; Now we have to get the minute of the day when these times are
+    (let* ((t1dec (decode-time (seconds-to-time t1)))
+	   (t2dec (decode-time (seconds-to-time t2)))
+	   ;; compute the minute on the day
+	   (min1 (+ (nth 1 t1dec) (* 60 (nth 2 t1dec))))
+	   (min2 (+ (nth 1 t2dec) (* 60 (nth 2 t2dec)))))
+      (when (< min2 min1)
+	;; if min2 is smaller than min1, this means it is on the next day.
+	;; Wrap it to after midnight.
+	(setq min2 (+ min2 1440)))
+      ;; Now check if any of the OK times is in the gap
+      (mapc (lambda (x)
+	      ;; Wrap the time to after midnight if necessary
+	      (if (< x min1) (setq x (+ x 1440)))
+	      ;; Check if in interval
+	      (and (<= min1 x) (>= min2 x) (throw 'exit t)))
+	    ok-list)
+      ;; Nope, this gap is not OK
+      nil)))
 
 (defun org-agenda-get-deadlines ()
   "Return the deadline information for agenda display."
@@ -5874,7 +6085,7 @@ When this is the global TODO list, a prefix argument will be interpreted."
     (message "Rebuilding agenda buffer...done")
     (put 'org-agenda-filter :preset-filter preset)
     (and (or filter preset) (org-agenda-filter-apply filter))
-    (and cols (interactive-p) (org-agenda-columns))
+    (and cols (org-called-interactively-p 'any) (org-agenda-columns))
     (org-goto-line line)
     (recenter window-line)))
 
@@ -6194,9 +6405,10 @@ With prefix ARG, go backward that many times the current span."
 (defun org-agenda-view-mode-dispatch ()
   "Call one of the view mode commands."
   (interactive)
-  (message "View: [d]ay [w]eek [m]onth [y]ear [SPC]reset                [q]uit/abort
-      time[G]rid     [[]inactive [f]ollow [l]og [L]og-all   [E]ntryText
-      [a]rch-trees   [A]rch-files    clock[R]eport   include[D]iary")
+  (message "View: [d]ay [w]eek [m]onth [y]ear [SPC]reset    [q]uit/abort
+      time[G]rid     [[]inactive [f]ollow [l]og [L]og-all   [c]lockcheck
+      [a]rch-trees   [A]rch-files    clock[R]eport   include[D]iary
+      [E]ntryText")
   (let ((a (read-char-exclusive)))
     (case a
       (?\  (call-interactively 'org-agenda-reset-view))
@@ -6206,6 +6418,7 @@ With prefix ARG, go backward that many times the current span."
       (?y (call-interactively 'org-agenda-year-view))
       (?l (call-interactively 'org-agenda-log-mode))
       (?L (org-agenda-log-mode '(4)))
+      (?c (org-agenda-log-mode 'clockcheck))
       ((?F ?f) (call-interactively 'org-agenda-follow-mode))
       (?a (call-interactively 'org-agenda-archives-mode))
       (?A (org-agenda-archives-mode 'files))
@@ -6409,10 +6622,13 @@ With a double `C-u' prefix arg, show *only* log items, nothing else."
   (interactive "P")
   (org-agenda-check-type t 'agenda 'timeline)
   (setq org-agenda-show-log
-	(if (equal special '(16))
-	    'only
-	  (if special '(closed clock state)
-	    (not org-agenda-show-log))))
+	(cond
+	 ((equal special '(16)) 'only)
+	 ((eq special 'clockcheck)
+	  (if (eq org-agenda-show-log 'clockcheck)
+	      nil 'clockcheck))
+	 (special '(closed clock state))
+	 (t (not org-agenda-show-log))))
   (org-agenda-set-mode-name)
   (org-agenda-redo)
   (message "Log mode is %s"
@@ -6481,8 +6697,11 @@ When called with a prefix argument, include all archive files as well."
 	      (if org-agenda-use-time-grid   " Grid"   "")
 	      (if (and (boundp 'org-habit-show-habits)
 		       org-habit-show-habits) " Habit"   "")
-	      (if (consp org-agenda-show-log) " LogAll"
-		(if org-agenda-show-log " Log" ""))
+	      (cond
+	       ((consp org-agenda-show-log) " LogAll")
+	       ((eq org-agenda-show-log 'clockcheck) " ClkCk")
+	       (org-agenda-show-log " Log")
+	       (t ""))
 	      (if (or org-agenda-filter (get 'org-agenda-filter
 					     :preset-filter))
 		  (concat " {" (mapconcat
@@ -6705,9 +6924,7 @@ at the text of the entry itself."
 		     (org-get-at-bol 'org-marker)))
 	 (buffer (and marker (marker-buffer marker)))
 	 (prefix (buffer-substring
-		  (point-at-bol)
-		  (or (text-property-any (point-at-bol) (point-at-eol) 'org-heading t)
-		      (point-at-bol)))))
+		  (point-at-bol) (point-at-eol))))
     (cond
      (buffer
       (with-current-buffer buffer
@@ -6819,7 +7036,7 @@ if it was hidden in the outline."
 	(org-back-to-heading)
 	(run-hook-with-args 'org-cycle-hook 'folded))
       (message "Remote: FOLDED"))
-     ((and (interactive-p) (= more 1))
+     ((and (org-called-interactively-p 'any) (= more 1))
       (message "Remote: show with default settings"))
      ((= more 2)
       (show-entry)
@@ -7120,9 +7337,8 @@ the same tree node, and the headline of the tree node in the Org-mode file."
   "Set tags for the current headline."
   (interactive)
   (org-agenda-check-no-diary)
-  (if (and (org-region-active-p) (interactive-p))
+  (if (and (org-region-active-p) (org-called-interactively-p 'any))
       (call-interactively 'org-change-tag-in-region)
-    (org-agenda-show)   ;;; FIXME This is a stupid hack and should not be needed
     (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
 			 (org-agenda-error)))
 	   (buffer (marker-buffer hdmarker))
@@ -7151,7 +7367,6 @@ the same tree node, and the headline of the tree node in the Org-mode file."
   "Set a property for the current headline."
   (interactive)
   (org-agenda-check-no-diary)
-  (org-agenda-show)   ;;; FIXME This is a stupid hack and should not be needed
   (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
 		       (org-agenda-error)))
 	 (buffer (marker-buffer hdmarker))
@@ -7174,7 +7389,6 @@ the same tree node, and the headline of the tree node in the Org-mode file."
   "Set the effort property for the current headline."
   (interactive)
   (org-agenda-check-no-diary)
-  (org-agenda-show)   ;;; FIXME This is a stupid hack and should not be needed
   (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
 		       (org-agenda-error)))
 	 (buffer (marker-buffer hdmarker))
@@ -7198,7 +7412,6 @@ the same tree node, and the headline of the tree node in the Org-mode file."
   "Toggle the archive tag for the current entry."
   (interactive)
   (org-agenda-check-no-diary)
-  (org-agenda-show)   ;;; FIXME This is a stupid hack and should not be needed
   (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
                        (org-agenda-error)))
 	 (buffer (marker-buffer hdmarker))
@@ -7601,17 +7814,8 @@ the resulting entry will not be shown.  When TEXT is empty, switch to
       (org-back-over-empty-lines)
       (backward-char 1)
       (insert "\n")
-      (require 'diary-lib)
-      (let ((calendar-date-display-form
-	     (if (if (boundp 'calendar-date-style)
-		     (eq calendar-date-style 'european)
-		   (with-no-warnings ;; european-calendar-style is obsolete as of version 23.1
-		     (org-bound-and-true-p european-calendar-style))) ; Emacs 22
-		 '(day " " month " " year)
-	       '(month " " day " " year))))
-
-	(insert (format "%%%%(diary-anniversary %s) %s"
-			(calendar-date-string d1 nil t) text))))
+      (insert (format "%%%%(org-anniversary %d %2d %2d) %s"
+		      (nth 2 d1) (car d1) (nth 1 d1) text)))
      ((eq type 'day)
       (let ((org-prefix-has-time t)
 	    (org-agenda-time-leading-zero t)
@@ -7942,7 +8146,7 @@ The prefix arg is passed through to the command if possible."
 		  (buffer-live-p (marker-buffer m))
 		  (marker-position m))
        (error "Marker %s for bulk command is invalid" m)))
-   entries)
+   org-agenda-bulk-marked-entries)
 
   ;; Prompt for the bulk command
   (message "Bulk: [r]efile [$]arch [A]rch->sib [t]odo [+/-]tag [s]chd [S]catter [d]eadline [f]unction")
@@ -8032,9 +8236,11 @@ The prefix arg is passed through to the command if possible."
 			       (setq day-of-week 0)))))
 		   ;; silently fail when try to replan a sexp entry
 		   (condition-case nil
-		       (org-agenda-schedule nil
-					    (days-to-time
-					     (+ (org-today) distance)))
+		       (let* ((date (calendar-gregorian-from-absolute
+				     (+ (org-today) distance)))
+			      (time (encode-time 0 0 0 (nth 1 date) (nth 0 date)
+						 (nth 2 date))))
+			 (org-agenda-schedule nil time))
 		     (error nil)))))))
 
      ((equal action ?f)

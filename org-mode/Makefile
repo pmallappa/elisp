@@ -126,6 +126,7 @@ LISPF      = 	org.el			\
 		ob-comint.el		\
 		ob-eval.el		\
 		ob-keys.el		\
+		ob-awk.el		\
 		ob-C.el			\
 		ob-calc.el		\
 		ob-ditaa.el		\
@@ -237,30 +238,30 @@ lisp/org-install.el: $(LISPFILES0) Makefile
 	mv org-install.el lisp
 
 doc/org: doc/org.texi
-	(cd doc; $(MAKEINFO) --no-split org.texi -o org)
+	(cd doc && $(MAKEINFO) --no-split org.texi -o org)
 
 doc/org.pdf: doc/org.texi
-	(cd doc; $(TEXI2PDF) org.texi)
+	(cd doc && $(TEXI2PDF) org.texi)
 
 doc/orgguide.pdf: doc/orgguide.texi
-	(cd doc; $(TEXI2PDF) orgguide.texi)
+	(cd doc && $(TEXI2PDF) orgguide.texi)
 
 doc/org.html: doc/org.texi
-	(cd doc; $(TEXI2HTML) --no-split -o org.html org.texi)
+	(cd doc && $(TEXI2HTML) --no-split -o org.html org.texi)
 	UTILITIES/manfull.pl doc/org.html
 
 doc/orgcard.pdf: doc/orgcard.tex
-	(cd doc; pdftex orgcard.tex)
+	(cd doc && pdftex orgcard.tex)
 
 doc/orgcard.txt: doc/orgcard.tex
-	(cd doc; perl ../UTILITIES/orgcard2txt.pl orgcard.tex > orgcard.txt)
+	(cd doc && perl ../UTILITIES/orgcard2txt.pl orgcard.tex > orgcard.txt)
 
 doc/orgcard_letter.tex: doc/orgcard.tex
 	perl -pe 's/\\pdflayout=\(0l\)/\\pdflayout=(1l)/' \
                    doc/orgcard.tex > doc/orgcard_letter.tex
 
 doc/orgcard_letter.pdf: doc/orgcard_letter.tex
-	(cd doc; pdftex orgcard_letter.tex)
+	(cd doc && pdftex orgcard_letter.tex)
 
 # Below here are special targets for maintenance only
 
@@ -285,7 +286,7 @@ pdf:	doc/org.pdf doc/orgguide.pdf
 card:	doc/orgcard.pdf doc/orgcard_letter.pdf doc/orgcard.txt
 
 testrelease:
-	git checkout -b testrelease maint
+	git checkout -b testrelease origin/maint
 	git merge -s recursive -X theirs master
 	UTILITIES/set-version.pl testing
 	git commit -a -m "Release testing"
@@ -426,11 +427,11 @@ cleancontrib:
 cleanelc:
 	rm -f $(ELCFILES)
 cleandoc:
-	(cd doc; rm -f org.pdf org org.html orgcard.pdf orgguide.pdf)
-	(cd doc; rm -f *.aux *.cp *.cps *.dvi *.fn *.fns *.ky *.kys *.pg *.pgs)
-	(cd doc; rm -f *.toc *.tp *.tps *.vr *.vrs *.log *.html *.ps)
-	(cd doc; rm -f orgcard_letter.tex orgcard_letter.pdf)
-	(cd doc; rm -rf manual)
+	-(cd doc && rm -f org.pdf org org.html orgcard.pdf orgguide.pdf)
+	-(cd doc && rm -f *.aux *.cp *.cps *.dvi *.fn *.fns *.ky *.kys *.pg *.pgs)
+	-(cd doc && rm -f *.toc *.tp *.tps *.vr *.vrs *.log *.html *.ps)
+	-(cd doc && rm -f orgcard_letter.tex orgcard_letter.pdf)
+	-(cd doc && rm -rf manual)
 
 cleanrel:
 	rm -rf RELEASEDIR
@@ -512,3 +513,20 @@ lisp/org-vm.elc:	lisp/org.el
 lisp/org-w3m.elc:	lisp/org.el
 lisp/org-wl.elc:	lisp/org.el
 lisp/org-xoxo.elc:	lisp/org-exp.el
+
+# Describe valid make targets for org-mode.
+targets help:
+	@echo "make - compile Org ELisp files"
+	@echo "make clean - clean Elisp and documentation files"
+	@echo "make all - compile Org ELisp files and documentation"
+	@echo ""
+	@echo "make doc - make all documentation"
+	@echo "make info - make Info documentation"
+	@echo "make html - make HTML documentation"
+	@echo "make pdf - make pdf documentation"
+	@echo "make card - make refcards documentation"
+	@echo ""
+	@echo "make install - install Org"
+	@echo "make install-lisp - install Org ELisp files"
+	@echo "make install-info - install Org Info file"
+	@echo "make install-info-debian - install info on old debian systems (newer use ginstall)"

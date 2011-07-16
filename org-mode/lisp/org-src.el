@@ -8,7 +8,7 @@
 ;;         Dan Davison <davison at stats dot ox dot ac dot uk>
 ;; Keywords: outlines, hypermedia, calendar, wp
 ;; Homepage: http://orgmode.org
-;; Version: 7.5
+;; Version: 7.6
 ;;
 ;; This file is part of GNU Emacs.
 ;;
@@ -678,7 +678,7 @@ the language, a switch telling if the content should be in a single line."
 (defun org-src-mode-configure-edit-buffer ()
   (when (org-bound-and-true-p org-edit-src-from-org-mode)
     (org-add-hook 'kill-buffer-hook
-		  '(lambda () (delete-overlay org-edit-src-overlay)) nil 'local)
+		  #'(lambda () (delete-overlay org-edit-src-overlay)) nil 'local)
     (if (org-bound-and-true-p org-edit-src-allow-write-back-p)
 	(progn
 	  (setq buffer-offer-save t)
@@ -774,7 +774,7 @@ fontification of code blocks see `org-src-fontify-block' and
 	      (get-buffer-create
 	       (concat " org-src-fontification:" (symbol-name lang-mode)))
 	    (delete-region (point-min) (point-max))
-	    (insert string)
+	    (insert (concat string " ")) ;; so there's a final property change
 	    (unless (eq major-mode lang-mode) (funcall lang-mode))
 	    (font-lock-fontify-buffer)
 	    (setq pos (point-min))

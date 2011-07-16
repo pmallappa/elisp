@@ -6,7 +6,7 @@
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;; Keywords: outlines, hypermedia, calendar, wp
 ;; Homepage: http://orgmode.org
-;; Version: 7.5
+;; Version: 7.6
 ;;
 ;; This file is part of GNU Emacs.
 ;;
@@ -48,13 +48,13 @@
 (declare-function org-string-match-p "org-compat" (&rest args))
 
 (defmacro org-called-interactively-p (&optional kind)
-  `(if (featurep 'xemacs)
-       (interactive-p)
+  (if (featurep 'xemacs)
+       `(interactive-p)
      (if (or (> emacs-major-version 23)
 	     (and (>= emacs-major-version 23)
 		  (>= emacs-minor-version 2)))
-	 (with-no-warnings (called-interactively-p ,kind)) ;; defined with no argument in <=23.1
-       (interactive-p))))
+	 `(with-no-warnings (called-interactively-p ,kind)) ;; defined with no argument in <=23.1
+       `(interactive-p))))
 
 (if (and (not (fboundp 'with-silent-modifications))
 	 (or (< emacs-major-version 23)
@@ -112,13 +112,15 @@ Also, do not record undo information."
        (org-move-to-column _col))))
 
 (defmacro org-without-partial-completion (&rest body)
-  `(let ((pc-mode (and (boundp 'partial-completion-mode)
-		       partial-completion-mode)))
+  `(if (and (boundp 'partial-completion-mode)
+	    partial-completion-mode
+	    (fboundp 'partial-completion-mode))
      (unwind-protect
 	 (progn
-	   (if pc-mode (partial-completion-mode -1))
+	   (partial-completion-mode -1)
 	   ,@body)
-       (if pc-mode (partial-completion-mode 1)))))
+       (partial-completion-mode 1))
+     ,@body))
 
 (defmacro org-maybe-intangible (props)
   "Add '(intangible t) to PROPS if Emacs version is earlier than Emacs 22.
@@ -323,16 +325,18 @@ but it also means that the buffer should stay alive
 during the operation, because otherwise all these markers will
 point nowhere."
   (declare (indent 1))
-  `(let ((data (org-outline-overlay-data ,use-markers)))
+  `(let ((data (org-outline-overlay-data ,use-markers))
+	 rtn)
      (unwind-protect
 	 (progn
-	   ,@body
+	   (setq rtn (progn ,@body))
 	   (org-set-outline-overlay-data data))
        (when ,use-markers
 	 (mapc (lambda (c)
 		 (and (markerp (car c)) (move-marker (car c) nil))
 		 (and (markerp (cdr c)) (move-marker (cdr c) nil)))
-	       data)))))
+	       data)))
+     rtn))
 
 (defmacro org-with-wide-buffer (&rest body)
  "Execute body while temporarily widening the buffer."
@@ -356,6 +360,12 @@ The number of levels is controlled by `org-inlinetask-min-level'"
     (let* ((limit-level (1- org-inlinetask-min-level))
 	   (nstars (if org-odd-levels-only (1- (* limit-level 2)) limit-level)))
       (format "\\*\\{1,%d\\} " nstars))))
+
+(defun org-format-seconds (string seconds)
+  "Compatibility function replacing format-seconds"
+  (if (fboundp 'format-seconds)
+      (format-seconds string seconds)
+    (format-time-string string (seconds-to-time seconds))))
 
 (provide 'org-macs)
 

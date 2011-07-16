@@ -4,7 +4,7 @@
 
 ;; Author: John Wiegley <johnw@newartisans.com>
 ;; Keywords: org data task
-;; Version: 7.5
+;; Version: 7.6
 
 ;; This file is part of GNU Emacs.
 ;;
@@ -253,7 +253,7 @@ This checks for the existence of a \".git\" directory in that directory."
 	(cd dir)
 	(shell-command "git add .")
 	(shell-command "git ls-files --deleted" t)
-	(mapc '(lambda (file)
+	(mapc #'(lambda (file)
 		 (unless (string= file "")
 		   (shell-command
 		    (concat "git rm \"" file "\""))))

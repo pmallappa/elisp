@@ -1,8 +1,7 @@
 ;;;_.============================================================
 ;;;_. Org mode personal organizer
 (add-to-list 'load-path
-;            (expand-file-name (concat EMACS_PKGS "/org-mode/lisp")))
-            (expand-file-name (concat EMACS_PKGS "/org-7.6/lisp")))
+            (expand-file-name (concat EMACS_PKGS "/org-mode/lisp")))
 
 ; this one is necessary for the org-mediawiki option
 ;(add-to-list 'load-path
