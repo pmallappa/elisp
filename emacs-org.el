@@ -1,7 +1,8 @@
 ;;;_.============================================================
 ;;;_. Org mode personal organizer
 (add-to-list 'load-path
-            (expand-file-name (concat EMACS_PKGS "/org-mode/lisp")))
+;            (expand-file-name (concat EMACS_PKGS "/org-mode/lisp")))
+            (expand-file-name (concat EMACS_PKGS "/org-7.6/lisp")))
 
 ; this one is necessary for the org-mediawiki option
 ;(add-to-list 'load-path
@@ -39,7 +40,7 @@
          "* TODO %^{Brief Description} %^g\n  Added: %U\n  %?\n  %a")
         ("a" "Appointment" entry
          (file+olp "~/org/journal.org" "Appointments")
-         "* Appt %^{Brief Description} %^T %^g\n  %i%?\n  %a")
+         "* %^{Brief Description} %^T %^g\n  %i%?\n  %a")
         ("j" "Journal" entry
          (file+olp "~/org/journal.org" "Journal")
          "* %^{Brief Description} %T %^g\n  %i%?\n  %a")
@@ -48,7 +49,7 @@
          "* %^{Brief Description} %T %^g\n  %i%?\n  %a")
         ("b" "Bill" entry
          (file+olp "~/org/journal.org" "Bills")
-         "* Paid %^{Bill Paid|AT&T|USAA Auto|USAA Master Card} %T\n   Amount: $%^{Amount $}\n   Source: %^{Source Acct|NFCU chkg|Fifth-Third chkg}\n  Confirm: %^{Confirmation #}\n    Notes: %^{Notes}\n")
+         "* Paid %^{Bill Paid|AT&T|SMECO|Matrix|Spyglass|USAA Auto Ins|USAA Master Card} %T\n   Amount: $%^{Amount $}\n   Source: %^{Source Acct|NFCU chkg|Fifth-Third chkg}\n  Confirm: %^{Confirmation #}\n    Notes: %^{Notes}\n")
         ("f" "Funds" entry
          (file+olp "~/org/journal.org" "Funds")
          "* Transferred Money %T\n     From: %^{Transferred From:|NFCU Svgs|NFCU Chk|Fifth-Third Chk}\n       To: %^{To:|NFCU Chkg|NFCU Svgs|Fifth-Third Chk}\n   Amount: $%^{Amount $}\n  Confirm: %^{Confirmation #}\n")
@@ -89,12 +90,13 @@
 (setq org-tag-alist 
       '(("Appt"       . ?a)
         ("ADSW"       . ?A)
+        ("DID"        . ?d) ; Digital Interoperability Demo Project (NACRA)
         ("Emacs"      . ?e)
-        ("KMA"        . ?k)
         ("Navy"       . ?n)
         ("NACRA"      . ?N)
         ("Personal"   . ?p)
         ("Reference"  . ?r)
+        ("URDM"       . ?u) ; Universal Rotorcraft Data Management
         ("Xetron"     . ?x)))
 
 ;;;_.============================================================
