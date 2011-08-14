@@ -51,7 +51,7 @@
          "* Paid %^{Bill Paid|AT&T|SMECO|Matrix|Spyglass|USAA Auto Ins|USAA Master Card} %T\n   Amount: $%^{Amount $}\n   Source: %^{Source Acct|NFCU chkg|Fifth-Third chkg}\n  Confirm: %^{Confirmation #}\n    Notes: %^{Notes}\n")
         ("f" "Funds" entry
          (file+olp "~/org/journal.org" "Funds")
-         "* Transferred Money %T\n     From: %^{Transferred From:|NFCU Svgs|NFCU Chk|Fifth-Third Chk}\n       To: %^{To:|NFCU Chkg|NFCU Svgs|Fifth-Third Chk}\n   Amount: $%^{Amount $}\n  Confirm: %^{Confirmation #}\n")
+         "* Transferred Money %T\n     From: %^{Transferred From:|NFCU Chkg|NFCU Svgs|Fifth-Third Chkg}\n       To: %^{To:|NFCU Svgs|NFCU Chkg|Fifth-Third Chk}\n   Amount: $%^{Amount $}\n  Confirm: %^{Confirmation #}\n")
         ("p" "Password" entry
          (file+olp "~/org/passwords.gpg" "Passwords")
          "* %^{Title}\n  :PROPERTIES:\n  :Update:   %u\n  :Url:      %^{Url}p\n  :Username: %^{Username}p\n  :Password: %^{Password}p\n  :Notes:    %^{Notes}p\n  :END:\n")))
