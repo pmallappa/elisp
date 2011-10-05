@@ -51,7 +51,7 @@
 (defconst MY_PROXY_USER (getenv "user")
   "http proxy username, taken from user env variable")
 
-(defvar MY_DEFAULT_WIDTH 132)
+(defvar MY_DEFAULT_WIDTH 134)
 
 ;;=====================================================================
 ;; select your preferred programs for html and media here

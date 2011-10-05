@@ -29,9 +29,9 @@
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/org/journal.org")
- (front-context-string . "** Paid AT&T <20")
- (rear-context-string . "id through NFCU\n")
- (position . 97313))
+ (front-context-string . "** TODO Contact ")
+ (rear-context-string . "22 Thu 14:19>]]\n")
+ (position . 93165))
 ("webjump"
  (filename . "~/Emacs-pkgs/emacs-webjump.el")
  (front-context-string . ";;;_.===========")

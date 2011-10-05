@@ -58,6 +58,7 @@
      ("panix mail"        . "https://mail.panix.com/src/login.php")
      ("patent"            . "http://www.google.com/patents?vid=USPAT6029175&id=esMDAAAAEBAJ&pg=PA3&dq=6,029,175#v=onepage&q&f=false")
      ("router"            . "http://192.168.1.1") ; admin/vlCAP
+     ("scrabble"          . "http://www.scrabble-word-finder.com/scrabble-solver.html")
      ("slacker radio"     . "http://www.slacker.com/")
      ("snopes"            . "http://www.snopes.com")
      ("stevebrown"        . "http://www.stevebrownetc.com")
