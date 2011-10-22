@@ -29,9 +29,9 @@
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/org/journal.org")
- (front-context-string . "** TODO Generate")
- (rear-context-string . "ssons learned]]\n")
- (position . 97159))
+ (front-context-string . "** Demo Scenario")
+ (rear-context-string . "able types     \n")
+ (position . 99869))
 ("webjump"
  (filename . "~/Emacs-pkgs/emacs-webjump.el")
  (front-context-string . ";;;_.===========")
