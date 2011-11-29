@@ -5,8 +5,8 @@
 (require 'dired)
 
 ;;======================================================================
-;; Use the Recycle Bin when deleting from dired
-(setq delete-by-moving-to-trash t)
+;; Use the Recycle Bin when deleting from dired (t)
+(setq delete-by-moving-to-trash nil)
 
 ;;======================================================================
 ;; Let dired guess the target directory

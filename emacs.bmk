@@ -29,9 +29,9 @@
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/org/journal.org")
- (front-context-string . "** Paid Scherr F")
- (rear-context-string . "urniture rental\n")
- (position . 112982))
+ (front-context-string . "** Purchased Par")
+ (rear-context-string . "928C\n     :END:\n")
+ (position . 158544))
 ("webjump"
  (filename . "~/Emacs-pkgs/emacs-webjump.el")
  (front-context-string . ";;;_.===========")
