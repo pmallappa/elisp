@@ -26,7 +26,7 @@ The default value is the same as the primary monitor")
 (defvar cmframe-windowmgr-offset 30
   "Arbitrary offset in pixels to allow for the Window Manager title height")
 
-(defvar cmframe-top-margin 5
+(defvar cmframe-top-margin 15
   "Number of pixels to place the frame from the top of the screen")
 
 (defvar cmframe-horizontal-margin 15

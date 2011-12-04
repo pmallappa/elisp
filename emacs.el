@@ -145,22 +145,26 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))      ; no menubar
 
 ; set colors
-(defconst MY_BG_COLOR "gray15")
+(defconst MY_BG_COLOR "gray13")
 (set-face-foreground 'default "NavajoWhite3")
 (set-face-background 'default MY_BG_COLOR)
 
 (set-face-background 'fringe  MY_BG_COLOR)
-(set-face-background 'region  "gray35")
+(set-face-background 'region  "gray30")
 (set-face-background 'hl-line "gray12")
 
-(set-face-foreground 'mode-line "gray75")
-(set-face-background 'mode-line "gray25")
-(set-face-attribute  'mode-line nil :box "gray60")
-
 (set-face-attribute  'mode-line
-                     nil :background "gray30" :box '(:line-width 1 :style released-button))
-(set-face-attribute  'mode-line-inactive nil
-                     :foreground "gray45" :background MY_BG_COLOR :box '(:line-width 1))
+                     nil 
+                     :foreground "gray70"
+                     :background "gray30" 
+                     :box '(:line-width 1 :style released-button))
+(set-face-attribute  'mode-line-inactive
+                     nil 
+                     :foreground "gray40"
+                     :background MY_BG_COLOR 
+                     :box '(:line-width 1 :style released-button))
+
+;                     :foreground "gray45" :background MY_BG_COLOR :box '(:line-width 1))
 
 ;;=====================================================================
 ;; load path for various single-file packages
