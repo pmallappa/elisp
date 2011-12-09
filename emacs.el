@@ -127,8 +127,8 @@
 
 ;; (set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
 ;; in emacs-frame.el, you can use C-c t to toggle transparency
-(set-frame-parameter (selected-frame) 'alpha '(95 50))
-(add-to-list 'default-frame-alist '(alpha 95 50))
+(set-frame-parameter (selected-frame) 'alpha '(85 85))
+(add-to-list 'default-frame-alist '(alpha 85 85))
 
 ; Syntax highlighting
 (global-font-lock-mode t)
@@ -155,12 +155,12 @@
 
 (set-face-attribute  'mode-line
                      nil 
-                     :foreground "gray70"
-                     :background "gray30" 
+                     :foreground "gray80"
+                     :background "gray25" 
                      :box '(:line-width 1 :style released-button))
 (set-face-attribute  'mode-line-inactive
                      nil 
-                     :foreground "gray40"
+                     :foreground "gray30"
                      :background MY_BG_COLOR 
                      :box '(:line-width 1 :style released-button))
 

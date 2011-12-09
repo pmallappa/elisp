@@ -29,9 +29,9 @@
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/org/journal.org")
- (front-context-string . "** Purchased Par")
- (rear-context-string . "928C\n     :END:\n")
- (position . 158544))
+ (front-context-string . "** Transferred M")
+ (rear-context-string . "Confirm: 361989\n")
+ (position . 107467))
 ("webjump"
  (filename . "~/Emacs-pkgs/emacs-webjump.el")
  (front-context-string . ";;;_.===========")
