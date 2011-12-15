@@ -3,8 +3,8 @@
 @setfilename ../../info/orgguide
 @settitle The compact Org-mode Guide
 
-@set VERSION 7.6
-@set DATE July 2011
+@set VERSION 7.8.02
+@set DATE December 2011
 
 @c Use proper quote and backtick for code sections in PDF output
 @c Cf. Texinfo manual 14.2
@@ -2676,10 +2676,6 @@ manual}@*
 @uref{http://orgmode.org/orgcard.pdf,Key reference card}}
 
 @bye
-
-@ignore
-        arch-tag: 8f0a8557-0acc-4436-b2b2-0197699e1452
-@end ignore
 
 @c Local variables:
 @c fill-column: 77

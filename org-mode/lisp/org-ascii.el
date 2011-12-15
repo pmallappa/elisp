@@ -1,12 +1,10 @@
 ;;; org-ascii.el --- ASCII export for Org-mode
 
-;; Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009, 2010
-;;   Free Software Foundation, Inc.
+;; Copyright (C) 2004-2011 Free Software Foundation, Inc.
 
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;; Keywords: outlines, hypermedia, calendar, wp
 ;; Homepage: http://orgmode.org
-;; Version: 7.6
 ;;
 ;; This file is part of GNU Emacs.
 ;;
@@ -108,9 +106,10 @@ utf8      Use all UTF-8 characters")
 
 ;;;###autoload
 (defun org-export-as-utf8 (&rest args)
-  "Like `org-export-as-ascii', use use encoding for special symbols."
+  "Like `org-export-as-ascii', use encoding for special symbols."
   (interactive)
-  (org-export-as-encoding 'org-export-as-ascii (org-called-interactively-p)
+  (org-export-as-encoding 'org-export-as-ascii 
+			  (org-called-interactively-p 'any)
 			  'utf8 args))
 
 ;;;###autoload
@@ -145,7 +144,7 @@ command to convert it."
   (interactive "r")
   (let (reg ascii buf pop-up-frames)
     (save-window-excursion
-      (if (org-mode-p)
+      (if (eq major-mode 'org-mode)
 	  (setq ascii (org-export-region-as-ascii
 		      beg end t 'string))
 	(setq reg (buffer-substring beg end)
@@ -284,7 +283,7 @@ publishing directory."
 		    "UNTITLED"))
 	 (email (plist-get opt-plist :email))
 	 (language (plist-get opt-plist :language))
-	 (quote-re0 (concat "^[ \t]*" org-quote-string "\\>"))
+	 (quote-re0 (concat "^\\(" org-quote-string "\\)\\( +\\|[ \t]*$\\)"))
 	 (todo nil)
 	 (lang-words nil)
 	 (region
@@ -407,7 +406,7 @@ publishing directory."
 				   txt))
 			     (setq txt (replace-match "" t t txt)))
 			 (if (string-match quote-re0 txt)
-			     (setq txt (replace-match "" t t txt)))
+			     (setq txt (replace-match "" t t txt 1)))
 
 			 (if org-export-with-section-numbers
 			     (setq txt (concat (org-section-number level)
@@ -427,7 +426,7 @@ publishing directory."
 
     (org-init-section-numbers)
     (while (setq line (pop lines))
-      (when (and link-buffer (string-match "^\\*+ " line))
+      (when (and link-buffer (string-match org-outline-regexp-bol line))
 	(org-export-ascii-push-links (nreverse link-buffer))
 	(setq link-buffer nil))
       (setq wrap nil)
@@ -628,7 +627,9 @@ publishing directory."
       (save-match-data
 	(if (save-excursion
 	      (re-search-backward
-	       "^\\(\\([ \t]*\\)\\|\\(\\*+ \\)\\)[^ \t\n]" nil t))
+	       (concat "^\\(\\([ \t]*\\)\\|\\("
+		       org-outline-regexp
+		       "\\)\\)[^ \t\n]") nil t))
 	    (setq ind (or (match-string 2)
 			  (make-string (length (match-string 3)) ?\ )))))
       (mapc (lambda (x) (insert ind "[" (car x) "]: " (cdr x) "\n"))
@@ -723,5 +724,4 @@ publishing directory."
 
 (provide 'org-ascii)
 
-;; arch-tag: aa96f882-f477-4e13-86f5-70d43e7adf3c
 ;;; org-ascii.el ends here

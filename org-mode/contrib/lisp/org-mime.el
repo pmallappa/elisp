@@ -1,11 +1,13 @@
 ;;; org-mime.el --- org html export for text/html MIME emails
 
-;; Copyright (C) 2010 Eric Schulte
+;; Copyright (C) 2010-2011 Eric Schulte
 
 ;; Author: Eric Schulte
 ;; Keywords: mime, mail, email, html
 ;; Homepage: http://orgmode.org/worg/org-contrib/org-mime.php
 ;; Version: 0.01
+
+;; This file is not part of GNU Emacs.
 
 ;;; License:
 
@@ -203,6 +205,8 @@ export that region, otherwise export the entire body."
          (org-export-htmlize-output-type 'inline-css)
          ;; makes the replies with ">"s look nicer
          (org-export-preserve-breaks org-mime-preserve-breaks)
+	 ;; dvipng for inline latex because MathJax doesn't work in mail
+	 (org-export-with-LaTeX-fragments "dvipng")
          ;; to hold attachments for inline html images
          (html-and-images
           (org-mime-replace-images

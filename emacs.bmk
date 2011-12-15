@@ -29,9 +29,9 @@
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/org/journal.org")
- (front-context-string . "** Transferred M")
- (rear-context-string . "Confirm: 361989\n")
- (position . 107467))
+ (front-context-string . "** TODO Create a")
+ (rear-context-string . "2-11 Sun 08:48]\n")
+ (position . 99688))
 ("webjump"
  (filename . "~/Emacs-pkgs/emacs-webjump.el")
  (front-context-string . ";;;_.===========")

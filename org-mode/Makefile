@@ -11,6 +11,7 @@
 ##----------------------------------------------------------------------
 
 # Name of your emacs binary
+#EMACS=emacs
 EMACS=/Applications/Emacs.app/Contents/MacOS/Emacs
 
 # Where local software is found
@@ -96,6 +97,7 @@ LISPF      = 	org.el			\
 		org-irc.el		\
 		org-latex.el		\
 		org-list.el		\
+		org-lparse.el		\
 		org-mac-message.el	\
 	     	org-macs.el		\
 		org-mew.el              \
@@ -103,6 +105,7 @@ LISPF      = 	org.el			\
 		org-mks.el		\
 		org-mobile.el		\
 		org-mouse.el		\
+		org-odt.el		\
 		org-publish.el		\
 		org-plot.el		\
 		org-protocol.el		\
@@ -156,7 +159,12 @@ LISPF      = 	org.el			\
 		ob-plantuml.el		\
 		ob-org.el		\
 		ob-js.el		\
-		ob-scheme.el
+		ob-scheme.el		\
+		ob-lilypond.el		\
+		ob-java.el		\
+		ob-shen.el		\
+		ob-fortran.el		\
+		ob-picolisp.el
 
 LISPFILES0  = $(LISPF:%=lisp/%)
 LISPFILES   = $(LISPFILES0) lisp/org-install.el
@@ -181,13 +189,14 @@ PKG_FILES = $(LISPFILES0)		\
             doc/orgguide.pdf		\
             doc/orgcard.tex		\
             doc/orgcard.pdf		\
-            doc/orgcard_letter.pdf
+            doc/orgcard_letter.pdf	\
+            etc/
 
 .SUFFIXES: .el .elc .texi
 SHELL = /bin/sh
 
 # Additional distribution files
-DISTFILES_extra=  Makefile request-assign-future.txt contrib
+DISTFILES_extra=  Makefile request-assign-future.txt contrib etc
 
 default: $(ELCFILES) $(ELCBFILES)
 
@@ -221,21 +230,17 @@ install-lisp: $(LISPFILES) $(ELCFILES)
 install-info: $(INFOFILES)
 	if [ ! -d $(infodir) ]; then $(MKDIR) $(infodir); else true; fi ;
 	$(CP) $(INFOFILES) $(infodir)
-	$(INSTALL_INFO) --info-file=$(INFOFILES) --info-dir=$(infodir)
-
-install-info-debian: $(INFOFILES)
 	$(INSTALL_INFO) --infodir=$(infodir) $(INFOFILES)
 
 autoloads: lisp/org-install.el
 
 lisp/org-install.el: $(LISPFILES0) Makefile
 	$(BATCH) --eval "(require 'autoload)" \
-		--eval '(find-file "org-install.el")'  \
+		--eval '(find-file "lisp/org-install.el")'  \
 		--eval '(erase-buffer)' \
-		--eval '(mapc (lambda (x) (generate-file-autoloads (symbol-name x))) (quote ($(LISPFILES0))))' \
+		--eval '(mapc (lambda (x) (generate-file-autoloads (symbol-name x))) (quote ($(LISPF))))' \
 		--eval '(insert "\n(provide (quote org-install))\n")' \
 		--eval '(save-buffer)'
-	mv org-install.el lisp
 
 doc/org: doc/org.texi
 	(cd doc && $(MAKEINFO) --no-split org.texi -o org)
@@ -443,15 +448,15 @@ cleanrel:
 
 
 push:
-	git-push orgmode@orgmode.org:org-mode.git master
+	git push orgmode@orgmode.org:org-mode.git master
 
 pushtag:
-	git-tag -m "Adding tag" -a $(TAG)
-	git-push orgmode@orgmode.org:org-mode.git $(TAG)
+	git tag -m "Adding tag" -a $(TAG)
+	git push orgmode@orgmode.org:org-mode.git $(TAG)
 
 pushreleasetag:
-	git-tag -m "Adding release tag" -a release_$(TAG)
-	git-push orgmode@orgmode.org:org-mode.git release_$(TAG)
+	git tag -m "Adding release tag" -a release_$(TAG)
+	git push orgmode@orgmode.org:org-mode.git release_$(TAG)
 
 # Dependencies
 
@@ -492,6 +497,7 @@ lisp/org-inlinetask.elc:
 lisp/org-irc.elc:	lisp/org.el
 lisp/org-jsinfo.elc:	lisp/org.el lisp/org-exp.el
 lisp/org-list.elc:	lisp/org-macs.el lisp/org-compat.el
+lisp/org-lparse.elc:	lisp/org-exp.el
 lisp/org-mac-message.elc:	lisp/org.el
 lisp/org-macs.elc:
 lisp/org-mew.elc:	lisp/org.el
@@ -499,6 +505,7 @@ lisp/org-mhe.elc:	lisp/org.el
 lisp/org-mks.elc:
 lisp/org-mobile.elc:	lisp/org.el
 lisp/org-mouse.elc:	lisp/org.el
+lisp/org-odt.elc:	lisp/org-lparse.el
 lisp/org-plot.elc:	lisp/org.el lisp/org-exp.el lisp/org-table.el
 lisp/org-publish.elc:
 lisp/org-protocol.elc:	lisp/org.el
@@ -529,4 +536,3 @@ targets help:
 	@echo "make install - install Org"
 	@echo "make install-lisp - install Org ELisp files"
 	@echo "make install-info - install Org Info file"
-	@echo "make install-info-debian - install info on old debian systems (newer use ginstall)"

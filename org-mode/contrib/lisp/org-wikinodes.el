@@ -1,6 +1,6 @@
 ;;; org-wikinodes.el --- Wiki-like CamelCase links to outline nodes
 
-;; Copyright (C) 2010  Free Software Foundation, Inc.
+;; Copyright (C) 2010-2011 Free Software Foundation, Inc.
 
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;; Keywords: outlines, hypermedia, calendar, wp
@@ -155,7 +155,7 @@ setting of `org-wikinodes-create-targets'."
        ((stringp create)
 	;; Make new node in another file
 	(org-mark-ring-push (point))
-	(switch-to-buffer (find-file-noselect create))
+	(org-pop-to-buffer-same-window (find-file-noselect create))
 	(goto-char (point-max))
 	(or (bolp) (newline))
 	(insert "\n* " target "\n")
@@ -333,7 +333,5 @@ with working links."
 	  'org-wikinodes-add-to-font-lock-keywords)
 
 (provide 'org-wikinodes)
-
-;; arch-tag: e3b56e38-a2be-478c-b56c-68a913ec54ec
 
 ;;; org-wikinodes.el ends here
