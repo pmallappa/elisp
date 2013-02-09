@@ -1,6 +1,10 @@
 ;;;_.======================================================================
 ;;;_. set the frame variables and support functions
 (require 'cm-frame)
+
+; adjust the top position of the frame
+(setq cmframe-top-margin 25)
+
 ; is there a secondary monitor to the right of the primary?
 (setq cmframe-monitor2-p 'nil)
 
@@ -29,7 +33,21 @@
   (interactive "nTransparency Value 0 (transparent) to 100 (opaque): ")
   (set-frame-parameter (selected-frame) 'alpha value))
 
+;; toggle full screen (for mac version)
+(defun toggle-fullscreen ()
+  "Toggles emacs fullscreen mode.
+For Homebrew emacs (OSX), will use a true fullscreen mode,
+otherwise, it will enlarge the frame"
+  (interactive)
+  (if (eq system-type 'darwin)
+      (ns-toggle-fullscreen)
+  (frame-enlarge)))
+
+
+;; adjust the frame to fit the current resolution on launching
 (add-hook 'window-setup-hook 'frame-adjust t)
+
+
 
 (provide 'emacs-frame)
 

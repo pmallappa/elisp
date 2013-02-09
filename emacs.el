@@ -108,27 +108,38 @@
 
 ;;==============================
 ;; size, colors and fonts
+;; abcedfghijklmnopqrstuvwxyz
+;; ABCEDFGHIJKLMNOPQRSTUVWXYZ
+;; 0123456789
 (setq default-frame-alist
       `((menu-bar-lines . 0)
 	(tool-bar-lines . 0)))
 
 (if (eq system-type 'darwin)
-    (add-to-list 'default-frame-alist '(font . "Bitstream Vera Sans Mono-12"))
+    ; darwin
+    (add-to-list 'default-frame-alist '(font .  "Bitstream Vera Sans Mono-14"))
+  ; not darwin
   (add-to-list 'default-frame-alist '(font . "Consolas-10")))
+
+; good for experimenting with faces
+;(set-face-font 'default "Menlo-13")
 
 ; copy to the default frame alist
 (setq initial-frame-alist default-frame-alist)
 
 ; now modify the initial frame sizes
-(add-to-list 'initial-frame-alist '(top    .   5))
+(add-to-list 'initial-frame-alist '(top    .   8))
 (add-to-list 'initial-frame-alist '(left   .  -5))
 (add-to-list 'initial-frame-alist '(width  . 132))
-(add-to-list 'initial-frame-alist '(height .  80))
+(add-to-list 'initial-frame-alist '(height .  78))
+
+; increase the space between lines
+(setq-default line-spacing 0)
 
 ;; (set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
 ;; in emacs-frame.el, you can use C-c t to toggle transparency
-(set-frame-parameter (selected-frame) 'alpha '(85 85))
-(add-to-list 'default-frame-alist '(alpha 85 85))
+(set-frame-parameter (selected-frame) 'alpha '(100 100))
+(add-to-list 'default-frame-alist '(alpha 100 100))
 
 ; Syntax highlighting
 (global-font-lock-mode t)
@@ -145,26 +156,33 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))      ; no menubar
 
 ; set colors
-(defconst MY_BG_COLOR "gray13")
+(defconst MY_BG_COLOR "#1d1e19")
 (set-face-foreground 'default "NavajoWhite3")
 (set-face-background 'default MY_BG_COLOR)
 
 (set-face-background 'fringe  MY_BG_COLOR)
-(set-face-background 'region  "gray30")
-(set-face-background 'hl-line "gray12")
+(set-face-background 'region  "#39382f")
+(set-face-background 'hl-line "#121310")
 
 (set-face-attribute  'mode-line
                      nil 
+                     :family "Arial"
+                     :height 130
+                     :width `normal'
+                     :weight `medium'
                      :foreground "gray80"
                      :background "gray25" 
                      :box '(:line-width 1 :style released-button))
+
 (set-face-attribute  'mode-line-inactive
                      nil 
-                     :foreground "gray30"
+                     :family "Arial"
+                     :height 130
+                     :width `normal'
+                     :weight `medium'
+                     :foreground "gray40"
                      :background MY_BG_COLOR 
                      :box '(:line-width 1 :style released-button))
-
-;                     :foreground "gray45" :background MY_BG_COLOR :box '(:line-width 1))
 
 ;;=====================================================================
 ;; load path for various single-file packages
@@ -178,11 +196,17 @@
 (setq backup-directory-alist (quote ((".*" . "~/.backups"))))
 
 ;;=====================================================================
+;; Set the environmental path 
+(setq exec-path '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin"))
+
+;;=====================================================================
 ;; Load the customize configurations files
-(require 'emacs-bbdb)      ; bbdb address book
+(require 'emacs-org)       ; emacs org mode settings
+;(require 'emacs-bbdb)      ; bbdb address book
 (require 'emacs-bm)        ; bookmark enhancements
 (require 'emacs-bs)        ; buffer switch setting
 (require 'emacs-calendar)  ; calendar settings
+(require 'emacs-calfw)     ; enhanced calendar
 (require 'emacs-dired)     ; dired settings
 (require 'emacs-epa)       ; emacs gpg encryption settings
 (require 'emacs-frame)     ; customized frame functions
@@ -190,7 +214,6 @@
 (require 'emacs-info)      ; add info directories to emacs
 (require 'emacs-macros)    ; various macros and functions
 (require 'emacs-misc)      ; various settings
-(require 'emacs-org)       ; emacs org mode settings
 (require 'emacs-undo)      ; Tree-based undo visualizetions
 (require 'emacs-w3m)       ; w3m web browser settings
 (require 'emacs-webjump)   ; webjump settings

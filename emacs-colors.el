@@ -41,4 +41,23 @@
     (set-face-attribute face nil :weight 'normal))
   (face-list))
 
+(defun decolorize-font-lock ()
+  "remove all colors from font-lock faces except comment and warning"
+  (interactive)
+  (let ((fg (face-attribute 'default :foreground))
+        (bg (face-attribute 'default :background)))
+    (mapc (lambda (face)
+            (when face
+              (set-face-attribute face nil
+                                  :foreground fg
+                                  :background bg)))
+          (mapcar (lambda (f)
+                    (if (and (string-match "^font-lock" (symbol-name f))
+                             (not (string-match "-comment\\|-warning" (symbol-name f))))
+                        f
+                      nil))
+                  (face-list)))))
+
 (provide 'emacs-colors)
+
+

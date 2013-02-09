@@ -21,10 +21,17 @@
 (auto-compression-mode t)
 
 ;; Set the ls switches
-(setq dired-listing-switches "-la")
+(setq dired-listing-switches "-l")
+(setq dired-use-ls-dired nil)
 
-;; dired-a provides support functions, including archiving, for dired
+;;======================================================================
+;; dired-a 
+;; dired-a provides added functions to dired, including recursive
+;; copy and delete (to handle entire directories) and archiving
 (load "dired-a")
+
+(setq dired-recursive-deletes 'always)
+(setq dired-recursive-copies  'always)
 
 ;; Alist with information how to add files to an archive (from dired-a)
 ;; Each element has the form (REGEXP ADD-CMD NEW-CMD). If REGEXP matches
@@ -124,14 +131,6 @@
 (setq auto-mode-alist (cons '("[^/]\\.dired$" . dired-virtual-mode) auto-mode-alist))
 
 
-;;======================================================================
-;; dired-a 
-;; dired-a provides added functions to dired, including recursive
-;; copy and delete (to handle entire directories)
-(setq dired-recursive-deletes 'always)
-(setq dired-recursive-copies  'always)
-
-
 ;;;======================================================================
 ;;; ls-lisp
 ;;; load the new ls-lisp file package, which emulates the ls command
@@ -142,16 +141,16 @@
 ;	    (load "ls-lisp")
 ;	    (require 'dired-sort-menu)))
 ;
-;;; set the ls-lisp emulation for the window system. Use this to set
-;;; default values for ls-lisp-ignore-case, ls-lisp-dirs-first, and
-;;; ls-lisp-verbosity 
-;(setq ls-lisp-emulation 'MS-Windows)
-;
 ;;; sort the dired buffer to place the directories on top (t)
 ;(setq ls-lisp-dirs-first t)
 ;
 ;;; sort without regard to case (t)
 ;(setq ls-lisp-ignore-case t)
+;
+;;; set the ls-lisp emulation for the window system. Use this to set
+;;; default values for ls-lisp-ignore-case, ls-lisp-dirs-first, and
+;;; ls-lisp-verbosity 
+;(setq ls-lisp-emulation 'MS-Windows)
 ;
 ;;; display the following optional file attributes
 ;;(setq ls-lisp-verbosity '(links uid))

@@ -1,7 +1,7 @@
 ;;;_.============================================================
 ;;;_. Org mode personal organizer
 (add-to-list 'load-path
-            (expand-file-name (concat EMACS_PKGS "/org-mode/lisp")))
+            (expand-file-name (concat EMACS_PKGS "/org-7.8.09/lisp")))
 
 ; this one is necessary for the org-mediawiki option
 ;(add-to-list 'load-path
@@ -40,21 +40,21 @@
         ("a" "Appointment" entry
          (file+olp "~/org/journal.org" "Appointments")
          "* %^{Brief Description} %^T %^g\n  %i%?\n  %a")
-        ("j" "Journal" entry
-         (file+olp "~/org/journal.org" "Journal")
-         "* %^{Brief Description} %T %^g\n  %i%?\n  %a")
+;        ("j" "Journal" entry
+;         (file+olp "~/org/journal.org" "Journal")
+;         "* %^{Brief Description} %T %^g\n  %i%?\n  %a")
         ("n" "Note" entry
          (file+olp "~/org/journal.org" "Notes")
          "* %^{Brief Description} %T %^g\n  %i%?\n  %a")
         ("b" "Bill" entry
          (file+olp "~/org/journal.org" "Bills")
-         "* Paid %^{Bill Paid|AT&T|SMECO|Matrix|Spyglass|USAA Auto Ins|USAA Master Card} %T\n   Amount: $%^{Amount $}\n   Source: %^{Source Acct|NFCU chkg|Fifth-Third chkg}\n  Confirm: %^{Confirmation #}\n    Notes: %^{Notes}\n")
+         "* Paid %^{Bill Paid|AT&T|Matrix|USAA Auto Ins|USAA Master Card} %T\n   Amount: $%^{Amount $}\n   Source: %^{Source Acct|NFCU chkg|Fifth-Third chkg}\n  Confirm: %^{Confirmation #}\n    Notes: %^{Notes}\n")
         ("f" "Funds" entry
          (file+olp "~/org/journal.org" "Funds")
          "* Transferred Money %T\n     From: %^{Transferred From:|NFCU Chkg|NFCU Svgs|Fifth-Third Chkg}\n       To: %^{To:|NFCU Svgs|NFCU Chkg|Fifth-Third Chk}\n   Amount: $%^{Amount $}\n  Confirm: %^{Confirmation #}\n")
         ("p" "Password" entry
          (file+olp "~/org/passwords.gpg" "Passwords")
-         "* %^{Title}\n  :PROPERTIES:\n  :Update:   %u\n  :Url:      %^{Url}p\n  :Username: %^{Username}p\n  :Password: %^{Password}p\n  :Notes:    %^{Notes}p\n  :END:\n")))
+         "* %^{Title}\n  :PROPERTIES:\n  :Update:   %u\n  :Url:      %^{Url}\n  :Username: %^{Username}\n  :Password: %^{Password}\n  :Notes:    %^{Notes}\n  :END:")))
 
 ;;;_.============================================================
 ;;;_. various settings
@@ -74,8 +74,9 @@
        (concat HOME_DIR "/org/fun.org")
        (concat HOME_DIR "/org/journal.org")
        (concat HOME_DIR "/org/reference.org")
-       ;(concat HOME_DIR "/org/passwords.gpg")
-       (concat HOME_DIR "/org/Xetron.org")))
+;       (concat HOME_DIR "/org/passwords.gpg")
+       (concat HOME_DIR "/org/rescheds.org")))
+       ;(concat HOME_DIR "/org/Xetron.org")))
 
 ;;;_.============================================================
 ;;;_. Set up the keys
@@ -116,28 +117,25 @@
           (todo))
          ((org-agenda-start-on-weekday 1)) ; start on Monday
          ("~/.org-agenda.txt"))
-        ("n" "Agenda and Navy-related tasks"
-         ((agenda)
-          (tags-todo "Navy")))
-        ("x" "Agenda and Xetron-related tasks"
-         ((agenda)
-          (tags-todo "xetron")))
-        ("o" "Agenda and all open tasks"
-         ((agenda)
-          (todo "OPEN")))
-        ("c" "Calendar Agenda"
-         ((agenda)
-          (todo))
-         ((org-agenda-ndays 7)
-          (org-agenda-remove-tags t)
-          (org-agenda-start-on-weekday 1) ; start on Monday
-          (org-agenda-entry-types '(:timestamp :sexp))
-          (org-agenda-prefix-format " %-12:t ")
-          (org-deadline-warning-days 0)
-          (org-agenda-include-all-todo nil)
-          (org-agenda-repeating-timestamp-show-all t)
-          (org-agenda-filter-preset '("-nocal1"))
-          (org-agenda-hide-tags-regexp ".*")))
+;        ("n" "Agenda and Navy-related tasks"
+;         ((agenda)
+;          (tags-todo "Navy")))
+;        ("o" "Agenda and all open tasks"
+;         ((agenda)
+;          (todo "OPEN")))
+;        ("c" "Calendar Agenda"
+;         ((agenda)
+;          (todo))
+;         ((org-agenda-ndays 7)
+;          (org-agenda-remove-tags t)
+;          (org-agenda-start-on-weekday 1) ; start on Monday
+;          (org-agenda-entry-types '(:timestamp :sexp))
+;          (org-agenda-prefix-format " %-12:t ")
+;          (org-deadline-warning-days 0)
+;          (org-agenda-include-all-todo nil)
+;          (org-agenda-repeating-timestamp-show-all t)
+;          (org-agenda-filter-preset '("-nocal1"))
+;          (org-agenda-hide-tags-regexp ".*")))
         ))
 
 ;; To use the GeekTool agenda from a command line, put the following

@@ -2,26 +2,26 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("links"
- (filename . "/Volumes/JAVA_LIB01/.links.txt")
+(("JAVA_LIB00"
+ (filename . "/Volumes/JAVA_LIB00/")
+ (front-context-string . "Amateur bondage ")
+ (rear-context-string . "01 Oct  9 21:53 ")
+ (position . 127))
+("links.org"
+ (filename . "/Volumes/JAVA_LIB00/links.org")
  (front-context-string . "# -*- mode: org;")
  (rear-context-string)
  (position . 1))
-("Navy_2011"
- (filename . "~/Navy/Navy_2011/")
- (front-context-string . ".DS_Store\n  drwx")
- (rear-context-string . "64 May 20 18:38 ")
- (position . 249))
-("XBMC"
- (filename . "/Volumes/Seagate_1TB/XBMC/")
- (front-context-string . ".DS_Store\n  drwx")
- (rear-context-string . "92 Jun  6 17:59 ")
- (position . 243))
-("JAVA_LIB01"
- (filename . "/Volumes/JAVA_LIB01/")
- (front-context-string . ".Trashes\n  -rwxr")
- (rear-context-string . "92 Mar 24 22:05 ")
- (position . 230))
+("Navy_2012"
+ (filename . "~/Navy/Navy_2012/")
+ (front-context-string . "01.January\n  drw")
+ (rear-context-string . "36 Feb 12  2012 ")
+ (position . 137))
+("Dropbox"
+ (filename . "~/Dropbox/")
+ (front-context-string . "Apt_Inventory\n  ")
+ (rear-context-string . "98 Aug 25  2011 ")
+ (position . 135))
 ("dwhelper"
  (filename . "~/dwhelper/")
  (front-context-string . "Good Morning.flv")
@@ -29,9 +29,9 @@
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/org/journal.org")
- (front-context-string . "** TODO Create a")
- (rear-context-string . "2-11 Sun 08:48]\n")
- (position . 99688))
+ (front-context-string . "** Followed up o")
+ (rear-context-string . ", pay for state\n")
+ (position . 24892))
 ("webjump"
  (filename . "~/Emacs-pkgs/emacs-webjump.el")
  (front-context-string . ";;;_.===========")

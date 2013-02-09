@@ -68,7 +68,7 @@ desired
 If the size of the frame exceeds the screen width, shrink to fit the screen"
   ; standard or enlarged frame? Use 3x the margin for slop
   (if (is-enlarged)
-      (pixels-to-cols (- screen-width (* 2 cmframe-horizontal-margin)))
+      (pixels-to-cols (- screen-width (* 3 cmframe-horizontal-margin)))
 
     ; standard frame, but test to ensure the default number of columns
     ; will fit. If it's too big, use enlarged size, which recalculates

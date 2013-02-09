@@ -203,6 +203,22 @@
 
 
 ;;;_.======================================================================
+;;;_. For Mac users, swap the command and option keys between mac and windows keyboards
+(defun swap-meta-and-super ()
+  "Swap the mapping of meta and super. Very useful for people using their Mac
+with a Windows external keyboard from time to time."
+  (interactive)
+  (if (eq mac-command-modifier 'super)
+      (progn
+        (setq mac-command-modifier 'meta)
+        (setq mac-option-modifier 'super)
+        (message "Command is now bound to META and Option is bound to SUPER."))
+    (progn
+      (setq mac-command-modifier 'super)
+      (setq mac-option-modifier 'meta)
+      (message "Command is now bound to SUPER and Option is bound to META."))))
+
+;;;_.======================================================================
 ;;;_. get the IP address of the current machine
 ;; unix version
 (defun get-ip-address (&optional dev)
@@ -222,16 +238,16 @@
   "Mount the truecrypt favorite volumes"
   (interactive)
   (shell-command
-   (concat "/Applications/Utilities/TrueCrypt.app/Contents/MacOS/TrueCrypt"
+   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
 	   " --auto-mount=favorites"
 	   " --password=\"" (read-passwd "Passphrase: ") "\"")))
+
 
 (defun tcdmount ()
   "Unmount the truecrypt favorite volumes"
   (interactive)
   (shell-command
-   "/Applications/Utilities/TrueCrypt.app/Contents/MacOS/TrueCrypt --dismount"))
-
+   "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt --dismount"))
 
 ;;;_.======================================================================
 ;;;_. ignore case in file and buffer name completions

@@ -16,8 +16,7 @@
 
 ; column at which w3m buffer will wrap. Set to negative to set fill
 ; column n places from the right of the visible window
-;(setq w3m-fill-column 250)
-(setq w3m-fill-column -10)
+(setq w3m-fill-column 80)
 
 (defadvice w3m-process-filter (before w3m-remember-proxy-login activate)
 "Pass the proxy username and password to w3m"

@@ -44,6 +44,22 @@ nBlue: ")
            ; place into the kill ring for pasting
            (kill-new s)))
 
+;;;_*======================================================================
+;; Convert degrees, minutes and seconds to decimal format.
+;; Place the results into the kill ring for pasting
+(defun deg2dec (deg min sec)
+  "Convert degrees, minutes, seconds to decimal equivilent"
+  (interactive "nDeg: 
+nMin: 
+nSec: ")
+  (let ((s (concat (calc-eval (format "deg(%s@ %s' %s\")" deg min sec)))))
+           (message (concat "DEG:: "
+                            (int-to-string deg) "d "
+                            (int-to-string min) "' "
+                            (int-to-string sec) "\"    Decimal: " s))
+           ; place into the kill ring for pasting
+           (kill-new s)))
+
 ;;;_*;======================================================================
 ;;;_*; automatically color hex color strings
 ;; see http://www.emacswiki.org/cgi-bin/emacs-en/HexColour for details
@@ -793,14 +809,14 @@ paragraphs in the current region into long lines."
 ;;load the page in firefox and save the file name to the clipboard
 ;;| filename | url |
 (fset 'loadvideo
-   [tab ?\C-  ?\M-e ?\M-w tab ?\M-x ?f ?x return return ?\C-a])
+   [?\C-a tab ?\C-  ?\M-e ?\M-w tab ?\C-c ?\C-o ?\C-a])
 
 ;; Create a file link in org mode to the current dired file 
-;; Link listing on top, dired on bottom frame
-;;| filename | url |
-(fset 'linkfile
-   [?\C-a tab ?\C-f ?\C-b ?\C-x ?o ?\C-  ?\C-e ?\C-b ?\C-b ?\C-b ?\C-b ?\M-w ?\C-c ?l ?\C-x ?o ?\C-c ?\C-l ?\M-p return ?\C-a ?\C-y ?\C-k return ?  ?  ?\C-a tab ?\C-a ?\C-n ?\C-x ?o ?\C-n ?\C-x ?o])
-
+;; Two buffers showing: org file listing, and dired listing with files to link
+;; Start with the cursor on the filename in the dired buffer
+;; | filename | url |
+(fset 'filevid
+   [?\C-c ?l ?\C-  ?\C-e ?\M-b ?\C-b ?\M-w ?\C-x ?o ?\M-< ?\C-s ?\C-y ?\C-a tab ?\C-c ?\C-l ?\M-p return ?\C-a ?\C-y ?\C-k return ?\C-  ?\M-e ?\C-w ?\C-a ?\C-  ?\C-e ?\C-a ?\C-x ?o ?\C-n])
 
 (provide 'emacs-macros)
 

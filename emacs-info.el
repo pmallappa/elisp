@@ -17,12 +17,12 @@
 ;       (concat CYGWIN_DIR "/usr/info")
 ;       ))
 
-(add-to-list  'Info-default-directory-list (concat EMACS_PKGS "/info"))
 (cond ((eq system-type 'windows-nt)
       (add-to-list  'Info-default-directory-list "c:/cygwin/usr/share/info")))
 (cond ((eq system-type 'darwin)
       (add-to-list  'Info-default-directory-list "/usr/share/info")))
 
+(add-to-list  'Info-default-directory-list (concat EMACS_PKGS "/info"))
 (setq Info-directory-list Info-default-directory-list)
 
 (provide 'emacs-info)
