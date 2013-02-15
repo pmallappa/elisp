@@ -29,9 +29,9 @@
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/org/journal.org")
- (front-context-string . "** Followed up o")
- (rear-context-string . ", pay for state\n")
- (position . 24892))
+ (front-context-string . "** Completed tax")
+ (rear-context-string . "32fda3][gmail]]\n")
+ (position . 25126))
 ("webjump"
  (filename . "~/Emacs-pkgs/emacs-webjump.el")
  (front-context-string . ";;;_.===========")

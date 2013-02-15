@@ -294,6 +294,15 @@
 (setq appt-display-format 'window)
   ;;(setq appt-disp-window-function (function my-appt-disp-window))
 
+;;======================================================================
+;; change to fixed-pitch font for this buffer
+(add-hook 'org-mode-hook
+          (lambda()
+            (face-remap-add-relative 'default 'fixed-pitch)))
+
+(add-hook 'org-agenda-mode-hook
+          (lambda()
+            (face-remap-add-relative 'default 'fixed-pitch)))
 
 
 (provide 'emacs-org)

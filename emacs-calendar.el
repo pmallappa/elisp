@@ -112,4 +112,10 @@
 (define-key calendar-mode-map "\C-\M-n" 'calendar-forward-year) ; was C-x [
 (define-key calendar-mode-map "\C-\M-p" 'calendar-backward-year) ; was C-x [
 
+;;======================================================================
+;; change to fixed-pitch font for this buffer
+(add-hook 'calendar-mode-hook
+          (lambda()
+            (face-remap-add-relative 'default 'fixed-pitch)))
+
 (provide 'emacs-calendar)

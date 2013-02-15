@@ -117,12 +117,23 @@
 
 (if (eq system-type 'darwin)
     ; darwin
-    (add-to-list 'default-frame-alist '(font .  "Bitstream Vera Sans Mono-14"))
+    (add-to-list 'default-frame-alist '(font .  "Lucida Sans-14"))
   ; not darwin
   (add-to-list 'default-frame-alist '(font . "Consolas-10")))
 
 ; good for experimenting with faces
-;(set-face-font 'default "Menlo-13")
+;(set-face-font 'default "Bitstream Vera Sans Mono-14")
+;(set-face-font 'default "Lucida Sans-14")
+;(set-face-font 'default "Lucida Sans Typewriter-14")
+
+;; Set the default face to the variable pitch using the buffer-face-mode function `variable-pitch-mode
+(set-face-font 'variable-pitch "Lucida Sans-14")
+(set-face-font 'fixed-pitch "Lucida Sans Typewriter-14")
+
+;; To set a buffer type with a fixed-pitch font (such as dired or org), use the following:
+;; (add-hook 'dired-mode-hook
+;;           (lambda()
+;;             (face-remap-add-relative 'default 'fixed-pitch)))
 
 ; copy to the default frame alist
 (setq initial-frame-alist default-frame-alist)

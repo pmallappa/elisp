@@ -206,6 +206,12 @@
 (setq thumbs-per-line 8)
 
 
+;;======================================================================
+;; change to fixed-pitch font for this buffer
+(add-hook 'dired-mode-hook
+          (lambda()
+            (face-remap-add-relative 'default 'fixed-pitch)))
+
 (provide 'emacs-dired)
 
 ;;======================================================================
