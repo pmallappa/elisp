@@ -210,7 +210,7 @@
 ;; change to fixed-pitch font for this buffer
 (add-hook 'dired-mode-hook
           (lambda()
-            (face-remap-add-relative 'default 'fixed-pitch)))
+            (buffer-face-mode-invoke 'fixed-pitch t)))
 
 (provide 'emacs-dired)
 

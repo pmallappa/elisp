@@ -631,6 +631,13 @@ See `variable-pitch-mode' for more details"
   (buffer-face-mode-invoke 'fixed-pitch arg
 			   (called-interactively-p 'interactive)))
 
+(defun toggle-pitch (&optional arg)
+  "Switch between the `fixed-pitch' face and the `variable-pitch' face"
+  (interactive)
+  (if (eq buffer-face-mode-face 'fixed-pitch)
+       (buffer-face-mode-invoke 'variable-pitch arg)
+     (buffer-face-mode-invoke 'fixed-pitch arg)))
+
 ;;;;_*======================================================================
 ;;;;_* follow links from w3 or w3m region buffers (works in vm)
 ;;; thanks to Edward O'Connor <ted@oconnor.cx>
@@ -647,10 +654,10 @@ See `variable-pitch-mode' for more details"
 ;	   (browse-url w3m-h-a))
 ;	  (t
 ;	   (message "Couldn't determine link at point.")))))
-
-;; map this function within vm to the C-j key
-(add-hook 'vm-mode-hook '(lambda ()
-(local-set-key "\C-j" 'ted-follow-link-at-point)))
+;
+;;; map this function within vm to the C-j key
+;(add-hook 'vm-mode-hook '(lambda ()
+;(local-set-key "\C-j" 'ted-follow-link-at-point)))
 
 ;;======================================================================
 ;; Open the current directory in a desktop

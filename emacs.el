@@ -51,7 +51,7 @@
 (defconst MY_PROXY_USER (getenv "user")
   "http proxy username, taken from user env variable")
 
-(defvar MY_DEFAULT_WIDTH 120)
+(defvar MY_DEFAULT_WIDTH 130)
 
 ;;=====================================================================
 ;; select your preferred programs for html and media here
@@ -120,19 +120,22 @@
 (set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-14")
 
 (if (eq system-type 'darwin)
-    (add-to-list 'default-frame-alist '(font . "Menlo-14"))
+    (add-to-list 'default-frame-alist '(font . "Verdana-14"))
   ; not darwin
-  (add-to-list 'default-frame-alist '(font . "Consolas-14")))
+  (add-to-list 'default-frame-alist '(font . "Arial-14")))
 
 ; good for experimenting with faces
 ;(set-face-font 'default "Bitstream Vera Sans Mono-14")
 ;(set-face-font 'default "Verdana-14")
 ;(set-face-font 'default "Menlo-14")
 
+;; enable buffer-face mode to provide buffer-local fonts
+(buffer-face-mode 1)
+
 ;; To set a buffer type with a fixed-pitch font (such as dired or org), use the following:
-;; (add-hook 'dired-mode-hook
-;;           (lambda()
-;;             (face-remap-add-relative 'default 'fixed-pitch)))
+;;(add-hook 'dired-mode-hook
+;;          (lambda()
+;;            (buffer-face-mode-invoke 'fixed-pitch t)))
 
 ; copy to the default frame alist
 (setq initial-frame-alist default-frame-alist)
@@ -176,20 +179,20 @@
 
 (set-face-attribute  'mode-line
                      nil 
-                     :family "Arial"
-                     :height 130
-                     :width `normal'
-                     :weight `medium'
+;                     :family "Arial"
+;                     :height 130
+;                     :width `normal'
+;                     :weight `medium'
                      :foreground "gray80"
                      :background "gray25" 
                      :box '(:line-width 1 :style released-button))
 
 (set-face-attribute  'mode-line-inactive
                      nil 
-                     :family "Arial"
-                     :height 130
-                     :width `normal'
-                     :weight `medium'
+;                     :family "Arial"
+;                     :height 130
+;                     :width `normal'
+;                     :weight `medium'
                      :foreground "gray40"
                      :background MY_BG_COLOR 
                      :box '(:line-width 1 :style released-button))

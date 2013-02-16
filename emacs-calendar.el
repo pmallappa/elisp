@@ -116,6 +116,6 @@
 ;; change to fixed-pitch font for this buffer
 (add-hook 'calendar-mode-hook
           (lambda()
-            (face-remap-add-relative 'default 'fixed-pitch)))
+            (buffer-face-mode-invoke 'fixed-pitch t)))
 
 (provide 'emacs-calendar)
