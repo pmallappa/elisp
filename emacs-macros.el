@@ -307,7 +307,7 @@ nSec: ")
     ad-do-it))
 
 ;;;_*======================================================================
-;;;_* define a function to scroll with the cursor in place, moving the
+;;;_* scroll with the cursor in place, moving the
 ;;;_* page instead
 ;; Navigation Functions
 (defun scroll-down-in-place (n)
@@ -326,7 +326,7 @@ nSec: ")
 (global-set-key "\M-p" 'scroll-down-in-place)
 
 ;;;_*======================================================================
-;;;_* define a function to toggle truncate lines and redraw the display
+;;;_* toggle truncate lines and redraw the display
 (defun trunc ()
   "Toggle the truncate-line variable"
   (interactive)
@@ -618,6 +618,19 @@ Thanks to Miles Bader <miles@lsi.nec.co.jp> for this (gnus.emacs.help)"
 	(message "Face: %s" face)
       (message "No face at %d" point))))
 
+;;;============================================================
+;;; toggle between variable pitch and fixed pitch font for 
+;;; the current buffer
+(defun fixed-pitch-mode (&optional arg)
+  "Fixed-pitch default-face mode.
+An interface to `buffer-face-mode' which uses the `fixed-pitch' face.
+Besides the choice of face, it is the same as `buffer-face-mode'.
+
+See `variable-pitch-mode' for more details"
+  (interactive (list (or current-prefix-arg 'toggle)))
+  (buffer-face-mode-invoke 'fixed-pitch arg
+			   (called-interactively-p 'interactive)))
+
 ;;;;_*======================================================================
 ;;;;_* follow links from w3 or w3m region buffers (works in vm)
 ;;; thanks to Edward O'Connor <ted@oconnor.cx>
@@ -816,7 +829,7 @@ paragraphs in the current region into long lines."
 ;; Start with the cursor on the filename in the dired buffer
 ;; | filename | url |
 (fset 'filevid
-   [?\C-c ?l ?\C-  ?\C-e ?\M-b ?\C-b ?\M-w ?\C-x ?o ?\M-< ?\C-s ?\C-y ?\C-a tab ?\C-c ?\C-l ?\M-p return ?\C-a ?\C-y ?\C-k return ?\C-  ?\M-e ?\C-w ?\C-a ?\C-  ?\C-e ?\C-a ?\C-x ?o ?\C-n])
+   [?\C-c ?l ?\C-  ?\C-e ?\M-b ?\C-b ?\M-w ?\C-x ?o ?\M-< ?\C-s ?\M-y ?\C-  ?\M-a ?\C-c ?\C-l return ?\C-x ?o ?\C-n])
 
 (provide 'emacs-macros)
 

@@ -19,4 +19,10 @@
 (require 'calfw)
 (require 'calfw-org)
 
+;;======================================================================
+;; change to fixed-pitch font for this buffer
+(add-hook 'cfw:calendar-mode-hook
+          (lambda()
+            (face-remap-add-relative 'default 'fixed-pitch)))
+
 (provide 'emacs-calfw)

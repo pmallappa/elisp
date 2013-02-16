@@ -51,7 +51,7 @@
 (defconst MY_PROXY_USER (getenv "user")
   "http proxy username, taken from user env variable")
 
-(defvar MY_DEFAULT_WIDTH 134)
+(defvar MY_DEFAULT_WIDTH 120)
 
 ;;=====================================================================
 ;; select your preferred programs for html and media here
@@ -115,20 +115,19 @@
       `((menu-bar-lines . 0)
 	(tool-bar-lines . 0)))
 
+;; Set the default face to the variable pitch using the buffer-face-mode function `variable-pitch-mode
+(set-face-font 'variable-pitch "Verdana-14")
+(set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-14")
+
 (if (eq system-type 'darwin)
-    ; darwin
-    (add-to-list 'default-frame-alist '(font .  "Lucida Sans-14"))
+    (add-to-list 'default-frame-alist '(font . "Menlo-14"))
   ; not darwin
-  (add-to-list 'default-frame-alist '(font . "Consolas-10")))
+  (add-to-list 'default-frame-alist '(font . "Consolas-14")))
 
 ; good for experimenting with faces
 ;(set-face-font 'default "Bitstream Vera Sans Mono-14")
-;(set-face-font 'default "Lucida Sans-14")
-;(set-face-font 'default "Lucida Sans Typewriter-14")
-
-;; Set the default face to the variable pitch using the buffer-face-mode function `variable-pitch-mode
-(set-face-font 'variable-pitch "Lucida Sans-14")
-(set-face-font 'fixed-pitch "Lucida Sans Typewriter-14")
+;(set-face-font 'default "Verdana-14")
+;(set-face-font 'default "Menlo-14")
 
 ;; To set a buffer type with a fixed-pitch font (such as dired or org), use the following:
 ;; (add-hook 'dired-mode-hook

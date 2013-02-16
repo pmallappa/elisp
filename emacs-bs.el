@@ -41,4 +41,10 @@
        '("^.\\(\\*\\) +[^\\*]" 1 font-lock-comment-face)))
 
 
+;;======================================================================
+;; change to fixed-pitch font for this buffer
+(add-hook 'bs-mode-hook
+          (lambda()
+            (face-remap-add-relative 'default 'fixed-pitch)))
+
 (provide 'emacs-bs)
