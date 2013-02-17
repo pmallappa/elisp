@@ -219,6 +219,14 @@ with a Windows external keyboard from time to time."
       (message "Command is now bound to SUPER and Option is bound to META."))))
 
 ;;;_.======================================================================
+;;;_. Search for a regexp across all marked files within dired
+(defun my-dired-multi-occur (string)
+  "Search string in files marked by dired."
+  (interactive "MList lines matching regexp: ")
+  (require 'dired)
+  (multi-occur (mapcar 'find-file (dired-get-marked-files)) string))
+
+;;;_.======================================================================
 ;;;_. get the IP address of the current machine
 ;; unix version
 (defun get-ip-address (&optional dev)
