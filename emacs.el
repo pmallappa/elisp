@@ -151,8 +151,8 @@
 
 ;; (set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
 ;; in emacs-frame.el, you can use C-c t to toggle transparency
-(set-frame-parameter (selected-frame) 'alpha '(100 100))
-(add-to-list 'default-frame-alist '(alpha 100 100))
+(set-frame-parameter (selected-frame) 'alpha '(90 75))
+(add-to-list 'default-frame-alist '(alpha 95 80))
 
 ; Syntax highlighting
 (global-font-lock-mode t)
@@ -222,6 +222,7 @@
 (require 'emacs-calfw)     ; enhanced calendar
 (require 'emacs-dired)     ; dired settings
 (require 'emacs-epa)       ; emacs gpg encryption settings
+(require 'emacs-eshell)    ; emacs eshell settings
 (require 'emacs-frame)     ; customized frame functions
 (require 'emacs-git)       ; emacs gpg encryption settings
 (require 'emacs-info)      ; add info directories to emacs
