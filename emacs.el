@@ -38,7 +38,7 @@
   "Home directory. I could rely on the HOME environment variable,
   but I'm being retentive.")
 
-(defconst EMACS_PKGS (concat HOME_DIR "/emacs-pkgs")
+(defconst EMACS_PKGS (concat HOME_DIR "/elisp")
   "Directory for the emacs pkgs and configuration files.
  Default uses `HOME_DIR' as a prefix")
 
@@ -89,7 +89,10 @@
 
 ;; Set the command key to act as the meta key for OS-X
 (if (eq system-type 'darwin)
-    (setq mac-command-modifier 'meta))
+    (progn
+      (setq mac-command-modifier 'meta)
+      (setq mac-option-modifier 'super)
+      (setq ns-function-modifier 'hyper)))
 
 ;; isolate customize settings
 (setq custom-file (concat EMACS_PKGS "/emacs-custom.el"))

@@ -226,6 +226,14 @@ with a Windows external keyboard from time to time."
   (require 'dired)
   (multi-occur (mapcar 'find-file (dired-get-marked-files)) string))
 
+
+;;======================================================================
+;; Join the current and subsequent lines
+(global-set-key (kbd "M-j")
+            (lambda ()
+                  (interactive)
+                  (join-line -1)))
+
 ;;;_.======================================================================
 ;;;_. get the IP address of the current machine
 ;; unix version

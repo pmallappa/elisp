@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("JAVA_LIB00"
+(("XBMC"
+ (filename . "/Volumes/Passport2TB/XBMC/")
+ (front-context-string . "Movies\n  drwxr-x")
+ (rear-context-string . "84 Jan 20 17:08 ")
+ (position . 132))
+("JAVA_LIB00"
  (filename . "/Volumes/JAVA_LIB00/")
  (front-context-string . "Amateur bondage ")
  (rear-context-string . "01 Oct  9 21:53 ")

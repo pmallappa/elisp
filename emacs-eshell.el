@@ -22,5 +22,14 @@
       (eshell)
       (delete-other-windows))))
 
+;;======================================================================
+;; change to fixed-pitch font for this buffer (and shell mode
+(add-hook 'shell-mode-hook
+          (lambda()
+            (buffer-face-mode-invoke 'fixed-pitch t)))
+
+(add-hook 'eshell-mode-hook
+          (lambda()
+            (buffer-face-mode-invoke 'fixed-pitch t)))
 
 (provide 'emacs-eshell)
