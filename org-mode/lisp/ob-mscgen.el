@@ -55,6 +55,7 @@
 
 ;;; Code:
 (require 'ob)
+(require 'ob-eval)
 
 (defvar org-babel-default-header-args:mscgen
   '((:results . "file") (:exports . "results"))

@@ -38,8 +38,9 @@
   (require 'cl))
 (require 'org)
 
-(declare-function org-export-string-as "ox"
-		  (string backend &optional body-only ext-plist))
+(declare-function org-table-clean-before-export "org-exp"
+		  (lines &optional maybe-quoted))
+(declare-function org-format-org-table-html "org-html" (lines &optional splice))
 (declare-function aa2u "ext:ascii-art-to-unicode" ())
 (defvar orgtbl-mode) ; defined below
 (defvar orgtbl-mode-menu) ; defined when orgtbl mode get initialized
@@ -111,7 +112,7 @@ table, obtained by prompting the user."
   :type 'string)
 
 (defcustom org-table-number-regexp
-  "^\\([<>]?[-+^.0-9]*[0-9][-+^.0-9eEdDx()%:]*\\|[<>]?[-+]?0[xX][0-9a-fA-F.]+\\|[<>]?[-+]?[0-9]+#[0-9a-zA-Z.]+\\|nan\\|[-+u]?inf\\)$"
+  "^\\([<>]?[-+^.0-9]*[0-9][-+^.0-9eEdDx()%:]*\\|\\(0[xX]\\)[0-9a-fA-F]+\\|nan\\)$"
   "Regular expression for recognizing numbers in table columns.
 If a table column contains mostly numbers, it will be aligned to the
 right.  If not, it will be aligned to the left.
@@ -135,10 +136,10 @@ Other options offered by the customize interface are more restrictive."
 		 "^[-+]?\\([0-9]*\\.[0-9]+\\|[0-9]+\\.?[0-9]*\\)$")
 	  (const :tag "Exponential, Floating point, Integer"
 		 "^[-+]?[0-9.]+\\([eEdD][-+0-9]+\\)?$")
-	  (const :tag "Very General Number-Like, including hex and Calc radix"
-		 "^\\([<>]?[-+^.0-9]*[0-9][-+^.0-9eEdDx()%]*\\|[<>]?[-+]?0[xX][0-9a-fA-F.]+\\|[<>]?[-+]?[0-9]+#[0-9a-zA-Z.]+\\|nan\\|[-+u]?inf\\)$")
-	  (const :tag "Very General Number-Like, including hex and Calc radix, allows comma as decimal mark"
-		 "^\\([<>]?[-+^.,0-9]*[0-9][-+^.0-9eEdDx()%]*\\|[<>]?[-+]?0[xX][0-9a-fA-F.]+\\|[<>]?[-+]?[0-9]+#[0-9a-zA-Z.]+\\|nan\\|[-+u]?inf\\)$")
+	  (const :tag "Very General Number-Like, including hex"
+		 "^\\([<>]?[-+^.0-9]*[0-9][-+^.0-9eEdDx()%]*\\|\\(0[xX]\\)[0-9a-fA-F]+\\|nan\\)$")
+	  (const :tag "Very General Number-Like, including hex, allows comma as decimal mark"
+		 "^\\([<>]?[-+^.,0-9]*[0-9][-+^.0-9eEdDx()%]*\\|\\(0[xX]\\)[0-9a-fA-F]+\\|nan\\)$")
 	  (string :tag "Regexp:")))
 
 (defcustom org-table-number-fraction 0.5
@@ -418,70 +419,6 @@ available parameters."
 			 (org-split-string (match-string 1 line)
 					   "[ \t]*|[ \t]*")))))))
 
-(defvar org-table-colgroup-info nil)	; Dynamically scoped.
-(defun org-table-clean-before-export (lines &optional maybe-quoted)
-  "Check if the table has a marking column.
-If yes remove the column and the special lines."
-  (setq org-table-colgroup-info nil)
-  (if (memq nil
-	    (mapcar
-	     (lambda (x) (or (string-match "^[ \t]*|-" x)
-			     (string-match
-			      (if maybe-quoted
-				  "^[ \t]*| *\\\\?\\([\#!$*_^ /]\\) *|"
-				"^[ \t]*| *\\([\#!$*_^ /]\\) *|")
-			      x)))
-	     lines))
-      ;; No special marking column
-      (progn
-	(setq org-table-clean-did-remove-column nil)
-	(delq nil
-	      (mapcar
-	       (lambda (x)
-		 (cond
-		  ((org-table-colgroup-line-p x)
-		   ;; This line contains colgroup info, extract it
-		   ;; and then discard the line
-		   (setq org-table-colgroup-info
-			 (mapcar (lambda (x)
-				   (cond ((member x '("<" "&lt;")) :start)
-					 ((member x '(">" "&gt;")) :end)
-					 ((member x '("<>" "&lt;&gt;")) :startend)))
-				 (org-split-string x "[ \t]*|[ \t]*")))
-		   nil)
-		  ((org-table-cookie-line-p x)
-		   ;; This line contains formatting cookies, discard it
-		   nil)
-		  (t x)))
-	       lines)))
-    ;; there is a special marking column
-    (setq org-table-clean-did-remove-column t)
-    (delq nil
-	  (mapcar
-	   (lambda (x)
-	     (cond
-	      ((org-table-colgroup-line-p x)
-	       ;; This line contains colgroup info, extract it
-	       ;; and then discard the line
-	       (setq org-table-colgroup-info
-		     (mapcar (lambda (x)
-			       (cond ((member x '("<" "&lt;")) :start)
-				     ((member x '(">" "&gt;")) :end)
-				     ((member x '("<>" "&lt;&gt;")) :startend)))
-			     (cdr (org-split-string x "[ \t]*|[ \t]*"))))
-	       nil)
-	      ((org-table-cookie-line-p x)
-	       ;; This line contains formatting cookies, discard it
-	       nil)
-	      ((string-match "^[ \t]*| *\\([!_^/$]\\|\\\\\\$\\) *|" x)
-	       ;; ignore this line
-	       nil)
-	      ((or (string-match "^\\([ \t]*\\)|-+\\+" x)
-		   (string-match "^\\([ \t]*\\)|[^|]*|" x))
-	       ;; remove the first column
-	       (replace-match "\\1|" t nil x))))
-	   lines))))
-
 (defconst org-table-translate-regexp
   (concat "\\(" "@[-0-9I$]+" "\\|" "[a-zA-Z]\\{1,2\\}\\([0-9]+\\|&\\)" "\\)")
   "Match a reference that needs translation, for reference display.")
@@ -642,7 +579,9 @@ whether it is set locally or up in the hierarchy, then on the
 extension of the given file name, and finally on the variable
 `org-table-export-default-format'."
   (interactive)
-  (unless (org-at-table-p) (error "No table at point"))
+  (unless (org-at-table-p)
+    (error "No table at point"))
+  (require 'org-exp)
   (org-table-align) ;; make sure we have everything we need
   (let* ((beg (org-table-begin))
 	 (end (org-table-end))
@@ -2618,10 +2557,7 @@ not overwrite the stored one."
 			  fields)))
 	(if (eq numbers t)
 	    (setq fields (mapcar
-			  (lambda (x)
-			    (if (string-match "\\S-" x)
-				(number-to-string (string-to-number x))
-			      x))
+			  (lambda (x) (number-to-string (string-to-number x)))
 			  fields)))
 	(setq ndown (1- ndown))
 	(setq form (copy-sequence formula)
@@ -2698,8 +2634,7 @@ not overwrite the stored one."
 			   (match-string 0 form)))
 	  (setq form (replace-match
 		      (save-match-data
-			(org-table-make-reference
-			 x keep-empty numbers lispp))
+			(org-table-make-reference x nil numbers lispp))
 		      t t form)))
 
 	(if lispp
@@ -2712,22 +2647,11 @@ not overwrite the stored one."
 				   duration-output-format) ev))
 	  (or (fboundp 'calc-eval)
 	      (error "Calc does not seem to be installed, and is needed to evaluate the formula"))
-	  ;; Use <...> time-stamps so that Calc can handle them
+	  ;; "Inactivate" time-stamps so that Calc can handle them
 	  (setq form (replace-regexp-in-string org-ts-regexp3 "<\\1>" form))
-	  ;; I18n-ize local time-stamps by setting (system-time-locale "C")
-	  (when (string-match org-ts-regexp2 form)
-	    (let* ((ts (match-string 0 form))
-		   (tsp (apply 'encode-time (save-match-data (org-parse-time-string ts))))
-		   (system-time-locale "C")
-		   (tf (or (and (save-match-data (string-match "[0-9]\\{1,2\\}:[0-9]\\{2\\}" ts))
-				(cdr org-time-stamp-formats))
-			   (car org-time-stamp-formats))))
-	      (setq form (replace-match (format-time-string tf tsp) t t form))))
-
 	  (setq ev (if (and duration (string-match "^[0-9]+:[0-9]+\\(?::[0-9]+\\)?$" form))
 		       form
-		     (calc-eval (cons form org-tbl-calc-modes)
-				(when (and (not keep-empty) numbers) 'num)))
+		     (calc-eval (cons form org-tbl-calc-modes) (if numbers 'num)))
 		ev (if duration (org-table-time-seconds-to-string
 				 (if (string-match "^[0-9]+:[0-9]+\\(?::[0-9]+\\)?$" ev)
 				     (string-to-number (org-table-time-string-to-seconds ev))
@@ -2914,33 +2838,21 @@ and TABLE is a vector with line types."
   "Convert list ELEMENTS to something appropriate to insert into formula.
 KEEP-EMPTY indicated to keep empty fields, default is to skip them.
 NUMBERS indicates that everything should be converted to numbers.
-LISPP non-nil means to return something appropriate for a Lisp
-list, 'literal is for the format specifier L."
-  ;; Calc nan (not a number) is used for the conversion of the empty
-  ;; field to a reference for several reasons: (i) It is accepted in a
-  ;; Calc formula (e. g. "" or "()" would result in a Calc error).
-  ;; (ii) In a single field (not in range) it can be distinguished
-  ;; from "(nan)" which is the reference made from a single field
-  ;; containing "nan".
-  (if (stringp elements)
-      ;; field reference
+LISPP means to return something appropriate for a Lisp list."
+  (if (stringp elements) ; just a single val
       (if lispp
 	  (if (eq lispp 'literal)
 	      elements
 	    (prin1-to-string (if numbers (string-to-number elements) elements)))
-	(if (string-match "\\S-" elements)
-	    (progn
-	      (when numbers (setq elements (number-to-string
-					    (string-to-number elements))))
-	      (concat "(" elements ")"))
-	  (if (or (not keep-empty) numbers) "(0)" "nan")))
-    ;; range reference
+	(if (equal elements "") (setq elements "0"))
+	(if numbers (setq elements (number-to-string (string-to-number elements))))
+	(concat "(" elements ")"))
     (unless keep-empty
       (setq elements
 	    (delq nil
 		  (mapcar (lambda (x) (if (string-match "\\S-" x) x nil))
 			  elements))))
-    (setq elements (or elements '("")))
+    (setq elements (or elements '("0")))
     (if lispp
 	(mapconcat
 	 (lambda (x)
@@ -2950,11 +2862,7 @@ list, 'literal is for the format specifier L."
 	 elements " ")
       (concat "[" (mapconcat
 		   (lambda (x)
-		     (if (string-match "\\S-" x)
-			 (if numbers
-			     (number-to-string (string-to-number x))
-			   x)
-		       (if (or (not keep-empty) numbers) "0" "nan")))
+		     (if numbers (number-to-string (string-to-number x)) x))
 		   elements
 		   ",") "]"))))
 
@@ -4357,6 +4265,7 @@ overwritten, and the table is not marked as requiring realignment."
   "Regular expression matching exponentials as produced by calc.")
 
 (defun orgtbl-export (table target)
+  (require 'org-exp)
   (let ((func (intern (concat "orgtbl-to-" (symbol-name target))))
 	(lines (org-split-string table "[ \t]*\n[ \t]*"))
 	org-table-last-alignment org-table-last-column-widths
@@ -4805,14 +4714,22 @@ Currently this function recognizes the following parameters:
 The general parameters :skip and :skipcols have already been applied when
 this function is called.  The function does *not* use `orgtbl-to-generic',
 so you cannot specify parameters for it."
-  (require 'ox-html)
-  (let ((output (org-export-string-as
-		 (orgtbl-to-orgtbl table nil) 'html t '(:with-tables t))))
-    (if (not (plist-get params :splice)) output
-      (org-trim
-       (replace-regexp-in-string
-	"\\`<table .*>\n" ""
-	(replace-regexp-in-string "</table>\n*\\'" "" output))))))
+  (let* ((splicep (plist-get params :splice))
+	 (html-table-tag org-export-html-table-tag)
+	 html)
+    ;; Just call the formatter we already have
+    ;; We need to make text lines for it, so put the fields back together.
+    (setq html (org-format-org-table-html
+		(mapcar
+		 (lambda (x)
+		   (if (eq x 'hline)
+		       "|----+----|"
+		     (concat "| " (mapconcat 'org-html-expand x " | ") " |")))
+		 table)
+		splicep))
+    (if (string-match "\n+\\'" html)
+	(setq html (replace-match "" t t html)))
+    html))
 
 ;;;###autoload
 (defun orgtbl-to-texinfo (table params)
@@ -4961,38 +4878,6 @@ list of the fields in the rectangle ."
 		    (save-match-data
 		      (org-table-get-range (match-string 0 form) tbeg 1))
 		  form)))))))))
-
-(defmacro org-define-lookup-function (mode)
-  (let ((mode-str (symbol-name mode))
-	(first-p (equal mode 'first))
-	(all-p (equal mode 'all)))
-    (let ((plural-str (if all-p "s" "")))
-      `(defun ,(intern (format "org-lookup-%s" mode-str)) (val s-list r-list &optional predicate)
-	 ,(format "Find %s occurrence%s of VAL in S-LIST; return corresponding element%s of R-LIST.
-If R-LIST is nil, return matching element%s of S-LIST.
-If PREDICATE is not nil, use it instead of `equal' to match VAL.
-Matching is done by (PREDICATE VAL S), where S is an element of S-LIST.
-This function is generated by a call to the macro `org-define-lookup-function'."
-		  mode-str plural-str plural-str plural-str)
-	 (let ,(let ((lvars '((p (or predicate 'equal))
-			      (sl s-list)
-			      (rl (or r-list s-list))
-			      (ret nil))))
-		 (if first-p (add-to-list 'lvars '(match-p nil)))
-		 lvars)
-	   (while ,(if first-p '(and (not match-p) sl) 'sl)
-	     (progn
-	       (if (funcall p val (car sl))
-		   (progn
-		     ,(if first-p '(setq match-p t))
-		     (let ((rval (car rl)))
-		       (setq ret ,(if all-p '(append ret (list rval)) 'rval)))))
-	       (setq sl (cdr sl) rl (cdr rl))))
-	   ret)))))
-
-(org-define-lookup-function first)
-(org-define-lookup-function last)
-(org-define-lookup-function all)
 
 (provide 'org-table)
 

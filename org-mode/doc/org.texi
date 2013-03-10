@@ -376,7 +376,6 @@ The spreadsheet
 * Durations and time values::   How to compute durations and time values
 * Field and range formulas::    Formula for specific (ranges of) fields
 * Column formulas::             Formulas valid for an entire column
-* Lookup functions::            Lookup functions for searching tables
 * Editing and debugging formulas::  Fixing formulas
 * Updating the table::          Recomputing all dependent fields
 * Advanced features::           Field and column names, parameters and automatic recalc
@@ -479,7 +478,7 @@ Capture - Refile - Archive
 * Attachments::                 Add files to tasks
 * RSS Feeds::                   Getting input from RSS feeds
 * Protocols::                   External (e.g., Browser) access to Emacs and Org
-* Refile and copy::             Moving/copying a tree from one place to another
+* Refiling notes::              Moving a tree from one place to another
 * Archiving::                   What to do with finished projects
 
 Capture
@@ -1298,6 +1297,7 @@ Copy the @i{visible} text in the region into the kill ring.
 @end table
 
 @vindex org-startup-folded
+@vindex org-agenda-inhibit-startup
 @cindex @code{overview}, STARTUP keyword
 @cindex @code{content}, STARTUP keyword
 @cindex @code{showall}, STARTUP keyword
@@ -1315,6 +1315,10 @@ buffer:
 #+STARTUP: showall
 #+STARTUP: showeverything
 @end example
+
+The startup visibility options are ignored when the file is open for the
+first time during the agenda generation: if you want the agenda to honor
+the startup visibility, set @code{org-agenda-inhibit-startup} to nil.
 
 @cindex property, VISIBILITY
 @noindent
@@ -1428,7 +1432,7 @@ level).
 Move subtree down (swap with next subtree of same level).
 @orgcmd{M-h,org-mark-element}
 Mark the element at point.  Hitting repeatedly will mark subsequent elements
-of the one just marked.  E.g. hitting @key{M-h} on a paragraph will mark it,
+of the one just marked.  E.g., hitting @key{M-h} on a paragraph will mark it,
 hitting @key{M-h} immediately again will mark the next one.
 @orgcmd{C-c @@,org-mark-subtree}
 Mark the subtree at point.  Hitting repeatedly will mark subsequent subtrees
@@ -1465,7 +1469,7 @@ to create a number of tasks related to a series of lectures to prepare.  For
 more details, see the docstring of the command
 @code{org-clone-subtree-with-time-shift}.
 @orgcmd{C-c C-w,org-refile}
-Refile entry or region to a different location.  @xref{Refile and copy}.
+Refile entry or region to a different location.  @xref{Refiling notes}.
 @orgcmd{C-c ^,org-sort}
 Sort same-level entries.  When there is an active region, all entries in the
 region will be sorted.  Otherwise the children of the current headline are
@@ -2063,7 +2067,7 @@ table.  But it is easier just to start typing, like
 
 @tsubheading{Re-aligning and field motion}
 @orgcmd{C-c C-c,org-table-align}
-Re-align the table and don't move to another field.
+Re-align the table without moving the cursor.
 @c
 @orgcmd{<TAB>,org-table-next-field}
 Re-align the table, move to the next field.  Creates a new row if
@@ -2271,7 +2275,7 @@ If you would like to overrule the automatic alignment of number-rich columns
 to the right and of string-rich column to the left, you can use @samp{<r>},
 @samp{<c>}@footnote{Centering does not work inside Emacs, but it does have an
 effect when exporting to HTML.} or @samp{<l>} in a similar fashion.  You may
-also combine alignment and field width like this: @samp{<r10>}.
+also combine alignment and field width like this: @samp{<l10>}.
 
 Lines which only contain these formatting cookies will be removed
 automatically when exporting the document.
@@ -2356,7 +2360,6 @@ formula, moving these references by arrow keys
 * Durations and time values::   How to compute durations and time values
 * Field and range formulas::    Formula for specific (ranges of) fields
 * Column formulas::             Formulas valid for an entire column
-* Lookup functions::            Lookup functions for searching tables
 * Editing and debugging formulas::  Fixing formulas
 * Updating the table::          Recomputing all dependent fields
 * Advanced features::           Field and column names, parameters and automatic recalc
@@ -2450,7 +2453,7 @@ $1..$3        @r{first three fields in the current row}
 $P..$Q        @r{range, using column names (see under Advanced)}
 $<<<..$>>     @r{start in third column, continue to the one but last}
 @@2$1..@@4$3    @r{6 fields between these two fields (same as @code{A2..C4})}
-@@-1$-2..@@-1   @r{3 fields in the row above, starting from 2 columns on the left}
+@@-1$-2..@@-1   @r{in the first row up, 3 fields from 2 columns on the left}
 @@I..II        @r{between first and second hline, short for @code{@@I..@@II}}
 @end example
 
@@ -2577,14 +2580,9 @@ n3 s3 e2 f4   @r{Normal, scientific, engineering, or fixed}
               @r{long as the Calc calculation precision is greater.}
 D R           @r{angle modes: degrees, radians}
 F S           @r{fraction and symbolic modes}
-E             @r{keep empty fields in ranges and use nan (not a number)}
-              @r{in Calc formulas for empty fields in range references and}
-              @r{for empty field references; else suppress empty fields in}
-              @r{range references and use 0 for empty field references, see}
-              @r{also the notes for `Range references' in @pxref{References}}
-N             @r{interpret all fields as numbers, use 0 for non-numbers;}
-              @r{N has higher precedence than E (for the value of the field)}
-L             @r{literal, for Lisp formulas only}
+N             @r{interpret all fields as numbers, use 0 for non-numbers}
+E             @r{keep empty fields in ranges}
+L             @r{literal}
 @end example
 
 @noindent
@@ -2608,7 +2606,7 @@ $0;%.1f              @r{Reformat current cell to 1 decimal}
 $c/$1/$cm            @r{Hz -> cm conversion, using @file{constants.el}}
 tan($1);Dp3s1        @r{Compute in degrees, precision 3, display SCI 1}
 sin($1);Dp3%.1e      @r{Same, but use printf specifier for display}
-vmean($2..$7)        @r{Compute column range mean, suppress empty fields}
+vmean($2..$7)        @r{Compute column range mean, using vector function}
 vmean($2..$7);EN     @r{Same, but treat empty fields as 0}
 taylor($3,x=7,2)     @r{Taylor series of $3, at x=7, second degree}
 @end example
@@ -2616,17 +2614,11 @@ taylor($3,x=7,2)     @r{Taylor series of $3, at x=7, second degree}
 Calc also contains a complete set of logical operations.  For example
 
 @example
-if($1 < 20, teen, string(""))
-                     @r{"teen" if age $1 is less than 20, else empty}
-if("$1" = "nan" || "$2" = "nan", string(""), $1 + $2); E
-                     @r{sum of first two columns unless one or both empty}
+if($1<20,teen,string(""))  @r{"teen" if age $1 less than 20, else empty}
 @end example
 
 Note that you can also use two org-specific flags @code{T} and @code{t} for
 durations computations @ref{Durations and time values}.
-
-You can add your own Calc functions defined in Emacs Lisp with @code{defmath}
-and use them in formula syntax for Calc.
 
 @node Formula syntax for Lisp, Durations and time values, Formula syntax for Calc, The spreadsheet
 @subsection Emacs Lisp forms as formulas
@@ -2750,7 +2742,7 @@ can also be used to assign a formula to some but not all fields in a row.
 Named field, see @ref{Advanced features}.
 @end table
 
-@node Column formulas, Lookup functions, Field and range formulas, The spreadsheet
+@node Column formulas, Editing and debugging formulas, Field and range formulas, The spreadsheet
 @subsection Column formulas
 @cindex column formula
 @cindex formula, for table column
@@ -2758,13 +2750,10 @@ Named field, see @ref{Advanced features}.
 When you assign a formula to a simple column reference like @code{$3=}, the
 same formula will be used in all fields of that column, with the following
 very convenient exceptions: (i) If the table contains horizontal separator
-hlines with rows above and below, everything before the first such hline is
-considered part of the table @emph{header} and will not be modified by column
-formulas.  Therefore a header is mandatory when you use column formulas and
-want to add hlines to group rows, like for example to separate a total row at
-the bottom from the summand rows above.  (ii) Fields that already get a value
-from a field/range formula will be left alone by column formulas.  These
-conditions make column formulas very easy to use.
+hlines, everything before the first such line is considered part of the table
+@emph{header} and will not be modified by column formulas.  (ii) Fields that
+already get a value from a field/range formula will be left alone by column
+formulas.  These conditions make column formulas very easy to use.
 
 To assign a formula to a column, type it directly into any field in the
 column, preceded by an equal sign, like @samp{=$1+$2}.  When you press
@@ -2789,51 +2778,7 @@ stores it.  With a numeric prefix argument(e.g., @kbd{C-5 C-c =}) the command
 will apply it to that many consecutive fields in the current column.
 @end table
 
-@node Lookup functions, Editing and debugging formulas, Column formulas, The spreadsheet
-@subsection Lookup functions
-@cindex lookup functions in tables
-@cindex table lookup functions
-
-Org has three predefined Emacs Lisp functions for lookups in tables.
-@table @code
-@item (org-lookup-first VAL S-LIST R-LIST &optional PREDICATE)
-@findex org-lookup-first
-Searches for the first element @code{S} in list @code{S-LIST} for which
-@lisp
-(PREDICATE VAL S)
-@end lisp
-is @code{t}; returns the value from the corresponding position in list
-@code{R-LIST}.  The default @code{PREDICATE} is @code{equal}.  Note that the
-parameters @code{VAL} and @code{S} are passed to @code{PREDICATE} in the same
-order as the correspoding parameters are in the call to
-@code{org-lookup-first}, where @code{VAL} precedes @code{S-LIST}.  If
-@code{R-LIST} is @code{nil}, the matching element @code{S} of @code{S-LIST}
-is returned.
-@item (org-lookup-last VAL S-LIST R-LIST &optional PREDICATE)
-@findex org-lookup-last
-Similar to @code{org-lookup-first} above, but searches for the @i{last}
-element for which @code{PREDICATE} is @code{t}.
-@item (org-lookup-all VAL S-LIST R-LIST &optional PREDICATE)
-@findex org-lookup-all
-Similar to @code{org-lookup-first}, but searches for @i{all} elements for
-which @code{PREDICATE} is @code{t}, and returns @i{all} corresponding
-values.  This function can not be used by itself in a formula, because it
-returns a list of values.  However, powerful lookups can be built when this
-function is combined with other Emacs Lisp functions.
-@end table
-
-If the ranges used in these functions contain empty fields, the @code{E} mode
-for the formula should usually be specified: otherwise empty fields will not be
-included in @code{S-LIST} and/or @code{R-LIST} which can, for example, result
-in an incorrect mapping from an element of @code{S-LIST} to the corresponding
-element of @code{R-LIST}.
-
-These three functions can be used to implement associative arrays, count
-matching cells, rank results, group data etc.  For practical examples
-see @uref{http://orgmode.org/worg/org-tutorials/org-lookups.html, this
-tutorial on Worg}.
-
-@node Editing and debugging formulas, Updating the table, Lookup functions, The spreadsheet
+@node Editing and debugging formulas, Updating the table, Column formulas, The spreadsheet
 @subsection Editing and debugging formulas
 @cindex formula editing
 @cindex editing, of table formulas
@@ -4136,7 +4081,7 @@ module @file{org-depend.el}.
 
 Org mode can automatically record a timestamp and possibly a note when
 you mark a TODO item as DONE, or even each time you change the state of
-a TODO item.  This system is highly configurable, settings can be on a
+a TODO item.  This system is highly configurable; settings can be on a
 per-keyword basis and can be localized to a file or even a subtree.  For
 information on how to clock working time for a task, see @ref{Clocking
 work time}.
@@ -4492,7 +4437,7 @@ lists.  But you can allow it by modifying @code{org-list-automatic-rules}
 accordingly.} (@pxref{Plain lists}) can be made into a checkbox by starting
 it with the string @samp{[ ]}.  This feature is similar to TODO items
 (@pxref{TODO Items}), but is more lightweight.  Checkboxes are not included
-into the global TODO list, so they are often great to split a task into a
+in the global TODO list, so they are often great to split a task into a
 number of simple steps.  Or you can use them in a shopping list.  To toggle a
 checkbox, use @kbd{C-c C-c}, or use the mouse (thanks to Piotr Zielinski's
 @file{org-mouse.el}).
@@ -5660,9 +5605,10 @@ the following column).
 @vindex org-read-date-prefer-future
 When Org mode prompts for a date/time, the default is shown in default
 date/time format, and the prompt therefore seems to ask for a specific
-format.  But it will in fact accept date/time information in a variety of
-formats.  Generally, the information should start at the beginning of the
-string.  Org mode will find whatever information is in
+format.  But it will in fact accept any string containing some date and/or
+time information, and it is really smart about interpreting your input.  You
+can, for example, use @kbd{C-y} to paste a (possibly multi-line) string
+copied from an email message.  Org mode will find whatever information is in
 there and derive anything you have not specified from the @emph{default date
 and time}.  The default is usually the current date and time, but when
 modifying an existing timestamp, or when entering the second stamp of a
@@ -6247,12 +6193,7 @@ be selected:
              thisyear, lastyear, thisyear-@var{N}     @r{a relative year}
              @r{Use @kbd{S-@key{left}/@key{right}} keys to shift the time interval.}
 :tstart      @r{A time string specifying when to start considering times.}
-             @r{Relative times like @code{"<-2w>"} can also be used.  See}
-             @r{@ref{Matching tags and properties} for relative time syntax.}
 :tend        @r{A time string specifying when to stop considering times.}
-             @r{Relative times like @code{"<now>"} can also be used.  See}
-             @r{@ref{Matching tags and properties} for relative time syntax.}
-:wstart      @r{The starting day of the week.  The default is 1 for monday.}
 :step        @r{@code{week} or @code{day}, to split the table into chunks.}
              @r{To use this, @code{:block} or @code{:tstart}, @code{:tend} are needed.}
 :stepskip0   @r{Do not show steps that have zero time.}
@@ -6303,11 +6244,6 @@ only to fit it into the manual.}
                     :tend "<2006-08-10 Thu 12:00>"
 #+END: clocktable
 @end example
-A range starting a week ago and ending right now could be written as
-@example
-#+BEGIN: clocktable :tstart "<-1w>" :tend "<now>"
-#+END: clocktable
-@end example
 A summary of the current subtree with % times would be
 @example
 #+BEGIN: clocktable :scope subtree :link t :formula %
@@ -6325,7 +6261,6 @@ would be
 
 @subsubheading Resolving idle time
 @cindex resolve idle time
-@vindex org-clock-x11idle-program-name
 
 @cindex idle, resolve, dangling
 If you clock in on a work item, and then walk away from your
@@ -6339,14 +6274,12 @@ as 10 or 15, Emacs can alert you when you get back to your computer after
 being idle for that many minutes@footnote{On computers using Mac OS X,
 idleness is based on actual user idleness, not just Emacs' idle time.  For
 X11, you can install a utility program @file{x11idle.c}, available in the
-@code{contrib/scripts} directory of the Org git distribution, or install the
-@file{xprintidle} package and set it to the variable
-@code{org-clock-x11idle-program-name} if you are running Debian, to get the
-same general treatment of idleness.  On other systems, idle time refers to
-Emacs idle time only.}, and ask what you want to do with the idle time.
-There will be a question waiting for you when you get back, indicating how
-much idle time has passed (constantly updated with the current amount), as
-well as a set of choices to correct the discrepancy:
+@code{contrib/scripts} directory of the Org git distribution, to get the same
+general treatment of idleness.  On other systems, idle time refers to Emacs
+idle time only.}, and ask what you want to do with the idle time.  There will
+be a question waiting for you when you get back, indicating how much idle
+time has passed (constantly updated with the current amount), as well as a
+set of choices to correct the discrepancy:
 
 @table @kbd
 @item k
@@ -6538,7 +6471,7 @@ trees to an archive file keeps the system compact and fast.
 * Attachments::                 Add files to tasks
 * RSS Feeds::                   Getting input from RSS feeds
 * Protocols::                   External (e.g., Browser) access to Emacs and Org
-* Refile and copy::             Moving/copying a tree from one place to another
+* Refiling notes::              Moving a tree from one place to another
 * Archiving::                   What to do with finished projects
 @end menu
 
@@ -6605,7 +6538,7 @@ so that you can resume your work without further distraction.  When called
 with a prefix arg, finalize and then jump to the captured item.
 
 @orgcmd{C-c C-w,org-capture-refile}
-Finalize the capture process by refiling (@pxref{Refile and copy}) the note to
+Finalize the capture process by refiling (@pxref{Refiling notes}) the note to
 a different place.  Please realize that this is a normal refiling command
 that will be executed---so the cursor position at the moment you run this
 command is important.  If you have inserted a tree with a parent and
@@ -6850,9 +6783,7 @@ dynamic insertion of content.  The templates are expanded in the order given her
 @smallexample
 %[@var{file}]     @r{Insert the contents of the file given by @var{file}.}
 %(@var{sexp})     @r{Evaluate Elisp @var{sexp} and replace with the result.}
-                  @r{For convenience, %:keyword (see below) placeholders}
-                  @r{within the expression will be expanded prior to this.}
-                  @r{The sexp must return a string.}
+            @r{The sexp must return a string.}
 %<...>      @r{The result of format-time-string on the ... format specification.}
 %t          @r{Timestamp, date only.}
 %T          @r{Timestamp, with date and time.}
@@ -7079,7 +7010,7 @@ list of drawers in that file:
 For more information, including how to read atom feeds, see
 @file{org-feed.el} and the docstring of @code{org-feed-alist}.
 
-@node Protocols, Refile and copy, RSS Feeds, Capture - Refile - Archive
+@node Protocols, Refiling notes, RSS Feeds, Capture - Refile - Archive
 @section Protocols for external access
 @cindex protocols, for external access
 @cindex emacsserver
@@ -7093,22 +7024,17 @@ a remote website you are looking at with the browser.  See
 @uref{http://orgmode.org/worg/org-contrib/org-protocol.php} for detailed
 documentation and setup instructions.
 
-@node Refile and copy, Archiving, Protocols, Capture - Refile - Archive
-@section Refile and copy
+@node Refiling notes, Archiving, Protocols, Capture - Refile - Archive
+@section Refiling notes
 @cindex refiling notes
-@cindex copying notes
 
-When reviewing the captured data, you may want to refile or to copy some of
-the entries into a different list, for example into a project.  Cutting,
-finding the right location, and then pasting the note is cumbersome.  To
-simplify this process, you can use the following special command:
+When reviewing the captured data, you may want to refile some of the entries
+into a different list, for example into a project.  Cutting, finding the
+right location, and then pasting the note is cumbersome.  To simplify this
+process, you can use the following special command:
 
 @table @kbd
-@orgcmd{C-c M-w,org-copy}
-@findex org-copy
-Copying works like refiling, except that the original note is not deleted.
 @orgcmd{C-c C-w,org-refile}
-@findex org-refile
 @vindex org-reverse-note-order
 @vindex org-refile-targets
 @vindex org-refile-use-outline-path
@@ -7145,7 +7071,7 @@ setting @code{org-refile-use-cache}.  To make the command see new possible
 targets, you have to clear the cache with this command.
 @end table
 
-@node Archiving,  , Refile and copy, Capture - Refile - Archive
+@node Archiving,  , Refiling notes, Capture - Refile - Archive
 @section Archiving
 @cindex archiving
 
@@ -9473,7 +9399,6 @@ include your @file{.emacs} file, you could use:
 @example
 #+INCLUDE: "~/.emacs" src emacs-lisp
 @end example
-
 @noindent
 The optional second and third parameter are the markup (e.g., @samp{quote},
 @samp{example}, or @samp{src}), and, if the markup is @samp{src}, the
@@ -12014,9 +11939,9 @@ nodes of a document or strictly follow the order of the nodes in the
 document.
 
 Instead the TaskJuggler exporter looks for a tree that defines the tasks and
-optionally trees that define the resources and reports for this project.
-It then creates a TaskJuggler file based on these trees and the attributes
-defined in all the nodes.
+a optionally tree that defines the resources for this project.  It then
+creates a TaskJuggler file based on these trees and the attributes defined in
+all the nodes.
 
 @subsection TaskJuggler export commands
 
@@ -12025,8 +11950,7 @@ defined in all the nodes.
 Export as a TaskJuggler file.
 
 @orgcmd{C-c C-e J,org-export-as-taskjuggler-and-open}
-Export as a TaskJuggler file and then open the file with TaskJugglerUI (only
-for TaskJugglerUI 2.x).
+Export as a TaskJuggler file and then open the file with TaskJugglerUI.
 @end table
 
 @subsection Tasks
@@ -12064,17 +11988,15 @@ time.
 
 @subsection Export of properties
 
-The exporter also takes TODO state information into consideration, i.e., if
-a task is marked as done it will have the corresponding attribute in
-TaskJuggler (@samp{complete 100}).  Scheduling information is also taken into
-account to set start/end dates for tasks.
-
-The exporter will also export any property on a task resource or resource
-node which is known to TaskJuggler, such as @samp{limits}, @samp{vacation},
-@samp{shift}, @samp{booking}, @samp{efficiency}, @samp{journalentry},
-@samp{rate} for resources or @samp{account}, @samp{start}, @samp{note},
-@samp{duration}, @samp{end}, @samp{journalentry}, @samp{milestone},
-@samp{reference}, @samp{responsible}, @samp{scheduling}, etc for tasks.
+The exporter also takes TODO state information into consideration, i.e., if a
+task is marked as done it will have the corresponding attribute in
+TaskJuggler (@samp{complete 100}).  Also it will export any property on a task
+resource or resource node which is known to TaskJuggler, such as
+@samp{limits}, @samp{vacation}, @samp{shift}, @samp{booking},
+@samp{efficiency}, @samp{journalentry}, @samp{rate} for resources or
+@samp{account}, @samp{start}, @samp{note}, @samp{duration}, @samp{end},
+@samp{journalentry}, @samp{milestone}, @samp{reference}, @samp{responsible},
+@samp{scheduling}, etc.@: for tasks.
 
 @subsection Dependencies
 
@@ -12120,20 +12042,11 @@ examples should illustrate this:
 @vindex org-export-taskjuggler-default-reports
 TaskJuggler can produce many kinds of reports (e.g., gantt chart, resource
 allocation, etc).  The user defines what kind of reports should be generated
-for a project in the TaskJuggler file.  By default, the exporter will
-automatically insert some pre-set reports in the file.  These defaults are
-defined in @code{org-export-taskjuggler-default-reports}.  They can be
-modified using customize along with a number of other options.  For a more
-complete list, see @kbd{M-x customize-group @key{RET} org-export-taskjuggler
-@key{RET}}.
-
-Alternately, the user can tag a tree with
-@code{org-export-taskjuggler-report-tag}, and define reports in sub-nodes,
-similarly to what is done with tasks or resources.  The properties used for
-report generation are defined in
-@code{org-export-taskjuggler-valid-report-attributes}. In addition, a special
-property named @samp{report-kind} is used to define the kind of report one
-wants to generate (by default, a @samp{taskreport}).
+for a project in the TaskJuggler file.  The exporter will automatically insert
+some default reports in the file.  These defaults are defined in
+@code{org-export-taskjuggler-default-reports}.  They can be modified using
+customize along with a number of other options.  For a more complete list, see
+@kbd{M-x customize-group @key{RET} org-export-taskjuggler @key{RET}}.
 
 For more information and examples see the Org-taskjuggler tutorial at
 @uref{http://orgmode.org/worg/org-tutorials/org-taskjuggler.html}.
@@ -12993,8 +12906,6 @@ Include the code block in the tangled output to file @samp{filename}.
 @table @code
 @item org-babel-tangle
 Tangle the current file.  Bound to @kbd{C-c C-v t}.
-
-With prefix argument only tangle the current code block.
 @item org-babel-tangle-file
 Choose a file to tangle.  Bound to @kbd{C-c C-v f}.
 @end table
@@ -14172,8 +14083,7 @@ values @code{yes} or @code{no}, with a default value of @code{no}.
 Strips horizontal lines from the input table.  In most languages this is the
 desired effect because an @code{hline} symbol is interpreted as an unbound
 variable and raises an error.  Setting @code{:hlines no} or relying on the
-default value yields the following results.  Note that the @code{:hline}
-header argument has no effect for Emacs Lisp code blocks.
+default value yields the following results.
 
 @example
 #+TBLNAME: many-cols
@@ -14270,10 +14180,8 @@ hline)
 @node rownames, shebang, colnames, Specific header arguments
 @subsubsection @code{:rownames}
 
-The @code{:rownames} header argument can take on the values @code{yes} or
-@code{no}, with a default value of @code{no}.  Note that Emacs Lisp code
-blocks ignore the @code{:rownames} header argument entirely given the ease
-with which tables with row names may be handled directly in Emacs Lisp.
+The @code{:rownames} header argument can take on the values @code{yes}
+or @code{no}, with a default value of @code{no}.
 
 @itemize @bullet
 @item @code{no}
@@ -14978,32 +14886,24 @@ configured using these options (see variables @code{org-log-done},
 @cindex @code{logrefile}, STARTUP keyword
 @cindex @code{lognoterefile}, STARTUP keyword
 @cindex @code{nologrefile}, STARTUP keyword
-@cindex @code{logdrawer}, STARTUP keyword
-@cindex @code{nologdrawer}, STARTUP keyword
-@cindex @code{logstatesreversed}, STARTUP keyword
-@cindex @code{nologstatesreversed}, STARTUP keyword
 @example
-logdone             @r{record a timestamp when an item is marked DONE}
-lognotedone         @r{record timestamp and a note when DONE}
-nologdone           @r{don't record when items are marked DONE}
-logrepeat           @r{record a time when reinstating a repeating item}
-lognoterepeat       @r{record a note when reinstating a repeating item}
-nologrepeat         @r{do not record when reinstating repeating item}
-lognoteclock-out    @r{record a note when clocking out}
-nolognoteclock-out  @r{don't record a note when clocking out}
-logreschedule       @r{record a timestamp when scheduling time changes}
-lognotereschedule   @r{record a note when scheduling time changes}
-nologreschedule     @r{do not record when a scheduling date changes}
-logredeadline       @r{record a timestamp when deadline changes}
-lognoteredeadline   @r{record a note when deadline changes}
-nologredeadline     @r{do not record when a deadline date changes}
-logrefile           @r{record a timestamp when refiling}
-lognoterefile       @r{record a note when refiling}
-nologrefile         @r{do not record when refiling}
-logdrawer           @r{store log into drawer}
-nologdrawer         @r{store log outside of drawer}
-logstatesreversed   @r{reverse the order of states notes}
-nologstatesreversed @r{do not reverse the order of states notes}
+logdone            @r{record a timestamp when an item is marked DONE}
+lognotedone        @r{record timestamp and a note when DONE}
+nologdone          @r{don't record when items are marked DONE}
+logrepeat          @r{record a time when reinstating a repeating item}
+lognoterepeat      @r{record a note when reinstating a repeating item}
+nologrepeat        @r{do not record when reinstating repeating item}
+lognoteclock-out   @r{record a note when clocking out}
+nolognoteclock-out @r{don't record a note when clocking out}
+logreschedule      @r{record a timestamp when scheduling time changes}
+lognotereschedule  @r{record a note when scheduling time changes}
+nologreschedule    @r{do not record when a scheduling date changes}
+logredeadline      @r{record a timestamp when deadline changes}
+lognoteredeadline  @r{record a note when deadline changes}
+nologredeadline    @r{do not record when a deadline date changes}
+logrefile          @r{record a timestamp when refiling}
+lognoterefile      @r{record a note when refiling}
+nologrefile        @r{do not record when refiling}
 @end example
 @vindex org-hide-leading-stars
 @vindex org-odd-levels-only

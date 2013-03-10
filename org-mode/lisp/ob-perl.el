@@ -28,6 +28,7 @@
 
 ;;; Code:
 (require 'ob)
+(require 'ob-eval)
 (eval-when-compile (require 'cl))
 
 (defvar org-babel-tangle-lang-exts)

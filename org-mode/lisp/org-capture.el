@@ -223,9 +223,7 @@ freely formatted text.  Furthermore, the following %-escapes will
 be replaced with content and expanded in this order:
 
   %[pathname] Insert the contents of the file given by `pathname'.
-  %(sexp)     Evaluate elisp `(sexp)' and replace it with the results.
-              For convenience, %:keyword (see below) placeholders within
-              the expression will be expanded prior to this.
+  %(sexp)     Evaluate elisp `(sexp)' and replace with the result.
   %<...>      The result of format-time-string on the ... format specification.
   %t          Time stamp, date only.
   %T          Time stamp with date and time.
@@ -461,8 +459,6 @@ Here are the available contexts definitions:
       in-mode: command displayed only in matching modes
   not-in-file: command not displayed in matching files
   not-in-mode: command not displayed in matching modes
-    in-buffer: command displayed only in matching buffers
-not-in-buffer: command not displayed in matching buffers
    [function]: a custom function taking no argument
 
 If you define several checks, the agenda command will be
@@ -488,8 +484,6 @@ to avoid duplicates.)"
 				     (choice
 				      (const :tag "In file" in-file)
 				      (const :tag "Not in file" not-in-file)
-				      (const :tag "In buffer" in-buffer)
-				      (const :tag "Not in buffer" not-in-buffer)
 				      (const :tag "In mode" in-mode)
 				      (const :tag "Not in mode" not-in-mode))
 				     (regexp))
@@ -520,19 +514,17 @@ stored.
 
 When called with a `C-0' (zero) prefix, insert a template at point.
 
-ELisp programs can set KEYS to a string associated with a template
+Lisp programs can set KEYS to a string associated with a template
 in `org-capture-templates'.  In this case, interactive selection
 will be bypassed.
 
 If `org-capture-use-agenda-date' is non-nil, capturing from the
-agenda will use the date at point as the default date.  Then, a
-`C-1' prefix will tell the capture process to use the HH:MM time
-of the day at point (if any) or the current HH:MM time."
+agenda will use the date at point as the default date."
   (interactive "P")
   (when (and org-capture-use-agenda-date
 	     (eq major-mode 'org-agenda-mode))
     (setq org-overriding-default-time
-	  (org-get-cursor-date (equal goto 1))))
+	  (org-get-cursor-date)))
   (cond
    ((equal goto '(4)) (org-capture-goto-target))
    ((equal goto '(16)) (org-capture-goto-last-stored))
@@ -1504,8 +1496,10 @@ The template may still contain \"%?\" for cursor positioning."
 		(setq v-i (mapconcat 'identity
 				     (org-split-string initial "\n")
 				     (concat "\n" lead))))))
-	  (replace-match (or (eval (intern (concat "v-" (match-string 1)))) "")
-			 t t)))
+	  (replace-match
+	   (or (org-add-props (eval (intern (concat "v-" (match-string 1))))
+		   '(org-protected t)) "")
+	   t t)))
 
       ;; From the property list
       (when plist-p
@@ -1521,7 +1515,8 @@ The template may still contain \"%?\" for cursor positioning."
       (let ((org-inhibit-startup t)) (org-mode))
       ;; Interactive template entries
       (goto-char (point-min))
-      (while (re-search-forward "%^\\({\\([^}]*\\)}\\)?\\([gGtTuUCLp]\\)?" nil t)
+      (while (and (re-search-forward "%^\\({\\([^}]*\\)}\\)?\\([gGtTuUCLp]\\)?" nil t)
+		  (not (get-text-property (1- (point)) 'org-protected)))
 	(unless (org-capture-escaped-%)
 	  (setq char (if (match-end 3) (match-string-no-properties 3))
 		prompt (if (match-end 2) (match-string-no-properties 2)))
@@ -1626,25 +1621,9 @@ The template may still contain \"%?\" for cursor positioning."
       (goto-char (match-beginning 0))
       (let ((template-start (point)))
 	(forward-char 1)
-	(let ((result (org-eval
-		       (org-capture--expand-keyword-in-embedded-elisp
-			(read (current-buffer))))))
+	(let ((result (org-eval (read (current-buffer)))))
 	  (delete-region template-start (point))
 	  (insert result))))))
-
-(defun org-capture--expand-keyword-in-embedded-elisp (attr)
-  "Recursively replace capture link keywords in ATTR sexp.
-Such keywords are prefixed with \"%:\".  See
-`org-capture-template' for more information."
-  (cond ((consp attr)
-	 (mapcar 'org-capture--expand-keyword-in-embedded-elisp attr))
-	((symbolp attr)
-	 (let* ((attr-symbol (symbol-name attr))
-		(key (and (string-match "%\\(:.*\\)" attr-symbol)
-			  (intern (match-string 1 attr-symbol)))))
-	   (or (plist-get org-store-link-plist key)
-	       attr)))
-	(t attr)))
 
 (defun org-capture-inside-embedded-elisp-p ()
   "Return non-nil if point is inside of embedded elisp %(sexp)."

@@ -76,12 +76,6 @@ org-agenda-text-search-extra-files
   :group 'org-mobile
   :type 'directory)
 
-(defcustom org-mobile-allpriorities "A B C"
-  "Default set of priority cookies for the index file."
-  :type 'string
-  :group 'org-mobile
-  :version "24.3")
-
 (defcustom org-mobile-use-encryption nil
   "Non-nil means keep only encrypted files on the WebDAV server.
 Encryption uses AES-256, with a password given in
@@ -282,7 +276,7 @@ Also exclude files matching `org-mobile-files-exclude-regexp'."
 		      (list f))
 		     (t nil)))
 		  org-mobile-files)))
-	 (files (delq
+	 (files (delete
 		 nil
 		 (mapcar (lambda (f)
 			   (unless (and (not (string= org-mobile-files-exclude-regexp ""))
@@ -469,7 +463,7 @@ agenda view showing the flagged items."
       (setq tags (append def-tags tags nil))
       (insert "#+TAGS: " (mapconcat 'identity tags " ") "\n")
       (insert "#+DRAWERS: " (mapconcat 'identity drawers " ") "\n")
-      (insert "#+ALLPRIORITIES: " org-mobile-allpriorities "\n")
+      (insert "#+ALLPRIORITIES: A B C" "\n")
       (when (file-exists-p (expand-file-name
 			    org-mobile-directory "agendas.org"))
 	(insert "* [[file:agendas.org][Agenda Views]]\n"))
@@ -1070,7 +1064,7 @@ be returned that indicates what went wrong."
       (if (org-on-heading-p) ; if false we are in top-level of file
 	  (progn
 	    (end-of-line 1)
-	    (org-insert-heading-respect-content)
+	    (org-insert-heading-respect-content t)
 	    (org-demote))
 	(beginning-of-line)
 	(insert "* "))

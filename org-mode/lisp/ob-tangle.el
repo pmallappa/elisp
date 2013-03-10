@@ -26,6 +26,7 @@
 ;; Extract the code from source blocks out into raw source-code files.
 
 ;;; Code:
+(require 'ob)
 (require 'org-src)
 (eval-when-compile
   (require 'cl))
@@ -136,13 +137,12 @@ evaluating BODY."
 (def-edebug-spec org-babel-with-temp-filebuffer (form body))
 
 ;;;###autoload
-(defun org-babel-load-file (file &optional compile)
+(defun org-babel-load-file (file)
   "Load Emacs Lisp source code blocks in the Org-mode FILE.
-This function exports the source code using `org-babel-tangle'
-and then loads the resulting file using `load-file'.  With prefix
-arg (noninteractively: 2nd arg) COMPILE the tangled Emacs Lisp
-file to byte-code before it is loaded."
-  (interactive "fFile to load: \nP")
+This function exports the source code using
+`org-babel-tangle' and then loads the resulting file using
+`load-file'."
+  (interactive "fFile to load: ")
   (let* ((age (lambda (file)
 		(float-time
 		 (time-subtract (current-time)
@@ -154,12 +154,8 @@ file to byte-code before it is loaded."
     (unless (and (file-exists-p exported-file)
 		 (> (funcall age file) (funcall age exported-file)))
       (org-babel-tangle-file file exported-file "emacs-lisp"))
-    (message "%s %s"
-	     (if compile
-		 (progn (byte-compile-file exported-file 'load)
-			"Compiled and loaded")
-	       (progn (load-file exported-file) "Loaded"))
-	     exported-file)))
+    (load-file exported-file)
+    (message "Loaded %s" exported-file)))
 
 ;;;###autoload
 (defun org-babel-tangle-file (file &optional target-file lang)
@@ -202,14 +198,7 @@ exported source code blocks by language."
 		    target-file)
 	  (setq target-file
 		(read-from-minibuffer "Tangle to: " (buffer-file-name)))))
-      (narrow-to-region
-       (save-match-data
-	 (save-excursion
-	   (goto-char (org-babel-where-is-src-block-head))
-	   (while (and (forward-line -1)
-		       (looking-at org-babel-multi-line-header-regexp)))
-	   (point)))
-       (match-end 0)))
+      (narrow-to-region (match-beginning 0) (match-end 0)))
     (save-excursion
       (let ((block-counter 0)
 	    (org-babel-default-header-args
@@ -382,6 +371,10 @@ code blocks by language."
           (unless (and language (not (string= language src-lang)))
 	    (let* ((info (org-babel-get-src-block-info))
 		   (params (nth 2 info))
+		   (extra (nth 3 info))
+		   (cref-fmt (or (and (string-match "-l \"\\(.+\\)\"" extra)
+				      (match-string 1 extra))
+				 org-coderef-label-format))
 		   (link ((lambda (link)
 			    (and (string-match org-bracket-link-regexp link)
 				 (match-string 1 link)))
@@ -399,6 +392,11 @@ code blocks by language."
 		    ((lambda (body) ;; run the tangle-body-hook
 		       (with-temp-buffer
 			 (insert body)
+			 (when (string-match "-r" extra)
+			   (goto-char (point-min))
+			   (while (re-search-forward
+				   (replace-regexp-in-string "%s" ".+" cref-fmt) nil t)
+			     (replace-match "")))
 			 (run-hooks 'org-babel-tangle-body-hook)
 			 (buffer-string)))
 		     ((lambda (body) ;; expand the body in language specific manner

@@ -36,6 +36,7 @@
 
 ;;; Code:
 (require 'ob)
+(require 'ob-comint)
 (require 'comint)
 (eval-when-compile (require 'cl))
 

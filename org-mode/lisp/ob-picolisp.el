@@ -54,6 +54,8 @@
 
 ;;; Code:
 (require 'ob)
+(require 'ob-eval)
+(require 'ob-comint)
 (require 'comint)
 (eval-when-compile (require 'cl))
 
@@ -121,8 +123,13 @@
            (t full-body))))
 
     ((lambda (result)
-       (org-babel-result-cond result-params
-	 result
+       (if (or (member "verbatim" result-params)
+               (member "scalar" result-params)
+               (member "output" result-params)
+               (member "code" result-params)
+               (member "pp" result-params)
+               (= (length result) 0))
+           result
          (read result)))
      (if (not (string= session-name "none"))
          ;; session based evaluation

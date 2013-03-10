@@ -27,6 +27,7 @@
 
 ;;; Code:
 (require 'ob)
+(eval-when-compile (require 'ob-comint))
 
 (defvar org-babel-default-header-args:emacs-lisp
   '((:hlines . "yes") (:colnames . "no"))
@@ -55,13 +56,11 @@
   "Execute a block of emacs-lisp code with Babel."
   (save-window-excursion
     ((lambda (result)
-       (org-babel-result-cond (cdr (assoc :result-params params))
-	 (let ((print-level nil)
-	       (print-length nil))
-	   (if (or (member "scalar" (cdr (assoc :result-params params)))
-		   (member "verbatim" (cdr (assoc :result-params params))))
-	       (format "%S" result)
-	     (format "%s" result)))
+       (if (or (member "scalar" (cdr (assoc :result-params params)))
+	       (member "verbatim" (cdr (assoc :result-params params))))
+	   (let ((print-level nil)
+		 (print-length nil))
+	     (format "%S" result))
 	 (org-babel-reassemble-table
 	  result
 	  (org-babel-pick-name (cdr (assoc :colname-names params))

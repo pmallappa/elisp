@@ -29,7 +29,7 @@
 ;; functions and their associated keys.
 
 ;;; Code:
-(require 'ob-core)
+(require 'ob)
 
 (defvar org-babel-key-prefix "\C-c\C-v"
   "The key prefix for Babel interactive key-bindings.

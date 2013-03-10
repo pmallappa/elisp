@@ -30,7 +30,10 @@
 ;; http://lilypond.org/manuals.html
 
 ;;; Code:
+
 (require 'ob)
+(require 'ob-eval)
+(require 'ob-tangle)
 (require 'outline)
 (defalias 'lilypond-mode 'LilyPond-mode)
 
@@ -152,11 +155,7 @@ specific arguments to =org-babel-tangle="
       " -dbackend=eps "
       "-dno-gs-load-fonts "
       "-dinclude-eps-fonts "
-      (or (cdr (assoc (file-name-extension out-file)
-		      '(("pdf" . "--pdf ")
-			("ps" . "--ps ")
-			("png" . "--png "))))
-	  "--png ")
+      "--png "
       "--output="
       (file-name-sans-extension out-file)
       " "

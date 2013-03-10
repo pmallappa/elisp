@@ -42,6 +42,8 @@
 (declare-function org-back-to-heading "org" (&optional invisible-ok))
 (declare-function org-combine-plists "org" (&rest plists))
 (declare-function org-end-of-subtree "org"  (&optional invisible-ok to-heading))
+(declare-function org-export-preprocess-string "org-exp"
+		  (string &rest parameters))
 (declare-function org-fill-paragraph "org" (&optional justify))
 (declare-function org-icompleting-read "org" (&rest args))
 (declare-function org-id-uuid "org-id" ())
@@ -94,19 +96,15 @@
   :group 'org)
 
 (defcustom org-footnote-section "Footnotes"
-  "Outline heading containing footnote definitions.
-
-This can be nil, to place footnotes locally at the end of the
-current outline node.  If can also be the name of a special
-outline heading under which footnotes should be put.
-
+  "Outline heading containing footnote definitions before export.
+This can be nil, to place footnotes locally at the end of the current
+outline node.  If can also be the name of a special outline heading
+under which footnotes should be put.
 This variable defines the place where Org puts the definition
-automatically, i.e. when creating the footnote, and when sorting
-the notes.  However, by hand you may place definitions
-*anywhere*.
-
-If this is a string, during export, all subtrees starting with
-this heading will be ignored."
+automatically, i.e. when creating the footnote, and when sorting the notes.
+However, by hand you may place definitions *anywhere*.
+If this is a string, during export, all subtrees starting with this
+heading will be removed after extracting footnote definitions."
   :group 'org-footnote
   :type '(choice
 	  (string :tag "Collect footnotes under heading")
@@ -184,6 +182,8 @@ extracted will be filled again."
     (not (or (org-in-commented-line)
 	     (org-in-indented-comment-line)
 	     (org-inside-LaTeX-fragment-p)
+	     ;; Avoid protected environments (LaTeX export)
+	     (get-text-property (point) 'org-protected)
 	     ;; Avoid literal example.
 	     (org-in-verbatim-emphasis)
 	     (save-excursion
@@ -230,7 +230,13 @@ positions, and the definition, when inlined."
 				 (org-in-regexp org-bracket-link-regexp))))
 			  (and linkp (< (point) (cdr linkp))))))
 		 ;; Verify point doesn't belong to a LaTeX macro.
-		 (not (org-inside-latex-macro-p)))
+		 ;; Beware though, when two footnotes are side by
+		 ;; side, once the first one is changed into LaTeX,
+		 ;; the second one might then be considered as an
+		 ;; optional argument of the command.  Thus, check
+		 ;; the `org-protected' property of that command.
+		 (or (not (org-inside-latex-macro-p))
+		     (get-text-property (1- beg) 'org-protected)))
 	(list label beg end
 	      ;; Definition: ensure this is an inline footnote first.
 	      (and (or (not label) (match-string 1))
@@ -596,15 +602,38 @@ With prefix arg SPECIAL, offer additional commands in a menu."
       (org-footnote-goto-previous-reference (car tmp)))
      (t (org-footnote-new)))))
 
+(defvar org-footnote-insert-pos-for-preprocessor 'point-max
+  "See `org-footnote-normalize'.")
+
+(defvar org-export-footnotes-seen) ; silence byte-compiler
+(defvar org-export-footnotes-data) ; silence byte-compiler
+
 ;;;###autoload
-(defun org-footnote-normalize (&optional sort-only)
+(defun org-footnote-normalize (&optional sort-only export-props)
   "Collect the footnotes in various formats and normalize them.
 
 This finds the different sorts of footnotes allowed in Org, and
-normalizes them to the usual [N] format.
+normalizes them to the usual [N] format that is understood by the
+Org-mode exporters.
 
 When SORT-ONLY is set, only sort the footnote definitions into the
-referenced sequence."
+referenced sequence.
+
+If Org is amidst an export process, EXPORT-PROPS will hold the
+export properties of the buffer.
+
+When EXPORT-PROPS is non-nil, the default action is to insert
+normalized footnotes towards the end of the pre-processing
+buffer.  Some exporters (docbook, odt...) expect footnote
+definitions to be available before any references to them.  Such
+exporters can let bind `org-footnote-insert-pos-for-preprocessor'
+to symbol `point-min' to achieve the desired behaviour.
+
+Additional note on `org-footnote-insert-pos-for-preprocessor':
+1. This variable has not effect when FOR-PREPROCESSOR is nil.
+2. This variable (potentially) obviates the need for extra scan
+   of pre-processor buffer as witnessed in
+   `org-export-docbook-get-footnotes'."
   ;; This is based on Paul's function, but rewritten.
   ;;
   ;; Re-create `org-with-limited-levels', but not limited to Org
@@ -614,12 +643,17 @@ referenced sequence."
 	       org-inlinetask-min-level
 	       (1- org-inlinetask-min-level)))
 	 (nstars (and limit-level
-		      (if org-odd-levels-only (1- (* limit-level 2))
+		      (if org-odd-levels-only
+			  (and limit-level (1- (* limit-level 2)))
 			limit-level)))
 	 (org-outline-regexp
 	  (concat "\\*" (if nstars (format "\\{1,%d\\} " nstars) "+ ")))
-	 (count 0)
-	 ins-point ref ref-table)
+	 ;; Determine the highest marker used so far.
+	 (ref-table (when export-props org-export-footnotes-seen))
+	 (count (if (and export-props ref-table)
+		    (apply 'max (mapcar (lambda (e) (nth 1 e)) ref-table))
+		  0))
+	 ins-point ref)
     (save-excursion
       ;; 1. Find every footnote reference, extract the definition, and
       ;;    collect that data in REF-TABLE.  If SORT-ONLY is nil, also
@@ -641,10 +675,15 @@ referenced sequence."
 	  ;; Replace footnote reference with [MARKER].  Maybe fill
 	  ;; paragraph once done.  If SORT-ONLY is non-nil, only move
 	  ;; to the end of reference found to avoid matching it twice.
+	  ;; If EXPORT-PROPS isn't nil, also add `org-footnote'
+	  ;; property to it, so it can be easily recognized by
+	  ;; exporters.
 	  (if sort-only (goto-char (nth 2 ref))
 	    (delete-region (nth 1 ref) (nth 2 ref))
 	    (goto-char (nth 1 ref))
-	    (insert (format "[%d]" marker))
+	    (let ((new-ref (format "[%d]" marker)))
+	      (when export-props (org-add-props new-ref '(org-footnote t)))
+	      (insert new-ref))
 	    (and inlinep
 		 org-footnote-fill-after-inline-note-extraction
 		 (org-fill-paragraph)))
@@ -652,9 +691,22 @@ referenced sequence."
 	  ;; type (INLINEP) and position (POS) to REF-TABLE if data
 	  ;; was unknown.
 	  (unless a
-	    (let ((def (or (nth 3 ref)	; Inline definition.
+	    (let ((def (or (nth 3 ref)	; inline
+			   (and export-props
+				(cdr (assoc lbl org-export-footnotes-data)))
 			   (nth 3 (org-footnote-get-definition lbl)))))
-	      (push (list lbl marker def
+	      (push (list lbl marker
+			  ;; When exporting, each definition goes
+			  ;; through `org-export-preprocess-string' so
+			  ;; it is ready to insert in the
+			  ;; backend-specific buffer.
+			  (if (and export-props def)
+			      (let ((parameters
+				     (org-combine-plists
+				      export-props
+				      '(:todo-keywords t :tags t :priority t))))
+				(apply #'org-export-preprocess-string def parameters))
+			    def)
 			  ;; Reference beginning position is a marker
 			  ;; to preserve it during further buffer
 			  ;; modifications.
@@ -676,7 +728,14 @@ referenced sequence."
 	(unless (bolp) (newline)))
        ;; No footnote section set: Footnotes will be added at the end
        ;; of the section containing their first reference.
-       ((derived-mode-p 'org-mode))
+       ;; Nevertheless, in an export situation, set insertion point to
+       ;; `point-max' by default.
+       ((derived-mode-p 'org-mode)
+	(when export-props
+	  (goto-char (point-max))
+	  (skip-chars-backward " \r\t\n")
+	  (forward-line)
+	  (delete-region (point) (point-max))))
        (t
 	;; Remove any left-over tag in the buffer, if one is set up.
 	(when org-footnote-tag-for-non-org-mode-files
@@ -694,7 +753,14 @@ referenced sequence."
 		 (re-search-backward message-signature-separator nil t))
 	    (beginning-of-line)
 	  (goto-char (point-max)))))
-      (setq ins-point (point-marker))
+      ;; During export, `org-footnote-insert-pos-for-preprocessor' has
+      ;; precedence over previously found position.
+      (setq ins-point
+	    (copy-marker
+	     (if (and export-props
+		      (eq org-footnote-insert-pos-for-preprocessor 'point-min))
+		 (point-min)
+	       (point))))
       ;; 3. Clean-up REF-TABLE.
       (setq ref-table
 	    (delq nil
@@ -725,22 +791,26 @@ referenced sequence."
        ;; No footnote: exit.
        ((not ref-table))
        ;; Cases when footnotes should be inserted in one place.
-       ((or (not (derived-mode-p 'org-mode)) org-footnote-section)
+       ((or (not (derived-mode-p 'org-mode))
+	    org-footnote-section
+	    export-props)
 	;; Insert again the section title, if any.  Ensure that title,
 	;; or the subsequent footnotes, will be separated by a blank
 	;; lines from the rest of the document.  In an Org buffer,
 	;; separate section with a blank line, unless explicitly
 	;; stated in `org-blank-before-new-entry'.
-	(if (not (derived-mode-p 'org-mode))
-	    (progn (skip-chars-backward " \t\n\r")
-		   (delete-region (point) ins-point)
-		   (unless (bolp) (newline))
-		   (when org-footnote-tag-for-non-org-mode-files
-		     (insert "\n" org-footnote-tag-for-non-org-mode-files "\n")))
+	(cond
+	 ((not (derived-mode-p 'org-mode))
+	  (skip-chars-backward " \t\n\r")
+	  (delete-region (point) ins-point)
+	  (unless (bolp) (newline))
+	  (when org-footnote-tag-for-non-org-mode-files
+	    (insert "\n" org-footnote-tag-for-non-org-mode-files "\n")))
+	 ((and org-footnote-section (not export-props))
 	  (when (and (cdr (assq 'heading org-blank-before-new-entry))
 		     (zerop (save-excursion (org-back-over-empty-lines))))
 	    (insert "\n"))
-	  (insert "* " org-footnote-section "\n"))
+	  (insert "* " org-footnote-section "\n")))
 	(set-marker ins-point nil)
 	;; Insert the footnotes, separated by a blank line.
 	(insert
@@ -750,7 +820,10 @@ referenced sequence."
 	    (set-marker (nth 4 x) nil)
 	    (format "\n[%s] %s" (nth (if sort-only 0 1) x) (nth 2 x)))
 	  ref-table "\n"))
-	(unless (eobp) (insert "\n\n")))
+	(unless (eobp) (insert "\n\n"))
+	;; When exporting, add newly inserted markers along with their
+	;; associated definition to `org-export-footnotes-seen'.
+	(when export-props (setq org-export-footnotes-seen ref-table)))
        ;; Each footnote definition has to be inserted at the end of
        ;; the section where its first reference belongs.
        (t

@@ -27,6 +27,9 @@
 
 ;;; Code:
 (require 'ob)
+(require 'ob-ref)
+(require 'ob-comint)
+(require 'ob-eval)
 (require 'shell)
 (eval-when-compile (require 'cl))
 
@@ -138,8 +141,10 @@ return the value of the last statement in BODY."
   ((lambda (results)
      (when results
        (let ((result-params (cdr (assoc :result-params params))))
-	 (org-babel-result-cond result-params
-	   results
+	 (if (or (member "scalar" result-params)
+		 (member "verbatim" result-params)
+		 (member "output" result-params))
+	     results
 	   (let ((tmp-file (org-babel-temp-file "sh-")))
 	     (with-temp-file tmp-file (insert results))
 	     (org-babel-import-elisp-from-file tmp-file))))))

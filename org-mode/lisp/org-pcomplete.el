@@ -35,6 +35,7 @@
 (require 'pcomplete)
 
 (declare-function org-split-string "org" (string &optional separators))
+(declare-function org-get-current-options "org-exp" ())
 (declare-function org-make-org-heading-search-string "org"
 		  (&optional string heading))
 (declare-function org-get-buffer-tags "org" ())
@@ -139,12 +140,11 @@ When completing for #+STARTUP, for example, this function returns
 		 (car (org-thing-at-point)))
 		pcomplete-default-completion-function))))
 
-(defvar org-options-keywords)		 ; From org.el
-(defvar org-element-block-name-alist)	 ; From org-element.el
-(defvar org-element-affiliated-keywords) ; From org-element.el
-(declare-function org-get-export-keywords "org" ())
+(defvar org-options-keywords)                ; From org.el
+(defvar org-additional-option-like-keywords) ; From org.el
 (defun pcomplete/org-mode/file-option ()
   "Complete against all valid file options."
+  (require 'org-exp)
   (pcomplete-here
    (org-pcomplete-case-double
     (mapcar (lambda (x)
@@ -152,16 +152,7 @@ When completing for #+STARTUP, for example, this function returns
 		  (concat x " ")
 		x))
 	    (append org-options-keywords
-		    org-element-affiliated-keywords
-		    (let (block-names)
-		      (mapc (lambda (block-name)
-			      (let ((name (car block-name)))
-				(push (concat "END_" name) block-names)
-				(push (concat "BEGIN_" name) block-names)))
-			    org-element-block-name-alist)
-		      block-names)
-		    (mapcar (lambda (keyword) (concat keyword ":"))
-			    (org-get-export-keywords)))))
+		    org-additional-option-like-keywords)))
    (substring pcomplete-stub 2)))
 
 (defvar org-startup-options)
@@ -178,31 +169,37 @@ When completing for #+STARTUP, for example, this function returns
 		(setq opts (delete "showstars" opts)))))
 	    opts))))
 
+(defmacro pcomplete/org-mode/file-option/x (option)
+  "Complete arguments for OPTION."
+  `(while
+       (pcomplete-here
+	(pcomplete-uniqify-list
+	 (delq nil
+	       (mapcar (lambda(o)
+			 (when (string-match (concat "^[ \t]*#\\+"
+						     ,option ":[ \t]+\\(.*\\)[ \t]*$") o)
+			   (match-string 1 o)))
+		       (split-string (org-get-current-options) "\n")))))))
+
 (defun pcomplete/org-mode/file-option/options ()
   "Complete arguments for the #+OPTIONS file option."
-  (while (pcomplete-here
-	  (pcomplete-uniqify-list
-	   (append
-	    ;; Hard-coded OPTION items always available.
-	    '("H:" "\\n:" "num:" "timestamp:" "arch:" "author:" "c:"
-	      "creator:" "date:" "d:" "email:" "*:" "e:" "::" "f:"
-	      "inline:" "tex:" "p:" "pri:" "':" "-:" "stat:" "^:" "toc:"
-	      "|:" "tags:" "tasks:" "<:" "todo:")
-	    ;; OPTION items from registered back-ends.
-	    (let (items)
-	      (dolist (back-end (org-bound-and-true-p
-				 org-export-registered-backends))
-		(dolist (option (plist-get (cdr back-end) :options-alist))
-		  (let ((item (nth 2 option)))
-		    (when item (push (concat item ":") items)))))
-	      items))))))
+  (pcomplete/org-mode/file-option/x "OPTIONS"))
 
-(defun pcomplete/org-mode/file-option/infojs_opt ()
-  "Complete arguments for the #+INFOJS_OPT file option."
-  (while (pcomplete-here
-	  (pcomplete-uniqify-list
-	   (mapcar (lambda (item) (format "%s:" (car item)))
-		   (org-bound-and-true-p org-infojs-opts-table))))))
+(defun pcomplete/org-mode/file-option/title ()
+  "Complete arguments for the #+TITLE file option."
+  (pcomplete/org-mode/file-option/x "TITLE"))
+
+(defun pcomplete/org-mode/file-option/author ()
+  "Complete arguments for the #+AUTHOR file option."
+  (pcomplete/org-mode/file-option/x "AUTHOR"))
+
+(defun pcomplete/org-mode/file-option/email ()
+  "Complete arguments for the #+EMAIL file option."
+  (pcomplete/org-mode/file-option/x "EMAIL"))
+
+(defun pcomplete/org-mode/file-option/date ()
+  "Complete arguments for the #+DATE file option."
+  (pcomplete/org-mode/file-option/x "DATE"))
 
 (defun pcomplete/org-mode/file-option/bind ()
   "Complete arguments for the #+BIND file option, which are variable names."
@@ -293,7 +290,7 @@ This needs more work, to handle headings with lots of spaces in them."
 	(cpllist (mapcar (lambda (x) (concat x ": ")) org-drawers)))
     (pcomplete-here cpllist
 		    (substring pcomplete-stub 1)
-		    (unless (or (not (delq
+		    (unless (or (not (delete
 				      nil
 				      (mapcar (lambda(x)
 						(string-match (substring pcomplete-stub 1) x))

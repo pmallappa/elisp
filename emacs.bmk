@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("XBMC"
+(("Navy_2013"
+ (filename . "~/Navy/Navy_2013/")
+ (front-context-string . "01.January\n  drw")
+ (rear-context-string . "68 Feb 16 11:27 ")
+ (position . 132))
+("XBMC"
  (filename . "/Volumes/Passport2TB/XBMC/")
  (front-context-string . "Movies\n  drwxr-x")
  (rear-context-string . "84 Jan 20 17:08 ")
@@ -17,11 +22,6 @@
  (front-context-string . "# -*- mode: org;")
  (rear-context-string)
  (position . 1))
-("Navy_2012"
- (filename . "~/Navy/Navy_2012/")
- (front-context-string . "01.January\n  drw")
- (rear-context-string . "36 Feb 12  2012 ")
- (position . 137))
 ("Dropbox"
  (filename . "~/Dropbox/")
  (front-context-string . "Apt_Inventory\n  ")
@@ -34,9 +34,9 @@
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/org/journal.org")
- (front-context-string . "** Paid USAA Mas")
- (rear-context-string . " from USAA site\n")
- (position . 45712))
+ (front-context-string . "** Ordered Leger")
+ (rear-context-string . "			  :Personal:\n")
+ (position . 25195))
 ("webjump"
  (filename . "~/Emacs-pkgs/emacs-webjump.el")
  (front-context-string . ";;;_.===========")

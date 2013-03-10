@@ -51,21 +51,8 @@
 
 (autoload 'doc-view-goto-page "doc-view")
 
-(org-add-link-type "docview" 'org-docview-open 'org-docview-export)
+(org-add-link-type "docview" 'org-docview-open)
 (add-hook 'org-store-link-functions 'org-docview-store-link)
-
-(defun org-docview-export (link description format)
-  "Export a docview link from Org files."
-  (let* ((path (when (string-match "\\(.+\\)::.+" link)
-		 (match-string 1 link)))
-         (desc (or description link)))
-    (when (stringp path)
-      (setq path (org-link-escape (expand-file-name path)))
-      (cond
-       ((eq format 'html) (format "<a href=\"%s\">%s</a>" path desc))
-       ((eq format 'latex) (format "\href{%s}{%s}" path desc))
-       ((eq format 'ascii) (format "%s (%s)" desc path))
-       (t path)))))
 
 (defun org-docview-open (link)
   (when (string-match "\\(.*\\)::\\([0-9]+\\)$"  link)

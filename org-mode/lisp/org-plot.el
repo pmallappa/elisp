@@ -30,6 +30,7 @@
 
 ;;; Code:
 (require 'org)
+(require 'org-exp)
 (require 'org-table)
 (eval-when-compile
   (require 'cl))

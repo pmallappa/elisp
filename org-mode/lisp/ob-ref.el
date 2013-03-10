@@ -49,7 +49,7 @@
 ;;  #+end_src
 
 ;;; Code:
-(require 'ob-core)
+(require 'ob)
 (eval-when-compile
   (require 'cl))
 

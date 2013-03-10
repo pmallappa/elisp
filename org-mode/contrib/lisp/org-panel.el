@@ -133,6 +133,8 @@ active.)"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Hook functions etc
 
+;;(defvar orgpan-this-panel-window nil)
+
 (defun orgpan-delete-panel ()
  "Remove the panel."
  (interactive)
@@ -201,7 +203,8 @@ active.)"
              (unless (and orgpan-point
                           (= (point) orgpan-point))
                ;; Go backward so it is possible to click on a "button":
-               (orgpan-backward-field))))))
+               (orgpan-backward-field)))))
+       (setq orgpan-this-panel-window nil))
    (error (lwarn 't :warning "orgpan-post: %S" err))))
 
 ;; (defun orgpan-window-config-change ()
@@ -291,7 +294,7 @@ active.)"
 
 (defun orgpan-check-panel-mode ()
  (unless (derived-mode-p 'orgpan-mode)
-   (error "Not orgpan-mode in buffer: %s" major-mode)))
+   (error "Not orgpan-mode in buffer: " major-mode)))
 
 (defun orgpan-display-bindings-help ()
  (orgpan-check-panel-mode)
@@ -397,9 +400,6 @@ There can be only one such buffer at any time.")
 
 (defvar orgpan-point nil)
 ;;(make-variable-buffer-local 'orgpan-point)
-
-(defvar viper-emacs-state-mode-list)
-(defvar viper-new-major-mode-buffer-list)
 
 (defun orgpan-avoid-viper-in-buffer ()
  ;; Fix-me: This is ugly. However see `this-major-mode-requires-vi-state':
@@ -598,11 +598,12 @@ button changes the binding of the arrow keys."
                org-mode-map))
  ;;(org-back-to-heading)
  ;;(remove-hook 'window-configuration-change-hook 'orgpan-window-config-change)
- (setq orgpan-org-window (selected-window))
- (setq orgpan-panel-window (split-window nil -4 'below))
- (select-window orgpan-panel-window)
+ (split-window)
  (set-window-buffer (selected-window) (orgpan-make-panel-buffer))
+ (setq orgpan-panel-window (selected-window))
  ;;(set-window-dedicated-p (selected-window) t)
+ (fit-window-to-buffer nil nil 3)
+ (setq orgpan-org-window (next-window))
  ;; The minor mode version starts here:
  (when orgpan-minor-mode-version
    (select-window orgpan-org-window)

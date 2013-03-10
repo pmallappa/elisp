@@ -28,6 +28,9 @@
 
 ;;; Code:
 (require 'ob)
+(require 'ob-ref)
+(require 'ob-comint)
+(require 'ob-eval)
 (eval-when-compile (require 'cl))
 
 (declare-function org-remove-indentation "org" )
@@ -48,16 +51,6 @@
 This will typically be either 'python or 'python-mode.")
 
 (defvar org-src-preserve-indentation)
-
-(defcustom org-babel-python-hline-to "None"
-  "Replace hlines in incoming tables with this when translating to python."
-  :group 'org-babel
-  :type 'string)
-
-(defcustom org-babel-python-None-to 'hline
-  "Replace 'None' in python tables with this before returning."
-  :group 'org-babel
-  :type 'string)
 
 (defun org-babel-execute:python (body params)
   "Execute a block of Python code with Babel.
@@ -121,7 +114,7 @@ specifying a variable of the same value."
   (if (listp var)
       (concat "[" (mapconcat #'org-babel-python-var-to-python var ", ") "]")
     (if (equal var 'hline)
-	org-babel-python-hline-to
+	"None"
       (format
        (if (and (stringp var) (string-match "[\n\r]" var)) "\"\"%S\"\"" "%S")
        var))))
@@ -130,13 +123,7 @@ specifying a variable of the same value."
   "Convert RESULTS into an appropriate elisp value.
 If the results look like a list or tuple, then convert them into an
 Emacs-lisp table, otherwise return the results as a string."
-  ((lambda (res)
-     (if (listp res)
-	 (mapcar (lambda (el) (if (equal el 'None)
-			     org-babel-python-None-to el))
-		 res)
-       res))
-   (org-babel-script-escape results)))
+  (org-babel-script-escape results))
 
 (defvar org-babel-python-buffers '((:default . nil)))
 
@@ -219,8 +206,11 @@ If RESULT-TYPE equals 'output then return standard output as a
 string.  If RESULT-TYPE equals 'value then return the value of the
 last statement in BODY, as elisp."
   ((lambda (raw)
-     (org-babel-result-cond result-params
-       raw
+     (if (or (member "code" result-params)
+	     (member "pp" result-params)
+	     (and (member "output" result-params)
+		  (not (member "table" result-params))))
+	 raw
        (org-babel-python-table-or-string (org-babel-trim raw))))
    (case result-type
      (output (org-babel-eval org-babel-python-command
@@ -269,8 +259,11 @@ last statement in BODY, as elisp."
 		       (funcall send-wait))))
     ((lambda (results)
        (unless (string= (substring org-babel-python-eoe-indicator 1 -1) results)
-	 (org-babel-result-cond result-params
-	   results
+	 (if (or (member "code" result-params)
+		 (member "pp" result-params)
+		 (and (member "output" result-params)
+		      (not (member "table" result-params))))
+	     results
 	   (org-babel-python-table-or-string results))))
      (case result-type
        (output

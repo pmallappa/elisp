@@ -32,6 +32,7 @@
 
 ;;; Code:
 (require 'ob)
+(require 'ob-eval)
 (require 'org-compat)
 (eval-when-compile (require 'cl))
 
@@ -77,8 +78,10 @@ called by `org-babel-execute-src-block'"
     (org-babel-reassemble-table
      ((lambda (results)
 	(when results
-	  (org-babel-result-cond result-params
-	    results
+	  (if (or (member "scalar" result-params)
+		  (member "verbatim" result-params)
+		  (member "output" result-params))
+	      results
 	    (let ((tmp (org-babel-temp-file "awk-results-")))
 	      (with-temp-file tmp (insert results))
 	      (org-babel-import-elisp-from-file tmp)))))

@@ -50,7 +50,7 @@
 ;; #+TBLFM: $2='(sbe 'fibbd (n $1))
 
 ;;; Code:
-(require 'ob-core)
+(require 'ob)
 
 (defun org-babel-table-truncate-at-newline (string)
   "Replace newline character with ellipses.
