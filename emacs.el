@@ -42,7 +42,7 @@
   "Directory for the emacs pkgs and configuration files.
  Default uses `HOME_DIR' as a prefix")
 
-(defconst MY_TRYOUT_DIR (concat HOME_DIR "/downloads/tryout")
+(defconst MY_TRYOUT_DIR (concat HOME_DIR "/Downloads/tryout")
   "Directory for extracting files")
 
 (defconst MY_HTTP_PROXY (getenv "http_proxy")
