@@ -33,10 +33,10 @@
  (rear-context-string . "24 Mar 20 18:17 ")
  (position . 137))
 ("org-capture-last-stored"
- (filename . "~/org/journal.org")
- (front-context-string . "** Ordered Leger")
- (rear-context-string . "			  :Personal:\n")
- (position . 25195))
+ (filename . "~/org/passwords.gpg")
+ (front-context-string . "** Github\n   :PR")
+ (rear-context-string . "google\n   :END:\n")
+ (position . 67132))
 ("webjump"
  (filename . "~/Emacs-pkgs/emacs-webjump.el")
  (front-context-string . ";;;_.===========")
