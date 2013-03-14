@@ -218,7 +218,6 @@
 ;;=====================================================================
 ;; Load the customize configurations files
 (require 'emacs-org)       ; emacs org mode settings
-;(require 'emacs-bbdb)      ; bbdb address book
 (require 'emacs-bm)        ; bookmark enhancements
 (require 'emacs-bs)        ; buffer switch setting
 (require 'emacs-calendar)  ; calendar settings
@@ -234,7 +233,6 @@
 (require 'emacs-undo)      ; Tree-based undo visualizetions
 (require 'emacs-w3m)       ; w3m web browser settings
 (require 'emacs-webjump)   ; webjump settings
-;(require 'emacs-yasnippet) ; yasnippet settings
 
 (cond ((eq system-type 'darwin)
       (require 'emacs-todochiku))) ; notification using growl
