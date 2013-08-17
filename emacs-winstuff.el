@@ -1,5 +1,5 @@
 ;;;_*======================================================================
-;;;_* Launch various tasks (apps with predefined switches)
+;;;_* Launch various tasks (apps with predefined switches) associated with Windows OS
 ;; the XTerm switches and geometry are defined in the .tcshrc
 (defun console ()
   "Launch a shell in the normal console location using rxvt"

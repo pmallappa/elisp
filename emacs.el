@@ -53,6 +53,8 @@
 
 (defvar MY_DEFAULT_WIDTH 130)
 
+(defconst MY_BG_COLOR "gray12")
+
 ;;=====================================================================
 ;; select your preferred programs for html and media here
 ; Mac OS X
@@ -121,6 +123,8 @@
 ;; Set the default face to the variable pitch using the buffer-face-mode function `variable-pitch-mode
 (set-face-font 'variable-pitch "Verdana-14")
 (set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-14")
+(add-hook 'text-mode-hook 'fixed-pitch-mode)
+;(add-hook 'text-mode-hook 'variable-pitch-mode)
 
 (if (eq system-type 'darwin)
     (add-to-list 'default-frame-alist '(font . "Verdana-14"))
@@ -172,7 +176,6 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))      ; no menubar
 
 ; set colors
-(defconst MY_BG_COLOR "#1d1e19")
 (set-face-foreground 'default "NavajoWhite3")
 (set-face-background 'default MY_BG_COLOR)
 
