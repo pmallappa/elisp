@@ -1,7 +1,7 @@
 ;;; using customize, since there appears to be no hook into the
 ;;; w3m-search function to activate
 (add-to-list 
- 'load-path (expand-file-name (concat EMACS_PKGS "/emacs-w3m")))
+ 'load-path (expand-file-name (concat EMACS_PKGS "/w3m")))
 
 (if (= emacs-major-version 23)
 	(require 'w3m-ems)

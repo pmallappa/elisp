@@ -21,7 +21,7 @@
 (auto-compression-mode t)
 
 ;; Set the ls switches
-(setq dired-listing-switches "-l")
+(setq dired-listing-switches "-la")
 (setq dired-use-ls-dired nil)
 
 ;;======================================================================

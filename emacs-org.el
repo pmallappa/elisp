@@ -1,9 +1,9 @@
 ;;;_.============================================================
 ;;;_. Org mode personal organizer
 (add-to-list 'load-path
-            (expand-file-name (concat EMACS_PKGS "/org-mode/lisp")))
+            (expand-file-name (concat EMACS_PKGS "/org-8.0.2/lisp")))
 (add-to-list 'load-path
-            (expand-file-name (concat EMACS_PKGS "/org-mode/contrib/lisp")))
+            (expand-file-name (concat EMACS_PKGS "/org-8.0.2/contrib/lisp")))
 
 ; this one is necessary for the org-mediawiki option
 ;(add-to-list 'load-path
@@ -296,13 +296,36 @@
 
 ;;======================================================================
 ;; change to fixed-pitch font for this buffer
-(add-hook 'org-mode-hook
-          (lambda()
-            (buffer-face-mode-invoke 'fixed-pitch t)))
+;(add-hook 'org-mode-hook
+;          (lambda()
+;            (buffer-face-mode-invoke 'fixed-pitch t)))
+;
+;(add-hook 'org-agenda-mode-hook
+;          (lambda()
+;            (buffer-face-mode-invoke 'fixed-pitch t)))
 
-(add-hook 'org-agenda-mode-hook
-          (lambda()
-            (buffer-face-mode-invoke 'fixed-pitch t)))
+;;======================================================================
+;; Using monospace font for tables and code blocks, while still using variable-pitch-mode in org mode 
+;; http://yoo2080.wordpress.com/2013/05/30/monospace-font-in-tables-and-source-code-blocks-in-org-mode-proportional-font-in-other-parts/
+
+(defun my-adjoin-to-list-or-symbol (element list-or-symbol)
+  (let ((list (if (not (listp list-or-symbol))
+                  (list list-or-symbol)
+                list-or-symbol)))
+    (require 'cl-lib)
+    (cl-adjoin element list)))
+
+(eval-after-load "org"
+  '(mapc
+    (lambda (face)
+      (set-face-attribute
+       face nil
+       :inherit
+       (my-adjoin-to-list-or-symbol
+        'fixed-pitch
+        (face-attribute face :inherit))))
+    (list 'org-code 'org-block 'org-table 'org-block-background)))
+
 
 (provide 'emacs-org)
 
