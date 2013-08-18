@@ -39,9 +39,9 @@
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/org/journal.org")
- (front-context-string . "** Paid USAA Mas")
- (rear-context-string . " from USAA site\n")
- (position . 53301))
+ (front-context-string . "** Waived OU Hea")
+ (rear-context-string . "st id: 1026887 \n")
+ (position . 28522))
 ("webjump"
  (filename . "~/Emacs-pkgs/emacs-webjump.el")
  (front-context-string . ";;;_.===========")
