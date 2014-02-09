@@ -2,7 +2,17 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("JAVA_LIB01"
+(("job_search.org"
+ (filename . "~/archive/Personal/Job_Hunting/2014/job_search.org")
+ (front-context-string)
+ (rear-context-string . "orest Park)\n   \n")
+ (position . 3033))
+("links.org"
+ (filename . "/Volumes/JAVA_LIB01/links.org")
+ (front-context-string . "* Links\n** Sites")
+ (rear-context-string)
+ (position . 1))
+("JAVA_LIB01"
  (filename . "/Volumes/JAVA_LIB01/")
  (front-context-string . "Busty MILF tied ")
  (rear-context-string . "07 Jun 29 15:35 ")
@@ -17,16 +27,6 @@
  (front-context-string . "Movies\n  drwxr-x")
  (rear-context-string . "84 Jan 20 17:08 ")
  (position . 132))
-("JAVA_LIB00"
- (filename . "/Volumes/JAVA_LIB00/")
- (front-context-string . "Amateur bondage ")
- (rear-context-string . "01 Oct  9 21:53 ")
- (position . 127))
-("links.org"
- (filename . "/Volumes/JAVA_LIB00/links.org")
- (front-context-string . "# -*- mode: org;")
- (rear-context-string)
- (position . 1))
 ("Dropbox"
  (filename . "~/Dropbox/")
  (front-context-string . "Apt_Inventory\n  ")
@@ -39,9 +39,9 @@
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/org/journal.org")
- (front-context-string . "** Waived OU Hea")
- (rear-context-string . "st id: 1026887 \n")
- (position . 28522))
+ (front-context-string . "** Paid USAA Mas")
+ (rear-context-string . " from USAA site\n")
+ (position . 74819))
 ("webjump"
  (filename . "~/Emacs-pkgs/emacs-webjump.el")
  (front-context-string . ";;;_.===========")

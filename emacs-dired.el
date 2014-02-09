@@ -88,9 +88,7 @@
 
 ;;======================================================================
 ;; Mac Open/Execute from dired
-;; Use the "j" key to launch the associated app. This also
-;; associates html files within VM and Gnus to launch the associated
-;; browser!
+;; Use the "j" key to launch the associated app.
 (defun dired-custom-execute-file (&optional arg)
   (interactive "P")
   (mapcar #'(lambda (file)

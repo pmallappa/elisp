@@ -53,7 +53,8 @@
 
 (defvar MY_DEFAULT_WIDTH 130)
 
-(defconst MY_BG_COLOR "gray12")
+(defconst MY_FG_COLOR "#a9b7c6")
+(defconst MY_BG_COLOR "gray17")
 
 ;;=====================================================================
 ;; select your preferred programs for html and media here
@@ -121,13 +122,13 @@
 	(tool-bar-lines . 0)))
 
 ;; Set the default face to the variable pitch using the buffer-face-mode function `variable-pitch-mode
-(set-face-font 'variable-pitch "Verdana-14")
-(set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-14")
+(set-face-font 'variable-pitch "Verdana-13")
+(set-face-font 'fixed-pitch "Menlo-13")
 (add-hook 'text-mode-hook 'fixed-pitch-mode)
 ;(add-hook 'text-mode-hook 'variable-pitch-mode)
 
 (if (eq system-type 'darwin)
-    (add-to-list 'default-frame-alist '(font . "Verdana-14"))
+    (add-to-list 'default-frame-alist '(font . "Verdana-13"))
   ; not darwin
   (add-to-list 'default-frame-alist '(font . "Arial-14")))
 
@@ -176,7 +177,7 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))      ; no menubar
 
 ; set colors
-(set-face-foreground 'default "NavajoWhite3")
+(set-face-foreground 'default MY_FG_COLOR)
 (set-face-background 'default MY_BG_COLOR)
 
 (set-face-background 'fringe  MY_BG_COLOR)
@@ -220,6 +221,8 @@
 
 ;;=====================================================================
 ;; Load the customize configurations files
+(require 'emacs-macros)    ; various macros and functions
+(require 'emacs-calc)      ; emacs calculator settings
 (require 'emacs-org)       ; emacs org mode settings
 (require 'emacs-bm)        ; bookmark enhancements
 (require 'emacs-bs)        ; buffer switch setting
@@ -231,7 +234,6 @@
 (require 'emacs-frame)     ; customized frame functions
 (require 'emacs-git)       ; emacs gpg encryption settings
 (require 'emacs-info)      ; add info directories to emacs
-(require 'emacs-macros)    ; various macros and functions
 (require 'emacs-misc)      ; various settings
 (require 'emacs-undo)      ; Tree-based undo visualizetions
 (require 'emacs-w3m)       ; w3m web browser settings

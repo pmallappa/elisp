@@ -48,18 +48,13 @@
      ("navy outlook"      . "https://webmail.east.nmci.navy.mil/")
      ("navy prims"        . "https://prims2008.bol.navy.mil/") ; log into PRIMS for PARFQ and PRT info. Go through Bupers Online if you have problems
      ("navy pay"          . "https://myPay.dfas.mil")
-     ("navy reserve links". "https://navyreserve.navy.mil/Private/hq/WelcomeAboard/applications")
-     ("navy rtars"        . "https://rtar.hq.cnrf.navy.mil/V2/login.aspx")
      ("navy reserve"      . "https://navyreserve.navy.mil")
      ("navy uniforms"     . "https://www.navy-nex.com/")
-     ("nuvox"             . "http://webmail.nuvox.net/src/login.php")
-     ("one webmail"       . "http://webmail.nuvox.net/src/login.php") ; one.net email and login
      ("pandora radio"     . "http://pandora.com/") ; pandora customized internet music streams. Build by composer. Lots of classical!!
      ("panix mail"        . "https://mail.panix.com/src/login.php")
      ("patent"            . "http://www.google.com/patents?vid=USPAT6029175&id=esMDAAAAEBAJ&pg=PA3&dq=6,029,175#v=onepage&q&f=false")
      ("router"            . "http://192.168.1.1") ; admin/vlCAP
      ("scrabble"          . "http://www.scrabble-word-finder.com/scrabble-solver.html")
-     ("slacker radio"     . "http://www.slacker.com/")
      ("snopes"            . "http://www.snopes.com")
      ("stevebrown"        . "http://www.stevebrownetc.com")
      ("stevebrownpd"      . "http://feeds.feedburner.com/sbetcpodcast")
