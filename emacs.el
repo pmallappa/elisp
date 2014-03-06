@@ -232,7 +232,7 @@
 (require 'emacs-epa)       ; emacs gpg encryption settings
 (require 'emacs-eshell)    ; emacs eshell settings
 (require 'emacs-frame)     ; customized frame functions
-(require 'emacs-git)       ; emacs gpg encryption settings
+(require 'emacs-git)       ; emacs git integration
 (require 'emacs-info)      ; add info directories to emacs
 (require 'emacs-misc)      ; various settings
 (require 'emacs-undo)      ; Tree-based undo visualizetions

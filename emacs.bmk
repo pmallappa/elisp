@@ -2,7 +2,22 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("job_search.org"
+(("Navy_2014"
+ (filename . "~/Navy/Navy_2014/")
+ (front-context-string . ".DS_Store\n  drwx")
+ (rear-context-string . "48 Feb 23 09:10 ")
+ (position . 244))
+("PKard"
+ (filename . "/Library/Application Support/PKard/")
+ (front-context-string . "PKard Assistant.")
+ (rear-context-string . "02 Oct 23 22:47 ")
+ (position . 256))
+("Downloads"
+ (filename . "~/Downloads/")
+ (front-context-string . ".DS_Store\n  -rw-")
+ (rear-context-string . "64 Feb 16 16:34 ")
+ (position . 258))
+("job_search.org"
  (filename . "~/archive/Personal/Job_Hunting/2014/job_search.org")
  (front-context-string)
  (rear-context-string . "orest Park)\n   \n")
@@ -17,11 +32,6 @@
  (front-context-string . "Busty MILF tied ")
  (rear-context-string . "07 Jun 29 15:35 ")
  (position . 126))
-("Navy_2013"
- (filename . "~/Navy/Navy_2013/")
- (front-context-string . "01.January\n  drw")
- (rear-context-string . "68 Feb 16 11:27 ")
- (position . 132))
 ("XBMC"
  (filename . "/Volumes/Passport2TB/XBMC/")
  (front-context-string . "Movies\n  drwxr-x")
@@ -39,9 +49,9 @@
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/org/journal.org")
- (front-context-string . "** Paid USAA Mas")
- (rear-context-string . " from USAA site\n")
- (position . 74819))
+ (front-context-string . "** Match.com use")
+ (rear-context-string . "l at Fidelity]]\n")
+ (position . 5325))
 ("webjump"
  (filename . "~/Emacs-pkgs/emacs-webjump.el")
  (front-context-string . ";;;_.===========")

@@ -74,11 +74,12 @@
 (setq org-agenda-files 
       (list 
        (concat HOME_DIR "/org/fun.org")
+       (concat HOME_DIR "/archive/Personal/Job_Hunting/2014/job_search.org")
        (concat HOME_DIR "/org/journal.org")
-       (concat HOME_DIR "/org/reference.org")
+       (concat HOME_DIR "/org/reference.org")))
+;       (concat HOME_DIR "/org/rescheds.org")
 ;       (concat HOME_DIR "/org/passwords.gpg")
-       (concat HOME_DIR "/org/rescheds.org")))
-       ;(concat HOME_DIR "/org/Xetron.org")))
+;       (concat HOME_DIR "/org/Xetron.org")
 
 ;;;_.============================================================
 ;;;_. Set up the keys
@@ -92,15 +93,16 @@
 ;;;_. Set up the global tags list
 (setq org-tag-alist 
       '(("Appt"       . ?a)
-        ("ADSW"       . ?A)
-        ("DID"        . ?d) ; Digital Interoperability Demo Project (NACRA)
         ("Emacs"      . ?e)
+        ("JobHunt"    . ?j)
         ("Navy"       . ?n)
-        ("NACRA"      . ?N)
         ("Personal"   . ?p)
-        ("Reference"  . ?r)
-        ("URDM"       . ?u) ; Universal Rotorcraft Data Management
-        ("Xetron"     . ?x)))
+        ("Reference"  . ?r)))
+;        ("ADSW"       . ?A)
+;        ("DID"        . ?d) ; Digital Interoperability Demo Project (NACRA)
+;        ("NACRA"      . ?N)
+;        ("URDM"       . ?u) ; Universal Rotorcraft Data Management
+;        ("Xetron"     . ?x)
 
 ;;;_.============================================================
 ;;;_. Create custom agenda views
