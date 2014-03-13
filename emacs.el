@@ -227,6 +227,7 @@
 (require 'emacs-bm)        ; bookmark enhancements
 (require 'emacs-bs)        ; buffer switch setting
 (require 'emacs-calendar)  ; calendar settings
+(require 'emacs-colors)    ; color theme support
 (require 'emacs-calfw)     ; enhanced calendar
 (require 'emacs-dired)     ; dired settings
 (require 'emacs-epa)       ; emacs gpg encryption settings
