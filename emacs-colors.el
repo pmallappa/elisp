@@ -7,8 +7,18 @@
 ;;; longer requires the color-theme package
 (add-to-list 'custom-theme-load-path 
               (concat EMACS_PKGS "/color-theme"))
+;(add-to-list 'custom-theme-load-path 
+;              (concat EMACS_PKGS "/color-theme/original-themes"))
 
-(load-theme 'zenburn t)
+(load-theme 'zenburn t t)
+
+
+;;; ======================================================================
+;;; Change all face weights to 'normal
+(mapc
+  (lambda (face)
+    (set-face-attribute face nil :weight 'normal))
+  (face-list))
 
 ;;;======================================================================
 ;;; load the color theme package
@@ -42,12 +52,6 @@
 ;;;                (color-theme-darkgray)
 ;;	      nil)))
 ;
-;;; ======================================================================
-;;; Change all face weights to 'normal
-(mapc
-  (lambda (face)
-    (set-face-attribute face nil :weight 'normal))
-  (face-list))
 
 ;;;; ======================================================================
 ;;;; Change all face weights to 'normal

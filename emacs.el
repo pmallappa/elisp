@@ -53,7 +53,7 @@
 
 (defvar MY_DEFAULT_WIDTH 130)
 
-(defconst MY_FG_COLOR "#a9b7c6")
+(defconst MY_FG_COLOR "#a9b7b0")
 (defconst MY_BG_COLOR "gray17")
 
 ;;=====================================================================
@@ -124,8 +124,12 @@
 ;; Set the default face to the variable pitch using the buffer-face-mode function `variable-pitch-mode
 (set-face-font 'variable-pitch "Verdana-13")
 (set-face-font 'fixed-pitch "Menlo-13")
+
+;; set the pitch for modes that require fixed
 (add-hook 'text-mode-hook 'fixed-pitch-mode)
-;(add-hook 'text-mode-hook 'variable-pitch-mode)
+(add-hook 'dired-mode-hook 'fixed-pitch-mode)
+(add-hook 'calendar-mode-hook 'fixed-pitch-mode)
+
 
 (if (eq system-type 'darwin)
     (add-to-list 'default-frame-alist '(font . "Verdana-13"))

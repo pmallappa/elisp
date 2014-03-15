@@ -114,8 +114,8 @@
 
 ;;======================================================================
 ;; change to fixed-pitch font for this buffer
-(add-hook 'calendar-mode-hook
-          (lambda()
-            (buffer-face-mode-invoke 'fixed-pitch t)))
+;(add-hook 'calendar-mode-hook
+;          (lambda()
+;            (buffer-face-mode-invoke 'fixed-pitch t)))
 
 (provide 'emacs-calendar)
