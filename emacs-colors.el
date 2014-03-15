@@ -10,10 +10,8 @@
 ;(add-to-list 'custom-theme-load-path 
 ;              (concat EMACS_PKGS "/color-theme/original-themes"))
 
-(load-theme 'zenburn t t)
+(load-theme 'zenburn t)
 
-
-;;; ======================================================================
 ;;; Change all face weights to 'normal
 (mapc
   (lambda (face)
