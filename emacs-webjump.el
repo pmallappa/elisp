@@ -16,7 +16,6 @@
      ("cygwin list"       . "http://readlist.com/lists/cygwin.com/cygwin/")
      ("dau catalog"       . "http://www.dau.mil/catalog")
      ("dau"               . "https://learn.dau.mil/")
-     ("del"               . "http://del.icio.us")
      ("deviant art"       . "http://www.deviantart.com")
      ("drudge"            . "http://www.drudgereport.com")
      ("emacs org-mode"    . "http://orgmode.org/index.html")
@@ -24,36 +23,20 @@
      ("foxnews"           . "http://www.foxnews.com")
      ("gcal"              . "http://calendar.google.com")
      ("ggcheat"           . "http://www.google.com/help/cheatsheet.html")
-     ("ggr"               . "http://www.google.com/reader")
      ("gmail"             . "http://gmail.google.com")
-     ("nacra"             . "http://www.navair.navy.mil/nacra/default.aspx")
      ("mint financial"    . "https://wwws.mint.com/account.event")
      ("movies"            . "http://www.google.com/search?&q=movie%3A45140")
      ("national review"   . "http://www.nationalreview.com/")
-     ("navy apply"        . "https://apply.hq.cnrf.navy.mil/")
      ("navy CAC help"     . "http://militarycac.com/noactivclientwindows7.htm")
-     ("navy awards"       . "https://awards.navy.mil") ; need your CAC card, you can search for personal awards for mbrs
-     ("navy bupers"       . "https://www.bol.navy.mil/") ; need CAC card SSN and YYYYMMDD
-     ("navy nacra"        . "https://wttesters.navair.navy.mil/NACRA/") ; NACRA Helicopter site. NRP Project starting Jan 09
-     ("navy email"        . "https://webmail.nmci.navy.mil/") ; domain\user is NADSUSEA\chris.mcmahan
      ("navy federal"      . "http://myaccounts.navyfcu.org")
-     ("navy fitrep"       . "http://www.npc.navy.mil/NR/rdonlyres/B6B5BA77-B8FC-4E95-A52B-64A424D555DD/0/n16102.pdf")
-     ("navy fltmps"       . "https://ntmpsweb.ntmps.navy.mil/fltmps")
-     ("navy infosec"      . "https://www.infosec.navy.mil/ps/?t=main/main.tag&bc=main/bc_main.html")
-     ("navy knowledge"    . "https://wwwa.nko.navy.mil")
      ("nko"               . "https://wwwa.nko.navy.mil")
-     ("navy naf wash"     . "https://navyreserve.navy.mil/Private/Staff/Centers/Forces+Command/Centers/Air+Stations/Centers/Naval+Air+Facility+Washington/WelcomeAboard/default.htm")
      ("navy navift"       . "http://www.npc.navy.mil/CareerInfo/PerformanceEvaluation/SoftwareForms/")
-     ("navy nrows"        . "https://navyreserve.navy.mil/tools/nrows.html")
-     ("navy outlook"      . "https://webmail.east.nmci.navy.mil/")
      ("navy prims"        . "https://prims2008.bol.navy.mil/") ; log into PRIMS for PARFQ and PRT info. Go through Bupers Online if you have problems
      ("navy pay"          . "https://myPay.dfas.mil")
      ("navy reserve"      . "https://navyreserve.navy.mil")
      ("navy uniforms"     . "https://www.navy-nex.com/")
      ("pandora radio"     . "http://pandora.com/") ; pandora customized internet music streams. Build by composer. Lots of classical!!
-     ("panix mail"        . "https://mail.panix.com/src/login.php")
      ("patent"            . "http://www.google.com/patents?vid=USPAT6029175&id=esMDAAAAEBAJ&pg=PA3&dq=6,029,175#v=onepage&q&f=false")
-     ("router"            . "http://192.168.1.1") ; admin/vlCAP
      ("scrabble"          . "http://www.scrabble-word-finder.com/scrabble-solver.html")
      ("snopes"            . "http://www.snopes.com")
      ("stevebrown"        . "http://www.stevebrownetc.com")
@@ -63,19 +46,19 @@
      ("turboTaxDeductible". "https://itsdeductibleonline.intuit.com/")
      ("USAA"              . "http://www.usaa.com")
      ("weather radar"     . "http://www.wcpo.com/subindex/weather/maps")
-     ("weather radar2"    . "http://cctvimedia.clearchannel.com/wkrc/weather/13.jpg")
-     ("weather radar3"    . "http://radar.weather.gov/radar.php?rid=iln&product=N0R&overlay=11101111&loop=no")
+     ("weather radar2"    . "http://radar.weather.gov/radar.php?rid=iln&product=N0R&overlay=11101111&loop=no")
      ("weather"           . "http://www.wunderground.com/US/OH/Twenty_Mile_Stand.html")
      ("weather2"          . "http://weather.noaa.gov/weather/current/KLUK.html")
      ("wguc"              . "http://www.wguc.org/")
-     ("wifi"              . "http://routerlogin.net")
      ("wincustomize"      . "http://www.wincustomize.com/")
-     ("winupdate"         . "hcp://services/centers/update")
      ("wkrc stream"       . "http://www.55krc.com/cc-common/streaming_new/index.html?refreshed=yes")
      ("wkrc"              . "http://www.55krc.com/")
      ("wlw"               . "http://www.700wlw.com/")
 
-     ;; work related pages
+     ;; camping
+     ("gear trade"        . "http://www.geartrade.com/browse/hiking-and-camping")
+     ("gear swap forum"   . "http://www.backpackinglight.com/cgi-bin/backpackinglight/forums/display_forum.html?forum=19")
+     ("clymb"             . "https://www.theclymb.com/")
 
      ;; search engines here
      ("cuil"              . [simple-query "http://www.cuil.com" "http://www.cuil.com/search?q=" ""])

@@ -48,12 +48,12 @@
  (rear-context-string . "24 Mar 20 18:17 ")
  (position . 137))
 ("org-capture-last-stored"
- (filename . "~/org/journal.org")
- (front-context-string . "** Match.com use")
- (rear-context-string . "l at Fidelity]]\n")
- (position . 5325))
+ (filename . "~/archive/Personal/Job_Hunting/2014/job_search.org")
+ (front-context-string . "** Spoke with As")
+ (rear-context-string . "at 513-841-8018\n")
+ (position . 151172))
 ("webjump"
- (filename . "~/Emacs-pkgs/emacs-webjump.el")
+ (filename . "~/elisp/emacs-webjump.el")
  (front-context-string . ";;;_.===========")
  (rear-context-string)
  (position . 1))

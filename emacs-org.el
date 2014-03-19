@@ -1,9 +1,9 @@
 ;;;_.============================================================
 ;;;_. Org mode personal organizer
 (add-to-list 'load-path
-            (expand-file-name (concat EMACS_PKGS "/org-8.0.7/lisp")))
+            (expand-file-name (concat EMACS_PKGS "/org-8.2.5h/lisp")))
 (add-to-list 'load-path
-            (expand-file-name (concat EMACS_PKGS "/org-8.0.7/contrib/lisp")))
+            (expand-file-name (concat EMACS_PKGS "/org-8.2.5h/contrib/lisp")))
 
 ; this one is necessary for the org-mediawiki option
 ;(add-to-list 'load-path
@@ -38,16 +38,23 @@
 (setq org-capture-templates
       '(("t" "Todo" entry
          (file+olp "~/org/journal.org" "Tasks")
-         "* TODO %^{Brief Description} %^g\n  Added: %U\n  %?\n  %a")
+         "* TODO %^{Task Description} %^g\n  Added: %U\n  %?\n  %a")
         ("a" "Appointment" entry
          (file+olp "~/org/journal.org" "Appointments")
-         "* %^{Brief Description} %^T %^g\n  %i%?\n  %a")
-;        ("j" "Journal" entry
-;         (file+olp "~/org/journal.org" "Journal")
-;         "* %^{Brief Description} %T %^g\n  %i%?\n  %a")
+         "* %^{Appt Description} %^T %^g\n  %i%?\n  %a")
         ("n" "Note" entry
          (file+olp "~/org/journal.org" "Notes")
-         "* %^{Brief Description} %T %^g\n  %i%?\n  %a")
+         "* %^{Note Description} %T %^g\n  %i%?\n  %a")
+        ("j" "Templates for job search")
+        ("jn" "Job Search note" entry
+         (file+olp "~/archive/Personal/Job_Hunting/2014/job_search.org" "Notes")
+         "* %^{Note Description} %T %^g\n  %i%?\n  %a")
+        ("jt" "Job Search task" entry
+         (file+olp "~/archive/Personal/Job_Hunting/2014/job_search.org" "Tasks")
+         "* TODO %^{Task Description} %^g\n  Added: %U\n  %?\n  %a")
+        ("ja" "Appointment" entry
+         (file+olp "~/archive/Personal/Job_Hunting/2014/job_search.org" "Appointments")
+         "* %^{Appt Description} %^T %^g\n  %i%?\n  %a")
         ("b" "Bill" entry
          (file+olp "~/org/journal.org" "Bills")
          "* Paid %^{Bill Paid|AT&T|Matrix|USAA Auto Ins|USAA Master Card} %T\n   Amount: $%^{Amount $}\n   Source: %^{Source Acct|Fifth-Third|NFCU chkg}\n  Confirm: %^{Confirmation #}\n    Notes: %^{Notes}\n")
