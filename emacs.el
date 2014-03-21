@@ -125,12 +125,13 @@
 (set-face-font 'variable-pitch "Verdana-13")
 (set-face-font 'fixed-pitch "Menlo-13")
 
-;; set the pitch for modes that require fixed
+;; These require fixed-pitch fonts to format correctly
 (add-hook 'text-mode-hook 'fixed-pitch-mode)
 (add-hook 'dired-mode-hook 'fixed-pitch-mode)
 (add-hook 'calendar-mode-hook 'fixed-pitch-mode)
+(add-hook 'org-agenda-mode-hook 'fixed-pitch-mode)
 
-
+;; set the fonts
 (if (eq system-type 'darwin)
     (add-to-list 'default-frame-alist '(font . "Verdana-13"))
   ; not darwin

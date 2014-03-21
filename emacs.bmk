@@ -49,9 +49,9 @@
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/archive/Personal/Job_Hunting/2014/job_search.org")
- (front-context-string . "** Spoke with As")
- (rear-context-string . "at 513-841-8018\n")
- (position . 151172))
+ (front-context-string . "** DONE Update o")
+ (rear-context-string . "cc9e9][email]].\n")
+ (position . 129204))
 ("webjump"
  (filename . "~/elisp/emacs-webjump.el")
  (front-context-string . ";;;_.===========")

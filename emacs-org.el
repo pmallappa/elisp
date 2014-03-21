@@ -31,7 +31,7 @@
 ;;;_.============================================================
 ;;;_. capture templates (replaces remember)
 
-(setq org-default-notes-file "~/org/notes.org")
+;(setq org-default-notes-file "~/org/notes.org")
 (define-key global-map "\C-cc" 'org-capture)
 (global-set-key (kbd "C-c r") 'org-capture)
 
@@ -45,7 +45,8 @@
         ("n" "Note" entry
          (file+olp "~/org/journal.org" "Notes")
          "* %^{Note Description} %T %^g\n  %i%?\n  %a")
-        ("j" "Templates for job search")
+
+        ("j" "Job search")
         ("jn" "Job Search note" entry
          (file+olp "~/archive/Personal/Job_Hunting/2014/job_search.org" "Notes")
          "* %^{Note Description} %T %^g\n  %i%?\n  %a")
@@ -55,6 +56,7 @@
         ("ja" "Appointment" entry
          (file+olp "~/archive/Personal/Job_Hunting/2014/job_search.org" "Appointments")
          "* %^{Appt Description} %^T %^g\n  %i%?\n  %a")
+
         ("b" "Bill" entry
          (file+olp "~/org/journal.org" "Bills")
          "* Paid %^{Bill Paid|AT&T|Matrix|USAA Auto Ins|USAA Master Card} %T\n   Amount: $%^{Amount $}\n   Source: %^{Source Acct|Fifth-Third|NFCU chkg}\n  Confirm: %^{Confirmation #}\n    Notes: %^{Notes}\n")
@@ -171,6 +173,19 @@
       '((sequence "TODO(t)" "NEXT(n)" "OPEN(o!)" "|" "DONE(d!/!)")
 	(sequence "WAITING(w@/!)" "DELEGATED(g@/!)" "|" "CANCELLED(c!/!)")))
 
+;; log and add notes when completing a task
+(setq org-log-done 'note)
+(setq org-log-note-headings
+      '((done . "CLOSING NOTE %T")
+        (state . "State %s from %2S %T")
+        (note . "Note taken on %t")
+        (reschedule . "Rescheduled from %S on %t")
+        (delschedule . "Not scheduled, was %S on %t")
+        (redeadline . "New deadline from %S on %t")
+        (deldeadline . "Removed deadline, was %S on %t")
+        (refile . "Refiled on %t")
+        (clock-out . "")))
+
 ;;;_.============================================================
 ;;;_. Export to HTML options
 (setq org-export-html-style
@@ -182,39 +197,6 @@
 
 (setq org-export-exclude-tags (quote ("noexport" "ARCHIVE")))
 
-;;;_.============================================================
-;;;_. Publishing options
-
-(setq org-publish-project-alist
-      '(("orgfiles"
-         :base-directory "~/org/"
-         :base-extension "org"
-         :publishing-directory "~/org/public_html"
-         :publishing-function org-publish-org-to-html
-         :headline-levels 3
-         :section-numbers nil
-         :table-of-contents nil
-         :style "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/stylesheet.css\" />"
-         :auto-preamble t
-         :footnotes nil
-         :sub-superscript nil
-         :auto-postamble nil)
-
-        ("css"
-         :base-directory "~/org/css/"
-         :base-extension "css\\|el"
-         :publishing-directory "~/org/public_html/css"
-         :publishing-function org-publish-attachment)
-
-        ("data"
-         :base-directory "~/org/data/"
-         :base-extension "doc|docx|css\\|el"
-         :publishing-directory "~/org/public_html/data"
-         :publishing-function org-publish-attachment)
-
-        ("website"
-         :components ("orgfiles" "css" "data")
-         )))
 
 ;;;;_.============================================================
 ;;;; org MediaWiki publishing
@@ -240,37 +222,37 @@
 
 ;;;_.============================================================
 ;;;_. Modify the calendar grid to prevent repeating times
-(defadvice org-agenda-add-time-grid-maybe (around mde-org-agenda-grid-tweakify
-                                                  (list ndays todayp))
-  (if (member 'remove-match (car org-agenda-time-grid))
-      (flet ((extract-window
-              (line)
-              (let ((start (get-text-property 1 'time-of-day line))
-                    (dur (get-text-property 1 'duration line)))
-                (cond
-                 ((and start dur) (cons start dur))
-                 (start start)
-                 (t nil))))
-             (duration-add
-              (time duration)
-              (+ time (* 100 (/ duration 60)) (% duration 60))))
-        (let* ((windows (delq nil (mapcar 'extract-window list)))
-               (org-agenda-time-grid
-                (list (car org-agenda-time-grid)
-                      (cadr org-agenda-time-grid)
-                      (remove-if
-                       (lambda (time)
-                         (find-if (lambda (w)
-                                    (if (numberp w)
-                                        (equal w time)
-                                      (and (>= time (car w))
-                                           (< time (duration-add
-                                                    (car w) (cdr w))))))
-                                  windows))
-                       (caddr org-agenda-time-grid)))))
-          ad-do-it))
-    ad-do-it))
-(ad-activate 'org-agenda-add-time-grid-maybe)
+;(defadvice org-agenda-add-time-grid-maybe (around mde-org-agenda-grid-tweakify
+;                                                  (list ndays todayp))
+;  (if (member 'remove-match (car org-agenda-time-grid))
+;      (flet ((extract-window
+;              (line)
+;              (let ((start (get-text-property 1 'time-of-day line))
+;                    (dur (get-text-property 1 'duration line)))
+;                (cond
+;                 ((and start dur) (cons start dur))
+;                 (start start)
+;                 (t nil))))
+;             (duration-add
+;              (time duration)
+;              (+ time (* 100 (/ duration 60)) (% duration 60))))
+;        (let* ((windows (delq nil (mapcar 'extract-window list)))
+;               (org-agenda-time-grid
+;                (list (car org-agenda-time-grid)
+;                      (cadr org-agenda-time-grid)
+;                      (remove-if
+;                       (lambda (time)
+;                         (find-if (lambda (w)
+;                                    (if (numberp w)
+;                                        (equal w time)
+;                                      (and (>= time (car w))
+;                                           (< time (duration-add
+;                                                    (car w) (cdr w))))))
+;                                  windows))
+;                       (caddr org-agenda-time-grid)))))
+;          ad-do-it))
+;    ad-do-it))
+;(ad-activate 'org-agenda-add-time-grid-maybe)
 
 ;;;_.======================================================================
 ;;;_. org-info export libraries
