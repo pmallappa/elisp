@@ -122,7 +122,7 @@
 	(tool-bar-lines . 0)))
 
 ;; Set the default face to the variable pitch using the buffer-face-mode function `variable-pitch-mode
-(set-face-font 'variable-pitch "Verdana-13")
+(set-face-font 'variable-pitch "Verdana-14")
 (set-face-font 'fixed-pitch "Menlo-13")
 
 ;; These require fixed-pitch fonts to format correctly
@@ -221,7 +221,14 @@
 (setq backup-directory-alist (quote ((".*" . "~/.backups"))))
 
 ;;=====================================================================
-;; Set the environmental path 
+;; Set the environmental path by copying from the shell in OSX
+(require 'exec-path-from-shell)
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
+
+
+
 (setq exec-path '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin"))
 
 ;;=====================================================================
@@ -233,7 +240,8 @@
 (require 'emacs-bs)        ; buffer switch setting
 (require 'emacs-calendar)  ; calendar settings
 (require 'emacs-colors)    ; color theme support
-(require 'emacs-calfw)     ; enhanced calendar
+;(require 'emacs-calfw)     ; enhanced calendar
+;(require 'emacs-cpustats)  ; Modeline stats for CPU usage
 (require 'emacs-dired)     ; dired settings
 (require 'emacs-epa)       ; emacs gpg encryption settings
 (require 'emacs-eshell)    ; emacs eshell settings

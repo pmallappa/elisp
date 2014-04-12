@@ -48,10 +48,10 @@
  (rear-context-string . "24 Mar 20 18:17 ")
  (position . 137))
 ("org-capture-last-stored"
- (filename . "~/archive/Personal/Job_Hunting/2014/job_search.org")
- (front-context-string . "** DONE Update o")
- (rear-context-string . "cc9e9][email]].\n")
- (position . 129204))
+ (filename . "~/org/journal.org")
+ (front-context-string . "** Purchased Tra")
+ (rear-context-string . "mahan@gmail.com\n")
+ (position . 5605))
 ("webjump"
  (filename . "~/elisp/emacs-webjump.el")
  (front-context-string . ";;;_.===========")

@@ -33,6 +33,15 @@
   (interactive "nTransparency Value 0 (transparent) to 100 (opaque): ")
   (set-frame-parameter (selected-frame) 'alpha value))
 
+;; toggle fullscreen mode 
+(defun toggle-fullscreen (&optional f)
+  (interactive)
+  (let ((current-value (frame-parameter nil 'fullscreen)))
+    (set-frame-parameter nil 'fullscreen
+      (if (equal 'fullboth current-value)
+        (if (boundp 'old-fullscreen) old-fullscreen nil)
+        (progn (setq old-fullscreen current-value)
+          'fullboth)))))
 
 ;;;============================================================
 ;;; https://github.com/tungd/dotfiles/blob/master/emacs/init.el#L278

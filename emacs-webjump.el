@@ -18,7 +18,6 @@
      ("dau"               . "https://learn.dau.mil/")
      ("deviant art"       . "http://www.deviantart.com")
      ("drudge"            . "http://www.drudgereport.com")
-     ("emacs org-mode"    . "http://orgmode.org/index.html")
      ("fifth-third"       . "http://www.fifththird.com")
      ("foxnews"           . "http://www.foxnews.com")
      ("mint financial"    . "https://wwws.mint.com/account.event")
@@ -51,6 +50,12 @@
      ("wkrc stream"       . "http://www.55krc.com/cc-common/streaming_new/index.html?refreshed=yes")
      ("wkrc"              . "http://www.55krc.com/")
      ("wlw"               . "http://www.700wlw.com/")
+
+     ;; emacs
+     ("emacs org-mode"    . "http://orgmode.org/index.html")
+     ("org life"          . "http://doc.norang.ca/org-mode.html")
+     ("org cookbook"      . "http://home.fnal.gov/~neilsen/notebook/orgExamples/org-examples.html")
+     ("org manual"        . "http://orgmode.org/manual/index.html")
 
      ;; camping
      ("gear trade"        . "http://www.geartrade.com/browse/hiking-and-camping")
