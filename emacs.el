@@ -3,7 +3,7 @@
 ;; .emacs --- Emacs configuration file
 
 ;; Author: Chris McMahan <cmcmahan@gmail.com>
-;; Time-stamp: 2011-03-17 Thu 11:15
+;; Time-stamp: 2014-05-01 Thu 20:03
 ;; Emacsen Compatibility: Emacs23
 ;; OS Compatibility:      Win32 (with Cygwin utils) / OS X
 
