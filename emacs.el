@@ -87,9 +87,6 @@
 ;;=====================================================================
 ;; various startup settings
 
-;; Toggle whether or not the selected frame should auto-raise.
-(auto-raise-mode 1)
-
 ;; Set the command key to act as the meta key for OS-X
 (if (eq system-type 'darwin)
     (progn
@@ -261,6 +258,20 @@
 ;;=====================================================================
 ;; start the emacsserver that listens to emacsclient
 (server-start)
+
+; raise the emacs frame 
+(if (featurep 'ns)
+    (progn
+      (defun ns-raise-emacs ()
+        "Raise Emacs."
+        (ns-do-applescript "tell application \"Emacs\" to activate"))
+
+      (if (display-graphic-p)
+          (progn
+            (add-hook 'server-visit-hook 'ns-raise-emacs)
+            (add-hook 'before-make-frame-hook 'ns-raise-emacs)
+            (ns-raise-emacs)))))
+
 
 ;;=====================================================================
 ;; some reference stuff
