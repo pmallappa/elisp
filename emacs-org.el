@@ -83,9 +83,10 @@
 (setq org-agenda-files 
       (list 
        (concat HOME_DIR "/org/fun.org")
-       (concat HOME_DIR "/archive/Personal/Job_Hunting/2014/job_search.org")
        (concat HOME_DIR "/org/journal.org")
+       (concat HOME_DIR "/org/vtu.org")
        (concat HOME_DIR "/org/reference.org")))
+;       (concat HOME_DIR "/archive/Personal/Job_Hunting/2014/job_search.org")
 ;       (concat HOME_DIR "/org/rescheds.org")
 ;       (concat HOME_DIR "/org/passwords.gpg")
 ;       (concat HOME_DIR "/org/Xetron.org")
