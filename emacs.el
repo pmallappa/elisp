@@ -237,18 +237,19 @@
 (require 'emacs-bs)        ; buffer switch setting
 (require 'emacs-calendar)  ; calendar settings
 (require 'emacs-colors)    ; color theme support
-;(require 'emacs-calfw)     ; enhanced calendar
-;(require 'emacs-cpustats)  ; Modeline stats for CPU usage
 (require 'emacs-dired)     ; dired settings
 (require 'emacs-epa)       ; emacs gpg encryption settings
 (require 'emacs-eshell)    ; emacs eshell settings
 (require 'emacs-frame)     ; customized frame functions
 (require 'emacs-git)       ; emacs git integration
+(require 'emacs-helm)       ; emacs helm for completions and more
 (require 'emacs-info)      ; add info directories to emacs
 (require 'emacs-misc)      ; various settings
 (require 'emacs-undo)      ; Tree-based undo visualizetions
 (require 'emacs-w3m)       ; w3m web browser settings
 (require 'emacs-webjump)   ; webjump settings
+;(require 'emacs-calfw)     ; enhanced calendar
+;(require 'emacs-cpustats)  ; Modeline stats for CPU usage
 
 (cond ((eq system-type 'darwin)
       (require 'emacs-todochiku))) ; notification using growl

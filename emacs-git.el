@@ -15,6 +15,8 @@
 ;;; see http://stackoverflow.com/questions/1817370/using-ediff-as-git-mergetool
 ;;; for details
 
+(setq magit-diff-options '("-b")) ; ignore whitespace
+
 (require 'ediff)
 
 (defvar ediff-after-quit-hooks nil
