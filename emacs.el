@@ -242,7 +242,7 @@
 (require 'emacs-eshell)    ; emacs eshell settings
 (require 'emacs-frame)     ; customized frame functions
 (require 'emacs-git)       ; emacs git integration
-(require 'emacs-helm)       ; emacs helm for completions and more
+;(require 'emacs-helm)       ; emacs helm for completions and more
 (require 'emacs-info)      ; add info directories to emacs
 (require 'emacs-misc)      ; various settings
 (require 'emacs-undo)      ; Tree-based undo visualizetions
