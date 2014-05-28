@@ -1,35 +1,15 @@
 ;;;_* -*-mode: emacs-lisp -*-
 
-;;;_*======================================================================
-;;;_* convience functions
-;;;_*======================================================================
+;;======================================================================
+;; convience functions
+;;======================================================================
 
 ;; for the cmBrowse function
 (require 'thingatpt)
 
-;;;_*======================================================================
-;;;_* Functions to convert the line endings. Uses the eol-conversion
-;;;_* package
-(require 'eol-conversion)
-(defun d2u ()
-  "convert current buffer from dos to unix format using the
-`set-buffer-eol-conversion' function withing emacs"
-  (interactive)
-  (if (y-or-n-p "Convert DOS to Unix format?")
-      (set-buffer-eol-conversion 'unix)
-    (message "format unchanged")))
-
-(defun u2d ()
-  "convert current buffer from unix to dos format using the
-`set-buffer-eol-conversion' function withing emacs"
-  (interactive)
-  (if (y-or-n-p "Convert Unix to DOS format?")
-      (set-buffer-eol-conversion 'dos)
-    (message "format unchanged")))
-
-;;;_*======================================================================
-;;;_* convert a string of 3 decimal numbers to hex and place the result
-;;;_* into the kill ring for pasting
+;;======================================================================
+;; convert a string of 3 decimal numbers to hex and place the result
+;; into the kill ring for pasting
 (defun d2h (red green blue)
   "Convert decimal RGB color specification to hexidecimal and insert
   at the current point"
@@ -44,7 +24,7 @@ nBlue: ")
            ; place into the kill ring for pasting
            (kill-new s)))
 
-;;;_*======================================================================
+;;======================================================================
 ;; Convert degrees, minutes and seconds to decimal format.
 ;; Place the results into the kill ring for pasting
 (defun deg2dec (deg min sec)
@@ -60,37 +40,8 @@ nSec: ")
            ; place into the kill ring for pasting
            (kill-new s)))
 
-;;;_*;======================================================================
-;;;_*; automatically color hex color strings
-;; see http://www.emacswiki.org/cgi-bin/emacs-en/HexColour for details
-;(require 'cl)
-;(defun hexcolour-luminance (color)
-;  "Calculate the luminance of a color string (e.g. \"#ffaa00\", \"blue\").
-;This is 0.3 red + 0.59 green + 0.11 blue and always between 0 and 255."
-;  (let* ((values (x-color-values color))
-;         (r (car values))
-;         (g (cadr values))
-;         (b (caddr values)))
-;    (floor (+ (* .3 r) (* .59 g) (* .11 b)) 256)))
-;
-;(defun hexcolour-add-to-font-lock ()
-;  (interactive)
-;  (font-lock-add-keywords nil
-;   `((,(concat "#[0-9a-fA-F]\\{3\\}[0-9a-fA-F]\\{3\\}?\\|"
-;               (regexp-opt (x-defined-colors) 'words))
-;      (0 (let ((colour (match-string-no-properties 0)))
-;           (put-text-property
-;            (match-beginning 0) (match-end 0)
-;            'face `((:foreground ,(if (> 128.0 (hexcolour-luminance colour))
-;                                      "white" "black"))
-;                    (:background ,colour)))))))))
-;
-;(add-hook 'emacs-lisp-mode-hook 'hexcolour-add-to-font-lock)
-;(add-hook 'nxml-mode-hook 'hexcolour-add-to-font-lock)
-
-
-;;;_*======================================================================
-;;;_* immediately go to the scratch buffer from anywhere else
+;;======================================================================
+;; immediately go to the scratch buffer from anywhere else
 (defun scratch ()
   "Switch to an existing *scratch* buffer or create a new one if necessary"
   (interactive)
@@ -111,22 +62,8 @@ nSec: ")
   (switch-to-buffer (generate-new-buffer "*scratch*"))
   (setq switch-to-new-buffer t))
 
-;;;;_*======================================================================
-;;;;_* Toggle the top menu bar. Gets the max editor screen for your money!
-;(defun toggle-menu-bar ()
-;  "Toggle Menubar."
-;  (interactive)
-;  (if menu-bar-mode
-;      (progn
-;        (menu-bar-mode -1)
-;        (set-frame-height (selected-frame) (+ (frame-height) 1)))
-;    (progn
-;      (menu-bar-mode 1)
-;      (set-frame-height (selected-frame) (- (frame-height) 1))))
-;    (force-mode-line-update t))
-
-;;;_*======================================================================
-;;;_* Generate a tabarall (tgz) from within dired
+;;======================================================================
+;; Generate a tabarall (tgz) from within dired
 ;; From: Emilio Lopes <eclig@gmx.net>
 ;; Subject: Re: Archiving files and directories from dired
 ;; Newsgroups: comp.emacs
@@ -137,8 +74,8 @@ nSec: ")
                           nil
                           (dired-get-marked-files t)))
 
-;;;_*======================================================================
-;;;_* Look up a word under the point in an online dictionary
+;;======================================================================
+;; Look up a word under the point in an online dictionary
 ;; From: Xah Lee <xah@xahlee.org>
 ;; Newsgroups: gnu.emacs.help
 ;; Date: Fri, 11 Apr 2008 13:25:31 -0700 (PDT)
@@ -150,8 +87,8 @@ nSec: ")
    "http://www.answers.com/main/ntquery?s="
    (thing-at-point 'word))))
 
-;;;_*======================================================================
-;;;_* Find a function in the elisp manual
+;;======================================================================
+;; Find a function in the elisp manual
 ;; From: lawrence mitchell <wence@gmx.li>
 ;; Find the function under the point in the elisp manual
 ;;
@@ -188,98 +125,8 @@ nSec: ")
     (error (message "`%s' not found" function))))
 
 
-;;;;_*======================================================================
-;;;;_* functions for setting the shell and creating shell windows.
-;;; Borrowed heavily from setup-cygwin.el by Markus Hoenika
-;;; Maintainer: Drew Adams
-;(defun set-shell (shellPrg)
-;  "Set the default shell within emacs to the shell program specified"
-;  (setenv "SHELL" shell-file-name)
-;  (setq shell-file-name          shellPrg
-;        explicit-shell-file-name shell-file-name
-;        w32-quote-process-args   t
-;        shell-command-switch     "-c")
-;  (message shell-file-name))
-;
-;(defun setShell (shellPrg)
-;  "Interactive function to provide completion for shells to set
-;  the current shell within emacs. Calls `set-shell' to implement the changes"
-; (interactive "i")
-; (setq shellPrg
-;       (completing-read
-;        "Shell program (bash cmd cmdproxy sh tcsh zsh): "
-;        '(("bash" 1) ("cmd" 2) ("cmdproxy" 3) ("sh" 4) ("tcsh" 5) ("zsh" 6))
-;        nil t "tcsh"))
-; (set-shell shellPrg))
-;
-;(defun getShell ()
-;  "Return the name of the current shell program within emacs"
-;  (interactive)
-;  (message
-;   (concat "         shell-file-name: " shell-file-name "\n"
-;           "explicit-shell-file-name: " explicit-shell-file-name "\n"
-;           "    shell-command-switch: " shell-command-switch "\n"
-;           "  w32-quote-process-args: " (pp-to-string w32-quote-process-args))))
-;
-;(defvar shell-window-height 24
-;  "Number of text lines to display in the shell buffer when invoked through `newShell'")
-;
-;;;;_* create a new shell buffer with the selected shell program
-;(defun newShell(shellPrg)
-;  "open a shell buffer with the option of selecting a shell program to use"
-;  (interactive "i")
-;  (let ((current-shell shell-file-name))
-;    ; run the setShell method and get the prompt from there
-;    (setShell nil)
-;    (let ((buffer-name (concat "*" shell-file-name "*")))
-;      (shell buffer-name)
-;      (message buffer-name)
-;      (set-window-text-height nil shell-window-height))
-;    ;; return to the previous default shell
-;    (set-shell current-shell)))
-
-;;;;_*======================================================================
-;;;;_* Clear the eshell buffer
-;(defun eshell/clear ()
-;  "04Dec2001 - sailor, to clear the eshell buffer."
-;  (interactive)
-;  (let ((inhibit-read-only t))
-;    (erase-buffer)))
-
-
-;;;;_*======================================================================
-;;;;_* modify the buffer centering command C-l
-;; 23.3 emacs has the variable `recenter-positions' that handles this
-;; out of the box!
-
-;;; (thanks to Michael.Luetzeler@unibw-muenchen.de)
-;(defun cm-recenter-display (arg)
-;  "Move point in window and redisplay screen.
-;First time, leaves point in the middle of the window.
-;Second time, leaves point near top of window.
-;Third time, leaves point near bottom of window.
-;With just one \\[universal-argument] arg, redraw screen without moving point.
-;With numeric arg, redraw around that line."
-;  (interactive "P")
-;    (cond ((consp arg)
-;	   (recenter)
-;	   (recenter line));; (redraw-display) bombs in Epoch 3.1.
-;	  (arg
-;	   (recenter (prefix-numeric-value arg)))
-;	((eq last-command 'recenter-first)
-;	   (setq this-command 'recenter-second)
-;	   (recenter 1))
-;	((eq last-command 'recenter-second)
-;	   (setq this-command nil)
-;	   (recenter -2))
-;	(t
-;	   (setq this-command 'recenter-first)
-;	   (recenter nil))))
-;
-;(global-set-key "\C-l" 'cm-recenter-display)
-
-;;;_*======================================================================
-;;;_* kill trailing whitespace
+;;======================================================================
+;; kill trailing whitespace
 ;; Thanks Roman Belenov <roman@nstl.nnov.ru>
 ;;======================================================================
 (defun kill-whitespace ()
@@ -291,11 +138,10 @@ nSec: ")
       (while (re-search-forward "[ \t]+$" nil t)
 	(replace-match "" nil nil)))))
 
-;;;_*======================================================================
-;;;_* Extend the behavior of query-replace
+;;======================================================================
+;; Extend the behavior of query-replace
 ;; If a region has been marked, the query replace will only operate
 ;; within that region:
-
 (defadvice query-replace (around replace-on-region activate)
   (if mark-active
       (save-excursion
@@ -306,9 +152,9 @@ nSec: ")
 	    ad-do-it)))
     ad-do-it))
 
-;;;_*======================================================================
-;;;_* scroll with the cursor in place, moving the
-;;;_* page instead
+;;======================================================================
+;; scroll with the cursor in place, moving the
+;; page instead
 ;; Navigation Functions
 (defun scroll-down-in-place (n)
   (interactive "p")
@@ -325,15 +171,15 @@ nSec: ")
 (global-set-key "\M-n" 'scroll-up-in-place)
 (global-set-key "\M-p" 'scroll-down-in-place)
 
-;;;_*======================================================================
-;;;_* toggle truncate lines and redraw the display
+;;======================================================================
+;; toggle truncate lines and redraw the display
 (defun trunc ()
   "Toggle the truncate-line variable"
   (interactive)
   (toggle-truncate-lines (if truncate-lines nil t)))
 
-;;;_*======================================================================
-;;;_* functions to display file and path information
+;;======================================================================
+;; functions to display file and path information
 ;; show the full path and filename in the message area
 (defun path ()
     (interactive)
@@ -353,9 +199,9 @@ nSec: ")
   (setq-default mode-line-buffer-identification
     '("%S:"(buffer-file-name "%f"))))
 
-;;;_*======================================================================
-;;;_* Define function to match a parenthesis otherwise insert a %
-;;;_* requires show-paren-mode to be activated (.emacs-config)
+;;======================================================================
+;; Define function to match a parenthesis otherwise insert a %
+;; requires show-paren-mode to be activated (.emacs-config)
 (defun match-paren (arg)
   "Go to the matching parenthesis if on parenthesis otherwise insert %."
   (interactive "p")
@@ -365,16 +211,16 @@ nSec: ")
 
 (global-set-key "%" 'match-paren)
 
-;;;_*======================================================================
-;;;_* provide save-as functionality without renaming the current buffer
+;;======================================================================
+;; provide save-as functionality without renaming the current buffer
 ;; From: Robinows@aol.com
 (defun save-as (new-filename)
   (interactive "FFilename:")
   (write-region (point-min) (point-max) new-filename))
 
-;;;_*======================================================================
-;;;_* Functions to insert the date, the time, and the date and time at
-;;;_* point.
+;;======================================================================
+;; Functions to insert the date, the time, and the date and time at
+;; point.
 ;; Useful for keeping records and automatically creating program headers
 (defvar insert-time-format "%H:%M"
   "*Format for \\[insert-time]. See `format-time-string' for info on how to format.")
@@ -423,8 +269,8 @@ then a space, then the current time formatted with
   (insert (buffer-file-name (current-buffer))))
 
 
-;;;_*======================================================================
-;;;_* byte compile the current buffer on saving it
+;;======================================================================
+;; byte compile the current buffer on saving it
 (defvar mode-specific-after-save-buffer-hooks nil
   "Alist (MAJOR-MODE . HOOK) of after-save-buffer hooks
 specific to major modes.")
@@ -456,8 +302,8 @@ if its name ends in `.el' and the `.elc' file also exists."
 
 (setq after-save-hook '(run-mode-specific-after-save-buffer-hooks))
 
-;;;_*======================================================================
-;;;_* apply join-line over a region
+;;======================================================================
+;; apply join-line over a region
 ;; From: "Ankur Jain" <jainankur@gmail.com>
 ;; Newsgroups: gnu.emacs.help
 ;; Date: Thu, 31 May 2007 10:21:00 +0530
@@ -471,8 +317,8 @@ if its name ends in `.el' and the `.elc' file also exists."
         (while (< (point) end)
           (join-line 1)))))
 
-;;;_*======================================================================
-;;;_* this function prints an ascii table in a new buffer 4 columns
+;;======================================================================
+;; this function prints an ascii table in a new buffer 4 columns
 (defun ascii-table (&optional extended)
   "Print the ascii table (up to char 127).
 Given an optional argument, print up to char 255."
@@ -531,9 +377,9 @@ Given an optional argument, print up to char 255."
                         (setq i (+ 32 i)) i (single-key-description i)))
         (setq i (- i 96))))))
 
-;;;_*======================================================================
-;;;_* this command will list all available fonts. Good if the font
-;;;_* you want does not appear in the font dialog
+;;======================================================================
+;; this command will list all available fonts. Good if the font
+;; you want does not appear in the font dialog
 (defun list-fonts()
   "Return a list of all available fonts"
   (interactive)
@@ -561,8 +407,8 @@ Given an optional argument, print up to char 255."
     (local-set-key "q" (quote delete-window))
   )
 
-;;;_*======================================================================
-;;;_* set the current font using the font selection dialog
+;;======================================================================
+;; set the current font using the font selection dialog
 ;; this is in emacs-frame.el since it will call `frame-adjust' after
 ;; resetting the font
 ;(defun set-font()
@@ -618,9 +464,9 @@ Thanks to Miles Bader <miles@lsi.nec.co.jp> for this (gnus.emacs.help)"
 	(message "Face: %s" face)
       (message "No face at %d" point))))
 
-;;;============================================================
-;;; toggle between variable pitch and fixed pitch font for 
-;;; the current buffer
+;;============================================================
+;; toggle between variable pitch and fixed pitch font for 
+;; the current buffer
 (defun fixed-pitch-mode (&optional arg)
   "Fixed-pitch default-face mode.
 An interface to `buffer-face-mode' which uses the `fixed-pitch' face.
@@ -638,27 +484,6 @@ See `variable-pitch-mode' for more details"
        (buffer-face-mode-invoke 'variable-pitch arg)
      (buffer-face-mode-invoke 'fixed-pitch arg)))
 
-;;;;_*======================================================================
-;;;;_* follow links from w3 or w3m region buffers (works in vm)
-;;; thanks to Edward O'Connor <ted@oconnor.cx>
-;(defun ted-follow-link-at-point (point)
-;  "Try to follow an HTML link at point.
-;This works for links created by w3-region and/or by w3m-region."
-;  (interactive "d")
-;  (let* ((props (text-properties-at point))
-;	 (w3-h-i (plist-get props 'w3-hyperlink-info))
-;	 (w3m-h-a (plist-get props 'w3m-href-anchor)))
-;    (cond (w3-h-i
-;           (browse-url (plist-get w3-h-i :href)))
-;	  (w3m-h-a
-;	   (browse-url w3m-h-a))
-;	  (t
-;	   (message "Couldn't determine link at point.")))))
-;
-;;; map this function within vm to the C-j key
-;(add-hook 'vm-mode-hook '(lambda ()
-;(local-set-key "\C-j" 'ted-follow-link-at-point)))
-
 ;;======================================================================
 ;; Open the current directory in a desktop
 (defun explore ()
@@ -672,8 +497,8 @@ Works in Microsoft Windows and Mac OS X."
    ((string-equal system-type "darwin") (shell-command "open ."))
    ))
 
-;;;_*======================================================================
-;;;_* Load various web pages into the browser of choice
+;;======================================================================
+;; Load various web pages into the browser of choice
 (defun cmBrowse (browser &optional url &optional arg)
   "Launch the browser specified with the optional page or home page if nil"
   ; OS X 
@@ -702,23 +527,6 @@ Works in Microsoft Windows and Mac OS X."
       (thing-at-point 'url)
     nil))
 
-;(defun browse (browser &optional url)
-;  "Launch the default browser with an optional URL
-;When called interactively, any url under the point is selected as
-;the default, but can be overridden by entering the desired
-;destination. If no URL is entered, the browser will launch with no
-;destination"
-;  (if (or (string= url "") (null url))
-;      ; get url from prompt (with default if possible)
-;      (shell-command (concat "/usr/bin/open -a " browser " --args "
-;       (read-string
-;        (if (getUrl)
-;            (format "URL (%s): " (getUrl))
-;          "URL: ")
-;        nil nil (getUrl))))
-;    ; load browser with provided url
-;    (shell-command (concat "/usr/bin/open -a " browser " --args " url))))
-
 (defun fx (&optional url)
   "Launch the Firefox browser with an optional URL.
 When called interactively, any url under the point is selected as
@@ -727,15 +535,6 @@ destination. If no URL is entered, the browser will launch with
 no destination"
   (interactive)
   (cmBrowse FRFXPRG url))
-
-(defun ie (&optional url)
-  "Launch the Internet Explorer browser with an optional URL.
-When called interactively, any url under the point is selected as
-the default, but can be overridden by entering the desired
-destination. If no URL is entered, the browser will launch with
-no destination"
-  (interactive)
-  (cmBrowse IEPRG url))
 
 (defun ch (&optional url)
   "Launch the Google Chrome browser with an optional URL.
@@ -764,15 +563,15 @@ Local or Remote (web-based) copies available"
     (w3m-goto-url "http://www.htmlhelp.com/reference/html40/"))
 	(message ""))
 
-;;;_*======================================================================
-;;;_* keyboard macro definitions.
-;;; The macro name is just after defalias '<macro>.  You execute the
-;;; macro by typing;;; Esc-x <macro_name>;;;
-;;; 1) define the macro ( C-x ( to begin, type macro then C-x ) to end )
-;;; 2) name the macro ( M-x name-last-kbd-macro )
-;;; 3) insert the macro into your .emacs file. Go the the end of the
-;;;    emacs and execute the following
-;;;    M-x insert-kbd-macro <return> macro name <return>
+;;======================================================================
+;; keyboard macro definitions.
+;; The macro name is just after defalias '<macro>.  You execute the
+;; macro by typing;;; Esc-x <macro_name>;;;
+;; 1) define the macro ( C-x ( to begin, type macro then C-x ) to end )
+;; 2) name the macro ( M-x name-last-kbd-macro )
+;; 3) insert the macro into your .emacs file. Go the the end of the
+;;    emacs and execute the following
+;;    M-x insert-kbd-macro <return> macro name <return>
 
 ;; bring up the color display
 (defalias 'colors
@@ -794,11 +593,7 @@ Local or Remote (web-based) copies available"
 (defalias 'justify-none
   (read-kbd-macro "M-x set-justification-none"))
 
-;; insert text for article link in blog entry
-(fset 'article
-   "\C-aArticle is <a href=\"\C-e\">here</a>.")
-
-;;;_*======================================================================
+;;======================================================================
 (defun replace-smart-quotes (beg end)
   "Replace the curly smart quotes with ASCII versions"
   (interactive "r")
@@ -810,8 +605,8 @@ Local or Remote (web-based) copies available"
        ("\x2019" . "'"))
      nil beg end)))
 
-;;;_*======================================================================
-;;;_* "Unfill" a paragraph by converting to a single line
+;;======================================================================
+;; "Unfill" a paragraph by converting to a single line
 ;; Stefan Monnier <foo at acm.org>. It is the opposite of
 ;; fill-paragraph Takes a multi-line paragraph and makes it into a
 ;; single line of text.
@@ -826,7 +621,7 @@ paragraphs in the current region into long lines."
   (let ((fill-column 9000))
     (fill-region (point) (mark))))
 
-;;load the page in firefox and save the file name to the clipboard
+;; load the page in firefox and save the file name to the clipboard
 ;;| filename | url |
 (fset 'loadvideo
    [?\C-a tab ?\C-  ?\M-e ?\M-w tab ?\C-c ?\C-o ?\C-a])

@@ -1,9 +1,5 @@
-;;;_.======================================================================
-;;;_. git installation
-(add-to-list 'load-path
-             (expand-file-name (concat EMACS_PKGS "/git-modes")))
-(add-to-list 'load-path
-             (expand-file-name (concat EMACS_PKGS "/magit")))
+;;;======================================================================
+;;; git installation
 
 ;;;_.======================================================================
 ;;;_. magit git interface

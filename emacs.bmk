@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("vtu.org"
+(("JAVA_LIB02"
+ (filename . "/Volumes/JAVA_LIB02/")
+ (front-context-string . ".Trashes\n  -rwxr")
+ (rear-context-string . "84 Apr 27 21:51 ")
+ (position . 246))
+("vtu.org"
  (filename . "~/org/vtu.org")
  (front-context-string . "* TODO Call CAPT")
  (rear-context-string . ".wead@va.gov |\n\n")

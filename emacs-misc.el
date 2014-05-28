@@ -1,24 +1,24 @@
-;;;_.======================================================================
-;;;_. Load path
+;;======================================================================
+;; Load path
 ;(add-to-list 
 ; 'load-path (expand-file-name (concat EMACS_PKGS "/git")))
 
-;;;_.======================================================================
-;;;_. get rid of the default messages on startup
+;;======================================================================
+;; get rid of the default messages on startup
 (setq initial-scratch-message nil)
 (setq inhibit-startup-message t)
 (setq inhibit-startup-echo-area-message t)
 
-;;;_.======================================================================
-;;;_. default to unix line endings
+;;======================================================================
+;; default to unix line endings
 (setq-default buffer-file-coding-system 'undecided-unix)
 
-;;;_.======================================================================
-;;;_. Change the default mode to org-mode instead of lisp
+;;======================================================================
+;; Change the default mode to org-mode instead of lisp
 ;(setq initial-major-mode 'org-mode)
 
-;;;_.======================================================================
-;;;_. font lock settings
+;;======================================================================
+;; font lock settings
 ;; enable font-lock for ALL modes that support it
 (global-font-lock-mode t)
 
@@ -26,8 +26,8 @@
 ;; locking on larger files
 (setq max-lisp-eval-depth 1000)
 
-;;;_.======================================================================
-;;;_. Global Programming indentation
+;;======================================================================
+;; Global Programming indentation
 ;; DO NOT CHANGE THIS! It will make the code look horrible to others
 ;; if you use any tabs for indenting
 (setq default-tab-width 8)
@@ -38,8 +38,8 @@
 ;; use tabs for indentation (t)
 (setq indent-tabs-mode nil)
 
-;;;_.======================================================================
-;;;_. Set the cursor styles
+;;======================================================================
+;; Set the cursor styles
 ;Values are interpreted as follows:
 ;;  t              use the cursor specified for the frame
 ;;  nil            don't display a cursor
@@ -56,18 +56,18 @@
 ;; turn the blinking off
 (blink-cursor-mode 0)
 
-;;;_.======================================================================
-;;;_. Highlight matching parenthesis
+;;======================================================================
+;; Highlight matching parenthesis
 ;; style can be 'mixed, 'expression or 'parenthesis
 (show-paren-mode t)
 (setq show-paren-style 'parenthesis)
 
-;;;_.======================================================================
-;;;_. emacs bookmarks
+;;======================================================================
+;; emacs bookmarks
 (setq bookmark-default-file (concat EMACS_PKGS "/emacs.bmk"))
 
-;;;_.======================================================================
-;;;_. make backup files in a single directory and keep versions
+;;======================================================================
+;; make backup files in a single directory and keep versions
 (defconst use-backup-dir t)
 (setq backup-directory-alist (quote ((".*" . "~/backups/temp/")))
       version-control t        ; Use version numbers for backups
@@ -76,8 +76,8 @@
       delete-old-versions t    ; Delete excess backup versions
       backup-by-copying t)
 
-;;;_.======================================================================
-;;;_. make intermediate directories if necessary when saving a file
+;;======================================================================
+;; make intermediate directories if necessary when saving a file
 (add-hook 'before-save-hook
      (lambda()
        (let ((dir (file-name-directory buffer-file-name)))
@@ -85,8 +85,8 @@
 		    (y-or-n-p (format "Directory %s does not exist. Create it?" dir)))
 	   (make-directory dir t)))))
 
-;;;;_.======================================================================
-;;;;_. crontab mode
+;;;======================================================================
+;;; crontab mode
 ;;; edit and automatically apply changes to the crontab file
 ;;; use the command C-cC-c to apply the changes.
 ;;; The local variable crontab-apply-after-save in the crontab file
@@ -95,14 +95,14 @@
 ;(require 'crontab-mode)
 ;(add-to-list 'auto-mode-alist '("\\.cron\\(tab\\)?\\'" . crontab-mode))
 
-;;;_.======================================================================
-;;;_. modeline modifications
+;;======================================================================
+;; modeline modifications
 
 ;; set the encoding characters displayed in the modeline
-(setq eol-mnemonic-dos ?\\
-      eol-mnemonic-unix ?/
-      eol-mnemonic-mac ?:
-      eol-mnemonic-undecided ??)
+;(setq eol-mnemonic-dos ?\\
+;      eol-mnemonic-unix ?/
+;      eol-mnemonic-mac ?:
+;      eol-mnemonic-undecided ??)
 
 ;; first turn on column line mode
 ;(setq column-number-mode nil)
@@ -120,7 +120,7 @@
 ;(set-time-zone-rule "EST5") ;; 
 ;(set-time-zone-rule "EDT4") ;; 2d Sunday of March to 1st Sunday of Nov
 
-(setq display-time-format " %a %d %b %H:%M ")     ;;;_.Fri 10 Nov 15:26
+(setq display-time-format " %a %d %b %H:%M ")     ;;Fri 10 Nov 15:26
 (setq display-time-day-and-date t)
 (display-time)
 
@@ -137,28 +137,28 @@
 ;	      (shell-command-to-string "hostname|tr -d \\\\n")
 	      " -- %f"))
 
-;;;_.======================================================================
-;;;_. provide unique names for buffers with the same filename loaded
+;;======================================================================
+;; provide unique names for buffers with the same filename loaded
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
-;;;_.======================================================================
-;;;_. re-enable the commands upcase region and downcase-region
+;;======================================================================
+;; re-enable the commands upcase region and downcase-region
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-;;;_.======================================================================
-;;;_. Set threshold to split horizontally
+;;======================================================================
+;; Set threshold to split horizontally
 (setq split-width-threshold nil)
 
-;;;_.======================================================================
-;;;_. Enable the commands `narrow-to-region' ("C-x n n") and
-;;;_.`eval-expression' ("M-ESC", or "ESC ESC").
+;;======================================================================
+;; Enable the commands `narrow-to-region' ("C-x n n") and
+;;`eval-expression' ("M-ESC", or "ESC ESC").
 (put 'narrow-to-region 'disabled nil)
 (put 'eval-expression 'disabled nil)
 
-;;;_.======================================================================
-;;;_. ediff configuration
+;;======================================================================
+;; ediff configuration
 ;; split windows horizontally:
 (setq ediff-split-window-function 'split-window-horizontally)
 
@@ -174,7 +174,7 @@
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 
-;;;;_.======================================================================
+;;;======================================================================
 ;;;; adds a bitmap to the fringe that marks the current mark. Handy
 ;;;; when popping off the ring
 ;;; overlay an arrow where the mark is
@@ -202,8 +202,8 @@
 ;(put 'mp-overlay-arrow-position 'overlay-arrow-bitmap 'mp-hollow-right-arrow)
 
 
-;;;_.======================================================================
-;;;_. For Mac users, swap the command and option keys between mac and windows keyboards
+;;======================================================================
+;; For Mac users, swap the command and option keys between mac and windows keyboards
 (defun swap-meta-and-super ()
   "Swap the mapping of meta and super. Very useful for people using their Mac
 with a Windows external keyboard from time to time."
@@ -218,8 +218,8 @@ with a Windows external keyboard from time to time."
       (setq mac-option-modifier 'meta)
       (message "Command is now bound to SUPER and Option is bound to META."))))
 
-;;;_.======================================================================
-;;;_. Search for a regexp across all marked files within dired
+;;======================================================================
+;; Search for a regexp across all marked files within dired
 (defun my-dired-multi-occur (string)
   "Search string in files marked by dired."
   (interactive "MList lines matching regexp: ")
@@ -234,8 +234,8 @@ with a Windows external keyboard from time to time."
                   (interactive)
                   (join-line -1)))
 
-;;;_.======================================================================
-;;;_. get the IP address of the current machine
+;;======================================================================
+;; get the IP address of the current machine
 ;; unix version
 (defun get-ip-address (&optional dev)
   "get the IP-address for device DEV (default: eth0)"
@@ -248,8 +248,8 @@ with a Windows external keyboard from time to time."
 ;    (string-match "\\(\\([0-9]+.\\)+[0-9]+\\)" ipconfig)
 ;    (match-string 0 ipconfig)))
 
-;;;_.======================================================================
-;;;_. TrueCrypt shortcuts
+;;======================================================================
+;; TrueCrypt shortcuts
 (defun tcmount ()
   "Mount the truecrypt favorite volumes"
   (interactive)
@@ -265,8 +265,8 @@ with a Windows external keyboard from time to time."
   (shell-command
    "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt --dismount"))
 
-;;;_.======================================================================
-;;;_. ignore case in file and buffer name completions
+;;======================================================================
+;; ignore case in file and buffer name completions
 (setq completion-ignore-case 't)
 (setq read-file-name-completion-ignore-case 't)
 (setq read-buffer-completion-ignore-case 't)

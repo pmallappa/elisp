@@ -3,9 +3,9 @@
 ;; .emacs --- Emacs configuration file
 
 ;; Author: Chris McMahan <cmcmahan@gmail.com>
-;; Time-stamp: 2014-05-01 Thu 20:03
+;; Time-stamp: 2014-05-24 Sat 21:35
 ;; Emacsen Compatibility: Emacs23
-;; OS Compatibility:      Win32 (with Cygwin utils) / OS X
+;; OS Compatibility: Win32 (with Cygwin utils) / OS X
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of version 2 of the GNU General Public License
@@ -19,10 +19,6 @@
 ;; I'm sure you already have many copies of the GPL on your machine.
 ;; If you're using GNU Emacs, try typing C-h C-c to bring it up. If
 ;; you're using XEmacs, C-h C-l does this.
-
-;;=====================================================================
-;; set debugging flag
-(setq debug-on-error nil)
 
 ;;=====================================================================
 ;; set the location of various directories
@@ -100,13 +96,9 @@
 (defvar my_email_address "cmcmahan@gmail.com"
   "email address to use in emacs configuration")
 
-;; turn off the scrollbar
+;; Fix the UI
 (set-scroll-bar-mode nil)
-
-;; allow narrow-to-region commands
 (put 'narrow-to-region 'disabled nil)
-
-;; highlight the current line
 (global-hl-line-mode)
 
 ;;==============================
@@ -118,34 +110,11 @@
       `((menu-bar-lines . 0)
 	(tool-bar-lines . 0)))
 
-;; Set the default face to the variable pitch using the buffer-face-mode function `variable-pitch-mode
-(set-face-font 'variable-pitch "Verdana-14")
-(set-face-font 'fixed-pitch "Menlo-13")
-
-;; These require fixed-pitch fonts to format correctly
-(add-hook 'text-mode-hook 'fixed-pitch-mode)
-(add-hook 'dired-mode-hook 'fixed-pitch-mode)
-(add-hook 'calendar-mode-hook 'fixed-pitch-mode)
-(add-hook 'org-agenda-mode-hook 'fixed-pitch-mode)
-
 ;; set the fonts
 (if (eq system-type 'darwin)
     (add-to-list 'default-frame-alist '(font . "Verdana-13"))
   ; not darwin
   (add-to-list 'default-frame-alist '(font . "Arial-14")))
-
-; good for experimenting with faces
-;(set-face-font 'default "Bitstream Vera Sans Mono-14")
-;(set-face-font 'default "Verdana-14")
-;(set-face-font 'default "Menlo-14")
-
-;; enable buffer-face mode to provide buffer-local fonts
-(buffer-face-mode 1)
-
-;; To set a buffer type with a fixed-pitch font (such as dired or org), use the following:
-;;(add-hook 'dired-mode-hook
-;;          (lambda()
-;;            (buffer-face-mode-invoke 'fixed-pitch t)))
 
 ; copy to the default frame alist
 (setq initial-frame-alist default-frame-alist)
@@ -154,7 +123,25 @@
 (add-to-list 'initial-frame-alist '(top    .   8))
 (add-to-list 'initial-frame-alist '(left   .  -5))
 (add-to-list 'initial-frame-alist '(width  . 132))
-(add-to-list 'initial-frame-alist '(height .  78))
+(add-to-list 'initial-frame-alist '(height .  70))
+
+;; Set the default face to the variable pitch using the buffer-face-mode function `variable-pitch-mode
+(set-face-font 'variable-pitch "Verdana-14")
+(set-face-font 'fixed-pitch "Menlo-13")
+
+; good for experimenting with faces
+;(set-face-font 'default "Bitstream Vera Sans Mono-14")
+;(set-face-font 'default "Verdana-14")
+;(set-face-font 'default "Menlo-14")
+
+;; These require fixed-pitch fonts to format correctly
+(add-hook 'text-mode-hook 'fixed-pitch-mode)
+(add-hook 'dired-mode-hook 'fixed-pitch-mode)
+(add-hook 'calendar-mode-hook 'fixed-pitch-mode)
+(add-hook 'org-agenda-mode-hook 'fixed-pitch-mode)
+
+;; enable buffer-face mode to provide buffer-local fonts
+(buffer-face-mode 1)
 
 ; increase the space between lines
 (setq-default line-spacing 0)
@@ -173,11 +160,6 @@
 ; buffer-name completion for C-x b; makes life much easier.
 (iswitchb-mode 1)
 
-; Removes gui elements
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))  ; no gui scrollbare
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))      ; no toolbar!
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))      ; no menubar
-
 ; set colors
 (set-face-foreground 'default MY_FG_COLOR)
 (set-face-background 'default MY_BG_COLOR)
@@ -188,20 +170,12 @@
 
 (set-face-attribute  'mode-line
                      nil 
-;                     :family "Arial"
-;                     :height 130
-;                     :width `normal'
-;                     :weight `medium'
                      :foreground "gray80"
                      :background "gray25" 
                      :box '(:line-width 1 :style released-button))
 
 (set-face-attribute  'mode-line-inactive
                      nil 
-;                     :family "Arial"
-;                     :height 130
-;                     :width `normal'
-;                     :weight `medium'
                      :foreground "gray40"
                      :background MY_BG_COLOR 
                      :box '(:line-width 1 :style released-button))
@@ -223,56 +197,38 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
-
-
-
 (setq exec-path '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin"))
 
 ;;=====================================================================
 ;; Load the customize configurations files
 (require 'emacs-macros)    ; various macros and functions
-(require 'emacs-calc)      ; emacs calculator settings
 (require 'emacs-org)       ; emacs org mode settings
 (require 'emacs-bm)        ; bookmark enhancements
 (require 'emacs-bs)        ; buffer switch setting
-(require 'emacs-calendar)  ; calendar settings
-(require 'emacs-colors)    ; color theme support
-(require 'emacs-dired)     ; dired settings
-(require 'emacs-epa)       ; emacs gpg encryption settings
-(require 'emacs-eshell)    ; emacs eshell settings
 (require 'emacs-frame)     ; customized frame functions
 (require 'emacs-git)       ; emacs git integration
-;(require 'emacs-helm)       ; emacs helm for completions and more
-(require 'emacs-info)      ; add info directories to emacs
 (require 'emacs-misc)      ; various settings
-(require 'emacs-undo)      ; Tree-based undo visualizetions
 (require 'emacs-w3m)       ; w3m web browser settings
 (require 'emacs-webjump)   ; webjump settings
+(require 'emacs-calendar)  ; calendar settings
+(require 'emacs-dired)     ; dired settings
+;(require 'emacs-calc)      ; emacs calculator settings
 ;(require 'emacs-calfw)     ; enhanced calendar
+;(require 'emacs-colors)    ; color theme support
 ;(require 'emacs-cpustats)  ; Modeline stats for CPU usage
-
-(cond ((eq system-type 'darwin)
-      (require 'emacs-todochiku))) ; notification using growl
-(cond ((eq system-type 'windows-nt)
-      (require 'emacs-cygwin)))    ; emacs/cygwin integration
+;(require 'emacs-eshell)    ; emacs eshell settings
+;(require 'emacs-helm)      ; emacs helm for completions and more
+;(require 'emacs-info)      ; add info directories to emacs
+;(require 'emacs-undo)      ; Tree-based undo visualizetions
+;
+;(cond ((eq system-type 'darwin)
+;      (require 'emacs-todochiku))) ; notification using growl
+;(cond ((eq system-type 'windows-nt)
+;      (require 'emacs-cygwin)))    ; emacs/cygwin integration
 
 ;;=====================================================================
 ;; start the emacsserver that listens to emacsclient
 (server-start)
-
-; raise the emacs frame 
-(if (featurep 'ns)
-    (progn
-      (defun ns-raise-emacs ()
-        "Raise Emacs."
-        (ns-do-applescript "tell application \"Emacs\" to activate"))
-
-      (if (display-graphic-p)
-          (progn
-            (add-hook 'server-visit-hook 'ns-raise-emacs)
-            (add-hook 'before-make-frame-hook 'ns-raise-emacs)
-            (ns-raise-emacs)))))
-
 
 ;;=====================================================================
 ;; some reference stuff

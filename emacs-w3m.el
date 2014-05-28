@@ -1,37 +1,37 @@
 ;;; using customize, since there appears to be no hook into the
 ;;; w3m-search function to activate
-(add-to-list 
- 'load-path (expand-file-name (concat EMACS_PKGS "/w3m")))
+;(add-to-list 
+; 'load-path (expand-file-name (concat EMACS_PKGS "/w3m")))
 
-(if (= emacs-major-version 23)
-	(require 'w3m-ems)
-  (require 'w3m))
+;(if (= emacs-major-version 23)
+;	(require 'w3m-ems)
+;  (require 'w3m))
 
 
-(load-library "w3m")
-(load-library "w3m-search")
-(autoload 'w3m-region "w3m"
-  "Render region in current buffer and replace with result." t)
+;(load-library "w3m")
+;(load-library "w3m-search")
+;(autoload 'w3m-region "w3m"
+;  "Render region in current buffer and replace with result." t)
 
 
 ; column at which w3m buffer will wrap. Set to negative to set fill
 ; column n places from the right of the visible window
 (setq w3m-fill-column 80)
 
-(defadvice w3m-process-filter (before w3m-remember-proxy-login activate)
-"Pass the proxy username and password to w3m"
-  (setq w3m-process-proxy-user MY_PROXY_USER)
-  (setq w3m-process-proxy-password "tmdv&kds")
-  (setq w3m-no-proxy-domains '("local.com" "ngc.com")))
-
-(setq url-proxy-services '(("no_proxy" . "ngc\\.com")
-                           ("http" . "eastproxy.northgrum.com")))
+;(defadvice w3m-process-filter (before w3m-remember-proxy-login activate)
+;"Pass the proxy username and password to w3m"
+;  (setq w3m-process-proxy-user MY_PROXY_USER)
+;  (setq w3m-process-proxy-password "tmdv&kds")
+;  (setq w3m-no-proxy-domains '("local.com" "ngc.com")))
+;
+;(setq url-proxy-services '(("no_proxy" . "ngc\\.com")
+;                           ("http" . "eastproxy.northgrum.com")))
 
 
 (setq w3m-command "w3m")
 (setq w3m-use-toolbar nil)
 
-(setq w3m-command-arguments '("-no-graph"))
+;(setq w3m-command-arguments '("-no-graph"))
 
 ;; use programs contributed with the w3m distribution
 (autoload 'w3m-find-file "w3m" "w3m interface function for local file." t)
@@ -124,8 +124,8 @@ The default w3m version doesn't seem to be working..."
   (browse-url (or (w3m-anchor)
 		  (w3m-image))))
 
-(define-key w3m-mode-map "m" 'w3m-open-current-page-external)
-(define-key w3m-mode-map "M" 'w3m-open-link-or-image-external)
+;(define-key w3m-mode-map "m" 'w3m-open-current-page-external)
+;(define-key w3m-mode-map "M" 'w3m-open-link-or-image-external)
 
 
 (provide 'emacs-w3m)
