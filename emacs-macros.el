@@ -536,7 +536,7 @@ no destination"
   (interactive)
   (cmBrowse FRFXPRG url))
 
-(defun ch (&optional url)
+(defun chrm (&optional url)
   "Launch the Google Chrome browser with an optional URL.
 When called interactively, any url under the point is selected as
 the default, but can be overridden by entering the desired

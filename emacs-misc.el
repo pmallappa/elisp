@@ -15,7 +15,7 @@
 
 ;;======================================================================
 ;; Change the default mode to org-mode instead of lisp
-;(setq initial-major-mode 'org-mode)
+(setq initial-major-mode 'org-mode)
 
 ;;======================================================================
 ;; font lock settings
@@ -98,27 +98,8 @@
 ;;======================================================================
 ;; modeline modifications
 
-;; set the encoding characters displayed in the modeline
-;(setq eol-mnemonic-dos ?\\
-;      eol-mnemonic-unix ?/
-;      eol-mnemonic-mac ?:
-;      eol-mnemonic-undecided ??)
-
 ;; first turn on column line mode
-;(setq column-number-mode nil)
-
-;; the standard display time package
-;; see documentation for the function
-;; format-time-string
-;; for an explanation of the format
-;; (format-time-string "%a %d %b %H:%M %Z" (current-time) nil)
-;; is a good quick way to test your formats
-
-;; work around a bug in the new time zones for 2007 not being loaded
-;; into emacs correctly. Need to change manually when the time zone
-;; changes
-;(set-time-zone-rule "EST5") ;; 
-;(set-time-zone-rule "EDT4") ;; 2d Sunday of March to 1st Sunday of Nov
+(setq column-number-mode nil)
 
 (setq display-time-format " %a %d %b %H:%M ")     ;;Fri 10 Nov 15:26
 (setq display-time-day-and-date t)
@@ -132,9 +113,8 @@
 
 ;; format for the title on the titlebar
 (setq frame-title-format
-      (concat invocation-name "@"
+      (concat invocation-name " on "
               system-name
-;	      (shell-command-to-string "hostname|tr -d \\\\n")
 	      " -- %f"))
 
 ;;======================================================================
