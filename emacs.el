@@ -210,11 +210,7 @@
 
 (if (file-directory-p "c:/cygwin/bin")
     (progn
-      (add-to-list 'exec-path "c:/cygwin/bin")
-      (add-to-list 'exec-path "c:/Program Files (x86)/Git/cmd")
-      (setq shell-file-name "bash")
-      (setq explicit-shell-file-name shell-file-name)
-      (require 'setup-cygwin)))
+      (require 'emacs-cygwin)))
 
 ;;=====================================================================
 ;; Load the customize configurations files
