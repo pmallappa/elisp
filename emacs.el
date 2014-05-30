@@ -34,7 +34,7 @@
   "Home directory. I could rely on the HOME environment variable,
   but I'm being retentive.")
 
-(defconst EMACS_PKGS (concat HOME_DIR "/elisp")
+(defconst EMACS_CONFIGS (concat HOME_DIR "/elisp")
   "Directory for the emacs pkgs and configuration files.
  Default uses `HOME_DIR' as a prefix")
 
@@ -93,7 +93,7 @@
       (setq ns-function-modifier 'hyper)))
 
 ;; isolate customize settings
-(setq custom-file (concat EMACS_PKGS "/emacs-custom.el"))
+(setq custom-file (concat EMACS_CONFIGS "/emacs-custom.el"))
 
 (defvar my_email_address "cmcmahan@gmail.com"
   "email address to use in emacs configuration")
@@ -193,8 +193,8 @@
 ;; load path for various single-file packages
 (setq load-path 
       (append 
-       (list (concat EMACS_PKGS "")
-             (concat EMACS_PKGS "/misc"))
+       (list (concat EMACS_CONFIGS "")
+             (concat EMACS_CONFIGS "/misc"))
        load-path))
 
 ;; Specify where backup files are stored

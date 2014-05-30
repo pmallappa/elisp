@@ -1,7 +1,3 @@
-;;======================================================================
-;; Load path
-;(add-to-list 
-; 'load-path (expand-file-name (concat EMACS_PKGS "/git")))
 
 ;;======================================================================
 ;; get rid of the default messages on startup
@@ -64,7 +60,7 @@
 
 ;;======================================================================
 ;; emacs bookmarks
-(setq bookmark-default-file (concat EMACS_PKGS "/emacs.bmk"))
+(setq bookmark-default-file (concat EMACS_CONFIGS "/emacs.bmk"))
 
 ;;======================================================================
 ;; make backup files in a single directory and keep versions

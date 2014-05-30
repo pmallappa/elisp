@@ -1,5 +1,3 @@
-(add-to-list 
- 'load-path (expand-file-name (concat EMACS_PKGS "/helm")))
 
 (require 'helm-config) 
 (helm-mode t)
