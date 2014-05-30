@@ -213,7 +213,8 @@
       (add-to-list 'exec-path "c:/cygwin/bin")
       (add-to-list 'exec-path "c:/Program Files (x86)/Git/cmd")
       (setq shell-file-name "bash")
-      (setq explicit-shell-file-name shell-file-name)))
+      (setq explicit-shell-file-name shell-file-name)
+      (require 'setup-cygwin)))
 
 ;;=====================================================================
 ;; Load the customize configurations files
