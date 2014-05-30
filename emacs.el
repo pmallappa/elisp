@@ -116,7 +116,7 @@
 (if (eq system-type 'darwin)
     (add-to-list 'default-frame-alist '(font . "Verdana-13"))
   ; not darwin
-  (add-to-list 'default-frame-alist '(font . "Arial-13")))
+  (add-to-list 'default-frame-alist '(font . "Verdana-10")))
 
 ; copy to the default frame alist
 (setq initial-frame-alist default-frame-alist)
@@ -127,18 +127,21 @@
 (add-to-list 'initial-frame-alist '(width  . 132))
 (add-to-list 'initial-frame-alist '(height .  70))
 
-;; Set the default face to the variable pitch using the buffer-face-mode function `variable-pitch-mode
+;; Set the default face to the variable pitch using the
+;; buffer-face-mode function `variable-pitch-mode
 (if (eq system-type 'darwin)
     (progn
-      (set-face-font 'variable-pitch "Verdana-14")
+      (set-face-font 'variable-pitch "Verdana-13")
       (set-face-font 'fixed-pitch "Menlo-13"))
   (progn
-    (set-face-font 'variable-pitch "Arial-13")
-      (set-face-font 'fixed-pitch "Consolas-13")))
+    (set-face-font 'variable-pitch "Verdana-10")
+      (set-face-font 'fixed-pitch "Lucida Sans Typewriter-10")))
 
-; good for experimenting with faces
-;(set-face-font 'default "Bitstream Vera Sans Mono-14")
-;(set-face-font 'default "Verdana-14")
+;; good for experimenting with faces
+;(set-face-font 'default "Consolas-10")
+;(set-face-font 'default "Lucida Console-9")
+;(set-face-font 'default "Lucida Sans Typewriter-10")
+;(set-face-font 'default "Verdana-10")
 ;(set-face-font 'default "Menlo-14")
 
 ;; These require fixed-pitch fonts to format correctly
@@ -198,12 +201,19 @@
 (setq backup-directory-alist (quote ((".*" . "~/.backups"))))
 
 ;;=====================================================================
-;; Set the environmental path by copying from the shell in OSX
-(require 'exec-path-from-shell)
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+;; Set the environment (OSX or Cygwin)
 
-(setq exec-path '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin"))
+(if (eq system-type 'darwin)
+  (progn
+    (require 'exec-path-from-shell)
+    (exec-path-from-shell-initialize)))
+
+(if (file-directory-p "c:/cygwin/bin")
+    (progn
+      (add-to-list 'exec-path "c:/cygwin/bin")
+      (add-to-list 'exec-path "c:/Program Files (x86)/Git/cmd")
+      (setq shell-file-name "bash")
+      (setq explicit-shell-file-name shell-file-name)))
 
 ;;=====================================================================
 ;; Load the customize configurations files
@@ -219,7 +229,7 @@
 (require 'emacs-calendar)    ; calendar settings
 (require 'emacs-dired)       ; dired settings
 (require 'emacs-smartparens) ; emacs calculator settings
-(require 'emacs-helm)        ; emacs helm for completions and more
+;(require 'emacs-helm)        ; emacs helm for completions and more
 ;(require 'emacs-calc)        ; emacs calculator settings
 ;(require 'emacs-calfw)       ; enhanced calendar
 ;(require 'emacs-colors)      ; color theme support
