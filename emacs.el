@@ -51,6 +51,8 @@
 
 (defconst MY_FG_COLOR "#a9b7b0")
 (defconst MY_BG_COLOR "gray17")
+(defconst MY_HL_LINE_COLOR "gray24")
+(defconst MY_REGION_COLOR "DarkSlateGray")
 
 ;;=====================================================================
 ;; select your preferred programs for html and media here
@@ -114,7 +116,7 @@
 (if (eq system-type 'darwin)
     (add-to-list 'default-frame-alist '(font . "Verdana-13"))
   ; not darwin
-  (add-to-list 'default-frame-alist '(font . "Arial-14")))
+  (add-to-list 'default-frame-alist '(font . "Arial-13")))
 
 ; copy to the default frame alist
 (setq initial-frame-alist default-frame-alist)
@@ -168,10 +170,9 @@
 ; set colors
 (set-face-foreground 'default MY_FG_COLOR)
 (set-face-background 'default MY_BG_COLOR)
-
 (set-face-background 'fringe  MY_BG_COLOR)
-(set-face-background 'region  "#39382f")
-(set-face-background 'hl-line "#121310")
+(set-face-background 'region  MY_REGION_COLOR)
+(set-face-background 'hl-line  MY_HL_LINE_COLOR)
 
 (set-face-attribute  'mode-line
                      nil 
@@ -206,25 +207,26 @@
 
 ;;=====================================================================
 ;; Load the customize configurations files
-(require 'emacs-macros)    ; various macros and functions
-(require 'emacs-org)       ; emacs org mode settings
-(require 'emacs-bm)        ; bookmark enhancements
-(require 'emacs-bs)        ; buffer switch setting
-(require 'emacs-frame)     ; customized frame functions
-(require 'emacs-git)       ; emacs git integration
-(require 'emacs-misc)      ; various settings
-(require 'emacs-w3m)       ; w3m web browser settings
-(require 'emacs-webjump)   ; webjump settings
-(require 'emacs-calendar)  ; calendar settings
-(require 'emacs-dired)     ; dired settings
-;(require 'emacs-calc)      ; emacs calculator settings
-;(require 'emacs-calfw)     ; enhanced calendar
-;(require 'emacs-colors)    ; color theme support
-;(require 'emacs-cpustats)  ; Modeline stats for CPU usage
-;(require 'emacs-eshell)    ; emacs eshell settings
-;(require 'emacs-helm)      ; emacs helm for completions and more
-;(require 'emacs-info)      ; add info directories to emacs
-;(require 'emacs-undo)      ; Tree-based undo visualizetions
+(require 'emacs-macros)      ; various macros and functions
+(require 'emacs-org)         ; emacs org mode settings
+(require 'emacs-bm)          ; bookmark enhancements
+(require 'emacs-bs)          ; buffer switch setting
+(require 'emacs-frame)       ; customized frame functions
+(require 'emacs-git)         ; emacs git integration
+(require 'emacs-misc)        ; various settings
+(require 'emacs-w3m)         ; w3m web browser settings
+(require 'emacs-webjump)     ; webjump settings
+(require 'emacs-calendar)    ; calendar settings
+(require 'emacs-dired)       ; dired settings
+(require 'emacs-smartparens) ; emacs calculator settings
+(require 'emacs-helm)        ; emacs helm for completions and more
+;(require 'emacs-calc)        ; emacs calculator settings
+;(require 'emacs-calfw)       ; enhanced calendar
+;(require 'emacs-colors)      ; color theme support
+;(require 'emacs-cpustats)    ; Modeline stats for CPU usage
+;(require 'emacs-eshell)      ; emacs eshell settings
+;(require 'emacs-info)        ; add info directories to emacs
+;(require 'emacs-undo)        ; Tree-based undo visualizetions
 ;
 ;(cond ((eq system-type 'darwin)
 ;      (require 'emacs-todochiku))) ; notification using growl

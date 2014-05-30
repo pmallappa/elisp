@@ -59,9 +59,9 @@
  (position . 137))
 ("org-capture-last-stored"
  (filename . "~/org/journal.org")
- (front-context-string . "** Purchased Tra")
- (rear-context-string . "mahan@gmail.com\n")
- (position . 5605))
+ (front-context-string . "** Paid Matrix <")
+ (rear-context-string . " from USAA site\n")
+ (position . 46328))
 ("webjump"
  (filename . "~/elisp/emacs-webjump.el")
  (front-context-string . ";;;_.===========")

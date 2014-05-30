@@ -1,0 +1,40 @@
+;;;_. -*-mode: emacs-lisp -*-
+;; set to t for debugging
+(setq debug-on-error nil)
+
+;;; =====================================================================
+;;; .emacs --- Emacs configuration file
+
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (package-initialize)
+  (add-to-list 'package-archives '("melpa"     . "http://melpa.milkbox.net/packages/") t)
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/") t)
+  )
+
+(defvar my-packages 
+  '(better-defaults
+    clojure-mode
+    clojure-test-mode
+    cider
+    w3m
+    bm
+    bs-ext
+    exec-path-from-shell
+    helm
+    igrep
+    magit
+    org
+    s
+    w3m))
+
+(dolist (p my-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
+
+;;; load the actual configuration file, located in emacs-pkgs to
+;;; simplify version control
+(load-file "~/elisp/emacs.el")  ; emacs configuration
+
+;;; go to the home directory
+(cd "~/")
