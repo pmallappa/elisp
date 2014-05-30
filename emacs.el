@@ -126,8 +126,13 @@
 (add-to-list 'initial-frame-alist '(height .  70))
 
 ;; Set the default face to the variable pitch using the buffer-face-mode function `variable-pitch-mode
-(set-face-font 'variable-pitch "Verdana-14")
-(set-face-font 'fixed-pitch "Menlo-13")
+(if (eq system-type 'darwin)
+    (progn
+      (set-face-font 'variable-pitch "Verdana-14")
+      (set-face-font 'fixed-pitch "Menlo-13"))
+  (progn
+    (set-face-font 'variable-pitch "Arial-13")
+      (set-face-font 'fixed-pitch "Consolas-13")))
 
 ; good for experimenting with faces
 ;(set-face-font 'default "Bitstream Vera Sans Mono-14")
