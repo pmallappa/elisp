@@ -7,11 +7,11 @@
 ;; point the packages to the appropriate info directory
 ;(setq Info-default-directory-list 
 ;      (list
-;       (concat EMACS_PKGS "/info")
+;       (concat EMACS_CONFIGS "/info")
 ;       "/Applications/Emacs.app/Contents/Resources/info"
-;       (concat EMACS_PKGS "/info")
-;       (concat EMACS_PKGS "/info/elisp")
-;       (concat EMACS_PKGS "/info/gnus")
+;       (concat EMACS_CONFIGS "/info")
+;       (concat EMACS_CONFIGS "/info/elisp")
+;       (concat EMACS_CONFIGS "/info/gnus")
 ;       (concat EMACS_DIR  "/info")
 ;       (concat CYGWIN_DIR "/usr/share/info")
 ;       (concat CYGWIN_DIR "/usr/info")
@@ -22,7 +22,7 @@
 (cond ((eq system-type 'darwin)
       (add-to-list  'Info-default-directory-list "/usr/share/info")))
 
-(add-to-list  'Info-default-directory-list (concat EMACS_PKGS "/info"))
+(add-to-list  'Info-default-directory-list (concat EMACS_CONFIGS "/info"))
 (setq Info-directory-list Info-default-directory-list)
 
 ;;============================================================

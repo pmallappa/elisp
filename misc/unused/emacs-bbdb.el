@@ -10,7 +10,7 @@
 ;;  names, addresses, and phone numbers from within emacs itself by
 ;;  typing M-x bbdb <RET>
 (add-to-list 'load-path
-              (expand-file-name (concat EMACS_PKGS "/bbdb/lisp")))
+              (expand-file-name (concat EMACS_CONFIGS "/bbdb/lisp")))
 
 (require 'bbdb-autoloads)
 (require 'bbdb)

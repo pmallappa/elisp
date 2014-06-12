@@ -6,9 +6,9 @@
 ;;; Emacs 24 features native color theme capabilities, and as such no
 ;;; longer requires the color-theme package
 (add-to-list 'custom-theme-load-path 
-              (concat EMACS_PKGS "/color-theme"))
+              (concat EMACS_CONFIGS "/color-theme"))
 ;(add-to-list 'custom-theme-load-path 
-;              (concat EMACS_PKGS "/color-theme/original-themes"))
+;              (concat EMACS_CONFIGS "/color-theme/original-themes"))
 
 (load-theme 'zenburn t)
 
@@ -22,9 +22,9 @@
 ;;; load the color theme package
 ;;;======================================================================
 ;(add-to-list 'load-path
-;              (concat EMACS_PKGS "/color-theme"))
+;              (concat EMACS_CONFIGS "/color-theme"))
 ;(add-to-list 'load-path
-;              (concat EMACS_PKGS "/color-theme/zenburn-theme"))
+;              (concat EMACS_CONFIGS "/color-theme/zenburn-theme"))
 
 
 ;;;;; color theme...use zenburn ;;;;

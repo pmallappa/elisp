@@ -11,7 +11,7 @@
 ;; RET or Click : jump to the entry
 ;; q : kill-buffer
 (add-to-list 'load-path
-             (expand-file-name (concat EMACS_PKGS "/calfw")))
+             (expand-file-name (concat EMACS_CONFIGS "/calfw")))
 
 ;;;======================================================================
 ;;; calendar installation

@@ -92,6 +92,10 @@
       (setq mac-option-modifier 'super)
       (setq ns-function-modifier 'hyper)))
 
+;; prevent new frames from emacsclient on darwin
+(if (eq system-type 'darwin)
+    (setq ns-popup-frames nil))	
+
 ;; isolate customize settings
 (setq custom-file (concat EMACS_CONFIGS "/emacs-custom.el"))
 
@@ -132,7 +136,7 @@
 (if (eq system-type 'darwin)
     (progn
       (set-face-font 'variable-pitch "Verdana-13")
-      (set-face-font 'fixed-pitch "Menlo-13"))
+      (set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-13"))
   (progn
     (set-face-font 'variable-pitch "Verdana-10")
       (set-face-font 'fixed-pitch "Lucida Sans Typewriter-10")))
@@ -143,6 +147,7 @@
 ;(set-face-font 'default "Lucida Sans Typewriter-10")
 ;(set-face-font 'default "Verdana-10")
 ;(set-face-font 'default "Menlo-14")
+;(set-face-font 'default "Bitstream Vera Sans Mono-13")
 
 ;; These require fixed-pitch fonts to format correctly
 (add-hook 'text-mode-hook 'fixed-pitch-mode)

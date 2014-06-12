@@ -1,7 +1,7 @@
 ;;;_.============================================================
 ;;;_. ToDoChiku Growl Notification Integration
 (add-to-list 'load-path
-             (expand-file-name (concat EMACS_PKGS "/todochiku")))
+             (expand-file-name (concat EMACS_CONFIGS "/todochiku")))
 
 ;;;_.============================================================
 ;;;_. load todochiku
@@ -9,7 +9,7 @@
 
 
 ;; use neat and nifty icons in the growl notification windows
-(setq todochiku-icons-directory (concat EMACS_PKGS "/todochiku/todochiku-icons"))
+(setq todochiku-icons-directory (concat EMACS_CONFIGS "/todochiku/todochiku-icons"))
 
 ;; Tell org-mode to use todochiku for notification
 (setq org-show-notification-handler
