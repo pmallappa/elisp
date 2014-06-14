@@ -27,7 +27,7 @@
 ;      ""
 ;    "c:/cygwin/home"))
 
-(defconst HOME_DIR 
+(defconst HOME_DIR
   (if (eq system-type 'darwin)
       (concat "/Users/" (getenv "USER"))
     (concat "c:/cygwin/home/" (getenv "USERNAME")))
@@ -85,16 +85,9 @@
 ;;=====================================================================
 ;; various startup settings
 
-;; Set the command key to act as the meta key for OS-X
-(if (eq system-type 'darwin)
-    (progn
-      (setq mac-command-modifier 'meta)
-      (setq mac-option-modifier 'super)
-      (setq ns-function-modifier 'hyper)))
-
 ;; prevent new frames from emacsclient on darwin
 (if (eq system-type 'darwin)
-    (setq ns-popup-frames nil))	
+    (setq ns-popup-frames nil))
 
 ;; isolate customize settings
 (setq custom-file (concat EMACS_CONFIGS "/emacs-custom.el"))
@@ -106,6 +99,12 @@
 (set-scroll-bar-mode nil)
 (put 'narrow-to-region 'disabled nil)
 (global-hl-line-mode)
+
+(add-hook 'after-make-frame-functions
+          '(lambda (frame)
+             (modify-frame-parameters frame
+              '((vertical-scroll-bars . nil)
+                (horizontal-scroll-bars . nil)))))
 
 ;;==============================
 ;; size, colors and fonts
@@ -154,6 +153,8 @@
 (add-hook 'dired-mode-hook 'fixed-pitch-mode)
 (add-hook 'calendar-mode-hook 'fixed-pitch-mode)
 (add-hook 'org-agenda-mode-hook 'fixed-pitch-mode)
+(add-hook 'shell-mode-hook 'fixed-pitch-mode)
+(add-hook 'eshell-mode-hook 'fixed-pitch-mode)
 
 ;; enable buffer-face mode to provide buffer-local fonts
 (buffer-face-mode 1)
@@ -183,21 +184,21 @@
 (set-face-background 'hl-line  MY_HL_LINE_COLOR)
 
 (set-face-attribute  'mode-line
-                     nil 
+                     nil
                      :foreground "gray80"
-                     :background "gray25" 
+                     :background "gray25"
                      :box '(:line-width 1 :style released-button))
 
 (set-face-attribute  'mode-line-inactive
-                     nil 
+                     nil
                      :foreground "gray40"
-                     :background MY_BG_COLOR 
+                     :background MY_BG_COLOR
                      :box '(:line-width 1 :style released-button))
 
 ;;=====================================================================
 ;; load path for various single-file packages
-(setq load-path 
-      (append 
+(setq load-path
+      (append
        (list (concat EMACS_CONFIGS "")
              (concat EMACS_CONFIGS "/misc"))
        load-path))
@@ -223,6 +224,7 @@
 (require 'emacs-org)         ; emacs org mode settings
 (require 'emacs-bm)          ; bookmark enhancements
 (require 'emacs-bs)          ; buffer switch setting
+(require 'emacs-eshell)      ; customized eshell settings
 (require 'emacs-frame)       ; customized frame functions
 (require 'emacs-git)         ; emacs git integration
 (require 'emacs-misc)        ; various settings
@@ -230,7 +232,6 @@
 (require 'emacs-webjump)     ; webjump settings
 (require 'emacs-calendar)    ; calendar settings
 (require 'emacs-dired)       ; dired settings
-(require 'emacs-smartparens) ; emacs calculator settings
 ;(require 'emacs-helm)        ; emacs helm for completions and more
 ;(require 'emacs-calc)        ; emacs calculator settings
 ;(require 'emacs-calfw)       ; enhanced calendar

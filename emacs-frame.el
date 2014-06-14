@@ -38,17 +38,15 @@
   (interactive)
   (toggle-frame-fullscreen))
 
-;(defun toggle-fullscreen (&optional f)
-;  (interactive)
-;  (let ((current-value (frame-parameter nil 'fullscreen)))
-;    (set-frame-parameter nil 'fullscreen
-;      (if (equal 'fullboth current-value)
-;        (if (boundp 'old-fullscreen) old-fullscreen nil)
-;        (progn (setq old-fullscreen current-value)
-;          'fullboth)))))
+;; modify the keybinding to switch frames
+(global-set-key "\M-o" 'other-window)
 
-;;;============================================================
-;;; https://github.com/tungd/dotfiles/blob/master/emacs/init.el#L278
+;; adjust the frame to fit the current resolution on launching
+(add-hook 'window-setup-hook 'frame-adjust t)
+
+
+;;============================================================
+;; https://github.com/tungd/dotfiles/blob/master/emacs/init.el#L278
 ;(setq default-frame-alist
 ;      '((left-fringe . 24) (right-fringe . 0))
 ;      initial-frame-alist default-frame-alist)
@@ -80,9 +78,6 @@
 ;(defalias 'aa #'set-frame-size-and-position-according-to-display
 ;  "Auto Adjust frame size according to current display")
 
-
-;; adjust the frame to fit the current resolution on launching
-(add-hook 'window-setup-hook 'frame-adjust t)
 
 (provide 'emacs-frame)
 

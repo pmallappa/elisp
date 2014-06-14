@@ -119,7 +119,6 @@
 ;; (setq dired-guess-shell-gnutar "gtar")
 ;; (setq dired-x-hands-off-my-keys nil)
 (setq dired-x-hands-off-my-keys nil
-      dired-bind-vm t
       dired-bind-info t)
 
 ;;; associate files with a .dired extension with virtual dired mode.
