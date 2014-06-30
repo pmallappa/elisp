@@ -32,7 +32,13 @@
 (setq c-basic-offset 4)
 
 ;; use tabs for indentation (t)
-(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil
+	      fill-column 76
+	      split-width-threshold 100)
+
+
+;; Replace 'yes' and 'no' with 'y' and 'n'
+;(fset 'yes-or-no-p 'y-or-n-p)
 
 ;;======================================================================
 ;; Set the cursor styles
@@ -112,6 +118,8 @@
       (concat invocation-name " on "
               system-name
 	      " -- %f"))
+
+
 
 ;;======================================================================
 ;; provide unique names for buffers with the same filename loaded

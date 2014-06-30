@@ -232,6 +232,7 @@
 (require 'emacs-webjump)     ; webjump settings
 (require 'emacs-calendar)    ; calendar settings
 (require 'emacs-dired)       ; dired settings
+(require 'emacs-csv)         ; comma-separated-value editing package
 ;(require 'emacs-helm)        ; emacs helm for completions and more
 ;(require 'emacs-calc)        ; emacs calculator settings
 ;(require 'emacs-calfw)       ; enhanced calendar
