@@ -195,6 +195,9 @@
                      :background MY_BG_COLOR
                      :box '(:line-width 1 :style released-button))
 
+;; Use emacs built-in color theme capabilities
+;(load-theme 'tango-dark t)
+
 ;;=====================================================================
 ;; load path for various single-file packages
 (setq load-path

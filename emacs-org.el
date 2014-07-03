@@ -41,13 +41,13 @@
 
         ("j" "Job search")
         ("jn" "Job Search note" entry
-         (file+olp "~/archive/Personal/Job_Hunting/2014/job_search.org" "Notes")
+         (file+olp "~/archive/Personal/Job_Hunting/2014 Jul/job_search.org" "Notes")
          "* %^{Note Description} %T %^g\n  %i%?\n  %a")
         ("jt" "Job Search task" entry
-         (file+olp "~/archive/Personal/Job_Hunting/2014/job_search.org" "Tasks")
+         (file+olp "~/archive/Personal/Job_Hunting/2014 Jul/job_search.org" "Tasks")
          "* TODO %^{Task Description} %^g\n  Added: %U\n  %?\n  %a")
         ("ja" "Appointment" entry
-         (file+olp "~/archive/Personal/Job_Hunting/2014/job_search.org" "Appointments")
+         (file+olp "~/archive/Personal/Job_Hunting/2014 Jul/job_search.org" "Appointments")
          "* %^{Appt Description} %^T %^g\n  %i%?\n  %a")
 
         ("b" "Bill" entry
@@ -78,6 +78,7 @@
        (concat HOME_DIR "/org/fun.org")
        (concat HOME_DIR "/org/journal.org")
        (concat HOME_DIR "/org/vtu.org")
+       (concat HOME_DIR "/archive/Personal/Job_Hunting/2014 Jul/job_search.org")
        (concat HOME_DIR "/org/reference.org")))
 
 ;;============================================================

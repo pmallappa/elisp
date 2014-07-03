@@ -6,7 +6,12 @@
  (filename . "/Volumes/JAVA_LIB02/")
  (front-context-string . ".Trashes\n  -rwxr")
  (rear-context-string . "84 Apr 27 21:51 ")
- (position . 246))
+ (position . 247))
+("JAVA_LIB01"
+ (filename . "/Volumes/JAVA_LIB01/")
+ (front-context-string . ".Trashes\n  -rwxr")
+ (rear-context-string . "84 Oct 12  2013 ")
+ (position . 248))
 ("vtu.org"
  (filename . "~/org/vtu.org")
  (front-context-string . "* TODO Call CAPT")
@@ -37,11 +42,6 @@
  (front-context-string . "* Links\n** Sites")
  (rear-context-string)
  (position . 1))
-("JAVA_LIB01"
- (filename . "/Volumes/JAVA_LIB01/")
- (front-context-string . "Busty MILF tied ")
- (rear-context-string . "07 Jun 29 15:35 ")
- (position . 126))
 ("XBMC"
  (filename . "/Volumes/Passport2TB/XBMC/")
  (front-context-string . "Movies\n  drwxr-x")
@@ -58,10 +58,10 @@
  (rear-context-string . "24 Mar 20 18:17 ")
  (position . 137))
 ("org-capture-last-stored"
- (filename . "~/org/journal.org")
- (front-context-string . "** Questions on ")
- (rear-context-string . "e order 1022781\n")
- (position . 5744))
+ (filename . "~/archive/Personal/Job_Hunting/2014/job_search.org")
+ (front-context-string . "** Reply from Gr")
+ (rear-context-string . "424803][email]]\n")
+ (position . 132428))
 ("webjump"
  (filename . "~/elisp/emacs-webjump.el")
  (front-context-string . ";;;_.===========")
