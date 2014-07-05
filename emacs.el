@@ -244,7 +244,7 @@
 ;(require 'emacs-eshell)      ; emacs eshell settings
 ;(require 'emacs-info)        ; add info directories to emacs
 ;(require 'emacs-undo)        ; Tree-based undo visualizetions
-;
+
 ;(cond ((eq system-type 'darwin)
 ;      (require 'emacs-todochiku))) ; notification using growl
 ;(cond ((eq system-type 'windows-nt)

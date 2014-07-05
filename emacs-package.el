@@ -25,14 +25,10 @@
     pkg-info
     s
     starter-kit-eshell
-    sublime-themes
-    tangotango-theme
     tree-mode
     w3m
     windata
-    zenburn-theme)
-  )
-
+  ))
 (dolist (p cm/packages)
       (if (not (package-installed-p p))
           (progn
