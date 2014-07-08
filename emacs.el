@@ -21,12 +21,7 @@
 ;; you're using XEmacs, C-h C-l does this.
 
 ;;=====================================================================
-;; set the location of various directories
-;(defconst CYGWIN_DIR
-;  (if (eq system-type 'darwin)
-;      ""
-;    "c:/cygwin/home"))
-
+;; set up the environment
 (defconst HOME_DIR
   (if (eq system-type 'darwin)
       (concat "/Users/" (getenv "USER"))
@@ -113,15 +108,10 @@
 ;; 0123456789
 (setq default-frame-alist
       `((menu-bar-lines . 0)
-	(tool-bar-lines . 0)))
+	(tool-bar-lines . 0)
+        (font . "Bitstream Vera Sans Mono-13")))
 
-;; set the fonts
-(if (eq system-type 'darwin)
-    (add-to-list 'default-frame-alist '(font . "Verdana-13"))
-  ; not darwin
-  (add-to-list 'default-frame-alist '(font . "Verdana-10")))
-
-; copy to the default frame alist
+; copy to the initial frame alist
 (setq initial-frame-alist default-frame-alist)
 
 ; now modify the initial frame sizes
@@ -130,24 +120,22 @@
 (add-to-list 'initial-frame-alist '(width  . 132))
 (add-to-list 'initial-frame-alist '(height .  70))
 
-;; Set the default face to the variable pitch using the
-;; buffer-face-mode function `variable-pitch-mode
-(if (eq system-type 'darwin)
-    (progn
-      (set-face-font 'variable-pitch "Verdana-13")
-      (set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-13"))
-  (progn
-    (set-face-font 'variable-pitch "Verdana-10")
-      (set-face-font 'fixed-pitch "Lucida Sans Typewriter-10")))
+;; enable buffer-face mode to provide buffer-local fonts
+;; sets the font to the value of buffer-face-mode-face
+(set-face-font 'variable-pitch "Verdana-13")
+(set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-13")
+(buffer-face-mode)
+
 
 ;; good for experimenting with faces
 ;(set-face-font 'fixed-pitch "Consolas-14")
 ;(set-face-font 'fixed-pitch "Lucida Console-14")
 ;(set-face-font 'fixed-pitch "Lucida Sans Typewriter-13")
-;(set-face-font 'fixed-pitch "Verdana-13")
 ;(set-face-font 'fixed-pitch "Menlo-13")
 ;(set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-13")
-
+;(set-face-font 'variable-pitch "Verdana-13")
+;(set-face-font 'variable-pitch "Lucida Sans-13")
+;(set-face-font 'variable-pitch "Arial-14")
 
 ;; These require fixed-pitch fonts to format correctly
 (add-hook 'text-mode-hook 'fixed-pitch-mode)
@@ -157,16 +145,8 @@
 (add-hook 'shell-mode-hook 'fixed-pitch-mode)
 (add-hook 'eshell-mode-hook 'fixed-pitch-mode)
 
-;; enable buffer-face mode to provide buffer-local fonts
-(buffer-face-mode 1)
-
 ; increase the space between lines
 (setq-default line-spacing 0)
-
-;; (set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
-;; in emacs-frame.el, you can use C-c t to toggle transparency
-;(set-frame-parameter (selected-frame) 'alpha '(90 75))
-;(add-to-list 'default-frame-alist '(alpha 95 80))
 
 ; Syntax highlighting
 (global-font-lock-mode t)
@@ -197,20 +177,23 @@
 ;                     :box '(:line-width 1 :style flat))
 
 ;; Use emacs built-in color theme capabilities
-(load-theme 'zenburn t)
+(load-theme 'nzenburn t)
+
+;; I don't like bold fonts
+(set-face-bold-p 'bold nil)
+(mapc
+  (lambda (face)
+    (set-face-attribute face nil :weight 'normal :underline nil))
+  (face-list))
 
 ;; Installed themes
-;(load-theme 'tango-dark t)
-;(load-theme 'clues t)
-;(load-theme 'distinguished t)
-;(load-theme 'flatland t)
-;(load-theme 'minimal t)
-;(load-theme 'monochrome t)
-;(load-theme 'obsidian t)
-;(load-theme 'phoenix-dark-pink t)
+;(load-theme 'flatui t)
+;(load-theme 'gruber-darker t)
+;(load-theme 'hemisu t)
+;(load-theme 'heroku t)
+;(load-theme 'nzenburn t)
 ;(load-theme 'soft-charcoal t)
-;(load-theme 'sublime-themes t)
-;(load-theme 'twilight-anti-bright t)
+;(load-theme 'tangotango t)
 ;(load-theme 'zenburn t)
 
 ;;=====================================================================
@@ -226,7 +209,6 @@
 
 ;;=====================================================================
 ;; Set the environment (OSX or Cygwin)
-
 (if (eq system-type 'darwin)
   (progn
     (require 'exec-path-from-shell)
@@ -251,18 +233,13 @@
 (require 'emacs-calendar)    ; calendar settings
 (require 'emacs-dired)       ; dired settings
 (require 'emacs-csv)         ; comma-separated-value editing package
-;(require 'emacs-helm)        ; emacs helm for completions and more
-;(require 'emacs-calc)        ; emacs calculator settings
-;(require 'emacs-calfw)       ; enhanced calendar
-;(require 'emacs-cpustats)    ; Modeline stats for CPU usage
-;(require 'emacs-eshell)      ; emacs eshell settings
-;(require 'emacs-info)        ; add info directories to emacs
-;(require 'emacs-undo)        ; Tree-based undo visualizetions
+(require 'emacs-eshell)      ; emacs eshell settings
 
-;(cond ((eq system-type 'darwin)
-;      (require 'emacs-todochiku))) ; notification using growl
-;(cond ((eq system-type 'windows-nt)
-;      (require 'emacs-cygwin)))    ; emacs/cygwin integration
+(cond ((eq system-type 'windows-nt)
+      (require 'emacs-cygwin)))    ; emacs/cygwin integration
+
+;; jump to a function definition
+(global-set-key (kbd "C-h C-f") 'find-function)
 
 ;;=====================================================================
 ;; start the emacsserver that listens to emacsclient
@@ -274,6 +251,9 @@
 ;; .emacs file by placing various messages throughout
 ;(message "Hello, this is .emacs speaking")
 ;(sit-for 3) ; 3 seconds
+;
+;; set a break point in elisp by adding this:
+;(debug)
 
 ;;======================================================================
 ;; Local variables

@@ -467,22 +467,13 @@ Thanks to Miles Bader <miles@lsi.nec.co.jp> for this (gnus.emacs.help)"
 ;;============================================================
 ;; toggle between variable pitch and fixed pitch font for 
 ;; the current buffer
-(defun fixed-pitch-mode (&optional arg)
-  "Fixed-pitch default-face mode.
-An interface to `buffer-face-mode' which uses the `fixed-pitch' face.
-Besides the choice of face, it is the same as `buffer-face-mode'.
-
-See `variable-pitch-mode' for more details"
-  (interactive (list (or current-prefix-arg 'toggle)))
-  (buffer-face-mode-invoke 'fixed-pitch arg
-			   (called-interactively-p 'interactive)))
+(defun fixed-pitch-mode ()
+  (buffer-face-mode -1))
 
 (defun toggle-pitch (&optional arg)
   "Switch between the `fixed-pitch' face and the `variable-pitch' face"
   (interactive)
-  (if (eq buffer-face-mode-face 'fixed-pitch)
-       (buffer-face-mode-invoke 'variable-pitch arg)
-     (buffer-face-mode-invoke 'fixed-pitch arg)))
+  (buffer-face-toggle 'variable-pitch))
 
 ;;======================================================================
 ;; Open the current directory in a desktop
