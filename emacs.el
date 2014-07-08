@@ -141,12 +141,13 @@
       (set-face-font 'fixed-pitch "Lucida Sans Typewriter-10")))
 
 ;; good for experimenting with faces
-;(set-face-font 'default "Consolas-10")
-;(set-face-font 'default "Lucida Console-9")
-;(set-face-font 'default "Lucida Sans Typewriter-10")
-;(set-face-font 'default "Verdana-10")
-;(set-face-font 'default "Menlo-14")
-;(set-face-font 'default "Bitstream Vera Sans Mono-13")
+;(set-face-font 'fixed-pitch "Consolas-14")
+;(set-face-font 'fixed-pitch "Lucida Console-14")
+;(set-face-font 'fixed-pitch "Lucida Sans Typewriter-13")
+;(set-face-font 'fixed-pitch "Verdana-13")
+;(set-face-font 'fixed-pitch "Menlo-13")
+;(set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-13")
+
 
 ;; These require fixed-pitch fonts to format correctly
 (add-hook 'text-mode-hook 'fixed-pitch-mode)
@@ -176,27 +177,41 @@
 ; buffer-name completion for C-x b; makes life much easier.
 (iswitchb-mode 1)
 
-; set colors
-(set-face-foreground 'default MY_FG_COLOR)
-(set-face-background 'default MY_BG_COLOR)
-(set-face-background 'fringe  MY_BG_COLOR)
-(set-face-background 'region  MY_REGION_COLOR)
-(set-face-background 'hl-line  MY_HL_LINE_COLOR)
-
-(set-face-attribute  'mode-line
-                     nil
-                     :foreground "gray80"
-                     :background "gray25"
-                     :box '(:line-width 1 :style released-button))
-
-(set-face-attribute  'mode-line-inactive
-                     nil
-                     :foreground "gray40"
-                     :background MY_BG_COLOR
-                     :box '(:line-width 1 :style released-button))
+;; set colors
+;(set-face-foreground 'default MY_FG_COLOR)
+;(set-face-background 'default MY_BG_COLOR)
+;(set-face-background 'fringe  MY_BG_COLOR)
+;(set-face-background 'region  MY_REGION_COLOR)
+;(set-face-background 'hl-line  MY_HL_LINE_COLOR)
+;
+;(set-face-attribute  'mode-line
+;                     nil
+;                     :foreground "gray90"
+;                     :background "gray35"
+;                     :box '(:line-width 1 :style released-button))
+;
+;(set-face-attribute  'mode-line-inactive
+;                     nil
+;                     :foreground "gray70"
+;                     :background MY_BG_COLOR
+;                     :box '(:line-width 1 :style flat))
 
 ;; Use emacs built-in color theme capabilities
+(load-theme 'zenburn t)
+
+;; Installed themes
 ;(load-theme 'tango-dark t)
+;(load-theme 'clues t)
+;(load-theme 'distinguished t)
+;(load-theme 'flatland t)
+;(load-theme 'minimal t)
+;(load-theme 'monochrome t)
+;(load-theme 'obsidian t)
+;(load-theme 'phoenix-dark-pink t)
+;(load-theme 'soft-charcoal t)
+;(load-theme 'sublime-themes t)
+;(load-theme 'twilight-anti-bright t)
+;(load-theme 'zenburn t)
 
 ;;=====================================================================
 ;; load path for various single-file packages
@@ -239,7 +254,6 @@
 ;(require 'emacs-helm)        ; emacs helm for completions and more
 ;(require 'emacs-calc)        ; emacs calculator settings
 ;(require 'emacs-calfw)       ; enhanced calendar
-;(require 'emacs-colors)      ; color theme support
 ;(require 'emacs-cpustats)    ; Modeline stats for CPU usage
 ;(require 'emacs-eshell)      ; emacs eshell settings
 ;(require 'emacs-info)        ; add info directories to emacs
