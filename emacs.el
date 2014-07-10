@@ -158,26 +158,28 @@
 (iswitchb-mode 1)
 
 ;; set colors
-;(set-face-foreground 'default MY_FG_COLOR)
-;(set-face-background 'default MY_BG_COLOR)
-;(set-face-background 'fringe  MY_BG_COLOR)
-;(set-face-background 'region  MY_REGION_COLOR)
-;(set-face-background 'hl-line  MY_HL_LINE_COLOR)
-;
-;(set-face-attribute  'mode-line
-;                     nil
-;                     :foreground "gray90"
-;                     :background "gray35"
-;                     :box '(:line-width 1 :style released-button))
-;
-;(set-face-attribute  'mode-line-inactive
-;                     nil
-;                     :foreground "gray70"
-;                     :background MY_BG_COLOR
-;                     :box '(:line-width 1 :style flat))
+(set-face-foreground 'default MY_FG_COLOR)
+(set-face-background 'default MY_BG_COLOR)
+(set-face-background 'fringe  MY_BG_COLOR)
+(set-face-background 'region  MY_REGION_COLOR)
+(set-face-background 'hl-line  MY_HL_LINE_COLOR)
+
+(set-face-attribute  'mode-line
+                     nil
+                     :foreground "gray90"
+                     :background "gray35"
+                     :box '(:line-width 1 :style released-button))
+
+(set-face-attribute  'mode-line-inactive
+                     nil
+                     :foreground "gray50"
+                     :background MY_BG_COLOR
+                     :box '(:line-width 1 :style released-button))
 
 ;; Use emacs built-in color theme capabilities
-(load-theme 'nzenburn t)
+;(load-theme 'heroku t)
+;(load-theme 'nzenburn t)
+;(load-theme 'zenburn t)
 
 ;; I don't like bold fonts
 (set-face-bold-p 'bold nil)
@@ -186,15 +188,6 @@
     (set-face-attribute face nil :weight 'normal :underline nil))
   (face-list))
 
-;; Installed themes
-;(load-theme 'flatui t)
-;(load-theme 'gruber-darker t)
-;(load-theme 'hemisu t)
-;(load-theme 'heroku t)
-;(load-theme 'nzenburn t)
-;(load-theme 'soft-charcoal t)
-;(load-theme 'tangotango t)
-;(load-theme 'zenburn t)
 
 ;;=====================================================================
 ;; load path for various single-file packages
@@ -214,9 +207,8 @@
     (require 'exec-path-from-shell)
     (exec-path-from-shell-initialize)))
 
-(if (file-directory-p "c:/cygwin/bin")
-    (progn
-      (require 'emacs-cygwin)))
+(if (eq system-type 'windows-nt)
+      (require 'emacs-cygwin))
 
 ;;=====================================================================
 ;; Load the customize configurations files
@@ -234,9 +226,6 @@
 (require 'emacs-dired)       ; dired settings
 (require 'emacs-csv)         ; comma-separated-value editing package
 (require 'emacs-eshell)      ; emacs eshell settings
-
-(cond ((eq system-type 'windows-nt)
-      (require 'emacs-cygwin)))    ; emacs/cygwin integration
 
 ;; jump to a function definition
 (global-set-key (kbd "C-h C-f") 'find-function)

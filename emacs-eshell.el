@@ -10,10 +10,10 @@
 ;;==================================================
 ;; eshell asias functions
 ;; also see ~/.eshell/alias for other alias definitions
-(defun eshell/emacs (file)  (find-file-other-frame file))
 (defun eshell/e (file)  (find-file file))
 (defun eshell/ee (file)  (find-file-other-window file))
-
+(defun eshell/emacs (file)  (find-file-other-window file))
+(defun eshell/w3m (file) (w3m-find-file file))
 
 ;;==================================================
 ;; Git Completion

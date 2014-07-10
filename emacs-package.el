@@ -29,26 +29,24 @@
     tree-mode
     w3m
     windata
-;    flatui-theme
-;    gruber-darker-theme
-;    heroku-theme
+    heroku-theme
     nzenburn-theme
-;    soft-charcoal-theme
-;    tangotango-theme
-;    zenburn-theme
+    zenburn-theme
   ))
 
 
 ;; cycle through the package list and prompt to install as necessary
-(dolist (p cm/packages)
-      (if (not (package-installed-p p))
-          (progn
-            (if (y-or-n-p (format "%s: %s " "install missing package" p))
-                (progn 
-                  (package-install p)
-                  (require p))
-              nil))
-        (require p)))
+(if (y-or-n-p-with-timeout "Check packages? " 3 nil)
+    (progn
+      (dolist (p cm/packages)
+        (if (not (package-installed-p p))
+            (progn
+              (if (y-or-n-p (format "%s: %s " "install missing package" p))
+                  (progn 
+                    (package-install p)
+                    (require p))
+                nil))
+          (require p)))))
 
 ;; Change the width of the package list displayed. Currently doing this by
 ;; redefining the entire method. Long term would be to introduce a patch to
