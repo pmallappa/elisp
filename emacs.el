@@ -167,16 +167,17 @@
 (set-face-attribute  'mode-line
                      nil
                      :foreground "gray90"
-                     :background "gray35"
+                     :background "gray30"
                      :box '(:line-width 1 :style released-button))
 
 (set-face-attribute  'mode-line-inactive
                      nil
                      :foreground "gray50"
                      :background MY_BG_COLOR
-                     :box '(:line-width 1 :style released-button))
+                     :box '(:line-width 1 :style nil))
 
-;; Use emacs built-in color theme capabilities
+; Use emacs built-in color theme capabilities
+;(load-theme 'noctilux)
 ;(load-theme 'heroku t)
 ;(load-theme 'nzenburn t)
 ;(load-theme 'zenburn t)
@@ -212,20 +213,22 @@
 
 ;;=====================================================================
 ;; Load the customize configurations files
-(require 'emacs-macros)      ; various macros and functions
-(require 'emacs-org)         ; emacs org mode settings
-(require 'emacs-bm)          ; bookmark enhancements
-(require 'emacs-bs)          ; buffer switch setting
-(require 'emacs-eshell)      ; customized eshell settings
-(require 'emacs-frame)       ; customized frame functions
-(require 'emacs-git)         ; emacs git integration
-(require 'emacs-misc)        ; various settings
-(require 'emacs-w3m)         ; w3m web browser settings
-(require 'emacs-webjump)     ; webjump settings
-(require 'emacs-calendar)    ; calendar settings
-(require 'emacs-dired)       ; dired settings
-(require 'emacs-csv)         ; comma-separated-value editing package
-(require 'emacs-eshell)      ; emacs eshell settings
+(require 'emacs-macros)       ; various macros and functions
+(require 'emacs-org)          ; emacs org mode settings
+(require 'emacs-bm)           ; bookmark enhancements
+(require 'emacs-bs)           ; buffer switch setting
+(require 'emacs-autocomplete) ; autocompletion goodness
+(require 'emacs-clojure)      ; clojure development using cider
+(require 'emacs-eshell)       ; customized eshell settings
+(require 'emacs-frame)        ; customized frame functions
+(require 'emacs-git)          ; emacs git integration
+(require 'emacs-misc)         ; various settings
+(require 'emacs-w3m)          ; w3m web browser settings
+(require 'emacs-webjump)      ; webjump settings
+(require 'emacs-calendar)     ; calendar settings
+(require 'emacs-dired)        ; dired settings
+(require 'emacs-csv)          ; comma-separated-value editing package
+(require 'emacs-eshell)       ; emacs eshell settings
 
 ;; jump to a function definition
 (global-set-key (kbd "C-h C-f") 'find-function)

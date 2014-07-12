@@ -11,42 +11,49 @@
   (package-refresh-contents))
 
 (defvar cm/packages
-  '(bm
-    bs-ext
-    color-moccur
-    csv-mode
-    dash
-    epl
-    exec-path-from-shell
-    git-commit-mode
-    git-rebase-mode
-    igrep
-    magit
-    org
-    pkg-info
-    s
-    starter-kit-eshell
-    tree-mode
-    w3m
-    windata
-    heroku-theme
-    nzenburn-theme
-    zenburn-theme
-  ))
-
+    '(ac-nrepl
+      auto-complete
+      bm
+      bs-ext
+      cider
+      clojure-mode
+      color-moccur
+      csv-mode
+      dash
+      display-theme
+      epl
+      esh-help
+      exec-path-from-shell
+      git-commit-mode
+      git-rebase-mode
+      igrep
+      magit
+      org
+      paredit
+      pkg-info
+      popup
+      s
+      starter-kit-eshell
+      tree-mode
+      w3m
+      windata
+;      heroku-theme
+;      noctilux-theme
+;      nzenburn-theme
+;      zenburn-theme
+      ))
 
 ;; cycle through the package list and prompt to install as necessary
 (if (y-or-n-p-with-timeout "Check packages? " 3 nil)
     (progn
-      (dolist (p cm/packages)
-        (if (not (package-installed-p p))
+      (dolist (pkg cm/packages)
+        (if (not (package-installed-p pkg))
             (progn
-              (if (y-or-n-p (format "%s: %s " "install missing package" p))
+              (if (y-or-n-p (format "%s: %s " "install missing package" pkg))
                   (progn 
-                    (package-install p)
-                    (require p))
-                nil))
-          (require p)))))
+                    (package-install pkg)
+                    (require pkg))))
+          (require pkg)))))
 
 ;; Change the width of the package list displayed. Currently doing this by
 ;; redefining the entire method. Long term would be to introduce a patch to
@@ -63,7 +70,5 @@ Letters do not insert themselves; instead, they are commands.
   (setq tabulated-list-padding 2)
   (setq tabulated-list-sort-key (cons "Status" nil))
   (tabulated-list-init-header))
-
-
 
 (provide 'emacs-package)

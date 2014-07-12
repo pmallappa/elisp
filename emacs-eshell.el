@@ -6,14 +6,17 @@
 
 (setq eshell-prompt-regexp "^[^#$\n]*[#$] ")
 
+;; show useful info on commands in the echo area
+(require 'esh-help)
+(setup-esh-help-eldoc)  ;; To use eldoc in Eshell. M-x eldoc-mode
 
 ;;==================================================
-;; eshell asias functions
+;; eshell alias functions
 ;; also see ~/.eshell/alias for other alias definitions
-(defun eshell/e (file)  (find-file file))
-(defun eshell/ee (file)  (find-file-other-window file))
-(defun eshell/emacs (file)  (find-file-other-window file))
-(defun eshell/w3m (file) (w3m-find-file file))
+;(defun eshell/e (file)  (find-file file))
+;(defun eshell/ee (file)  (find-file-other-window file))
+;(defun eshell/emacs (file)  (find-file-other-window file))
+;(defun eshell/w3m (file) (w3m-find-file file))
 
 ;;==================================================
 ;; Git Completion
