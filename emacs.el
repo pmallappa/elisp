@@ -54,28 +54,28 @@
 ; Mac OS X
 (if (eq system-type 'darwin)
     (progn
-      (defconst MPPRG "/Applications/VLC.app/"
+      (defconst MEDIA_PLAYER "/Applications/VLC.app/"
         "Media Player program, video and streaming audio")
-      (defconst FRFXPRG "/Applications/Firefox.app/"
+      (defconst FIREFOX_PRG "/Applications/Firefox.app/"
         "points to the Mozilla Firefox location")
-      (defconst CHRMPRG "/Applications/Google\\ Chrome.app"
+      (defconst CHROME_PRG "/Applications/Google\\ Chrome.app"
         "points to the Mozilla Firefox location")
-      (defconst BRWSR CHRMPRG
+      (defconst BROWSER CHROME_PRG
         "set the default browser to use within emacs")))
 ; Windows
 (if (eq system-type 'windows-nt)
   (progn
-    (defconst MPPRG "c:/Program Files/Windows Media Player/wmplayer.exe"
-      "Media Player program, video and streaming audio")
+    (defconst MEDIA_PLAYER "c:/Program Files/Windows Media Player/wmplayer.exe"
+        "Media Player program, video and streaming audio")
     (defconst IEPRG "c:/Program Files/Internet Explorer/iexplore.exe"
-      "points to the Internet Explorer location")
-   (defconst FRFXPRG "c:/Program Files/Mozilla Firefox/firefox.exe"
-      "points to the Mozilla Firefox location")
-    (defconst BRWSR IEPRG
+        "points to the Mozilla Firefox location")
+    (defconst FIREFOX_PRG "c:/Program Files/Mozilla Firefox/firefox.exe"
+        "points to the Mozilla Firefox location")
+    (defconst BROWSER IEPRG
       "set the default browser to use within emacs")))
 
 ; set the location of firefox for the browse-url-package
-(setq browse-url-firefox-program FRFXPRG)
+(setq browse-url-firefox-program CHROME_PRG)
 
 ;;=====================================================================
 ;; various startup settings
@@ -83,9 +83,6 @@
 ;; prevent new frames from emacsclient on darwin
 (if (eq system-type 'darwin)
     (setq ns-popup-frames nil))
-
-;; isolate customize settings
-(setq custom-file (concat EMACS_CONFIGS "/emacs-custom.el"))
 
 (defvar my_email_address "cmcmahan@gmail.com"
   "email address to use in emacs configuration")
@@ -128,14 +125,8 @@
 
 
 ;; good for experimenting with faces
-;(set-face-font 'fixed-pitch "Consolas-14")
-;(set-face-font 'fixed-pitch "Lucida Console-14")
-;(set-face-font 'fixed-pitch "Lucida Sans Typewriter-13")
-;(set-face-font 'fixed-pitch "Menlo-13")
 ;(set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-13")
 ;(set-face-font 'variable-pitch "Verdana-13")
-;(set-face-font 'variable-pitch "Lucida Sans-13")
-;(set-face-font 'variable-pitch "Arial-14")
 
 ;; These require fixed-pitch fonts to format correctly
 (add-hook 'text-mode-hook 'fixed-pitch-mode)
@@ -157,7 +148,7 @@
 ; buffer-name completion for C-x b; makes life much easier.
 (iswitchb-mode 1)
 
-;; set colors
+; set default colors (theme may override)
 (set-face-foreground 'default MY_FG_COLOR)
 (set-face-background 'default MY_BG_COLOR)
 (set-face-background 'fringe  MY_BG_COLOR)
@@ -175,12 +166,6 @@
                      :foreground "gray50"
                      :background MY_BG_COLOR
                      :box '(:line-width 1 :style nil))
-
-; Use emacs built-in color theme capabilities
-;(load-theme 'noctilux)
-;(load-theme 'heroku t)
-;(load-theme 'nzenburn t)
-;(load-theme 'zenburn t)
 
 ;; I don't like bold fonts
 (set-face-bold-p 'bold nil)
@@ -237,6 +222,13 @@
 ;; start the emacsserver that listens to emacsclient
 (server-start)
 
+;;======================================================================
+;; Use emacs built-in color theme capabilities
+;(load-theme 'noctilux)
+;(load-theme 'heroku t)
+;(load-theme 'zenburn t)
+(load-theme 'nzenburn t)
+
 ;;=====================================================================
 ;; some reference stuff
 ;; Flash a message in the echo area. This works well for debugging an
@@ -254,5 +246,6 @@
 ;indent-tabs-mode: nil
 ;allout-layout: (-1 : 0)
 ;End:
+
 
 (provide 'emacs)

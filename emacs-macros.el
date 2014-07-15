@@ -476,23 +476,21 @@ Thanks to Miles Bader <miles@lsi.nec.co.jp> for this (gnus.emacs.help)"
   (buffer-face-toggle 'variable-pitch))
 
 ;;======================================================================
-;; Open the current directory in a desktop
 (defun explore ()
-  "Open the current file in desktop.
-Works in Microsoft Windows and Mac OS X."
+  "Open the current directory in the OS file explorer"
   (interactive)
   (cond
    ((string-equal system-type "windows-nt")
     (w32-shell-execute "explore"
                        (replace-regexp-in-string "/" "\\" default-directory t t)))
-   ((string-equal system-type "darwin") (shell-command "open ."))
+   ((string-equal system-type "darwin")
+    (shell-command "open ."))
    ))
 
 ;;======================================================================
 ;; Load various web pages into the browser of choice
 (defun cmBrowse (browser &optional url &optional arg)
   "Launch the browser specified with the optional page or home page if nil"
-  ; OS X 
   (cond 
    ((string-equal system-type "darwin")
       (shell-command
@@ -502,7 +500,6 @@ Works in Microsoft Windows and Mac OS X."
 		       (car (browse-url-interactive-arg "URL: "))
 		     (read-string "URL: "))
 		 url " " arg))))
-  ; Windows
   ((string-equal system-type "windows-nt")
 	  (w32-shell-execute "open" browser 
 	   (if (or (string= url "") (null url))
@@ -519,40 +516,26 @@ Works in Microsoft Windows and Mac OS X."
     nil))
 
 (defun fx (&optional url)
-  "Launch the Firefox browser with an optional URL.
-When called interactively, any url under the point is selected as
-the default, but can be overridden by entering the desired
-destination. If no URL is entered, the browser will launch with
-no destination"
+  "Launch the Firefox browser with an optional URL."
   (interactive)
-  (cmBrowse FRFXPRG url))
+  (cmBrowse FIREFOX_PRG url))
 
 (defun chrm (&optional url)
-  "Launch the Google Chrome browser with an optional URL.
-When called interactively, any url under the point is selected as
-the default, but can be overridden by entering the desired
-destination. If no URL is entered, the browser will launch with
-no destination"
+  "Launch the Google Chrome browser with an optional URL."
   (interactive)
-  (cmBrowse CHRMPRG url))
+  (cmBrowse CHROME_PRG url))
 
 (defun css ()
   "Load the Cascading Style Sheet specification into the default browser
 Local or Remote (web-based) copies available"
   (interactive)
-  (if (y-or-n-p "Local copy? ")
-      (w3m-find-file (concat UTILS_DIR "/Reference/css/index.html"))
-    (w3m-goto-url "http://www.htmlhelp.com/reference/css/index.html"))
-  (message ""))
+  (w3m-goto-url "http://www.htmlhelp.com/reference/css/index.html"))
 
 (defun html ()
   "Load the HTML 4.0 specification into w3m
 Local or Remote (web-based) copies available"
   (interactive)
-  (if (y-or-n-p "Local copy? ")
-      (w3m-find-file (concat UTILS_DIR "/reference/html40/index.html"))
     (w3m-goto-url "http://www.htmlhelp.com/reference/html40/"))
-	(message ""))
 
 ;;======================================================================
 ;; keyboard macro definitions.

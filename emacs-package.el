@@ -13,22 +13,22 @@
 (defvar cm/packages
     '(ac-nrepl
       auto-complete
-      bm
+      bm             
       bs-ext
-      cider
-      clojure-mode
-      color-moccur
-      csv-mode
+      cider          
+      clojure-mode   
+      color-moccur   
+      csv-mode       
       dash
-      display-theme
+      display-theme  
       epl
-      esh-help
+      esh-help       
       exec-path-from-shell
       git-commit-mode
       git-rebase-mode
-      igrep
-      magit
-      org
+      igrep  
+      magit  
+      org    
       paredit
       pkg-info
       popup
