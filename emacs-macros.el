@@ -4,7 +4,6 @@
 ;; convience functions
 ;;======================================================================
 
-;; for the cmBrowse function
 (require 'thingatpt)
 
 ;;======================================================================
@@ -13,8 +12,8 @@
 (defun d2h (red green blue)
   "Convert decimal RGB color specification to hexidecimal and insert
   at the current point"
-  (interactive "nRed:
-nGreen:
+  (interactive "nRed: 
+nGreen: 
 nBlue: ")
   (let ((s (concat (format "#%02x%02x%02x" red green blue))))
            (message (concat "DEC RGB: "
@@ -139,20 +138,6 @@ nSec: ")
 	(replace-match "" nil nil)))))
 
 ;;======================================================================
-;; Extend the behavior of query-replace
-;; If a region has been marked, the query replace will only operate
-;; within that region:
-(defadvice query-replace (around replace-on-region activate)
-  (if mark-active
-      (save-excursion
-	(save-restriction
-	  (narrow-to-region (point) (mark))
-	  (let ((mark-active nil))
-	    (goto-char (point-min))
-	    ad-do-it)))
-    ad-do-it))
-
-;;======================================================================
 ;; scroll with the cursor in place, moving the
 ;; page instead
 ;; Navigation Functions
@@ -198,18 +183,6 @@ nSec: ")
   (interactive "*")
   (setq-default mode-line-buffer-identification
     '("%S:"(buffer-file-name "%f"))))
-
-;;======================================================================
-;; Define function to match a parenthesis otherwise insert a %
-;; requires show-paren-mode to be activated (.emacs-config)
-(defun match-paren (arg)
-  "Go to the matching parenthesis if on parenthesis otherwise insert %."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-	(t (self-insert-command (or arg 1)))))
-
-(global-set-key "%" 'match-paren)
 
 ;;======================================================================
 ;; provide save-as functionality without renaming the current buffer
@@ -416,15 +389,6 @@ Given an optional argument, print up to char 255."
 ;  (interactive)
 ;  (menu-set-font))
 
-; TODO get the font name to past in the current position
-(defun get-font()
-  "Interactively select a font and print the name to the screen at the current postion"
-  (interactive)
-  (insert 
-   (if (fboundp 'x-select-font)
-       (x-select-font)
-     (mouse-select-font))))
-
 (defun list-fonts()
   "Return a list of all available fonts"
   (interactive)
@@ -487,55 +451,6 @@ Thanks to Miles Bader <miles@lsi.nec.co.jp> for this (gnus.emacs.help)"
     (shell-command "open ."))
    ))
 
-;;======================================================================
-;; Load various web pages into the browser of choice
-(defun cmBrowse (browser &optional url &optional arg)
-  "Launch the browser specified with the optional page or home page if nil"
-  (cond 
-   ((string-equal system-type "darwin")
-      (shell-command
-       (concat "/usr/bin/open -a " browser " "
-	       (if (or (string= url "") (null url))
-		   (if (getUrl)
-		       (car (browse-url-interactive-arg "URL: "))
-		     (read-string "URL: "))
-		 url " " arg))))
-  ((string-equal system-type "windows-nt")
-	  (w32-shell-execute "open" browser 
-	   (if (or (string= url "") (null url))
-	       (if (getUrl)
-		   (car (browse-url-interactive-arg "URL: "))
-		 (read-string "URL: "))
-	     url arg)))))
-
-(defun getUrl ()
-  "If the point is on a string that matches
-`thing-at-point-url-regexp then return the URL, else return nil"
-  (if (thing-at-point-looking-at thing-at-point-url-regexp)
-      (thing-at-point 'url)
-    nil))
-
-(defun fx (&optional url)
-  "Launch the Firefox browser with an optional URL."
-  (interactive)
-  (cmBrowse FIREFOX_PRG url))
-
-(defun chrm (&optional url)
-  "Launch the Google Chrome browser with an optional URL."
-  (interactive)
-  (cmBrowse CHROME_PRG url))
-
-(defun css ()
-  "Load the Cascading Style Sheet specification into the default browser
-Local or Remote (web-based) copies available"
-  (interactive)
-  (w3m-goto-url "http://www.htmlhelp.com/reference/css/index.html"))
-
-(defun html ()
-  "Load the HTML 4.0 specification into w3m
-Local or Remote (web-based) copies available"
-  (interactive)
-    (w3m-goto-url "http://www.htmlhelp.com/reference/html40/"))
 
 ;;======================================================================
 ;; keyboard macro definitions.
@@ -595,10 +510,11 @@ paragraphs in the current region into long lines."
   (let ((fill-column 9000))
     (fill-region (point) (mark))))
 
-;; load the page in firefox and save the file name to the clipboard
+;; load the page in browser and save the file name to the clipboard
 ;;| filename | url |
 (fset 'loadvideo
-   [?\C-a tab ?\C-  ?\M-e ?\M-w tab ?\C-c ?\C-o ?\C-a])
+   [?\C-a tab ?\C-  ?\M-e ?\M-w tab ?\M-x ?f ?x return return])
+
 
 ;; Create a file link in org mode to the current dired file 
 ;; Two buffers showing: org file listing, and dired listing with files to link

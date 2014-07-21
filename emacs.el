@@ -56,11 +56,11 @@
     (progn
       (defconst MEDIA_PLAYER "/Applications/VLC.app/"
         "Media Player program, video and streaming audio")
-      (defconst FIREFOX_PRG "/Applications/Firefox.app/"
+      (defconst FIREFOX_PRG "/Applications/Firefox.app"
         "points to the Mozilla Firefox location")
       (defconst CHROME_PRG "/Applications/Google\\ Chrome.app"
         "points to the Mozilla Firefox location")
-      (defconst BROWSER CHROME_PRG
+      (defconst BROWSER FIREFOX_PRG
         "set the default browser to use within emacs")))
 ; Windows
 (if (eq system-type 'windows-nt)
@@ -75,12 +75,13 @@
       "set the default browser to use within emacs")))
 
 ; set the location of firefox for the browse-url-package
-(setq browse-url-firefox-program CHROME_PRG)
+(setq browse-url-firefox-program FIREFOX_PRG)
+(setq browse-url-firefox-new-window-is-tab 1)
 
 ;;=====================================================================
 ;; various startup settings
 
-;; prevent new frames from emacsclient on darwin
+;; prevent new frames in emacsclient on darwin
 (if (eq system-type 'darwin)
     (setq ns-popup-frames nil))
 
@@ -97,6 +98,14 @@
              (modify-frame-parameters frame
               '((vertical-scroll-bars . nil)
                 (horizontal-scroll-bars . nil)))))
+
+;;==============================
+;; Enable linumbers in the left margin
+;; use M-x linum-mode to toggle
+(load-library "linum")
+
+(defalias 'toggle-line-numbers
+  (read-kbd-macro "M-x linum-mode"))
 
 ;;==============================
 ;; size, colors and fonts
@@ -116,6 +125,7 @@
 (add-to-list 'initial-frame-alist '(left   .  -5))
 (add-to-list 'initial-frame-alist '(width  . 132))
 (add-to-list 'initial-frame-alist '(height .  70))
+(add-to-list 'initial-frame-alist '(alpha 100 90)) ; alpha focus non-focus
 
 ;; enable buffer-face mode to provide buffer-local fonts
 ;; sets the font to the value of buffer-face-mode-face
@@ -167,8 +177,9 @@
                      :background MY_BG_COLOR
                      :box '(:line-width 1 :style nil))
 
-;; I don't like bold fonts
+;; I don't like bold/underline fonts
 (set-face-bold-p 'bold nil)
+(set-face-underline-p 'underline nil)
 (mapc
   (lambda (face)
     (set-face-attribute face nil :weight 'normal :underline nil))
@@ -202,6 +213,7 @@
 (require 'emacs-org)          ; emacs org mode settings
 (require 'emacs-bm)           ; bookmark enhancements
 (require 'emacs-bs)           ; buffer switch setting
+(require 'emacs-browse)       ; external browser convenience functions
 (require 'emacs-autocomplete) ; autocompletion goodness
 (require 'emacs-clojure)      ; clojure development using cider
 (require 'emacs-eshell)       ; customized eshell settings
