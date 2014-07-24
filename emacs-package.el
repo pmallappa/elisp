@@ -11,37 +11,38 @@
   (package-refresh-contents))
 
 (defvar cm/packages
-    '(ac-nrepl
-      auto-complete
-      bm             
-      bs-ext
-      cider          
-      clojure-mode   
-      color-moccur   
-      csv-mode       
-      dash
-      display-theme  
-      epl
-      esh-help       
-      exec-path-from-shell
-      git-commit-mode
-      git-rebase-mode
-      igrep  
-      magit  
-      org    
-      paredit
-      pkg-info
-      popup
-      s
-      starter-kit-eshell
-      tree-mode
-      w3m
-      windata
-;      heroku-theme
-;      noctilux-theme
-;      nzenburn-theme
-;      zenburn-theme
-      ))
+  '(
+    auto-complete
+    bm
+    browse-url-dwim
+    bs-ext
+    color-moccur
+    csv-mode
+    dash
+    display-theme
+    epl
+    esh-help
+    exec-path-from-shell
+    git-commit-mode
+    git-gutter+
+    git-rebase-mode
+    git-timemachine
+    igrep
+    list-utils
+    magit
+    markdown-mode
+    org
+    paredit
+    pkg-info
+    popup
+    s
+    starter-kit-eshell
+    string-utils
+    tree-mode
+    w3m
+    windata
+    zenburn-theme
+))
 
 ;; cycle through the package list and prompt to install as necessary
 (if (y-or-n-p-with-timeout "Check packages? " 3 nil)

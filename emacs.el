@@ -44,11 +44,6 @@
 
 (defvar MY_DEFAULT_WIDTH 130)
 
-(defconst MY_FG_COLOR "#a9b7b0")
-(defconst MY_BG_COLOR "gray17")
-(defconst MY_HL_LINE_COLOR "gray24")
-(defconst MY_REGION_COLOR "DarkSlateGray")
-
 ;;=====================================================================
 ;; select your preferred programs for html and media here
 ; Mac OS X
@@ -158,24 +153,12 @@
 ; buffer-name completion for C-x b; makes life much easier.
 (iswitchb-mode 1)
 
-; set default colors (theme may override)
-(set-face-foreground 'default MY_FG_COLOR)
-(set-face-background 'default MY_BG_COLOR)
-(set-face-background 'fringe  MY_BG_COLOR)
-(set-face-background 'region  MY_REGION_COLOR)
-(set-face-background 'hl-line  MY_HL_LINE_COLOR)
+;;======================================================================
+;; Use emacs built-in color theme capabilities
+(load-theme 'zenburn t)
 
-(set-face-attribute  'mode-line
-                     nil
-                     :foreground "gray90"
-                     :background "gray30"
-                     :box '(:line-width 1 :style released-button))
-
-(set-face-attribute  'mode-line-inactive
-                     nil
-                     :foreground "gray50"
-                     :background MY_BG_COLOR
-                     :box '(:line-width 1 :style nil))
+;; set the fringe background to match the default background color
+(set-face-background 'fringe (face-attribute 'default :background))
 
 ;; I don't like bold/underline fonts
 (set-face-bold-p 'bold nil)
@@ -215,7 +198,6 @@
 (require 'emacs-bs)           ; buffer switch setting
 (require 'emacs-browse)       ; external browser convenience functions
 (require 'emacs-autocomplete) ; autocompletion goodness
-(require 'emacs-clojure)      ; clojure development using cider
 (require 'emacs-eshell)       ; customized eshell settings
 (require 'emacs-frame)        ; customized frame functions
 (require 'emacs-git)          ; emacs git integration
@@ -233,13 +215,6 @@
 ;;=====================================================================
 ;; start the emacsserver that listens to emacsclient
 (server-start)
-
-;;======================================================================
-;; Use emacs built-in color theme capabilities
-;(load-theme 'noctilux)
-;(load-theme 'heroku t)
-;(load-theme 'zenburn t)
-(load-theme 'nzenburn t)
 
 ;;=====================================================================
 ;; some reference stuff

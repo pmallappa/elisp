@@ -9,7 +9,7 @@
 ;;============================================================
 ;; Set up some faces
 (make-face 'org-hide)
-(set-face-foreground 'org-hide MY_BG_COLOR)
+(set-face-foreground 'org-hide (face-attribute 'default :background))
 (setq org-hide-leading-stars t)
 
 ;;============================================================
@@ -151,9 +151,6 @@
 (setq org-export-docbook-xsl-fo-proc-command "/usr/local/bin/fop \"%i\" \"%o\"")
 (setq org-export-docbook-xslt-proc-command "/usr/local/bin/saxon -o:\"%o\" -s:\"%i\" -xsl:\"%s\"")
 (setq org-export-docbook-xslt-stylesheet "/usr/local/Cellar/docbook-xsl/1.78.1/docbook-xsl/fo/docbook.xsl")
-
-;; Integrate Pandoc document converter
-(require 'ox-pandoc)
 
 ;;============================================================
 ;; integrate Mobile Org using Dropbox

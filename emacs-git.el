@@ -4,7 +4,7 @@
 ;;;_.======================================================================
 ;;;_. magit git interface
 (require 'magit)
-(global-set-key "\C-xg" 'magit-status)
+(global-set-key (kbd "C-x g") 'magit-status)
 
 ;;; ======================================================================
 ;;; Use ediff as a merge tool from git
@@ -70,5 +70,43 @@
   (jump-to-register :magit-fullscreen))
 
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+
+;;==============================
+;; git gutter provides change indications in the left fringe
+
+;; allow git indications in the fringe
+;(require 'git-gutter-fringe+)
+
+;; put indicators on the right fringe
+;(setq git-gutter-fr+-side 'right-fringe)
+;(git-gutter-fr+-minimal)
+
+(global-git-gutter+-mode t)
+(global-set-key (kbd "C-x G") 'global-git-gutter+-mode)
+
+(eval-after-load 'git-gutter+
+  '(progn
+     ;;; Jump between hunks
+     (define-key git-gutter+-mode-map (kbd "C-x n") 'git-gutter+-next-hunk)
+     (define-key git-gutter+-mode-map (kbd "C-x p") 'git-gutter+-previous-hunk)
+
+     ;;; Act on hunks
+     (define-key git-gutter+-mode-map (kbd "C-x v =") 'git-gutter+-show-hunk)
+     (define-key git-gutter+-mode-map (kbd "C-x v r") 'git-gutter+-revert-hunks)))
+
+(copy-face 'diff-indicator-added 'git-gutter+-added)
+(copy-face 'diff-indicator-removed 'git-gutter+-deleted)
+(copy-face 'diff-indicator-changed 'git-gutter+-modified)
+
+;;; faces
+;git-gutter+-added
+;git-gutter+-commit-header-face
+;git-gutter+-deleted
+;git-gutter+-modified
+;git-gutter+-separator
+;git-gutter+-unchanged
+;git-gutter-fr:added
+;git-gutter-fr:deleted
+;git-gutter-fr:modified
 
 (provide 'emacs-git)
