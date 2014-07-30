@@ -73,56 +73,6 @@ nSec: ")
                           nil
                           (dired-get-marked-files t)))
 
-;;======================================================================
-;; Look up a word under the point in an online dictionary
-;; From: Xah Lee <xah@xahlee.org>
-;; Newsgroups: gnu.emacs.help
-;; Date: Fri, 11 Apr 2008 13:25:31 -0700 (PDT)
-(defun word-definition-lookup ()
-"Look up the word under cursor in a browser."
- (interactive)
- (w3m-goto-url
-  (concat
-   "http://www.answers.com/main/ntquery?s="
-   (thing-at-point 'word))))
-
-;;======================================================================
-;; Find a function in the elisp manual
-;; From: lawrence mitchell <wence@gmx.li>
-;; Find the function under the point in the elisp manual
-;;
-;; C-h TAB runs the command info-lookup-symbol
-;;    which is an interactive autoloaded Lisp function in `info-look'.
-;; [Arg list not available until function definition is loaded.]
-;;
-;; Display the definition of SYMBOL, as found in the relevant manual.
-;; When this command is called interactively, it reads SYMBOL from the minibuffer.
-;; In the minibuffer, use M-n to yank the default argument value
-;; into the minibuffer so you can edit it.
-;; The default symbol is the one found at point.
-;;
-;; With prefix arg a query for the symbol help mode is offered.
-(defun find-function-in-elisp-manual (function)
-  (interactive
-   (let ((fn (function-called-at-point))
-	 (enable-recursive-minibuffers t)
-	 val)
-     (setq val
-	   (completing-read
-	    (if fn
-		(format "Find function (default %s): " fn)
-	      "Find function: ")
-	    obarray 'fboundp t nil nil (symbol-name fn)))
-     (list (if (equal val "")
-	       fn
-	     val))))
-  (Info-goto-node "(elisp)Index")
-  (condition-case err
-      (progn
-	(search-forward (concat "* "function":"))
-	(Info-follow-nearest-node))
-    (error (message "`%s' not found" function))))
-
 
 ;;======================================================================
 ;; kill trailing whitespace
@@ -381,40 +331,13 @@ Given an optional argument, print up to char 255."
   )
 
 ;;======================================================================
-;; set the current font using the font selection dialog
-;; this is in emacs-frame.el since it will call `frame-adjust' after
-;; resetting the font
-;(defun set-font()
-;  "Set the default font using a font select dialog"
-;  (interactive)
-;  (menu-set-font))
-
-(defun list-fonts()
-  "Return a list of all available fonts"
-  (interactive)
-    (pop-to-buffer "*fontlist*")
-    (erase-buffer)
-    (insert-string (prin1-to-string (x-list-fonts "*")))
-
-    ; delete the leading ("
-    (goto-char (point-min))
-    (delete-char 2)
-
-    ; replace " " with a newline
-    (while (re-search-forward "\" \"" nil t)
-      (replace-match "\n"))
-
-    ; delete the trailing ")
-    (goto-char (point-max))
-    (delete-char -2)
-
-    ; sort the region
-    (sort-lines nil (point-min) (point-max))
-    (goto-char (point-min))
-
-    ; set the 'q' key to hide the window
-    (local-set-key "q" (quote delete-window))
-  )
+;; run to eliminate bold and underline faces
+(defun cleanFonts ()
+(interactive)
+(mapc
+  (lambda (face)
+    (set-face-attribute face nil :weight 'normal :underline nil))
+  (face-list)))
 
 ;;;_*======================================================================
 ;;;_* get the font information for the text under the cursor

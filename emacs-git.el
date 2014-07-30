@@ -72,15 +72,7 @@
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
 ;;==============================
-;; git gutter provides change indications in the left fringe
-
-;; allow git indications in the fringe
-;(require 'git-gutter-fringe+)
-
-;; put indicators on the right fringe
-;(setq git-gutter-fr+-side 'right-fringe)
-;(git-gutter-fr+-minimal)
-
+;; git gutter shows changes in the left fringe
 (global-git-gutter+-mode t)
 (global-set-key (kbd "C-x G") 'global-git-gutter+-mode)
 
@@ -94,19 +86,10 @@
      (define-key git-gutter+-mode-map (kbd "C-x v =") 'git-gutter+-show-hunk)
      (define-key git-gutter+-mode-map (kbd "C-x v r") 'git-gutter+-revert-hunks)))
 
+
+;; fix the neon git gutter faces 
 (copy-face 'diff-indicator-added 'git-gutter+-added)
 (copy-face 'diff-indicator-removed 'git-gutter+-deleted)
 (copy-face 'diff-indicator-changed 'git-gutter+-modified)
-
-;;; faces
-;git-gutter+-added
-;git-gutter+-commit-header-face
-;git-gutter+-deleted
-;git-gutter+-modified
-;git-gutter+-separator
-;git-gutter+-unchanged
-;git-gutter-fr:added
-;git-gutter-fr:deleted
-;git-gutter-fr:modified
 
 (provide 'emacs-git)

@@ -120,7 +120,7 @@
 (add-to-list 'initial-frame-alist '(left   .  -5))
 (add-to-list 'initial-frame-alist '(width  . 132))
 (add-to-list 'initial-frame-alist '(height .  70))
-(add-to-list 'initial-frame-alist '(alpha 100 90)) ; alpha focus non-focus
+(add-to-list 'initial-frame-alist '(alpha 90 90)) ; focus background
 
 ;; enable buffer-face mode to provide buffer-local fonts
 ;; sets the font to the value of buffer-face-mode-face
@@ -208,6 +208,8 @@
 (require 'emacs-dired)        ; dired settings
 (require 'emacs-csv)          ; comma-separated-value editing package
 (require 'emacs-eshell)       ; emacs eshell settings
+(require 'emacs-smartparens)  ; better parenthesis highlighting and navigating
+(require 'emacs-help)         ; keybindings for help functions
 
 ;; jump to a function definition
 (global-set-key (kbd "C-h C-f") 'find-function)

@@ -19,13 +19,10 @@
 (eval-when-compile (require 'cl))
 (defun toggle-transparency ()
   (interactive)
-  (if (/=
-       (cadr (frame-parameter nil 'alpha))
-       100)
+  (if (/= (cadr (frame-parameter nil 'alpha)) 100)
       (set-frame-parameter nil 'alpha '(100 100))
-    (set-frame-parameter nil 'alpha '(85 85))))
+    (set-frame-parameter nil 'alpha '(90 90)))) ;focused / background
 (global-set-key (kbd "C-c t") 'toggle-transparency)
-
 
 ;; Set transparency of emacs
 (defun transparency (value)

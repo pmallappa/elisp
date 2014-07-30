@@ -12,6 +12,9 @@
 (set-face-foreground 'org-hide (face-attribute 'default :background))
 (setq org-hide-leading-stars t)
 
+;; hide underline and bold fonts
+(eval-after-load "org" '(cleanFonts))
+
 ;;============================================================
 ;; Set the return key to activate a link
 ;; Needs to be set before org.el is loaded.
