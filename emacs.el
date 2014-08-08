@@ -86,13 +86,18 @@
 ;; Fix the UI
 (set-scroll-bar-mode nil)
 (put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
 (global-hl-line-mode)
-
 (add-hook 'after-make-frame-functions
           '(lambda (frame)
              (modify-frame-parameters frame
               '((vertical-scroll-bars . nil)
                 (horizontal-scroll-bars . nil)))))
+
+;;;==============================
+;;; hungry delete mode
+;(require 'hungry-delete)
+;(global-hungry-delete-mode)
 
 ;;==============================
 ;; Enable linumbers in the left margin
@@ -119,7 +124,7 @@
 (add-to-list 'initial-frame-alist '(left   .  -5))
 (add-to-list 'initial-frame-alist '(width  . 132))
 (add-to-list 'initial-frame-alist '(height .  70))
-(add-to-list 'initial-frame-alist '(alpha 90 90)) ; focus background
+(add-to-list 'initial-frame-alist '(alpha 100 90)) ; focus background
 
 ;; enable buffer-face mode to provide buffer-local fonts
 ;; sets the font to the value of buffer-face-mode-face
@@ -210,11 +215,9 @@
 (require 'emacs-dired)        ; dired settings
 (require 'emacs-csv)          ; comma-separated-value editing package
 (require 'emacs-eshell)       ; emacs eshell settings
+(require 'emacs-javascript)   ; javascript development and REPL
 (require 'emacs-smartparens)  ; better parenthesis highlighting and navigating
 (require 'emacs-help)         ; keybindings for help functions
-
-;; jump to a function definition
-(global-set-key (kbd "C-h C-f") 'find-function)
 
 ;;=====================================================================
 ;; start the emacsserver that listens to emacsclient

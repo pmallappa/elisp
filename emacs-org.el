@@ -23,8 +23,7 @@
 ;;============================================================
 ;; capture templates (replaces remember)
 
-(define-key global-map "\C-cc" 'org-capture)
-(global-set-key (kbd "C-c r") 'org-capture)
+(global-set-key (kbd "C-c c") 'org-capture)
 
 (setq org-capture-templates
       '(("t" "Todo" entry
