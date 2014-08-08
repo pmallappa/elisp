@@ -18,6 +18,11 @@
     (w32-shell-execute "open" browser " "
              (parse-url url)))))
 
+
+;; set the maximum number of characters permitted in the suggested URL when
+;; prompting (default is 40)
+(setq browse-url-dwim-max-prompt-length 70)
+
 (defun parse-url (url)
   (if (or (string= url "") (null url))
       (browse-url-dwim-get-url 1 "URL: " "http://www.google.com")

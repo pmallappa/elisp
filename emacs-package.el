@@ -14,6 +14,7 @@
 
 (defvar cm/packages
   '(
+    ac-js2
     auto-complete
     bm
     browse-url-dwim
@@ -21,42 +22,49 @@
     color-moccur
     csv-mode
     dash
-    display-theme
+    elisp-slime-nav
     epl
     esh-help
     exec-path-from-shell
     git-commit-mode
-    git-gutter+
+    git-gutter
     git-rebase-mode
     git-timemachine
+    hungry-delete
     igrep
+    js2-mode
+    js2-refactor
     list-utils
     magit
     markdown-mode
+    multiple-cursors
     org
-    paredit
     pkg-info
     popup
     s
+    simple-httpd
+    skewer-mode
+    smartparens
     starter-kit-eshell
     string-utils
     tree-mode
     w3m
     windata
+    yasnippet
     zenburn-theme
 ))
 
-;; cycle through the package list and prompt to install as necessary
-(if (y-or-n-p-with-timeout "Check packages? " 3 nil)
-    (progn
-      (dolist (pkg cm/packages)
-        (if (not (package-installed-p pkg))
-            (progn
-              (if (y-or-n-p (format "%s: %s " "install missing package" pkg))
-                  (progn 
-                    (package-install pkg)
-                    (require pkg))))
-          (require pkg)))))
+;;; cycle through the package list and prompt to install as necessary
+;(if (y-or-n-p-with-timeout "Check packages? " 3 nil)
+;    (progn
+;      (dolist (pkg cm/packages)
+;        (if (not (package-installed-p pkg))
+;            (progn
+;              (if (y-or-n-p (format "%s: %s " "install missing package" pkg))
+;                  (progn 
+;                    (package-install pkg)
+;                    (require pkg))))
+;          (require pkg)))))
 
 ;; Change the width of the package list displayed. Currently doing this by
 ;; redefining the entire method. Long term would be to introduce a patch to
