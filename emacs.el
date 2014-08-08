@@ -33,7 +33,7 @@
   "Directory for the emacs pkgs and configuration files.
  Default uses `HOME_DIR' as a prefix")
 
-(defconst MY_TRYOUT_DIR (concat HOME_DIR "/Downloads/tryout")
+(defconst MY_TRYOUT_DIR (concat HOME_DIR "/downloads/tryout")
   "Directory for extracting files")
 
 (defconst MY_HTTP_PROXY (getenv "http_proxy")
@@ -109,8 +109,7 @@
 ;; 0123456789
 (setq default-frame-alist
       `((menu-bar-lines . 0)
-	(tool-bar-lines . 0)
-        (font . "Bitstream Vera Sans Mono-13")))
+	(tool-bar-lines . 0)))
 
 ; copy to the initial frame alist
 (setq initial-frame-alist default-frame-alist)
@@ -124,14 +123,17 @@
 
 ;; enable buffer-face mode to provide buffer-local fonts
 ;; sets the font to the value of buffer-face-mode-face
-(set-face-font 'variable-pitch "Verdana-13")
-(set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-13")
+(set-default-font "Lucida Sans Typewriter-10")
+(set-face-font 'fixed-pitch "Lucida Sans Typewriter-10")
+(set-face-font 'variable-pitch "Lucida Sans-10")
 (buffer-face-mode)
 
 
 ;; good for experimenting with faces
 ;(set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-13")
 ;(set-face-font 'variable-pitch "Verdana-13")
+;(set-face-font 'fixed-pitch "Lucida Console-10")
+;(set-face-font 'fixed-pitch "Consolas-11")
 
 ;; These require fixed-pitch fonts to format correctly
 (add-hook 'text-mode-hook 'fixed-pitch-mode)
