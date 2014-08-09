@@ -126,11 +126,19 @@
 (add-to-list 'initial-frame-alist '(height .  70))
 (add-to-list 'initial-frame-alist '(alpha 100 90)) ; focus background
 
+;; Set the fonts
+(if (eq system-type 'darwin)
+    (progn
+      (set-default-font "Bitstream Vera Sans Mono-13")
+      (set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-13")
+      (set-face-font 'variable-pitch "Verdana-13")))
+(if (eq system-type 'windows-nt)
+    (progn
+      (set-default-font "Lucida Sans Typewriter-10")
+      (set-face-font 'fixed-pitch "Lucida Sans Typewriter-10")
+      (set-face-font 'variable-pitch "Lucida Sans-10")))
+
 ;; enable buffer-face mode to provide buffer-local fonts
-;; sets the font to the value of buffer-face-mode-face
-(set-default-font "Lucida Sans Typewriter-10")
-(set-face-font 'fixed-pitch "Lucida Sans Typewriter-10")
-(set-face-font 'variable-pitch "Lucida Sans-10")
 (buffer-face-mode)
 
 
