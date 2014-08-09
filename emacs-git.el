@@ -13,6 +13,9 @@
 
 (setq magit-diff-options '("-b")) ; ignore whitespace
 
+(if (eq system-type 'windows-nt)
+    (setq magit-git-executable "c:/Program Files (x86)/Git/bin/git.exe"))
+
 (require 'ediff)
 
 (defvar ediff-after-quit-hooks nil

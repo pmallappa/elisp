@@ -1,8 +1,8 @@
 ;; emacs package manager.
 (require 'package)
 (add-to-list 'package-archives
-;             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
              '("melpa"        . "http://melpa.milkbox.net/packages/"))
+;             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
 ;             '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
@@ -25,7 +25,6 @@
     elisp-slime-nav
     epl
     esh-help
-    exec-path-from-shell
     git-commit-mode
     git-gutter
     git-rebase-mode
@@ -54,7 +53,11 @@
     zenburn-theme
 ))
 
-;;; cycle through the package list and prompt to install as necessary
+(if (eq system-type 'darwin)
+    (add-to-list 'cm/packages 'exec-path-from-shell))
+
+
+;; cycle through the package list and prompt to install as necessary
 ;(if (y-or-n-p-with-timeout "Check packages? " 3 nil)
 ;    (progn
 ;      (dolist (pkg cm/packages)
