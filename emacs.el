@@ -22,12 +22,12 @@
 
 ;;=====================================================================
 ;; set up the environment
-(defconst HOME_DIR
-  (if (eq system-type 'darwin)
-      (concat "/Users/" (getenv "USER"))
-    (concat "c:/cygwin/home/" (getenv "USERNAME")))
-  "Home directory. I could rely on the HOME environment variable,
-  but I'm being retentive.")
+(if (eq system-type 'darwin)
+    (defconst HOME_DIR  (concat "/Users/" (getenv "USER"))))
+(if (eq system-type 'windows-nt)
+    (defconst HOME_DIR  (concat "c:/cygwin/home/" (getenv "USERNAME"))))
+(if (eq system-type 'cygwin)
+    (defconst HOME_DIR (concat "/home/" (getenv "USERNAME"))))
 
 (defconst EMACS_CONFIGS (concat HOME_DIR "/elisp")
   "Directory for the emacs pkgs and configuration files.
@@ -54,7 +54,7 @@
       (defconst FIREFOX_PRG "/Applications/Firefox.app"
         "points to the Mozilla Firefox location")
       (defconst CHROME_PRG "/Applications/Google\\ Chrome.app"
-        "points to the Mozilla Firefox location")
+        "points to the Google Chrome browser location")
       (defconst BROWSER FIREFOX_PRG
         "set the default browser to use within emacs")))
 ; Windows
@@ -64,9 +64,23 @@
         "Media Player program, video and streaming audio")
     (defconst IEPRG "c:/Program Files/Internet Explorer/iexplore.exe"
         "points to the Mozilla Firefox location")
-    (defconst FIREFOX_PRG "c:/Program Files/Mozilla Firefox/firefox.exe"
+    (defconst FIREFOX_PRG "c:/Program Files (x86)/Mozilla Firefox/firefox.exe"
         "points to the Mozilla Firefox location")
-    (defconst BROWSER IEPRG
+    (defconst CHROME_PRG "c:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+        "points to the Google Chrome browser location")
+    (defconst BROWSER CHROME_PRG
+      "set the default browser to use within emacs")))
+(if (eq system-type 'cygwin)
+  (progn
+    (defconst MEDIA_PLAYER "/c/Program Files/Windows Media Player/wmplayer.exe"
+        "Media Player program, video and streaming audio")
+    (defconst IEPRG "/c/Program Files/Internet Explorer/iexplore.exe"
+        "points to the Mozilla Firefox location")
+    (defconst FIREFOX_PRG "/c/Program Files (x86)/Mozilla Firefox/firefox.exe"
+        "points to the Mozilla Firefox location")
+    (defconst CHROME_PRG "/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+        "points to the Google Chrome browser location")
+    (defconst BROWSER CHROME_PRG
       "set the default browser to use within emacs")))
 
 ; set the location of firefox for the browse-url-package
@@ -124,7 +138,7 @@
 (add-to-list 'initial-frame-alist '(left   .  -5))
 (add-to-list 'initial-frame-alist '(width  . 132))
 (add-to-list 'initial-frame-alist '(height .  70))
-(add-to-list 'initial-frame-alist '(alpha 100 90)) ; focus background
+(add-to-list 'initial-frame-alist '(alpha 100 100)) ; focus background
 
 ;; Set the fonts
 (if (eq system-type 'darwin)
@@ -132,11 +146,11 @@
       (set-default-font "Bitstream Vera Sans Mono-13")
       (set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-13")
       (set-face-font 'variable-pitch "Verdana-13")))
-(if (eq system-type 'windows-nt)
+(if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
-      (set-default-font "Lucida Sans Typewriter-10")
-      (set-face-font 'fixed-pitch "Lucida Sans Typewriter-10")
-      (set-face-font 'variable-pitch "Lucida Sans-10")))
+      (set-default-font "Lucida Sans Typewriter-9")
+      (set-face-font 'fixed-pitch "Lucida Sans Typewriter-9")
+      (set-face-font 'variable-pitch "Lucida Sans-9")))
 
 ;; enable buffer-face mode to provide buffer-local fonts
 (buffer-face-mode)
