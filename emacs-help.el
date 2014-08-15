@@ -1,8 +1,8 @@
-;; place the name of the function in scope within the mode-line
-(which-function-mode)
-(add-to-list 'which-function-mode 'emacs-lisp-mode)
-(setq which-func-unknown "n/a")
-
+;;; place the name of the function in scope within the mode-line
+;(which-function-mode)
+;(add-to-list 'which-function-mode 'emacs-lisp-mode)
+;(setq which-func-unknown "n/a")
+;
 ;;; Show the current function name in the header line instead of the modeline
 ;(setq-default header-line-format
 ;              '((which-func-mode ("" which-func-format " "))))

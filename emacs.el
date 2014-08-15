@@ -142,13 +142,20 @@
 (add-to-list 'initial-frame-alist '(height .  70))
 (add-to-list 'initial-frame-alist '(alpha 100 100)) ; focus background
 
+;;======================================================================
 ;; Set the fonts
 ;; the default font is set in .emacs, the fixed-font should match this
-(copy-face 'default 'fixed-pitch)
+(load-theme 'zenburn t)
 (if (eq system-type 'darwin)
-      (set-face-font 'variable-pitch "Verdana-13"))
+    (progn
+      (set-face-font 'default "Bitstream Vera Sans Mono-13")
+      (set-face-font 'variable-pitch "Verdana-13")
+      (copy-face 'default 'fixed-pitch)))
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
-      (set-face-font 'variable-pitch "Lucida Sans-9"))
+    (progn
+      (set-face-font 'default "Lucida Sans Typewriter-9")
+      (set-face-font 'variable-pitch "Lucida Sans-9")
+      (copy-face 'default 'fixed-pitch)))
 
 ;; enable buffer-face mode to provide buffer-local fonts
 (buffer-face-mode)
@@ -168,21 +175,8 @@
 (add-hook 'shell-mode-hook 'fixed-pitch-mode)
 (add-hook 'eshell-mode-hook 'fixed-pitch-mode)
 
-; increase the space between lines
-(setq-default line-spacing 0)
-
-; Syntax highlighting
-(global-font-lock-mode t)
-
-; Lets us see col # at the bottom. very handy.
-(column-number-mode 1)
-
-; buffer-name completion for C-x b; makes life much easier.
-(iswitchb-mode 1)
-
 ;;======================================================================
-;; Use emacs built-in color theme capabilities
-(load-theme 'zenburn t)
+;; Eye candy
 
 ;; set the fringe background to match the default background color
 (set-face-background 'fringe (face-attribute 'default :background))
@@ -195,6 +189,17 @@
     (set-face-attribute face nil :weight 'normal :underline nil))
   (face-list))
 
+; increase the space between lines
+(setq-default line-spacing 0)
+
+; Syntax highlighting
+(global-font-lock-mode t)
+
+; Lets us see col # at the bottom. very handy.
+(column-number-mode 1)
+
+; buffer-name completion for C-x b; makes life much easier.
+(iswitchb-mode 1)
 
 ;;=====================================================================
 ;; load path for various single-file packages
