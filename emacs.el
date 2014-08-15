@@ -21,13 +21,15 @@
 ;; you're using XEmacs, C-h C-l does this.
 
 ;;=====================================================================
-;; set up the environment
-(if (eq system-type 'darwin)
-    (defconst HOME_DIR  (concat "/Users/" (getenv "USER"))))
-(if (eq system-type 'windows-nt)
-    (defconst HOME_DIR  (concat "c:/cygwin/home/" (getenv "USERNAME"))))
-(if (eq system-type 'cygwin)
-    (defconst HOME_DIR (concat "/home/" (getenv "USERNAME"))))
+;;; set up the environment (moved to .emacs)
+;(if (eq system-type 'darwin)
+;    (defconst HOME_DIR  (concat "/Users/" (getenv "USER"))))
+;(if (eq system-type 'windows-nt)
+;    (defconst HOME_DIR  (concat "c:/cygwin/home/" (getenv "USERNAME"))))
+;(if (eq system-type 'cygwin)
+;    (defconst HOME_DIR (concat "/home/" (getenv "USERNAME"))))
+;;; set up the home directory
+;(setenv "HOME" HOME_DIR)
 
 (defconst EMACS_CONFIGS (concat HOME_DIR "/elisp")
   "Directory for the emacs pkgs and configuration files.
@@ -141,16 +143,12 @@
 (add-to-list 'initial-frame-alist '(alpha 100 100)) ; focus background
 
 ;; Set the fonts
+;; the default font is set in .emacs, the fixed-font should match this
+(copy-face 'default 'fixed-pitch)
 (if (eq system-type 'darwin)
-    (progn
-      (set-default-font "Bitstream Vera Sans Mono-13")
-      (set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-13")
-      (set-face-font 'variable-pitch "Verdana-13")))
+      (set-face-font 'variable-pitch "Verdana-13"))
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
-    (progn
-      (set-default-font "Lucida Sans Typewriter-9")
-      (set-face-font 'fixed-pitch "Lucida Sans Typewriter-9")
-      (set-face-font 'variable-pitch "Lucida Sans-9")))
+      (set-face-font 'variable-pitch "Lucida Sans-9"))
 
 ;; enable buffer-face mode to provide buffer-local fonts
 (buffer-face-mode)
@@ -237,7 +235,7 @@
 (require 'emacs-dired)        ; dired settings
 (require 'emacs-csv)          ; comma-separated-value editing package
 (require 'emacs-eshell)       ; emacs eshell settings
-(require 'emacs-javascript)   ; javascript development and REPL
+;(require 'emacs-javascript)   ; javascript development and REPL
 (require 'emacs-smartparens)  ; better parenthesis highlighting and navigating
 (require 'emacs-help)         ; keybindings for help functions
 

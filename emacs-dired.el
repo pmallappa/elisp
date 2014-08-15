@@ -78,9 +78,9 @@
 	("\\.arc$" . "arc x %s ")
 	("\\.bz2$" . ,(concat "bunzip2 -q %s"))
 	("\\.rar$" . ,(concat "unrar x %s " MY_TRYOUT_DIR "\\"))
-	("\\.zip$" . ,(concat "unzip -qq -Ux %s -d " MY_TRYOUT_DIR))
-	("\\.ear$" . ,(concat "unzip -qq -Ux %s -d " MY_TRYOUT_DIR))
-	("\\.war$" . ,(concat "unzip -qq -Ux %s -d " MY_TRYOUT_DIR))
+	("\\.zip$" . ,(concat "unzip -qq -x %s -d " MY_TRYOUT_DIR))
+	("\\.ear$" . ,(concat "unzip -qq -x %s -d " MY_TRYOUT_DIR))
+	("\\.war$" . ,(concat "unzip -qq -x %s -d " MY_TRYOUT_DIR))
 	("\\.zoo$" . "zoo x. %s ")
 	("\\.lzh$" . "lha x %s ")
 	("\\.g?[zZ]$" . "gzip -d %s")   ; There is only one file

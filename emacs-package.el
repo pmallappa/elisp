@@ -9,8 +9,8 @@
 ;; Required packages
 ;; everytime emacs starts, it will automatically check if those packages
 ;; are missing
-(when (not package-archive-contents)
-  (package-refresh-contents))
+;(when (not package-archive-contents)
+;  (package-refresh-contents))
 
 (defvar cm/packages
   '(
