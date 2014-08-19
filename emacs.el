@@ -153,8 +153,8 @@
       (copy-face 'default 'fixed-pitch)))
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
-      (set-face-font 'default "Lucida Sans Typewriter-9")
-      (set-face-font 'variable-pitch "Lucida Sans-9")
+      (set-face-font 'default "Lucida Sans Typewriter-10")
+      (set-face-font 'variable-pitch "Lucida Sans-10")
       (copy-face 'default 'fixed-pitch)))
 
 ;; enable buffer-face mode to provide buffer-local fonts

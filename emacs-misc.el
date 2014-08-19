@@ -103,7 +103,7 @@
 ;; first turn on column line mode
 (setq column-number-mode nil)
 
-(setq display-time-format " %a %d %b %H:%M ")     ;;Fri 10 Nov 15:26
+(setq display-time-format " %a %m/%d %H:%M ")     ;;Fri 08/19 15:26
 (setq display-time-day-and-date t)
 (display-time)
 
@@ -118,8 +118,6 @@
       (concat invocation-name " on "
               system-name
 	      " -- %f"))
-
-
 
 ;;======================================================================
 ;; provide unique names for buffers with the same filename loaded
