@@ -76,7 +76,7 @@
 
 ;;==============================
 ;; git gutter shows changes in the left fringe
-(global-git-gutter+-mode nil)
+(global-git-gutter+-mode -1)
 (global-set-key (kbd "C-x G") 'global-git-gutter+-mode)
 
 (eval-after-load 'git-gutter+

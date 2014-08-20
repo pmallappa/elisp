@@ -98,11 +98,12 @@
 ;(add-to-list 'auto-mode-alist '("\\.cron\\(tab\\)?\\'" . crontab-mode))
 
 ;;======================================================================
-;; modeline modifications
+;; mode-line modifications
 
 ;; first turn on column line mode
 (setq column-number-mode nil)
 
+;; time and date
 (setq display-time-format " %a %m/%d %H:%M ")     ;;Fri 08/19 15:26
 (setq display-time-day-and-date t)
 (display-time)

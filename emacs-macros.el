@@ -242,63 +242,43 @@ if its name ends in `.el' and the `.elc' file also exists."
 
 ;;======================================================================
 ;; this function prints an ascii table in a new buffer 4 columns
-(defun ascii-table (&optional extended)
-  "Print the ascii table (up to char 127).
-Given an optional argument, print up to char 255."
-  (interactive "P")
-  (defvar col)
-  (defvar limit)
-  (setq limit 255)
-  (if (null extended)
-      (setq limit 127))
-  (setq col (/ (+ 1 limit) 4))
-  (switch-to-buffer "*ASCII*")
-  (erase-buffer)
-  (insert (format "ASCII characters up to %d. (00 is NULL character)\n\n" limit))
-  (insert " DEC OCT HEX CHAR\t\t DEC OCT HEX CHAR\t\t DEC OCT HEX CHAR\t\t DEC OCT HEX CHAR\n")
-  (insert " ----------------\t\t ----------------\t\t ----------------\t\t ----------------\n")
-  (let ((i 0) (right 0) (tab-width 4))
-    (while (< i col)
-      (setq col2 (+ i col))
-      (setq col3 (+ i (* col 2)))
-      (setq col4 (+ i (* col 3)))
-      (cond
-	  ; insert a <TAB> instead of an actual tab
-	   ((= i 9)
-		(insert (format "%4d%4o%4x  <TAB>\t\t%4d%4o%4x%4c\t\t%4d%4o%4x%4c\t\t%4d%4o%4x%4c\n"
-				i i i  col2 col2 col2 col2 col3 col3 col3 col3 col4 col4 col4 col4)))
-           ; insert a <LF> instead of an actual line feed
-	   ((= i 10)
-		(insert (format "%4d%4o%4x  <LF>\t\t%4d%4o%4x%4c\t\t%4d%4o%4x%4c\t\t%4d%4o%4x%4c\n"
-				i i i  col2 col2 col2 col2 col3 col3 col3 col3 col4 col4 col4 col4)))
-	   (t
-	    ; insert the actual character
-		(insert (format "%4d%4o%4x%4c>\t\t%4d%4o%4x%4c\t\t%4d%4o%4x%4c\t\t%4d%4o%4x%4c\n"
-				i i i i col2 col2 col2 col2 col3 col3 col3 col3 col4 col4 col4 col4))))
-      (setq i (+ i 1))
-      )
-    )
-  (beginning-of-buffer)
-  (local-set-key "q" (quote bury-buffer)))
+(defun ascii-table ()
+  "Display basic ASCII table (0 thru 128)."
+  (interactive)
+;  (pop-to-buffer "*ASCII*" t)
+;  (local-set-key "q" 'bury-buffer)
+  (with-help-window "*Ascii characters*"
+    (with-current-buffer standard-output
+      (save-excursion
+        (let ((i -1))
+          (insert "ASCII characters 0 thru 127.\n\n")
+          (insert " Dec  Hex  Char |  Dec  Hex  Char |  Dec  Hex  Char |  Dec  Hex  Char\n")
+          (insert " ---------------+-----------------+-----------------+----------------\n")
+          (while (< i 31)
+            (insert (format "%4d %4x %4s  | %4d %4x %4s  | %4d %4x %4s  | %4d %4x %4s\n"
+                            (setq i (+ 1  i)) i (single-key-description i)
+                            (setq i (+ 32 i)) i (single-key-description i)
+                            (setq i (+ 32 i)) i (single-key-description i)
+                            (setq i (+ 32 i)) i (single-key-description i)))
+            (setq i (- i 96))))))))
 
-
-(defun ascii-table2 ()
-    "Display basic ASCII table (0 thru 128)."
-    (interactive)
-    (setq buffer-read-only nil)        ;; Not need to edit the content, just read mode (added)
-    (local-set-key "q" 'bury-buffer)   ;; Nice to have the option to bury the buffer (added)
-    (switch-to-buffer "*ASCII*")
-    (erase-buffer)
-    (save-excursion (let ((i -1))
-      (insert "ASCII characters 0 thru 127.\n\n")
-      (insert " Hex  Dec  Char|  Hex  Dec  Char|  Hex  Dec  Char|  Hex  Dec  Char\n")
-      (while (< i 31)
-        (insert (format "%4x %4d %4s | %4x %4d %4s | %4x %4d %4s | %4x %4d %4s\n"
-                        (setq i (+ 1  i)) i (single-key-description i)
-                        (setq i (+ 32 i)) i (single-key-description i)
-                        (setq i (+ 32 i)) i (single-key-description i)
-                        (setq i (+ 32 i)) i (single-key-description i)))
-        (setq i (- i 96))))))
+;; unicode symbols
+(defun unicode-table (&optional regexp)
+  "Display a list of unicode characters and their names in a buffer."
+  (interactive "sRegexp (default \".*\"): ")
+  (let* ((regexp (or regexp ".*"))
+         (case-fold-search t)
+         (cmp (lambda (x y) (< (cdr x) (cdr y))))
+         ;; alist like ("name" . code-point)
+         (char-alist (sort (cl-remove-if-not (lambda (x) (string-match regexp (car x)))
+                                             (ucs-names))
+                           cmp)))
+    (with-help-window "*Unicode characters*"
+      (with-current-buffer standard-output
+        (dolist (c char-alist)
+          (insert (format "0x%06X\t" (cdr c)))
+          (insert (cdr c))
+          (insert (format "\t%s\n" (car c))))))))
 
 ;;======================================================================
 ;; this command will list all available fonts. Good if the font
