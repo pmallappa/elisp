@@ -99,48 +99,23 @@
 (defvar my_email_address "cmcmahan@gmail.com"
   "email address to use in emacs configuration")
 
-;; Fix the UI
-(set-scroll-bar-mode nil)
-(put 'narrow-to-region 'disabled nil)
-(put 'narrow-to-page 'disabled nil)
-(global-hl-line-mode)
-(add-hook 'after-make-frame-functions
-          '(lambda (frame)
-             (modify-frame-parameters frame
-              '((vertical-scroll-bars . nil)
-                (horizontal-scroll-bars . nil)))))
-
-;;;==============================
-;;; hungry delete mode
-;(require 'hungry-delete)
-;(global-hungry-delete-mode)
-
-;;==============================
-;; Enable linumbers in the left margin
-;; use M-x linum-mode to toggle
-(load-library "linum")
-
-(defalias 'toggle-line-numbers
-  (read-kbd-macro "M-x linum-mode"))
-
 ;;==============================
 ;; size, colors and fonts
 ;; abcedfghijklmnopqrstuvwxyz
 ;; ABCEDFGHIJKLMNOPQRSTUVWXYZ
 ;; 0123456789
 (setq default-frame-alist
-      `((menu-bar-lines . 0)
-	(tool-bar-lines . 0)))
+      '((menu-bar-lines . 0)
+	(tool-bar-lines . 0)
+        (height . 60)
+        (width . 130)))
 
-; copy to the initial frame alist
-(setq initial-frame-alist default-frame-alist)
-
-; now modify the initial frame sizes
-(add-to-list 'initial-frame-alist '(top    .   8))
-(add-to-list 'initial-frame-alist '(left   .  -5))
-(add-to-list 'initial-frame-alist '(width  . 132))
-(add-to-list 'initial-frame-alist '(height .  70))
-(add-to-list 'initial-frame-alist '(alpha 100 100)) ; focus background
+(setq initial-frame-alist
+      '((menu-bar-lines . 0)
+	(tool-bar-lines . 0)
+        (height . 60)
+        (width . 130)
+        (alpha 100 100)))     ; focus background
 
 ;;======================================================================
 ;; Set the fonts
@@ -155,17 +130,24 @@
     (progn
       (set-face-font 'default "Lucida Sans Typewriter-10")
       (set-face-font 'variable-pitch "Lucida Sans-10")
+;      (set-face-font 'default "Lucida Sans Typewriter-8")
+;      (set-face-font 'variable-pitch "Lucida Sans-8")
       (copy-face 'default 'fixed-pitch)))
+
+;; Fix the UI
+(setq visible-bell t)
+(set-scroll-bar-mode nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(global-hl-line-mode)
+(add-hook 'after-make-frame-functions
+          '(lambda (frame)
+             (modify-frame-parameters frame
+              '((vertical-scroll-bars . nil)
+                (horizontal-scroll-bars . nil)))))
 
 ;; enable buffer-face mode to provide buffer-local fonts
 (buffer-face-mode)
-
-
-;; good for experimenting with faces
-;(set-face-font 'fixed-pitch "Bitstream Vera Sans Mono-13")
-;(set-face-font 'variable-pitch "Verdana-13")
-;(set-face-font 'fixed-pitch "Lucida Console-10")
-;(set-face-font 'fixed-pitch "Consolas-11")
 
 ;; These require fixed-pitch fonts to format correctly
 (add-hook 'text-mode-hook 'fixed-pitch-mode)
@@ -177,6 +159,14 @@
 
 ;;======================================================================
 ;; Eye candy
+
+;;==============================
+;; Enable linumbers in the left margin
+;; use M-x linum-mode to toggle
+(load-library "linum")
+
+(defalias 'toggle-line-numbers
+  (read-kbd-macro "M-x linum-mode"))
 
 ;; set the fringe background to match the default background color
 (set-face-background 'fringe (face-attribute 'default :background))
@@ -234,6 +224,7 @@
 (require 'emacs-frame)        ; customized frame functions
 (require 'emacs-git)          ; emacs git integration
 (require 'emacs-misc)         ; various settings
+(require 'emacs-info)         ; setting up info
 (require 'emacs-w3m)          ; w3m web browser settings
 (require 'emacs-webjump)      ; webjump settings
 (require 'emacs-calendar)     ; calendar settings

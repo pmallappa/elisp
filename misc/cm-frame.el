@@ -30,7 +30,7 @@ The default value is the same as the primary monitor")
   "Number of pixels to place the frame from the top of the screen")
 
 (defvar cmframe-horizontal-margin 15
-  "Number of pixels to place the frame from the right edge of the screen")
+  "Number of pixels to place the frame from the sides of the screen")
 
 (defvar right-monitor-p nil
   "Flag whether frame is in the right monitor")
@@ -66,20 +66,17 @@ Final frame size is determined by the value returned by
 `is-enlarged', which shows whether a large or standard frame is
 desired
 If the size of the frame exceeds the screen width, shrink to fit the screen"
-  ; standard or enlarged frame? Use 3x the margin for slop
   (if (is-enlarged)
-      (pixels-to-cols (- screen-width (* 3 cmframe-horizontal-margin)))
-
-    ; standard frame, but test to ensure the default number of columns
-    ; will fit. If it's too big, use enlarged size, which recalculates
-    ; based on resolution width
-    (if (> MY_DEFAULT_WIDTH (pixels-to-cols (- screen-width (* 2 cmframe-horizontal-margin))))
       (pixels-to-cols (- screen-width (* 2 cmframe-horizontal-margin)))
-      MY_DEFAULT_WIDTH)))
+
+    ; If user-defined default width is too wide, fit within the monitor
+    (min 
+     MY_DEFAULT_WIDTH 
+     (pixels-to-cols (- screen-width (* 2 cmframe-horizontal-margin))))))
 
 (defun get-frame-height(screen-height)
   "Return the number of rows for a frame in a given screen height"
-  (pixels-to-rows (- (- screen-height cmframe-windowmgr-offset) cmframe-top-margin)))
+  (pixels-to-rows (- screen-height (+ cmframe-windowmgr-offset cmframe-top-margin))))
 
 (defun pixels-to-rows(pixels)
   "Return the frame pixel width for the given number of columns"
@@ -91,7 +88,8 @@ If the size of the frame exceeds the screen width, shrink to fit the screen"
 
 (defun pixels-to-cols(pixels)
   "Return the number of columns for a given frame pixel width"
-  (/ pixels (frame-char-width)))
+  ; subtract 1 column to account for window frame width
+  (- (/ pixels (frame-char-width)) 1))
 
 (defun cols-to-pixels(columns)
   "Return the frame pixel width for the given number of columns"
@@ -105,27 +103,34 @@ determined by `is-right-monitor`"
   (interactive)
 
   ; determine and set the frame size
-  (set-frame-size (selected-frame)
-                  (get-frame-width 
-                   (if (is-right-monitor)
-                       cmframe-monitor2-width
-                     (display-pixel-width)))
-                  (get-frame-height
-                   (if (is-right-monitor)
-                       cmframe-monitor2-height
-                     (display-pixel-height))))
+  (set-frame-size 
+   (selected-frame)
 
-  (set-frame-position (selected-frame)
-   (- 
+   (get-frame-width 
     (if (is-right-monitor)
-        (+ (display-pixel-width)
-           (- cmframe-monitor2-width 
-              (cols-to-pixels (get-frame-width cmframe-monitor2-width))))
-      ; left monitor
-      (- (display-pixel-width) 
-         (cols-to-pixels (get-frame-width (display-pixel-width)))))
-      cmframe-horizontal-margin)
+        cmframe-monitor2-width
+      (display-pixel-width)))
+
+   (get-frame-height
+    (if (is-right-monitor)
+        cmframe-monitor2-height
+      (display-pixel-height))))
+
+  (set-frame-position 
+   (selected-frame)
+   (max 0 (frame-position-left))
    cmframe-top-margin))
+
+(defun frame-position-left ()
+  (-
+      (if (is-right-monitor)
+          (+ (display-pixel-width)
+             (- cmframe-monitor2-width 
+                (cols-to-pixels (get-frame-width cmframe-monitor2-width))))
+        ; left monitor
+        (- (display-pixel-width)
+           (cols-to-pixels (get-frame-width (display-pixel-width)))))
+      cmframe-horizontal-margin))
 
 ;;;_.======================================================================
 ;;;_. define the interactive frame functions
@@ -236,15 +241,15 @@ frames with exactly two windows."
 	  (select-window first-win)
 	  (if this-win-2nd (other-window 1))))))
 
-;;;_.======================================================================
-;;;_. set the keys for the frame functions
-(global-set-key "\C-cfa" 'frame-adjust)
-(global-set-key "\C-cfs" 'frame-shrink)
-(global-set-key "\C-cfe" 'frame-enlarge)
-(global-set-key "\C-cfl" 'frame-left)
-(global-set-key "\C-cfr" 'frame-right)
-(global-set-key "\C-cft" 'my-frame-toggle)
-(global-set-key "\C-cf|" 'my-toggle-window-split)
+;;; ======================================================================
+;;; set the keys for the frame functions
+;(global-set-key "\C-cfa" 'frame-adjust)
+;(global-set-key "\C-cfs" 'frame-shrink)
+;(global-set-key "\C-cfe" 'frame-enlarge)
+;(global-set-key "\C-cfl" 'frame-left)
+;(global-set-key "\C-cfr" 'frame-right)
+;(global-set-key "\C-cfm" 'my-frame-toggle)
+;(global-set-key "\C-cf|" 'my-toggle-window-split)
 
 (provide 'cm-frame)
 
