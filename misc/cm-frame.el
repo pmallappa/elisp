@@ -184,7 +184,7 @@ With prefix argument ARG, include proportional fonts"
 (make-variable-frame-local 'my-frame-state)
 
 (defun my-frame-maximize ()
-  "Maximize Emacs window in Win32"
+  "Maximize Emacs window"
   (interactive)
   (modify-frame-parameters nil '((my-frame-state . 't)))
    (if (eq system-type 'darwin)

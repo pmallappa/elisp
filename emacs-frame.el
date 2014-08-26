@@ -1,44 +1,30 @@
 ;; ======================================================================
 ;; Frame sizing and movement
 
-(require 'frame-cmds)
+;;; set the frame variables and support functions
+(require 'cm-frame)
 
-;; ======================================================================
-;; set the keys for the frame functions
-;; from the library frame-cmds.el
-(global-set-key (kbd "C-c f f") 'my-toggle-max-frame)
-(global-set-key (kbd "C-c f e") 'my-maximize-frame)
-(global-set-key (kbd "C-c f l") 'my-screen-left)
-(global-set-key (kbd "C-c f r") 'my-screen-right)
+;; adjust the top position of the frame
+(setq cmframe-top-margin 10)
 
-(defun my-screen-right ()
-  "Move emacs frame to the right side of the current screen, maximized vertically"
-  (interactive)
-  (frame-setup)
-  (move-frame-to-screen-right 0))
+;; is there a secondary monitor to the right of the primary?
+(setq cmframe-monitor2-p 'nil)
 
-(defun my-screen-left ()
-  (interactive)
-  (frame-setup)
-  (move-frame-to-screen-left 0))
+;; if so, set its dimensions here
+;(setq cmframe-monitor2-width 1280)
+;(setq cmframe-monitor2-height 1024)
 
-(defun my-toggle-max-frame ()
-  (interactive)
-  (toggle-max-frame))
+; set the right margin (add window manager space here as well)
+(setq cmframe-right-margin 15)
 
-(defun my-maximize-frame ()
-  (interactive)
-  (maximize-frame))
+(global-set-key (kbd "C-c f a") 'frame-adjust)
+(global-set-key (kbd "C-c f s") 'frame-shrink)
+(global-set-key (kbd "C-c f e") 'frame-enlarge)
+(global-set-key (kbd "C-c f f") 'my-frame-toggle)
+(global-set-key (kbd "C-c f |") 'my-toggle-window-split)
 
-(defun frame-setup ()
-  (interactive)
-  (set-frame-parameter nil 'width MY_DEFAULT_WIDTH)
-  (maximize-frame-vertically)
-  (set-frame-alist-parameter-from-frame 'initial-frame-alist 'height)
-  (set-frame-alist-parameter-from-frame 'initial-frame-alist 'width)
-  (set-frame-alist-parameter-from-frame 'default-frame-alist 'height)
-  (set-frame-alist-parameter-from-frame 'default-frame-alist 'width))
 
+;;; ======================================================================
 ;; misc settings
 (eval-when-compile (require 'cl))
 (defun toggle-transparency ()
@@ -54,17 +40,14 @@
   (interactive "nTransparency Value 0 (transparent) to 100 (opaque): ")
   (set-frame-parameter (selected-frame) 'alpha value))
 
-;; toggle fullscreen mode 
-(defun toggle-fullscreen (&optional f)
-  (interactive)
-  (toggle-frame-fullscreen))
-
 ;; modify the keybinding to switch frames
 (global-set-key "\M-o" 'other-window)
 
 ;; adjust the frame to fit the current resolution on launching
-;(add-hook 'after-make-frame-functions 'my-screen-max-vertical)
+;(add-hook 'after-make-frame-functions 'my-screen-right)
 ;(add-hook 'window-setup-hook 'my-screen-right)
+;(add-hook 'window-setup-hook 'frame-adjust t)
+(run-with-idle-timer 0.1 nil 'frame-adjust)
 
 (provide 'emacs-frame)
 

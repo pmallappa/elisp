@@ -176,11 +176,11 @@
 ;;============================================================
 ;; settings to export
 
-;; Integrate docbook
-(require 'org-docbook)
-(setq org-export-docbook-xsl-fo-proc-command "/usr/local/bin/fop \"%i\" \"%o\"")
-(setq org-export-docbook-xslt-proc-command "/usr/local/bin/saxon -o:\"%o\" -s:\"%i\" -xsl:\"%s\"")
-(setq org-export-docbook-xslt-stylesheet "/usr/local/Cellar/docbook-xsl/1.78.1/docbook-xsl/fo/docbook.xsl")
+;;; Integrate docbook
+;(require 'org-docbook)
+;(setq org-export-docbook-xsl-fo-proc-command "/usr/local/bin/fop \"%i\" \"%o\"")
+;(setq org-export-docbook-xslt-proc-command "/usr/local/bin/saxon -o:\"%o\" -s:\"%i\" -xsl:\"%s\"")
+;(setq org-export-docbook-xslt-stylesheet "/usr/local/Cellar/docbook-xsl/1.78.1/docbook-xsl/fo/docbook.xsl")
 
 ;;============================================================
 ;; integrate Mobile Org using Dropbox
