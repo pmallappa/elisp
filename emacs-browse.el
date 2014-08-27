@@ -12,12 +12,10 @@
   (cond 
    ((string-equal system-type "darwin")
     (shell-command
-     (concat "/usr/bin/open -a " browser " "
-             (parse-url url))))
+     (concat "/usr/bin/open -a " browser " " (parse-url url))))
    ((string-equal system-type "windows-nt")
-    (w32-shell-execute "open" browser " "
-             (parse-url url)))))
-
+    (w32-shell-execute "open" browser (parse-url url)))
+   ))
 
 ;; set the maximum number of characters permitted in the suggested URL when
 ;; prompting (default is 40)
@@ -50,5 +48,9 @@ Local or Remote (web-based) copies available"
   (interactive)
     (w3m-goto-url "http://www.htmlhelp.com/reference/html40/"))
 
+(defun gmail ()
+  "Load the gmail page into the chrome browser"
+  (interactive)
+  (cmBrowse CHROME_PRG "https://mail.google.com"))
 
 (provide 'emacs-browse)
