@@ -67,7 +67,7 @@
       org-tags-column -100
       org-use-fast-todo-selection t
       org-confirm-elisp-link-function `y-or-n-p
-      org-attach-directory "/Users/cmcmahan/org/data/")
+      org-attach-directory (concat HOME_DIR "/org/data"))
  
 ;;============================================================
 ;; Set up org files

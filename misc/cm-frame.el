@@ -140,6 +140,13 @@ determined by `is-right-monitor`"
   (set-enlarged-on)
   (frame-adjust))
 
+(defun toggle-frame-enlarge()
+  "Toggle frame state from enlarged to standard"
+  (interactive)
+  (if (is-enlarged)
+      (frame-shrink)
+    (frame-enlarge)))
+
 (defun frame-shrink()
   "Adjust the frame size to a width of `MY_DEFAULT_WIDTH' and
 move to the right side of the screen"
@@ -183,7 +190,7 @@ With prefix argument ARG, include proportional fonts"
 ;;   gnu.emacs.help / 18 Mar 2005 16:30:32 -0800
 (make-variable-frame-local 'my-frame-state)
 
-(defun my-frame-maximize ()
+(defun frame-maximize ()
   "Maximize Emacs window"
   (interactive)
   (modify-frame-parameters nil '((my-frame-state . 't)))
@@ -191,7 +198,7 @@ With prefix argument ARG, include proportional fonts"
        (frame-enlarge)
      (w32-send-sys-command ?\xf030)))
 
- (defun my-frame-restore ()
+ (defun frame-restore ()
    "Restore Emacs window in Win32"
    (interactive)
    (modify-frame-parameters nil '((my-frame-state . nil)))
@@ -199,12 +206,12 @@ With prefix argument ARG, include proportional fonts"
        (frame-shrink)
      (w32-send-sys-command ?\xF120)))
 
-(defun my-frame-toggle ()
+(defun toggle-frame-maximize ()
   "Maximize/Restore Emacs frame based on `my-frame-state'"
   (interactive)
   (if (cdr (assoc 'my-frame-state (frame-parameters)))
-	  (my-frame-restore)
-    (my-frame-maximize)))
+	  (frame-restore)
+    (frame-maximize)))
 
 ;;;_.======================================================================
 ;;;_. Toggle 2 windows between vertical and horizontal split
@@ -212,7 +219,7 @@ With prefix argument ARG, include proportional fonts"
 ;;Subject: Re: Toggle between Vertical and Horizontal Windows Splitting
 ;;Newsgroups: gnu.emacs.help
 ;;Date: Fri, 14 Nov 2008 14:54:46 +0100
-(defun my-toggle-window-split ()
+(defun toggle-window-split ()
   "Vertical split shows more of each line, horizontal split shows
 more lines. This code toggles between them. It only works for
 frames with exactly two windows."

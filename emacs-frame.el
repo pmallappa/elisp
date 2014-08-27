@@ -19,10 +19,9 @@
 
 (global-set-key (kbd "C-c f a") 'frame-adjust)
 (global-set-key (kbd "C-c f s") 'frame-shrink)
-(global-set-key (kbd "C-c f e") 'frame-enlarge)
-(global-set-key (kbd "C-c f f") 'my-frame-toggle)
-(global-set-key (kbd "C-c f |") 'my-toggle-window-split)
-
+(global-set-key (kbd "C-c f e") 'toggle-frame-enlarge)
+(global-set-key (kbd "C-c f f") 'toggle-frame-maximize)
+(global-set-key (kbd "C-c f |") 'toggle-window-split)
 
 ;;; ======================================================================
 ;; misc settings

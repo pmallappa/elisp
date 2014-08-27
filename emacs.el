@@ -121,6 +121,8 @@
 ;; Set the fonts
 ;; the default font is set in .emacs, the fixed-font should match this
 (load-theme 'zenburn t)
+(set-face-background 'hl-line "#282828")
+
 (if (eq system-type 'darwin)
     (progn
       (set-face-font 'default "Bitstream Vera Sans Mono-13")
@@ -130,7 +132,7 @@
     (progn
       (set-face-font 'default "Lucida Sans Typewriter-10")
       (set-face-font 'variable-pitch "Lucida Sans-10")
-;      (set-face-font 'default "Lucida Sans Typewriter-8")
+;      (set-face-font 'default "Consolas-9")
 ;      (set-face-font 'variable-pitch "Lucida Sans-8")
       (copy-face 'default 'fixed-pitch)))
 
