@@ -49,6 +49,9 @@
 ; use tabs at the top of the w3m buffer
 (setq w3m-use-tab nil)
 
+; get rid of the stinking bold fonts!
+(add-hook 'w3m-mode-hook 'clean-fonts)
+
 ;;; various bullet and quote characters to substitute
 ;(standard-display-ascii ?\225 [?+])
 ;(standard-display-ascii ?\221 [?\'])

@@ -13,7 +13,7 @@
 (setq org-hide-leading-stars t)
 
 ;; hide underline and bold fonts
-(eval-after-load "org" '(cleanFonts))
+(eval-after-load "org" '(clean-fonts))
 
 ;;============================================================
 ;; Set the return key to activate a link

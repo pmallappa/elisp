@@ -118,11 +118,21 @@
         (alpha 100 100)))     ; focus background
 
 ;;======================================================================
-;; Set the fonts
+;; Set the colors
 ;; the default font is set in .emacs, the fixed-font should match this
 (load-theme 'zenburn t)
-(set-face-background 'hl-line "#282828")
+;; tweak the theme. See the variable `zenburn-colors-alist' for color pallet
+(set-face-foreground 'default "#d0d0c0")
+(set-face-background 'region  "#656555")
+(set-face-foreground 'isearch "#ffffef")
+(set-face-background 'isearch "#d0bf8f")
+(set-face-background 'lazy-highlight "#656555")
 
+;; set the fringe background to match the default background color
+(set-face-background 'fringe (face-attribute 'default :background))
+
+;;======================================================================
+;; Set the fonts
 (if (eq system-type 'darwin)
     (progn
       (set-face-font 'default "Bitstream Vera Sans Mono-13")
@@ -162,16 +172,11 @@
 ;;======================================================================
 ;; Eye candy
 
-;;==============================
-;; Enable linumbers in the left margin
-;; use M-x linum-mode to toggle
 (load-library "linum")
+(set-face-foreground 'linum   "#5f7f5f")
 
 (defalias 'toggle-line-numbers
   (read-kbd-macro "M-x linum-mode"))
-
-;; set the fringe background to match the default background color
-(set-face-background 'fringe (face-attribute 'default :background))
 
 ;; I don't like bold/underline fonts
 (set-face-bold-p 'bold nil)
