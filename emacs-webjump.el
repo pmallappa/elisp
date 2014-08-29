@@ -24,11 +24,9 @@
      ("navy federal"      . "http://myaccounts.navyfcu.org")
      ("nko"               . "https://wwwa.nko.navy.mil")
      ("navy navift"       . "http://www.npc.navy.mil/CareerInfo/PerformanceEvaluation/SoftwareForms/")
-     ("navy prims"        . "https://prims2008.bol.navy.mil/") ; log into PRIMS for PARFQ and PRT info. Go through Bupers Online if you have problems
      ("navy pay"          . "https://myPay.dfas.mil")
      ("navy reserve"      . "https://navyreserve.navy.mil")
      ("navy uniforms"     . "https://www.navy-nex.com/")
-     ("pandora radio"     . "http://pandora.com/") ; pandora customized internet music streams. Build by composer. Lots of classical!!
      ("patent"            . "http://www.google.com/patents?vid=USPAT6029175&id=esMDAAAAEBAJ&pg=PA3&dq=6,029,175#v=onepage&q&f=false")
      ("scrabble"          . "http://www.scrabble-word-finder.com/scrabble-solver.html")
      ("snopes"            . "http://www.snopes.com")
@@ -36,14 +34,12 @@
      ("stevebrownpd"      . "http://feeds.feedburner.com/sbetcpodcast")
      ("trina site"        . "http://thegregoryfamily.blogspot.com/")
      ("turbotax"          . "http://turbotax.intuit.com")
-     ("turboTaxDeductible". "https://itsdeductibleonline.intuit.com/")
      ("USAA"              . "http://www.usaa.com")
      ("weather radar"     . "http://radar.weather.gov/radar.php?rid=iln&product=N0R&overlay=11101111&loop=no")
      ("weather"           . "http://www.wunderground.com/US/OH/Twenty_Mile_Stand.html")
      ("wguc"              . "http://www.wguc.org/")
-     ("wkrc stream"       . "http://www.55krc.com/cc-common/streaming_new/index.html?refreshed=yes")
      ("wkrc"              . "http://www.55krc.com/")
-     ("wlw"               . "http://www.700wlw.com/")
+     ("wkrc stream"       . "http://www.iheart.com/live/55KRC-1709/?cid=main.html&pname=1196&campid=play_bar&autoplay=true")
 
      ;; emacs
      ("emacs org-mode"    . "http://orgmode.org/index.html")
