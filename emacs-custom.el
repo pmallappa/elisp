@@ -5,7 +5,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("c:/cygwin/home/ndr5mz/org/fun.org" "c:/cygwin/home/ndr5mz/org/journal.org" "c:/cygwin/home/ndr5mz/org/vtu.org" "c:/cygwin/home/ndr5mz/org/reference.org"))))
+)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

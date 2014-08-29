@@ -135,7 +135,9 @@
       (copy-face 'default 'fixed-pitch)))
 
 ;; Fix the UI
-(setq visible-bell t)
+(setq visible-bell nil)
+(setq ring-bell-visible nil)
+
 (set-scroll-bar-mode nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
