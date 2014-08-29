@@ -195,7 +195,7 @@ With prefix argument ARG, include proportional fonts"
   (interactive)
   (modify-frame-parameters nil '((my-frame-state . 't)))
    (if (eq system-type 'darwin)
-       (frame-enlarge)
+       (toggle-frame-fullscreen)
      (w32-send-sys-command ?\xf030)))
 
  (defun frame-restore ()
@@ -203,7 +203,7 @@ With prefix argument ARG, include proportional fonts"
    (interactive)
    (modify-frame-parameters nil '((my-frame-state . nil)))
    (if (eq system-type 'darwin)
-       (frame-shrink)
+       (toggle-frame-maximize)
      (w32-send-sys-command ?\xF120)))
 
 (defun toggle-frame-maximize ()
