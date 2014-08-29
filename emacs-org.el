@@ -13,7 +13,7 @@
 (setq org-hide-leading-stars t)
 
 ;; hide underline and bold fonts
-(eval-after-load "org" '(cleanFonts))
+(eval-after-load "org" '(clean-fonts))
 
 ;;============================================================
 ;; Set the return key to activate a link
@@ -67,7 +67,7 @@
       org-tags-column -100
       org-use-fast-todo-selection t
       org-confirm-elisp-link-function `y-or-n-p
-      org-attach-directory "/Users/cmcmahan/org/data/")
+      org-attach-directory (concat HOME_DIR "/org/data"))
  
 ;;============================================================
 ;; Set up org files
@@ -94,7 +94,34 @@
         ("Navy"       . ?n)
         ("Personal"   . ?p)
         ("Seimens"    . ?s)
+        ("crypt"      . ?c)
         ("Reference"  . ?r)))
+
+;;============================================================
+;; set up encryption within org files. Use the 'crypt' tag to encrypt the
+;; contents of the tag. This uses the emacs easypg library, so that must be
+;; installed and working as well
+(require 'org-crypt)
+(org-crypt-use-before-save-magic)
+(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+
+;; GPG key to use for encryption
+;; Either the Key ID or set to nil to use symmetric encryption.
+(setq org-crypt-key nil)
+
+;; Auto-saving does not cooperate with org-crypt.el: so you need
+;; to turn it off if you plan to use org-crypt.el quite often.
+;; Otherwise, you'll get an (annoying) message each time you
+;; start Org.
+
+;; To turn it off only locally, you can insert this:
+;;
+;; # -*- buffer-auto-save-file-name: nil; -*-
+(setq auto-save-default nil)
+
+;; To decrypt, place the cursor on the heading and execute
+;; M-x org-decrypt-entry
+
 
 ;;============================================================
 ;; Create custom agenda views
@@ -149,11 +176,11 @@
 ;;============================================================
 ;; settings to export
 
-;; Integrate docbook
-(require 'org-docbook)
-(setq org-export-docbook-xsl-fo-proc-command "/usr/local/bin/fop \"%i\" \"%o\"")
-(setq org-export-docbook-xslt-proc-command "/usr/local/bin/saxon -o:\"%o\" -s:\"%i\" -xsl:\"%s\"")
-(setq org-export-docbook-xslt-stylesheet "/usr/local/Cellar/docbook-xsl/1.78.1/docbook-xsl/fo/docbook.xsl")
+;;; Integrate docbook
+;(require 'org-docbook)
+;(setq org-export-docbook-xsl-fo-proc-command "/usr/local/bin/fop \"%i\" \"%o\"")
+;(setq org-export-docbook-xslt-proc-command "/usr/local/bin/saxon -o:\"%o\" -s:\"%i\" -xsl:\"%s\"")
+;(setq org-export-docbook-xslt-stylesheet "/usr/local/Cellar/docbook-xsl/1.78.1/docbook-xsl/fo/docbook.xsl")
 
 ;;============================================================
 ;; integrate Mobile Org using Dropbox

@@ -9,9 +9,9 @@
 ;;======================================================================
 ;; convert a string of 3 decimal numbers to hex and place the result
 ;; into the kill ring for pasting
-(defun d2h (red green blue)
+(defun rgb (red green blue)
   "Convert decimal RGB color specification to hexidecimal and insert
-  at the current point"
+at the current point"
   (interactive "nRed: 
 nGreen: 
 nBlue: ")
@@ -312,7 +312,7 @@ if its name ends in `.el' and the `.elc' file also exists."
 
 ;;======================================================================
 ;; run to eliminate bold and underline faces
-(defun cleanFonts ()
+(defun clean-fonts ()
 (interactive)
 (mapc
   (lambda (face)
@@ -415,9 +415,8 @@ paragraphs in the current region into long lines."
 
 ;; load the page in browser and save the file name to the clipboard
 ;;| filename | url |
-(fset 'loadvideo
+(fset 'loadvid
    [?\C-a tab ?\C-  ?\M-e ?\M-w tab ?\M-x ?f ?x return return])
-
 
 ;; Create a file link in org mode to the current dired file 
 ;; Two buffers showing: org file listing, and dired listing with files to link
