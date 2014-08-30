@@ -5,7 +5,10 @@
 (require 'cm-frame)
 
 ;; adjust the top position of the frame
-(setq cmframe-top-margin 10)
+(if (eq system-type 'darwin)
+    (setq cmframe-top-margin 27)
+  (setq cmframe-top-margin 10))
+
 
 ;; is there a secondary monitor to the right of the primary?
 (setq cmframe-monitor2-p 'nil)
