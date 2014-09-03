@@ -2,9 +2,7 @@
 ;; Org mode personal organizer
 
 ;; loaded and initialized from elpa packaging
-
-;;; from Sacha Chua's blog
-;;;http://sachachua.com/wp/2007/12/29/how-to-use-emacs-org-as-a-basic-day-planner/
+(setq org-export-backends (quote (ascii html md)))
 
 ;;============================================================
 ;; Set up some faces
@@ -14,6 +12,7 @@
 
 ;; hide underline and bold fonts
 (eval-after-load "org" '(clean-fonts))
+(eval-after-load "org" '(require 'ox-md nil t))
 
 ;;============================================================
 ;; Set the return key to activate a link
@@ -222,22 +221,27 @@
 ;(setq org-export-docbook-xslt-proc-command "/usr/local/bin/saxon -o:\"%o\" -s:\"%i\" -xsl:\"%s\"")
 ;(setq org-export-docbook-xslt-stylesheet "/usr/local/Cellar/docbook-xsl/1.78.1/docbook-xsl/fo/docbook.xsl")
 
-;;============================================================
-;; integrate Mobile Org using Dropbox
-;; After capturing notes or making changes on the device to your Org
-;; files, be sure to sync in MobileOrg. Then run org-mobile-pull from
-;; Emacs to integrate your changes. After integrating, you can run
-;; org-mobile-push to make sure MobileOrg has access to the latest
-;; version of your files.
+;;;============================================================
+;;; integrate Mobile Org using Dropbox
+;;; After capturing notes or making changes on the device to your Org
+;;; files, be sure to sync in MobileOrg. Then run org-mobile-pull from
+;;; Emacs to integrate your changes. After integrating, you can run
+;;; org-mobile-push to make sure MobileOrg has access to the latest
+;;; version of your files.
+;
+;;; Set to the location of your Org files on your local system
+;(setq org-directory "~/org")
+;
+;;; Set to the name of the file where new notes will be stored
+;(setq org-mobile-inbox-for-pull "~/org/flagged.org")
+;
+;;; Set to <your Dropbox root directory>/MobileOrg.
+;(setq org-mobile-directory "~/Dropbox/MobileOrg")
 
-;; Set to the location of your Org files on your local system
-(setq org-directory "~/org")
 
-;; Set to the name of the file where new notes will be stored
-(setq org-mobile-inbox-for-pull "~/org/flagged.org")
-
-;; Set to <your Dropbox root directory>/MobileOrg.
-(setq org-mobile-directory "~/Dropbox/MobileOrg")
+; good references
+; http://howardabrams.com/projects/dot-files/emacs-org.html
+; http://sachachua.com/wp/2007/12/29/how-to-use-emacs-org-as-a-basic-day-planner/
 
 
 (provide 'emacs-org)
