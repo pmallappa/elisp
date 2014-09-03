@@ -38,8 +38,9 @@
      ("weather radar"     . "http://radar.weather.gov/radar.php?rid=iln&product=N0R&overlay=11101111&loop=no")
      ("weather"           . "http://www.wunderground.com/US/OH/Twenty_Mile_Stand.html")
      ("wguc"              . "http://www.wguc.org/")
+     ("wgucstream"        . "http://cpr2.streamguys.net/wguc-nopreroll")
      ("wkrc"              . "http://www.55krc.com/")
-     ("wkrc stream"       . "http://www.iheart.com/live/55KRC-1709/?cid=main.html&pname=1196&campid=play_bar&autoplay=true")
+     ("wkrcstream"        . "http://www.iheart.com/live/55KRC-1709/?cid=main.html&pname=1196&campid=play_bar&autoplay=true")
 
      ;; emacs
      ("emacs org-mode"    . "http://orgmode.org/index.html")

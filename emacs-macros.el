@@ -367,6 +367,22 @@ Thanks to Miles Bader <miles@lsi.nec.co.jp> for this (gnus.emacs.help)"
     (shell-command "open ."))
    ))
 
+;;======================================================================
+;; WGUC Stream access
+(defun wguc ()
+  (interactive)
+  (cond
+   ((string-equal system-type "windows-nt")
+    (w32-shell-execute "open" 
+                       (concat (getenv "PROGRAMFILES") "\\VideoLAN\\VLC\\vlc.exe")
+                       "http://cpr2.streamguys.net/wguc-nopreroll"))
+   ((string-equal system-type "darwin")
+     (shell-command "open /Applications/vlc.app http://cpr2.streamguys.net/wguc-nopreroll"))))
+
+
+;;======================================================================
+;; Siemens development convenience functions
+
 
 ;;======================================================================
 ;; keyboard macro definitions.

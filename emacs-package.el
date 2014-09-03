@@ -14,7 +14,6 @@
 
 (defvar cm/packages
   '(
-    ac-js2
     auto-complete
     bm
     browse-url-dwim
@@ -22,36 +21,35 @@
     color-moccur
     csv-mode
     dash
+    display-theme
     elisp-slime-nav
     epl
     esh-help
+    frame-cmds
+    frame-fns
     git-commit-mode
-    git-gutter
+    git-gutter+
     git-rebase-mode
     git-timemachine
-    hungry-delete
     igrep
     js2-mode
-    js2-refactor
     list-utils
     magit
     markdown-mode
-    multiple-cursors
-    org
+    monokai-theme
+    paredit
     pkg-info
     popup
+    rainbow-mode-0.9
     s
-    simple-httpd
-    skewer-mode
+    skewer-mode-readme.txt
     smartparens
     starter-kit-eshell
     string-utils
-    tree-mode
     w3m
     windata
-    yasnippet
     zenburn-theme
-))
+    ))
 
 (if (eq system-type 'darwin)
     (add-to-list 'cm/packages 'exec-path-from-shell))

@@ -31,6 +31,11 @@
   (interactive)
   (cmBrowse FIREFOX_PRG url))
 
+(defun ie (&optional url)
+  "Launch the Internet Explorer browser with an optional URL."
+  (interactive)
+  (cmBrowse IE_PRG url))
+
 (defun chrm (&optional url)
   "Launch the Google Chrome browser with an optional URL."
   (interactive)

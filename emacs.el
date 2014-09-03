@@ -55,6 +55,8 @@
         "Media Player program, video and streaming audio")
       (defconst FIREFOX_PRG "/Applications/Firefox.app"
         "points to the Mozilla Firefox location")
+      (defconst SAF_PRG "/Applications/Safari/Safari.app"
+        "points to the Internet Explorer Mozilla Firefox location")
       (defconst CHROME_PRG "/Applications/Google\\ Chrome.app"
         "points to the Google Chrome browser location")
       (defconst BROWSER FIREFOX_PRG
@@ -64,8 +66,8 @@
   (progn
     (defconst MEDIA_PLAYER "c:/Program Files/Windows Media Player/wmplayer.exe"
         "Media Player program, video and streaming audio")
-    (defconst IEPRG "c:/Program Files/Internet Explorer/iexplore.exe"
-        "points to the Mozilla Firefox location")
+    (defconst IE_PRG "c:/Program Files/Internet Explorer/iexplore.exe"
+        "points to the Internet Explorer location")
     (defconst FIREFOX_PRG "c:/Program Files (x86)/Mozilla Firefox/firefox.exe"
         "points to the Mozilla Firefox location")
     (defconst CHROME_PRG "c:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
@@ -234,6 +236,7 @@
 (require 'emacs-git)          ; emacs git integration
 (require 'emacs-misc)         ; various settings
 (require 'emacs-info)         ; setting up info
+(require 'emacs-tramp)        ; remote file access
 (require 'emacs-w3m)          ; w3m web browser settings
 (require 'emacs-webjump)      ; webjump settings
 (require 'emacs-calendar)     ; calendar settings
