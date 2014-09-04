@@ -36,7 +36,7 @@
   (interactive)
   (cmBrowse IE_PRG url))
 
-(defun chrm (&optional url)
+(defun crm (&optional url)
   "Launch the Google Chrome browser with an optional URL."
   (interactive)
   (cmBrowse CHROME_PRG url))
