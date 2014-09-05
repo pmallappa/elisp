@@ -44,6 +44,9 @@
 
      ;; emacs
      ("emacs org-mode"    . "http://orgmode.org/index.html")
+     ("org manual"        . "http://orgmode.org/manual/JavaScript-support.html")
+     ("worg"              . "http://orgmode.org/worg/")
+     ("org slideshow"     . "http://orgmode.org/worg/org-info-js.html")
      ("org life"          . "http://doc.norang.ca/org-mode.html")
      ("org cookbook"      . "http://home.fnal.gov/~neilsen/notebook/orgExamples/org-examples.html")
      ("org manual"        . "http://orgmode.org/manual/index.html")
