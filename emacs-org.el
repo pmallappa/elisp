@@ -12,7 +12,6 @@
 
 ;; hide underline and bold fonts
 (eval-after-load "org" '(clean-fonts))
-(eval-after-load "org" '(require 'ox-md nil t))
 
 ;;============================================================
 ;; Set the return key to activate a link
@@ -146,7 +145,7 @@
 ;; in the shell command field. Note, emacs server must be running for
 ;; this to function correctly. I could have called emacs itself, but I
 ;; usually have it open anyway.
-;; /Applications/Emacs.app/Contents/MacOS/bin/emacsclient -e "(progn (org-store-agenda-views)) ; cat ~/.org-agenda.txt"
+;; 'emacsclient -e "(progn (org-store-agenda-views))" ; cat ~/.org-agenda.txt'
 
 ;; Set up the TODO states
 (setq org-todo-keyword-faces
@@ -213,13 +212,41 @@
     (ding))))
 
 ;;============================================================
-;; settings to export
+;; settings to export and publish
 
-;;; Integrate docbook
-;(require 'org-docbook)
-;(setq org-export-docbook-xsl-fo-proc-command "/usr/local/bin/fop \"%i\" \"%o\"")
-;(setq org-export-docbook-xslt-proc-command "/usr/local/bin/saxon -o:\"%o\" -s:\"%i\" -xsl:\"%s\"")
-;(setq org-export-docbook-xslt-stylesheet "/usr/local/Cellar/docbook-xsl/1.78.1/docbook-xsl/fo/docbook.xsl")
+;; enable markdown export
+(eval-after-load "org" '(require 'ox-md nil t))
+(eval-after-load "org" '(require 'ox-publish))
+
+;; set up the files for publishing
+(setq org-publish-project-alist
+      '(
+        ("orgfiles"
+         :base-directory "~/org" 
+         :base-extension "org"
+         :publishing-directory "~/public_html"
+         :publishing-function org-html-publish-to-html
+         :preserve-breaks t)
+        ("stylesheet"
+         :base-directory "~/org/css"
+         :base-extension "css"
+         :publishing-directory "~/public_html/css"
+         :publishing-function org-publish-attachment)
+        ("org-info-js"
+         :base-directory "~/org/org-info"
+         :base-extension "js"
+         :publishing-directory "~/public_html"
+         :publishing-function org-publish-attachment)
+;        ("markdown"
+;         :base-directory "~/org" 
+;         :base-extension "org"
+;         :publishing-directory "~/dropbox/truncsync"
+;         :publishing-function org-md-export-to-markdown
+;         :preserve-breaks t)
+        ("html"
+         :components ("orgfiles" "stylesheet" "org-info-js"))
+        ))
+
 
 ;;;============================================================
 ;;; integrate Mobile Org using Dropbox

@@ -31,19 +31,21 @@
     git-gutter+
     git-rebase-mode
     git-timemachine
+    htmlize
     igrep
     js2-mode
     list-utils
     magit
     markdown-mode
     monokai-theme
+    org
     paredit
     pkg-info
     popup
-    rainbow-mode-0.9
+    rainbow-mode
     s
-    skewer-mode-readme.txt
     smartparens
+    solarized-theme
     starter-kit-eshell
     string-utils
     w3m

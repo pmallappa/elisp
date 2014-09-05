@@ -122,13 +122,16 @@
 ;;======================================================================
 ;; Set the colors
 ;; the default font is set in .emacs, the fixed-font should match this
-(load-theme 'zenburn t)
-;; tweak the theme. See the variable `zenburn-colors-alist' for color pallet
-(set-face-foreground 'default "#d0d0c0")
-(set-face-background 'region  "#656555")
-(set-face-foreground 'isearch "#ffffef")
-(set-face-background 'isearch "#d0bf8f")
-(set-face-background 'lazy-highlight "#656555")
+
+(load-theme 'solarized-light)
+
+;(load-theme 'zenburn t)
+;;; tweak the theme. See the variable `zenburn-colors-alist' for color pallet
+;(set-face-foreground 'default "#d0d0c0")
+;(set-face-background 'region  "#656555")
+;(set-face-foreground 'isearch "#ffffef")
+;(set-face-background 'isearch "#d0bf8f")
+;(set-face-background 'lazy-highlight "#656555")
 
 ;; set the fringe background to match the default background color
 (set-face-background 'fringe (face-attribute 'default :background))
