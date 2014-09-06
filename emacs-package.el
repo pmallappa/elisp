@@ -58,16 +58,18 @@
 
 
 ;; cycle through the package list and prompt to install as necessary
-;(if (y-or-n-p-with-timeout "Check packages? " 3 nil)
-;    (progn
-;      (dolist (pkg cm/packages)
-;        (if (not (package-installed-p pkg))
-;            (progn
-;              (if (y-or-n-p (format "%s: %s " "install missing package" pkg))
-;                  (progn 
-;                    (package-install pkg)
-;                    (require pkg))))
-;          (require pkg)))))
+(defun cm-package-refresh ()
+  (interactive)
+  (if (y-or-n-p-with-timeout "Check packages? " 3 nil)
+      (progn
+	(dolist (pkg cm/packages)
+	  (if (not (package-installed-p pkg))
+	      (progn
+		(if (y-or-n-p (format "%s: %s " "install missing package" pkg))
+		    (progn 
+		      (package-install pkg)
+		      (require pkg))))
+	    (require pkg))))))
 
 ;; Change the width of the package list displayed. Currently doing this by
 ;; redefining the entire method. Long term would be to introduce a patch to

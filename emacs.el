@@ -140,8 +140,8 @@
 ;; Set the fonts
 (if (eq system-type 'darwin)
     (progn
-      (set-face-font 'default "Bitstream Vera Sans Mono-13")
-      (set-face-font 'variable-pitch "Verdana-13")
+      (set-face-font 'default "Bitstream Vera Sans Mono-14")
+      (set-face-font 'variable-pitch "Verdana-14")
       (copy-face 'default 'fixed-pitch)))
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
