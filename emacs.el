@@ -123,20 +123,27 @@
 ;; Set the colors
 ;; the default font is set in .emacs, the fixed-font should match this
 
-;; whiteboard theme
-;(load-theme 'whiteboard)
+; solarized light theme
+(load-theme 'solarized-light)
+;; modified solarized.el to change darken the default colors
+;; background highlight light
+;(s-base2     "#eee8d5") ; original
+;(s-base2     "#ded8c5")
+;; background light
+;(s-base3     "#fdf6e3") ;original
+;(s-base3     "#ede6d3")
+(set-face-foreground 'ediff-fine-diff-A "black")
+(set-face-foreground 'ediff-fine-diff-B "black")
+(set-face-background 'mode-line-inactive (face-attribute 'mode-line :background))
 
-;; solarized light theme
-;(load-theme 'solarized-light)
-
-; zenburn themem
-; tweak the theme. See the variable `zenburn-colors-alist' for color pallet
-(load-theme 'zenburn t)
-(set-face-foreground 'default "#d0d0c0")
-(set-face-background 'region  "#656555")
-(set-face-foreground 'isearch "#ffffef")
-(set-face-background 'isearch "#d0bf8f")
-(set-face-background 'lazy-highlight "#656555")
+;; zenburn theme
+;; tweak the theme. See the variable `zenburn-colors-alist' for color pallet
+;(load-theme 'zenburn t)
+;(set-face-foreground 'default "#d0d0c0")
+;(set-face-background 'region  "#656555")
+;(set-face-foreground 'isearch "#ffffef")
+;(set-face-background 'isearch "#d0bf8f")
+;(set-face-background 'lazy-highlight "#656555")
 
 ;; set the fringe background to match the default background color
 (set-face-background 'fringe (face-attribute 'default :background))
@@ -150,10 +157,10 @@
       (copy-face 'default 'fixed-pitch)))
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
-      (set-face-font 'default "Lucida Sans Typewriter-10")
-      (set-face-font 'variable-pitch "Lucida Sans-10")
-;      (set-face-font 'default "Consolas-9")
-;      (set-face-font 'variable-pitch "Lucida Sans-8")
+;      (set-face-font 'default "Lucida Sans Typewriter-10")
+;      (set-face-font 'variable-pitch "Lucida Sans-10")
+      (set-face-font 'default "Consolas-9")
+      (set-face-font 'variable-pitch "Lucida Sans-8")
       (copy-face 'default 'fixed-pitch)))
 
 ;; Fix the UI
@@ -185,7 +192,6 @@
 ;; Eye candy
 
 (load-library "linum")
-(set-face-foreground 'linum   "#5f7f5f")
 
 (defalias 'toggle-line-numbers
   (read-kbd-macro "M-x linum-mode"))
