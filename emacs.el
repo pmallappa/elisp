@@ -123,15 +123,20 @@
 ;; Set the colors
 ;; the default font is set in .emacs, the fixed-font should match this
 
-(load-theme 'solarized-light)
+;; whiteboard theme
+;(load-theme 'whiteboard)
 
-;(load-theme 'zenburn t)
-;;; tweak the theme. See the variable `zenburn-colors-alist' for color pallet
-;(set-face-foreground 'default "#d0d0c0")
-;(set-face-background 'region  "#656555")
-;(set-face-foreground 'isearch "#ffffef")
-;(set-face-background 'isearch "#d0bf8f")
-;(set-face-background 'lazy-highlight "#656555")
+;; solarized light theme
+;(load-theme 'solarized-light)
+
+; zenburn themem
+; tweak the theme. See the variable `zenburn-colors-alist' for color pallet
+(load-theme 'zenburn t)
+(set-face-foreground 'default "#d0d0c0")
+(set-face-background 'region  "#656555")
+(set-face-foreground 'isearch "#ffffef")
+(set-face-background 'isearch "#d0bf8f")
+(set-face-background 'lazy-highlight "#656555")
 
 ;; set the fringe background to match the default background color
 (set-face-background 'fringe (face-attribute 'default :background))
@@ -203,7 +208,7 @@
 (column-number-mode 1)
 
 ; buffer-name completion for C-x b; makes life much easier.
-(iswitchb-mode 1)
+;(iswitchb-mode 1)
 
 ;;=====================================================================
 ;; load path for various single-file packages
