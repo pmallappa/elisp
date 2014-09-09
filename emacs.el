@@ -127,11 +127,12 @@
 (load-theme 'solarized-light)
 ;; modified solarized.el to change darken the default colors
 ;; background highlight light
-;(s-base2     "#eee8d5") ; original
+;(s-base2     "#eee8d5") ; original background color
 ;(s-base2     "#ded8c5")
 ;; background light
 ;(s-base3     "#fdf6e3") ;original
 ;(s-base3     "#ede6d3")
+(set-face-background 'hl-line "#e7dfcc")
 (set-face-foreground 'ediff-fine-diff-A "black")
 (set-face-foreground 'ediff-fine-diff-B "black")
 (set-face-background 'mode-line-inactive (face-attribute 'mode-line :background))

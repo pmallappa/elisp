@@ -221,30 +221,20 @@
 ;; set up the files for publishing
 (setq org-publish-project-alist
       '(
-        ("orgfiles"
+        ("org-files"
          :base-directory "~/org" 
          :base-extension "org"
          :publishing-directory "~/public_html"
          :publishing-function org-html-publish-to-html
          :preserve-breaks t)
-        ("stylesheet"
-         :base-directory "~/org/css"
-         :base-extension "css"
-         :publishing-directory "~/public_html/css"
+        ("org-static"
+         :base-directory "~/org/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory "~/public_html/"
+         :recursive t
          :publishing-function org-publish-attachment)
-        ("org-info-js"
-         :base-directory "~/org/org-info"
-         :base-extension "js"
-         :publishing-directory "~/public_html"
-         :publishing-function org-publish-attachment)
-;        ("markdown"
-;         :base-directory "~/org" 
-;         :base-extension "org"
-;         :publishing-directory "~/dropbox/truncsync"
-;         :publishing-function org-md-export-to-markdown
-;         :preserve-breaks t)
-        ("html"
-         :components ("orgfiles" "stylesheet" "org-info-js"))
+        ("org"
+         :components ("org-files" "org-static"))
         ))
 
 
