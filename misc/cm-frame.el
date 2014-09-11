@@ -107,7 +107,7 @@ If the size of the frame exceeds the screen width, shrink to fit the screen"
   ; take the fringe on either side into account
   (* (+ 2 columns) (frame-char-width)))
 
-(defun frame-adjust()
+(defun cmframe-frame-adjust()
   "Resize the frame size to an enlarged or standard size, based
 on the status returned by `is-enlarged', and move to the screen
 determined by `is-right-monitor`"
@@ -145,25 +145,25 @@ determined by `is-right-monitor`"
 
 ;;;_.======================================================================
 ;;;_. define the interactive frame functions
-(defun frame-enlarge()
+(defun cmframe-frame-enlarge()
   "Adjust the frame size to fill the current screen"
   (interactive)
   (set-enlarged-on)
-  (frame-adjust))
+  (cmframe-frame-adjust))
 
-(defun toggle-frame-enlarge()
+(defun cmframe-toggle-frame-enlarge()
   "Toggle frame state from enlarged to standard"
   (interactive)
   (if (is-enlarged)
-      (frame-shrink)
-    (frame-enlarge)))
+      (cmframe-frame-shrink)
+    (cmframe-frame-enlarge)))
 
-(defun frame-shrink()
+(defun cmframe-frame-shrink()
   "Adjust the frame size to a width of `MY_DEFAULT_WIDTH' and
 move to the right side of the screen"
   (interactive)
   (set-enlarged-off)
-  (frame-adjust))
+  (cmframe-frame-adjust))
 
 (defun frame-right()
   "Move the frame to the right monitor while maintaining its size
@@ -174,7 +174,7 @@ If the variable `cmframe-monitor2-p' is nil, the frame will remain on the left."
   (if (eq cmframe-monitor2-p t)
       (progn 
       (set-monitor-right)
-      (frame-adjust))
+      (cmframe-frame-adjust))
     (progn
       (message "No Secondary Monitor")
       (sit-for 3)
@@ -185,7 +185,7 @@ If the variable `cmframe-monitor2-p' is nil, the frame will remain on the left."
 its size (relative to the screen)"
   (interactive)
   (set-monitor-left)
-  (frame-adjust))
+  (cmframe-frame-adjust))
 
 ;;;_.======================================================================
 ;;;_. function to set current font and resize frame
@@ -194,14 +194,14 @@ its size (relative to the screen)"
 With prefix argument ARG, include proportional fonts"
   (interactive)
   (menu-set-font)
-  (frame-adjust))
+  (cmframe-frame-adjust))
 
 ;;;_.======================================================================
 ;;;_. Frame max toggle - From: "rgb" <rbielaws@i1.net> /
 ;;   gnu.emacs.help / 18 Mar 2005 16:30:32 -0800
 (make-variable-frame-local 'my-frame-state)
 
-(defun frame-maximize ()
+(defun cmframe-frame-maximize ()
   "Maximize Emacs window"
   (interactive)
   (modify-frame-parameters nil '((my-frame-state . 't)))
@@ -209,20 +209,20 @@ With prefix argument ARG, include proportional fonts"
        (toggle-frame-fullscreen)
      (w32-send-sys-command ?\xf030)))
 
- (defun frame-restore ()
+(defun cmframe-frame-restore ()
    "Restore Emacs window in Win32"
    (interactive)
    (modify-frame-parameters nil '((my-frame-state . nil)))
    (if (eq system-type 'darwin)
-       (toggle-frame-maximize)
+       (cmframe-toggle-frame-maximize)
      (w32-send-sys-command ?\xF120)))
 
-(defun toggle-frame-maximize ()
+(defun cmframe-toggle-frame-maximize ()
   "Maximize/Restore Emacs frame based on `my-frame-state'"
   (interactive)
   (if (cdr (assoc 'my-frame-state (frame-parameters)))
-	  (frame-restore)
-    (frame-maximize)))
+	  (cmframe-frame-restore)
+    (cmframe-frame-maximize)))
 
 ;;;_.======================================================================
 ;;;_. Toggle 2 windows between vertical and horizontal split
@@ -230,7 +230,7 @@ With prefix argument ARG, include proportional fonts"
 ;;Subject: Re: Toggle between Vertical and Horizontal Windows Splitting
 ;;Newsgroups: gnu.emacs.help
 ;;Date: Fri, 14 Nov 2008 14:54:46 +0100
-(defun toggle-window-split ()
+(defun cmframe-toggle-window-split ()
   "Vertical split shows more of each line, horizontal split shows
 more lines. This code toggles between them. It only works for
 frames with exactly two windows."
@@ -261,13 +261,15 @@ frames with exactly two windows."
 
 ;;; ======================================================================
 ;;; set the keys for the frame functions
-;(global-set-key "\C-cfa" 'frame-adjust)
-;(global-set-key "\C-cfs" 'frame-shrink)
-;(global-set-key "\C-cfe" 'frame-enlarge)
-;(global-set-key "\C-cfl" 'frame-left)
-;(global-set-key "\C-cfr" 'frame-right)
-;(global-set-key "\C-cfm" 'my-frame-toggle)
-;(global-set-key "\C-cf|" 'my-toggle-window-split)
+;(global-set-key (kbd "C-c f a") 'cmframe-frame-adjust)
+;(global-set-key (kbd "C-c f s") 'cmframe-frame-shrink)
+;(global-set-key (kbd "C-c f e") 'cmframe-toggle-frame-enlarge)
+;(global-set-key (kbd "C-c f m") 'cmframe-toggle-frame-maximize)
+;(global-set-key (kbd "C-c f t") 'cmframe-toggle-window-split)
+;(if (and (>= emacs-major-version 24)
+;         (>= emacs-minor-version 4))
+;    (global-set-key (kbd "C-c f f") 'toggle-frame-fullscreen)
+;  (global-set-key (kbd "C-c f f") 'cmframe-toggle-frame-maximize))
 
 (provide 'cm-frame)
 

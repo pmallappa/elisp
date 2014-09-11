@@ -20,11 +20,15 @@
 ; set the right margin (add window manager space here as well)
 (setq cmframe-right-margin 15)
 
-(global-set-key (kbd "C-c f a") 'frame-adjust)
-(global-set-key (kbd "C-c f s") 'frame-shrink)
-(global-set-key (kbd "C-c f e") 'toggle-frame-enlarge)
-(global-set-key (kbd "C-c f f") 'toggle-frame-maximize)
-(global-set-key (kbd "C-c f |") 'toggle-window-split)
+(global-set-key (kbd "C-c f a") 'cmframe-frame-adjust)
+(global-set-key (kbd "C-c f s") 'cmframe-frame-shrink)
+(global-set-key (kbd "C-c f e") 'cmframe-toggle-frame-enlarge)
+(global-set-key (kbd "C-c f m") 'cmframe-toggle-frame-maximize)
+(global-set-key (kbd "C-c f t") 'cmframe-toggle-window-split)
+(if (and (>= emacs-major-version 24)
+         (>= emacs-minor-version 4))
+    (global-set-key (kbd "C-c f f") 'toggle-frame-fullscreen)
+  (global-set-key (kbd "C-c f f") 'cmframe-toggle-frame-maximize))
 
 ;;; ======================================================================
 ;; misc settings
@@ -48,7 +52,7 @@
 ;; adjust the frame to fit the current resolution on launching
 ;(add-hook 'after-make-frame-functions 'my-screen-right)
 ;(add-hook 'window-setup-hook 'my-screen-right)
-(run-with-idle-timer 0.1 nil 'frame-adjust)
+(run-with-idle-timer 0.1 nil 'cmframe-frame-adjust)
 
 (provide 'emacs-frame)
 

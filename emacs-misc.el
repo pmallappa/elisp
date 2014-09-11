@@ -32,10 +32,8 @@
 (setq c-basic-offset 4)
 
 ;; use tabs for indentation (t)
-(setq-default indent-tabs-mode nil
-	      fill-column 76
-	      split-width-threshold 100)
-
+(setq-default indent-tabs-mode nil)
+(setq-default fill-column 76)
 
 ;; Replace 'yes' and 'no' with 'y' and 'n'
 ;(fset 'yes-or-no-p 'y-or-n-p)
@@ -131,8 +129,8 @@
 (put 'downcase-region 'disabled nil)
 
 ;;======================================================================
-;; Set threshold to split horizontally
-(setq split-width-threshold nil)
+;; Sensibly split windows horizontally column threshold
+(setq split-width-threshold 160)
 
 ;;======================================================================
 ;; Enable the commands `narrow-to-region' ("C-x n n") and
