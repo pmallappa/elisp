@@ -48,7 +48,6 @@
 ;; adjust the frame to fit the current resolution on launching
 ;(add-hook 'after-make-frame-functions 'my-screen-right)
 ;(add-hook 'window-setup-hook 'my-screen-right)
-;(add-hook 'window-setup-hook 'frame-adjust t)
 (run-with-idle-timer 0.1 nil 'frame-adjust)
 
 (provide 'emacs-frame)

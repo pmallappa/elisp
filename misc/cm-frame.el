@@ -1,11 +1,22 @@
 ;;;_.======================================================================
 ;;;_. set the frame variables and support functions
 
+;; to get the width of the main monitor on 24.4
+;;(nth 4 (assq 'geometry (car (display-monitor-attributes-list))))
+
+(defun cm-display-pixel-width ()
+  "Return width of current display"
+  ; emacs 24.4 changed the return value of display-pixel-width
+  (if (and (>= emacs-major-version 24)
+           (>= emacs-minor-version 4))
+      (nth 3 (assq 'geometry (frame-monitor-attributes)))
+    (display-pixel-width)))
+
 (defvar cmframe-monitor2-p 'nil
   "Indicates whether a secondary monitor is active to the right
 of the primary monitor. Set to 't to indicate a monitor, 'nil otherwise")
 
-(defvar cmframe-monitor2-width (display-pixel-width)
+(defvar cmframe-monitor2-width (cm-display-pixel-width)
   "Width (in pixels) of the secondary monitor on a two-monitor
 display, set to the right of the primary display. The
 dimensions of the primary monitor (on the left) are retrieved
@@ -109,7 +120,7 @@ determined by `is-right-monitor`"
    (get-frame-width 
     (if (is-right-monitor)
         cmframe-monitor2-width
-      (display-pixel-width)))
+      (cm-display-pixel-width)))
 
    (get-frame-height
     (if (is-right-monitor)
@@ -124,12 +135,12 @@ determined by `is-right-monitor`"
 (defun frame-position-left ()
   (-
       (if (is-right-monitor)
-          (+ (display-pixel-width)
+          (+ (cm-display-pixel-width)
              (- cmframe-monitor2-width 
                 (cols-to-pixels (get-frame-width cmframe-monitor2-width))))
         ; left monitor
-        (- (display-pixel-width)
-           (cols-to-pixels (get-frame-width (display-pixel-width)))))
+        (- (cm-display-pixel-width)
+           (cols-to-pixels (get-frame-width (cm-display-pixel-width)))))
       cmframe-horizontal-margin))
 
 ;;;_.======================================================================
