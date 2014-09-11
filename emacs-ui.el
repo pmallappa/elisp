@@ -70,8 +70,8 @@
 (load-theme 'solarized-light t nil)
 (set-face-background 'hl-line "#f3ecd9")
 (set-face-background 'mode-line-inactive (face-attribute 'mode-line :background))
-(set-face-foreground 'ediff-fine-diff-A "black")
-(set-face-foreground 'ediff-fine-diff-B "black")
+(set-face-foreground 'ediff-fine-diff-A "gray30")
+(set-face-foreground 'ediff-fine-diff-B "gray30")
 
 ;; zenburn theme
 ;; tweak the theme. See the variable `zenburn-colors-alist' for color pallet

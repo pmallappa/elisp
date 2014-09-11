@@ -29,10 +29,19 @@
 (setq ediff-split-window-function 'split-window-horizontally)
 
 (defun local-ediff-before-setup-hook ()
+  (setq local-ediff-saved-frame-configuration (current-frame-configuration))
+  (setq local-ediff-saved-window-configuration (current-window-configuration))
   ;; (local-ediff-frame-maximize)
   (if git-mergetool-emacsclient-ediff-active
-      (raise-frame))
-  )
+      (raise-frame)))
+
+(defun local-ediff-quit-hook ()
+  (set-frame-configuration local-ediff-saved-frame-configuration)
+  (set-window-configuration local-ediff-saved-window-configuration))
+
+(defun local-ediff-suspend-hook ()
+  (set-frame-configuration local-ediff-saved-frame-configuration)
+  (set-window-configuration local-ediff-saved-window-configuration))
 
 (add-hook 'ediff-before-setup-hook 'local-ediff-before-setup-hook)
 (add-hook 'ediff-quit-hook 'local-ediff-quit-hook 'append)
