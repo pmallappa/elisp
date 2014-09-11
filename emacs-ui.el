@@ -37,6 +37,7 @@
 (add-hook 'org-agenda-mode-hook 'fixed-pitch-mode)
 (add-hook 'shell-mode-hook 'fixed-pitch-mode)
 (add-hook 'eshell-mode-hook 'fixed-pitch-mode)
+(add-hook 'bs-mode-hook 'fixed-pitch-mode)
 
 ;;======================================================================
 ;; Eye candy
@@ -68,14 +69,18 @@
 
 ; solarized light theme
 (load-theme 'solarized-light t nil)
-(set-face-background 'hl-line "#f3ecd9")
+(set-face-background 'default "#f8f4e9")
+(set-face-background 'fringe (face-attribute 'default :background))
 (set-face-background 'mode-line-inactive (face-attribute 'mode-line :background))
+(set-face-foreground 'mode-line "gray30")
+(set-face-background 'mode-line "#e0dcd1")
+(set-face-background 'hl-line "#f0ece1")
 (set-face-foreground 'ediff-fine-diff-A "gray30")
 (set-face-foreground 'ediff-fine-diff-B "gray30")
 
 ;; zenburn theme
 ;; tweak the theme. See the variable `zenburn-colors-alist' for color pallet
-;(load-theme 'zenburn t)
+;(load-theme 'zenburn t nil)
 ;(set-face-foreground 'default "#d0d0c0")
 ;(set-face-background 'region  "#656555")
 ;(set-face-foreground 'isearch "#ffffef")
