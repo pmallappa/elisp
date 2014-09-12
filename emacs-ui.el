@@ -74,6 +74,8 @@
 (set-face-foreground 'ediff-fine-diff-A "gray30")
 (set-face-foreground 'ediff-fine-diff-B "gray30")
 (set-face-background 'fringe (face-attribute 'default :background))
+(set-face-foreground 'eshell-prompt-face "IndianRed4")
+(set-face-background 'eshell-prompt (face-attribute 'default :background))
 
 (set-face-attribute 'org-agenda-date nil
                     :box '(:color "ivory2")
