@@ -67,16 +67,29 @@
 ;;======================================================================
 ;; Theme
 
-; solarized light theme
+; highly customized solarized light theme
 (load-theme 'solarized-light t nil)
-(set-face-background 'default "#f8f4e9")
-(set-face-background 'fringe (face-attribute 'default :background))
-(set-face-background 'mode-line-inactive (face-attribute 'mode-line :background))
-(set-face-foreground 'mode-line "gray30")
-(set-face-background 'mode-line "#e0dcd1")
-(set-face-background 'hl-line "#f0ece1")
+(set-face-background 'default "ivory2")
+(set-face-background 'hl-line "cornsilk2")
 (set-face-foreground 'ediff-fine-diff-A "gray30")
 (set-face-foreground 'ediff-fine-diff-B "gray30")
+(set-face-background 'fringe (face-attribute 'default :background))
+
+(set-face-attribute 'org-agenda-date nil
+                    :box '(:color "ivory2")
+                    :background (face-attribute 'default :background))
+
+(set-face-attribute 'org-agenda-structure nil
+                    :box (face-attribute 'org-agenda-date :box)
+                    :box (face-attribute 'default :background))
+
+(set-face-attribute 'mode-line nil
+                    :box '(:line-width 1 :style released-button)
+                    :background "cornsilk1")
+
+(set-face-attribute 'mode-line-inactive nil
+                    :box '(:line-width 1 :style released-button)
+                    :background "ivory3")
 
 ;; zenburn theme
 ;; tweak the theme. See the variable `zenburn-colors-alist' for color pallet
