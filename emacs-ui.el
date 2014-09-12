@@ -77,6 +77,8 @@
 (set-face-background 'hl-line "#f0ece1")
 (set-face-foreground 'ediff-fine-diff-A "gray30")
 (set-face-foreground 'ediff-fine-diff-B "gray30")
+(set-face-foreground 'eshell-prompt-face "IndianRed4")
+(set-face-background 'eshell-prompt (face-attribute 'default :background))
 
 ;; zenburn theme
 ;; tweak the theme. See the variable `zenburn-colors-alist' for color pallet
