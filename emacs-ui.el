@@ -7,8 +7,8 @@
 ;; Set the fonts
 (if (eq system-type 'darwin)
     (progn
-      (set-face-font 'default "Bitstream Vera Sans Mono-14")
-      (set-face-font 'variable-pitch "Verdana-14")
+      (set-face-font 'default "Bitstream Vera Sans Mono-12")
+      (set-face-font 'variable-pitch "Verdana-12")
       (copy-face 'default 'fixed-pitch)))
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
@@ -92,15 +92,6 @@
 (set-face-attribute 'mode-line-inactive nil
                     :box '(:line-width 1 :style released-button)
                     :background "ivory3")
-
-;; zenburn theme
-;; tweak the theme. See the variable `zenburn-colors-alist' for color pallet
-;(load-theme 'zenburn t nil)
-;(set-face-foreground 'default "#d0d0c0")
-;(set-face-background 'region  "#656555")
-;(set-face-foreground 'isearch "#ffffef")
-;(set-face-background 'isearch "#d0bf8f")
-;(set-face-background 'lazy-highlight "#656555")
 
 ;; set the fringe background to match the default background color
 (set-face-background 'fringe (face-attribute 'default :background))
