@@ -26,13 +26,13 @@
 (setq org-capture-templates
       '(("t" "Todo" entry
          (file+olp "~/org/journal.org" "Tasks")
-         "* TODO %^{Task Description} %^g\n  Added: %U\n  %?\n  %a\n")
+         "* TODO %^{Task Description} %^g\n  Added:  %U\n  %?\n  %a\n")
         ("a" "Appointment" entry
          (file+olp "~/org/journal.org" "Appointments")
-         "* %^{Appt Description} %^T %^g\n  %i%?\n  %a\n")
+         "* %^{Appt Description}  %^g\n  %T\n  %i%?\n  %a\n")
         ("n" "Note" entry
          (file+olp "~/org/journal.org" "Notes")
-         "* %^{Note Description} %^g\n %T\n  %i%?\n  %a\n")
+         "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
 
         ;; Siemens entries
         ("s" "Siemens")
@@ -41,10 +41,10 @@
          "* TODO %^{Task Description} %^g\n  Added: %U\n  %?\n  %a\n")
         ("sa" "Appointment" entry
          (file+olp "~/org/Siemens.org" "Appointments")
-         "* %^{Appt Description} %^T %^g\n  %i%?\n  %a\n")
+         "* %^{Appt Description}  %^g\n  %T\n  %i%?\n  %a\n")
         ("sn" "Note" entry
          (file+olp "~/org/Siemens.org" "Notes")
-         "* %^{Note Description} %^g\n %T\n  %i%?\n  %a\n")
+         "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
 
         ("b" "Bill" entry
          (file+olp "~/org/journal.org" "Bills")
