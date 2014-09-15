@@ -222,11 +222,17 @@
 ;; set up the files for publishing
 (setq org-publish-project-alist
       '(
-        ("org-files"
+        ("org-html"
          :base-directory "~/org" 
          :base-extension "org"
          :publishing-directory "~/public_html"
          :publishing-function org-html-publish-to-html
+         :preserve-breaks t)
+        ("org-md"
+         :base-directory "~/org" 
+         :base-extension "org"
+         :publishing-directory "~/dropbox/trunksync"
+         :publishing-function org-md-publish-to-md
          :preserve-breaks t)
         ("org-static"
          :base-directory "~/org/"
@@ -234,8 +240,10 @@
          :publishing-directory "~/public_html/"
          :recursive t
          :publishing-function org-publish-attachment)
-        ("org"
-         :components ("org-files" "org-static"))
+        ("html"
+         :components ("org-html" "org-static"))
+        ("markdown"
+         :components ("org-md" "org-static"))
         ))
 
 

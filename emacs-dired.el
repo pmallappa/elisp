@@ -111,8 +111,8 @@
 ;; dired-x
 ;;; dired-x provides added functions to dired, including the ability
 ;;; to save a dired listing for later use as XXXXX.dired and the
-;;; ability to run vm on a dired file listing by typing "V" on the
-;;; file, "I" for info files, and so on...
+;;; ability to run modes on a dired file listing
+;;; I for info files, W for html file and so on...
 (load "dired-x")
 
 ;; Set dired-x global variables here.  For example:
@@ -127,39 +127,6 @@
 ;;; within projects!
 (setq auto-mode-alist (cons '("[^/]\\.dired$" . dired-virtual-mode) auto-mode-alist))
 
-
-;;;======================================================================
-;;; ls-lisp
-;;; load the new ls-lisp file package, which emulates the ls command
-;;; and provides a nicer format for the dired mode listings. It does
-;;; not provide accurate info on permissions and owners
-;(add-hook 'dired-load-hook
-;	  (lambda ()
-;	    (load "ls-lisp")
-;	    (require 'dired-sort-menu)))
-;
-;;; sort the dired buffer to place the directories on top (t)
-;(setq ls-lisp-dirs-first t)
-;
-;;; sort without regard to case (t)
-;(setq ls-lisp-ignore-case t)
-;
-;;; set the ls-lisp emulation for the window system. Use this to set
-;;; default values for ls-lisp-ignore-case, ls-lisp-dirs-first, and
-;;; ls-lisp-verbosity 
-;(setq ls-lisp-emulation 'MS-Windows)
-;
-;;; display the following optional file attributes
-;;(setq ls-lisp-verbosity '(links uid))
-;(setq ls-lisp-verbosity nil)
-
-;;; Use an external ls program to provide recursive listings. Also
-;;; provide more accurate information on owners and permissions. I've
-;;; encountered problems with operating on multiple marked files in a
-;;; dired buffer
-;(setq ls-lisp-use-insert-directory-program t)
-;(setq insert-directory-program (concat CYGWIN_DIR "/bin/ls"))
-;(setq dired-listing-switches "-laG")
 
 ;;======================================================================
 ;; find-dired
@@ -196,18 +163,24 @@
               "-print0 | xargs -0 -e grep -i -n -e "))
 
 ;;======================================================================
+;; dired omit mode
+;; filter out certain files and directories from within dired listing
+;; toggle with C-x M-o
+(require 'dired-x)
+(setq dired-omit-files
+      (rx (or (seq bol ".git" )    ;; git directories
+              (seq bol "CVS" eol)  ;; CVS dirs
+              (seq bol ".")
+              )))
+
+;(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+
+;;======================================================================
 ;; thumbs
 ;; An extension to dired to show thumbnails of images within a directory
 ;; M-x thumbs to generate
 (setq thumbs-relief 0)
 (setq thumbs-per-line 8)
-
-
-;;======================================================================
-;; change to fixed-pitch font for this buffer
-;(add-hook 'dired-mode-hook
-;          (lambda()
-;            (buffer-face-mode-invoke 'fixed-pitch t)))
 
 (provide 'emacs-dired)
 

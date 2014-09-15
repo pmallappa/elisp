@@ -68,9 +68,9 @@
 ;; Color Theme
 (load-theme 'sanityinc-solarized-light t nil)
 
-(if (eq system-type 'darwin)
-    (set-face-background 'default "cornsilk2")
-  (set-face-background 'default "ivory2"))
+;(if (eq system-type 'darwin)
+;    (set-face-background 'default "cornsilk2")
+;  (set-face-background 'default "ivory2"))
 
 ;(set-face-background 'fringe (face-attribute 'default :background))
 ;(set-face-foreground 'eshell-prompt-face "IndianRed4")
