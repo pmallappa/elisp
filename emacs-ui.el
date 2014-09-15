@@ -65,35 +65,36 @@
 (column-number-mode 1)
 
 ;;======================================================================
-;; Theme
+;; Color Theme
+(load-theme 'sanityinc-solarized-light t nil)
 
-; highly customized solarized light theme
-(load-theme 'solarized-light t nil)
-(set-face-background 'default "ivory2")
-(set-face-background 'hl-line "cornsilk2")
-(set-face-foreground 'ediff-fine-diff-A "gray30")
-(set-face-foreground 'ediff-fine-diff-B "gray30")
-(set-face-background 'fringe (face-attribute 'default :background))
-(set-face-foreground 'eshell-prompt-face "IndianRed4")
-(set-face-background 'eshell-prompt (face-attribute 'default :background))
-
-(set-face-attribute 'org-agenda-date nil
-                    :box '(:color "ivory2")
-                    :background (face-attribute 'default :background))
-
-(set-face-attribute 'org-agenda-structure nil
-                    :box (face-attribute 'org-agenda-date :box)
-                    :box (face-attribute 'default :background))
-
-(set-face-attribute 'mode-line nil
-                    :box '(:line-width 1 :style released-button)
-                    :background "cornsilk1")
-
-(set-face-attribute 'mode-line-inactive nil
-                    :box '(:line-width 1 :style released-button)
-                    :background "ivory3")
-
-;; set the fringe background to match the default background color
+(if (eq system-type 'darwin)
+    (set-face-background 'default "cornsilk2")
+  (set-face-background 'default "ivory2"))
+;(set-face-background 'fringe (face-attribute 'default :background))
+;(set-face-foreground 'eshell-prompt-face "IndianRed4")
+;(set-face-background 'eshell-prompt (face-attribute 'default :background))
+;(set-face-background 'hl-line "cornsilk2")
+;(set-face-foreground 'ediff-fine-diff-A "gray30")
+;(set-face-foreground 'ediff-fine-diff-B "gray30")
+;
+;(set-face-attribute 'org-agenda-date nil
+;                    :box '(:color "ivory2")
+;                    :background (face-attribute 'default :background))
+;
+;(set-face-attribute 'org-agenda-structure nil
+;                    :box (face-attribute 'org-agenda-date :box)
+;                    :box (face-attribute 'default :background))
+;
+;(set-face-attribute 'mode-line nil
+;                    :box '(:line-width 1 :style released-button)
+;                    :background "cornsilk1")
+;
+;(set-face-attribute 'mode-line-inactive nil
+;                    :box '(:line-width 1 :style released-button)
+;                    :background "ivory3")
+;
+;;; set the fringe background to match the default background color
 (set-face-background 'fringe (face-attribute 'default :background))
 
 (provide 'emacs-ui)
