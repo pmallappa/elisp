@@ -170,10 +170,9 @@
 (setq dired-omit-files
       (rx (or (seq bol ".git" )    ;; git directories
               (seq bol "CVS" eol)  ;; CVS dirs
-              (seq bol ".")
               )))
 
-;(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
 
 ;;======================================================================
 ;; thumbs
