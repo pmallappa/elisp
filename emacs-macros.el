@@ -442,6 +442,43 @@ paragraphs in the current region into long lines."
   (let ((fill-column 9000))
     (fill-region (point) (mark))))
 
+;;======================================================================
+;; TrueCrypt shortcuts
+(defun tcmount ()
+  "Mount the truecrypt favorite volumes"
+  (interactive)
+  (shell-command
+   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
+	   " --auto-mount=favorites"
+	   " --password=\"" (read-passwd "Passphrase: ") "\"")))
+
+(defun tcmount1b ()
+  "Mount the truecrypt volume JAVA_LIB01b on Passport2TB"
+  (interactive)
+  (shell-command
+   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
+           " /Volumes/Passport2TB/Java/java_lib01 /Volumes/JAVA_LIB01b"
+	   " --password=\"" (read-passwd "Passphrase: ") "\"")))
+(defun tcmount2b ()
+  "Mount the truecrypt volume JAVA_LIB02b on Passport2TB"
+  (interactive)
+  (shell-command
+   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
+           " /Volumes/Passport2TB/Java/java_lib02 /Volumes/JAVA_LIB02b"
+	   " --password=\"" (read-passwd "Passphrase: ") "\"")))
+(defun tclist ()
+  "List the mounted TrueCrypt directories"
+  (interactive)
+  (shell-command
+   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
+           " --list")))
+
+(defun tcdmount ()
+  "Unmount the truecrypt favorite volumes"
+  (interactive)
+  (shell-command
+   "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt --dismount"))
+
 ;; load the page in browser and save the file name to the clipboard
 ;;| filename | url |
 (fset 'loadvid

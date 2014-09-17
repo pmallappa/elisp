@@ -268,23 +268,6 @@ prompt the user for a coding system."
   (occur "[^[:ascii:]]"))
 
 ;;======================================================================
-;; TrueCrypt shortcuts
-(defun tcmount ()
-  "Mount the truecrypt favorite volumes"
-  (interactive)
-  (shell-command
-   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
-	   " --auto-mount=favorites"
-	   " --password=\"" (read-passwd "Passphrase: ") "\"")))
-
-
-(defun tcdmount ()
-  "Unmount the truecrypt favorite volumes"
-  (interactive)
-  (shell-command
-   "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt --dismount"))
-
-;;======================================================================
 ;; ignore case in file and buffer name completions
 (setq completion-ignore-case 't)
 (setq read-file-name-completion-ignore-case 't)
