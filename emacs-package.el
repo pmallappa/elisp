@@ -1,9 +1,9 @@
 ;; emacs package manager.
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa"        . "http://melpa.milkbox.net/packages/"))
+             '("melpa"         . "http://melpa.milkbox.net/packages/")
+             '("marmalade"     . "http://marmalade-repo.org/packages/"))
 ;             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
-;             '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
 ;; Required packages
@@ -19,14 +19,14 @@
     browse-url-dwim
     bs-ext
     color-moccur
+    color-theme-sanityinc-solarized
     csv-mode
     dash
-    display-theme
+    diminish
+    dired-hacks-utils
     elisp-slime-nav
     epl
     esh-help
-    frame-cmds
-    frame-fns
     git-commit-mode
     git-gutter+
     git-rebase-mode
@@ -37,7 +37,7 @@
     list-utils
     magit
     markdown-mode
-    monokai-theme
+    neotree
     org
     paredit
     pkg-info
@@ -45,31 +45,30 @@
     rainbow-mode
     s
     smartparens
-    solarized-theme
     starter-kit-eshell
     string-utils
     w3m
     windata
-    zenburn-theme
-    ))
+    )
+  "A list of packages to ensure are installed at launch")
 
 (if (eq system-type 'darwin)
     (add-to-list 'cm/packages 'exec-path-from-shell))
 
+(defun cm-packages-installed-p ()
+  (loop for p in cm/packages
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
 
-;; cycle through the package list and prompt to install as necessary
-(defun cm-package-refresh ()
-  (interactive)
-  (if (y-or-n-p-with-timeout "Check packages? " 3 nil)
-      (progn
-	(dolist (pkg cm/packages)
-	  (if (not (package-installed-p pkg))
-	      (progn
-		(if (y-or-n-p (format "%s: %s " "install missing package" pkg))
-		    (progn 
-		      (package-install pkg)
-		      (require pkg))))
-	    (require pkg))))))
+(unless (cm-packages-installed-p)
+  ;; check for new packages (package versions)
+  (message "%s" "Emacs is now refreshing its package database...")
+  (package-refresh-contents)
+  (message "%s" " done.")
+  ;; install the missing packages
+  (dolist (p cm/packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
 
 ;; Change the width of the package list displayed. Currently doing this by
 ;; redefining the entire method. Long term would be to introduce a patch to

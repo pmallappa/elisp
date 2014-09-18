@@ -95,28 +95,6 @@
 ;(require 'crontab-mode)
 ;(add-to-list 'auto-mode-alist '("\\.cron\\(tab\\)?\\'" . crontab-mode))
 
-;;======================================================================
-;; mode-line modifications
-
-;; first turn on column line mode
-(setq column-number-mode nil)
-
-;; time and date
-(setq display-time-format " %a %m/%d %H:%M ")     ;;Fri 08/19 15:26
-(setq display-time-day-and-date t)
-(display-time)
-
-;; format for the filename in the modeline
-;; The default, "%12b", just displays the filename.
-;; You can find the complete path by invoking the macro 'M-x path',
-;; defined in .emacs-macros.el
-(setq-default mode-line-buffer-identification '("%12b"))
-
-;; format for the title on the titlebar
-(setq frame-title-format
-      (concat invocation-name " on "
-              system-name
-	      " -- %f"))
 
 ;;======================================================================
 ;; provide unique names for buffers with the same filename loaded
@@ -183,21 +161,21 @@
 ;(put 'mp-overlay-arrow-position 'overlay-arrow-bitmap 'mp-hollow-right-arrow)
 
 
-;;======================================================================
-;; For Mac users, swap the command and option keys between mac and windows keyboards
-(defun swap-meta-and-super ()
-  "Swap the mapping of meta and super. Very useful for people using their Mac
-with a Windows external keyboard from time to time."
-  (interactive)
-  (if (eq mac-command-modifier 'super)
-      (progn
-        (setq mac-command-modifier 'meta)
-        (setq mac-option-modifier 'super)
-        (message "Command is now bound to META and Option is bound to SUPER."))
-    (progn
-      (setq mac-command-modifier 'super)
-      (setq mac-option-modifier 'meta)
-      (message "Command is now bound to SUPER and Option is bound to META."))))
+;;;======================================================================
+;;; For Mac users, swap the command and option keys between mac and windows keyboards
+;(defun swap-meta-and-super ()
+;  "Swap the mapping of meta and super. Very useful for people using their Mac
+;with a Windows external keyboard from time to time."
+;  (interactive)
+;  (if (eq mac-command-modifier 'super)
+;      (progn
+;        (setq mac-command-modifier 'meta)
+;        (setq mac-option-modifier 'super)
+;        (message "Command is now bound to META and Option is bound to SUPER."))
+;    (progn
+;      (setq mac-command-modifier 'super)
+;      (setq mac-option-modifier 'meta)
+;      (message "Command is now bound to SUPER and Option is bound to META."))))
 
 ;;======================================================================
 ;; Search for a regexp across all marked files within dired
@@ -266,6 +244,27 @@ prompt the user for a coding system."
   "Find any non-ascii characters in the current buffer."
   (interactive)
   (occur "[^[:ascii:]]"))
+
+;;======================================================================
+;; browse the unicode character set
+;; not all characters will display, depending on font selected
+(defun list-unicode-display (&optional regexp)
+  "Display a list of unicode characters and their names in a buffer."
+  (interactive "sRegexp (default \".*\"): ")
+  (let* ((regexp (or regexp ".*"))
+         (case-fold-search t)
+         (cmp (lambda (x y) (< (cdr x) (cdr y))))
+         ;; alist like ("name" . code-point)
+         (char-alist (sort (cl-remove-if-not (lambda (x) (string-match regexp (car x)))
+                                             (ucs-names))
+                           cmp)))
+    (with-help-window "*Unicode characters*"
+      (with-current-buffer standard-output
+        (dolist (c char-alist)
+          (insert (format "0x%06X\t" (cdr c)))
+          (insert (cdr c))
+          (insert (format "\t%s\n" (car c))))))))
+
 
 ;;======================================================================
 ;; ignore case in file and buffer name completions

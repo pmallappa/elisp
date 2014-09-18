@@ -134,19 +134,6 @@ nSec: ")
     (message buffer-file-name)
     (kill-new (buffer-file-name)))
 
-;; set filename only in the Modeline display
-(defun short-file-name ()
-  "Display the file path and name in the modeline"
-  (interactive "*")
-  (setq-default mode-line-buffer-identification '("%12b")))
-
-;; set the full path and filename only in the Modeline display
-(defun long-file-name ()
-  "Display the full file path and name in the modeline"
-  (interactive "*")
-  (setq-default mode-line-buffer-identification
-    '("%S:"(buffer-file-name "%f"))))
-
 ;;======================================================================
 ;; provide save-as functionality without renaming the current buffer
 ;; From: Robinows@aol.com

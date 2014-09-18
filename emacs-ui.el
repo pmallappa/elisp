@@ -14,8 +14,8 @@
     (progn
 ;      (set-face-font 'default "Lucida Sans Typewriter-10")
 ;      (set-face-font 'variable-pitch "Lucida Sans-10")
-      (set-face-font 'default "Consolas-9")
-      (set-face-font 'variable-pitch "Lucida Sans-8")
+      (set-face-font 'default "Consolas-10")
+      (set-face-font 'variable-pitch "Lucida Sans Unicode-8")
       (copy-face 'default 'fixed-pitch)))
 
 ;; Fix the UI
