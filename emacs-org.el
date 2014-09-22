@@ -1,5 +1,8 @@
 ;;============================================================
 ;; Org mode personal organizer
+;; good org references here!
+;; http://howardabrams.com/projects/dot-files/emacs-org.html
+;; http://sachachua.com/wp/2007/12/29/how-to-use-emacs-org-as-a-basic-day-planner/
 
 ;; loaded and initialized from elpa packaging
 (setq org-export-backends (quote (ascii html md)))
@@ -161,17 +164,17 @@
 ;; 'emacsclient -e "(progn (org-store-agenda-views))" ; cat ~/.org-agenda.txt'
 
 ;; Set up the TODO states
-(setq org-todo-keyword-faces
-      '(("TODO"      . (:foreground "red"          :weight bold))
-	("WAITING"   . (:foreground "orange"       :weight bold))
-	("DELEGATED" . (:foreground "orange"       :weight bold))
-	("OPEN"      . (:foreground "white"        :weight bold))
-	("DONE"      . (:foreground "forest green" :weight bold))
-	("CANCELLED" . (:foreground "forest green" :weight bold))))
-
 (setq org-todo-keywords
       '((sequence "TODO(t)" "OPEN(o!)" "|" "DONE(d!/!)")
 	(sequence "WAITING(w@/!)" "DELEGATED(g@/!)" "|" "CANCELLED(c!/!)")))
+
+(setq org-todo-keyword-faces
+      '(("TODO"      . (:foreground "red"          :weight bold))
+	("OPEN"      . (:foreground "white"        :weight bold))
+	("DONE"      . (:foreground "forest green" :weight bold))
+	("WAITING"   . (:foreground "orange"       :weight bold))
+	("DELEGATED" . (:foreground "orange"       :weight bold))
+	("CANCELLED" . (:foreground "forest green" :weight bold))))
 
 ;; log and add notes when completing a task
 (setq org-log-done 'note)
@@ -187,6 +190,8 @@
 
 ;;============================================================
 ;; ediff hooks for org mode
+
+;;; unfold only the org subtree with the current diff
 ;(add-hook 'ediff-select-hook 'f-ediff-org-unfold-tree-element)
 ;(add-hook 'ediff-unselect-hook 'f-ediff-org-fold-tree)
 ;;; Check for org mode and existence of buffer
@@ -208,6 +213,7 @@
 ;  (f-ediff-org-showhide ediff-buffer-B 'hide-sublevels 1) 
 ;  (f-ediff-org-showhide ediff-buffer-C 'hide-sublevels 1))
 
+;; unfold the entire org file within ediff
 (add-hook 'ediff-prepare-buffer-hook 'f-ediff-prepare-buffer-hook-setup)
 (defun f-ediff-prepare-buffer-hook-setup ()
   ;; specific modes
@@ -259,28 +265,22 @@
         ))
 
 
-;;;============================================================
-;;; integrate Mobile Org using Dropbox
-;;; After capturing notes or making changes on the device to your Org
-;;; files, be sure to sync in MobileOrg. Then run org-mobile-pull from
-;;; Emacs to integrate your changes. After integrating, you can run
-;;; org-mobile-push to make sure MobileOrg has access to the latest
-;;; version of your files.
-;
-;;; Set to the location of your Org files on your local system
-;(setq org-directory "~/org")
-;
-;;; Set to the name of the file where new notes will be stored
-;(setq org-mobile-inbox-for-pull "~/org/flagged.org")
-;
-;;; Set to <your Dropbox root directory>/MobileOrg.
-;(setq org-mobile-directory "~/Dropbox/MobileOrg")
+;;============================================================
+;; integrate Mobile Org using Dropbox
+;; After capturing notes or making changes on the device to your Org
+;; files, be sure to sync in MobileOrg. Then run org-mobile-pull from
+;; Emacs to integrate your changes. After integrating, you can run
+;; org-mobile-push to make sure MobileOrg has access to the latest
+;; version of your files.
 
+;; Set to the location of your Org files on your local system
+(setq org-directory "~/org")
 
-; good references
-; http://howardabrams.com/projects/dot-files/emacs-org.html
-; http://sachachua.com/wp/2007/12/29/how-to-use-emacs-org-as-a-basic-day-planner/
+;; Set to the name of the file where new notes will be stored
+(setq org-mobile-inbox-for-pull "~/org/flagged.org")
 
+;; Set to <your Dropbox root directory>/MobileOrg.
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
 
 (provide 'emacs-org)
 

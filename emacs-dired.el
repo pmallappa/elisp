@@ -172,6 +172,9 @@
               (seq bol "CVS" eol)  ;; CVS dirs
               )))
 
+;; let's not get carried away with hiding files, however
+(setq dired-omit-extensions nil)
+
 (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
 
 ;;======================================================================
