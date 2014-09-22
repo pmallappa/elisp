@@ -29,7 +29,7 @@
          "* TODO %^{Task Description} %^g\n  Added:  %U\n  %?\n  %a\n")
         ("a" "Appointment" entry
          (file+olp "~/org/journal.org" "Appointments")
-         "* %^{Appt Description}  %^g\n  %T\n  %i%?\n  %a\n")
+         "* %^{Appt Description}  %^g\n  %^T\n  %i%?\n  %a\n")
         ("n" "Note" entry
          (file+olp "~/org/journal.org" "Notes")
          "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
@@ -37,13 +37,25 @@
         ;; Siemens entries
         ("s" "Siemens")
         ("st" "Todo" entry
-         (file+olp "~/org/Siemens.org" "Tasks")
+         (file+olp "~/org/siemens.org" "Tasks")
          "* TODO %^{Task Description} %^g\n  Added: %U\n  %?\n  %a\n")
         ("sa" "Appointment" entry
-         (file+olp "~/org/Siemens.org" "Appointments")
-         "* %^{Appt Description}  %^g\n  %T\n  %i%?\n  %a\n")
+         (file+olp "~/org/siemens.org" "Appointments")
+         "* %^{Appt Description}  %^g\n  %^T\n  %i%?\n  %a\n")
         ("sn" "Note" entry
-         (file+olp "~/org/Siemens.org" "Notes")
+         (file+olp "~/org/siemens.org" "Notes")
+         "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
+
+        ;; Navy entries
+        ("n" "Navy")
+        ("nt" "Todo" entry
+         (file+olp "~/org/navy.org" "Tasks")
+         "* TODO %^{Task Description} %^g\n  Added: %U\n  %?\n  %a\n")
+        ("na" "Appointment" entry
+         (file+olp "~/org/navy.org" "Appointments")
+         "* %^{Appt Description}  %^g\n  %^T\n  %i%?\n  %a\n")
+        ("nn" "Note" entry
+         (file+olp "~/org/navy.org" "Notes")
          "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
 
         ("b" "Bill" entry
@@ -73,7 +85,7 @@
       (list 
        (concat HOME_DIR "/org/fun.org")
        (concat HOME_DIR "/org/journal.org")
-       (concat HOME_DIR "/org/vtu.org")
+       (concat HOME_DIR "/org/navy.org")
        (concat HOME_DIR "/org/Siemens.org")
        (concat HOME_DIR "/org/reference.org")))
 
