@@ -27,13 +27,15 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 
 (setq org-capture-templates
-      '(("t" "Todo" entry
+      '(
+        ("j" "Journal")
+        ("jt" "Todo" entry
          (file+olp "~/org/journal.org" "Tasks")
          "* TODO %^{Task Description} %^g\n  Added:  %U\n  %?\n  %a\n")
-        ("a" "Appointment" entry
+        ("ja" "Appointment" entry
          (file+olp "~/org/journal.org" "Appointments")
          "* %^{Appt Description}  %^g\n  %^T\n  %i%?\n  %a\n")
-        ("n" "Note" entry
+        ("jn" "Note" entry
          (file+olp "~/org/journal.org" "Notes")
          "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
 
@@ -170,7 +172,7 @@
 
 (setq org-todo-keyword-faces
       '(("TODO"      . (:foreground "red"          :weight bold))
-	("OPEN"      . (:foreground "white"        :weight bold))
+	("OPEN"      . (:foreground "DodgerBlue"   :weight bold))
 	("DONE"      . (:foreground "forest green" :weight bold))
 	("WAITING"   . (:foreground "orange"       :weight bold))
 	("DELEGATED" . (:foreground "orange"       :weight bold))
@@ -188,31 +190,24 @@
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
 
+;;;============================================================
+;;; missing from ox-md.el ... I don't know why
+(defun org-md-publish-to-md (plist filename pub-dir)
+  "Publish an org file to Markdown.
+
+FILENAME is the filename of the Org file to be published.  PLIST
+is the property list for the given project.  PUB-DIR is the
+publishing directory.
+
+Return output file name."
+  (org-publish-org-to 'md filename
+		      (concat "." (or (plist-get plist :md-extension)
+                                      "md"))
+		      plist pub-dir))
+
+
 ;;============================================================
-;; ediff hooks for org mode
-
-;;; unfold only the org subtree with the current diff
-;(add-hook 'ediff-select-hook 'f-ediff-org-unfold-tree-element)
-;(add-hook 'ediff-unselect-hook 'f-ediff-org-fold-tree)
-;;; Check for org mode and existence of buffer
-;(defun f-ediff-org-showhide(buf command &rest cmdargs)
-;  "If buffer exists and is orgmode then execute command"
-;  (if buf
-;      (if (eq (buffer-local-value 'major-mode (get-buffer buf)) 'org-mode)
-;          (save-excursion (set-buffer buf) (apply command cmdargs)))))
-;
-;(defun f-ediff-org-unfold-tree-element ()
-;  "Unfold tree at diff location"
-;  (f-ediff-org-showhide ediff-buffer-A 'org-reveal) 
-;  (f-ediff-org-showhide ediff-buffer-B 'org-reveal) 
-;  (f-ediff-org-showhide ediff-buffer-C 'org-reveal))
-;;;
-;(defun f-ediff-org-fold-tree ()
-;  "Fold tree back to top level"
-;  (f-ediff-org-showhide ediff-buffer-A 'hide-sublevels 1) 
-;  (f-ediff-org-showhide ediff-buffer-B 'hide-sublevels 1) 
-;  (f-ediff-org-showhide ediff-buffer-C 'hide-sublevels 1))
-
+;; Make org files behave in ediff
 ;; unfold the entire org file within ediff
 (add-hook 'ediff-prepare-buffer-hook 'f-ediff-prepare-buffer-hook-setup)
 (defun f-ediff-prepare-buffer-hook-setup ()
@@ -221,6 +216,7 @@
          (f-org-vis-mod-maximum))
         ;; room for more modes
         ))
+
 (defun f-org-vis-mod-maximum ()
   "Visibility: Show the most possible."
   (cond
@@ -243,25 +239,28 @@
         ("org-html"
          :base-directory "~/org" 
          :base-extension "org"
-         :publishing-directory "~/public_html"
+         :publishing-directory "~/public/public_html"
+         :html-extension "html"
+         :with-sub-superscript nil
          :publishing-function org-html-publish-to-html
          :preserve-breaks t)
         ("org-md"
          :base-directory "~/org" 
          :base-extension "org"
-         :publishing-directory "~/dropbox/trunksync"
+         :md-extension "markdown"
+         :publishing-directory "~/public/public_markdown"
          :publishing-function org-md-publish-to-md
          :preserve-breaks t)
         ("org-static"
          :base-directory "~/org/"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-         :publishing-directory "~/public_html/"
          :recursive t
+         :publishing-directory "~/public/public_html/"
          :publishing-function org-publish-attachment)
         ("html"
          :components ("org-html" "org-static"))
         ("markdown"
-         :components ("org-md" "org-static"))
+         :components ("org-md"))
         ))
 
 
@@ -280,7 +279,7 @@
 (setq org-mobile-inbox-for-pull "~/org/flagged.org")
 
 ;; Set to <your Dropbox root directory>/MobileOrg.
-(setq org-mobile-directory "~/Dropbox/MobileOrg")
+(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
 
 (provide 'emacs-org)
 

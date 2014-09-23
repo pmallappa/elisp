@@ -161,6 +161,7 @@
 (require 'emacs-dired)        ; dired settings
 (require 'emacs-csv)          ; comma-separated-value editing package
 (require 'emacs-eshell)       ; emacs eshell settings
+(require 'emacs-java)         ; java development settings
 ;(require 'emacs-javascript)   ; javascript development and REPL
 (require 'emacs-smartparens)  ; better parenthesis highlighting and navigating
 (require 'emacs-help)         ; keybindings for help functions

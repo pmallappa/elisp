@@ -1,8 +1,8 @@
 ;; emacs package manager.
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa"         . "http://melpa.milkbox.net/packages/")
-             '("marmalade"     . "http://marmalade-repo.org/packages/"))
+             '("melpa"         . "http://melpa.milkbox.net/packages/"))
+;             '("marmalade"     . "http://marmalade-repo.org/packages/"))
 ;             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
 (package-initialize)
 
