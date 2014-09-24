@@ -110,7 +110,6 @@
         ("Personal"   . ?p)
         ("Seimens"    . ?s)
         ("crypt"      . ?c)
-        ("one_one"    . ?o)
         ("Reference"  . ?r)))
 
 ;;============================================================
@@ -191,9 +190,23 @@
 
 
 ;;;============================================================
-;;; missing from ox-md.el ... I don't know why
+;;; publishing functions 
+(defun org-pandoc-publish-to-md (plist filename pub-dir)
+  "Publish an org file to Markdown using Pandoc.
+
+FILENAME is the filename of the Org file to be published.  PLIST
+is the property list for the given project.  PUB-DIR is the
+publishing directory.
+
+Return output file name."
+  (org-publish-org-to 'pandoc filename
+		      (concat
+                       "."
+                       (or (plist-get plist :md-extension) "md"))
+		      plist pub-dir))
+
 (defun org-md-publish-to-md (plist filename pub-dir)
-  "Publish an org file to Markdown.
+  "Publish an org file to Markdown using ox-md.
 
 FILENAME is the filename of the Org file to be published.  PLIST
 is the property list for the given project.  PUB-DIR is the
@@ -201,10 +214,10 @@ publishing directory.
 
 Return output file name."
   (org-publish-org-to 'md filename
-		      (concat "." (or (plist-get plist :md-extension)
-                                      "md"))
+		      (concat
+                       "."
+                       (or (plist-get plist :md-extension) "md"))
 		      plist pub-dir))
-
 
 ;;============================================================
 ;; Make org files behave in ediff
@@ -231,6 +244,7 @@ Return output file name."
 
 ;; enable markdown export
 (eval-after-load "org" '(require 'ox-md nil t))
+(eval-after-load "org" '(require 'ox-pandoc nil t))
 (eval-after-load "org" '(require 'ox-publish))
 
 ;; set up the files for publishing
@@ -239,7 +253,7 @@ Return output file name."
         ("org-html"
          :base-directory "~/org" 
          :base-extension "org"
-         :publishing-directory "~/public/public_html"
+         :publishing-directory "~/public/org_html"
          :html-extension "html"
          :with-sub-superscript nil
          :publishing-function org-html-publish-to-html
@@ -248,14 +262,21 @@ Return output file name."
          :base-directory "~/org" 
          :base-extension "org"
          :md-extension "markdown"
-         :publishing-directory "~/public/public_markdown"
+         :publishing-directory "~/public/org_md"
          :publishing-function org-md-publish-to-md
+         :preserve-breaks t)
+        ("pandoc-md"
+         :base-directory "~/org" 
+         :base-extension "org"
+         :md-extension "markdown"
+         :publishing-directory "~/public/pandoc_md"
+         :publishing-function org-pandoc-publish-to-md
          :preserve-breaks t)
         ("org-static"
          :base-directory "~/org/"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
          :recursive t
-         :publishing-directory "~/public/public_html/"
+         :publishing-directory "~/public/org_html/"
          :publishing-function org-publish-attachment)
         ("html"
          :components ("org-html" "org-static"))

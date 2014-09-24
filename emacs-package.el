@@ -31,6 +31,7 @@
     git-gutter+
     git-rebase-mode
     git-timemachine
+    ht
     htmlize
     igrep
     js2-mode
@@ -39,6 +40,9 @@
     markdown-mode
     neotree
     org
+    org-dotemacs
+    ox-pandoc
+    pandoc-mode
     paredit
     pkg-info
     popup
