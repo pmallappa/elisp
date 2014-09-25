@@ -205,6 +205,20 @@ Return output file name."
                        (or (plist-get plist :md-extension) "md"))
 		      plist pub-dir))
 
+(defun org-pandoc-publish-to-html (plist filename pub-dir)
+  "Publish an org file to Markdown using Pandoc.
+
+FILENAME is the filename of the Org file to be published.  PLIST
+is the property list for the given project.  PUB-DIR is the
+publishing directory.
+
+Return output file name."
+  (org-publish-org-to 'pandoc filename
+		      (concat
+                       "."
+                       (or (plist-get plist :html-extension) "html"))
+		      plist pub-dir))
+
 (defun org-md-publish-to-md (plist filename pub-dir)
   "Publish an org file to Markdown using ox-md.
 
@@ -258,6 +272,14 @@ Return output file name."
          :with-sub-superscript nil
          :publishing-function org-html-publish-to-html
          :preserve-breaks t)
+        ("pandoc-html"
+         :base-directory "~/org" 
+         :base-extension "org"
+         :publishing-directory "~/public/pandoc_html"
+         :html-extension "html"
+         :with-sub-superscript nil
+         :publishing-function org-pandoc-publish-to-html
+         :preserve-breaks t)
         ("org-md"
          :base-directory "~/org" 
          :base-extension "org"
@@ -278,10 +300,20 @@ Return output file name."
          :recursive t
          :publishing-directory "~/public/org_html/"
          :publishing-function org-publish-attachment)
+        ("pandoc-static"
+         :base-directory "~/org/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :recursive t
+         :publishing-directory "~/public/pandoc_html/"
+         :publishing-function org-publish-attachment)
         ("html"
          :components ("org-html" "org-static"))
+        ("html-pandoc"
+         :components ("pandoc-html" "pandoc-static"))
         ("markdown"
          :components ("org-md"))
+        ("markdown-pandoc"
+         :components ("pandoc-md"))
         ))
 
 
