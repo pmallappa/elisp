@@ -264,7 +264,7 @@ Return output file name."
 ;; set up the files for publishing
 (setq org-publish-project-alist
       '(
-        ("org-html"
+        ("orghtml"
          :base-directory "~/org" 
          :base-extension "org"
          :publishing-directory "~/public/org_html"
@@ -272,48 +272,46 @@ Return output file name."
          :with-sub-superscript nil
          :publishing-function org-html-publish-to-html
          :preserve-breaks t)
-        ("pandoc-html"
+        ("panhtml"
          :base-directory "~/org" 
          :base-extension "org"
          :publishing-directory "~/public/pandoc_html"
          :html-extension "html"
-         :with-sub-superscript nil
-         :publishing-function org-pandoc-publish-to-html
-         :preserve-breaks t)
-        ("org-md"
+         :publishing-function org-pandoc-publish-to-html)
+        ("orgmd"
          :base-directory "~/org" 
          :base-extension "org"
          :md-extension "markdown"
          :publishing-directory "~/public/org_md"
          :publishing-function org-md-publish-to-md
          :preserve-breaks t)
-        ("pandoc-md"
+        ("panmd"
          :base-directory "~/org" 
          :base-extension "org"
          :md-extension "markdown"
          :publishing-directory "~/public/pandoc_md"
          :publishing-function org-pandoc-publish-to-md
          :preserve-breaks t)
-        ("org-static"
+        ("orgstatic"
          :base-directory "~/org/"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
          :recursive t
          :publishing-directory "~/public/org_html/"
          :publishing-function org-publish-attachment)
-        ("pandoc-static"
+        ("panstatic"
          :base-directory "~/org/"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
          :recursive t
          :publishing-directory "~/public/pandoc_html/"
          :publishing-function org-publish-attachment)
-        ("html"
-         :components ("org-html" "org-static"))
+        ("html-org"
+         :components ("orghtml" "orgstatic"))
         ("html-pandoc"
-         :components ("pandoc-html" "pandoc-static"))
-        ("markdown"
-         :components ("org-md"))
+         :components ("panhtml" "panstatic"))
+        ("markdown-org"
+         :components ("orgmd"))
         ("markdown-pandoc"
-         :components ("pandoc-md"))
+         :components ("panmd"))
         ))
 
 
