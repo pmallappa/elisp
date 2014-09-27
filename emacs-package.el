@@ -53,6 +53,7 @@
     string-utils
     w3m
     windata
+    yasnippet
     )
   "A list of packages to ensure are installed at launch")
 
