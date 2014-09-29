@@ -31,6 +31,8 @@
     git-gutter+
     git-rebase-mode
     git-timemachine
+    highlight-symbol
+    hl-sexp
     ht
     htmlize
     igrep
@@ -53,7 +55,6 @@
     string-utils
     w3m
     windata
-    yasnippet
     )
   "A list of packages to ensure are installed at launch")
 

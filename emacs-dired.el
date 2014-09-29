@@ -101,6 +101,7 @@
   (define-key dired-mode-map "j" 'dired-custom-execute-file))
 (add-hook 'dired-mode-hook 'dired-custom-dired-mode-hook)
 
+
 ;;======================================================================
 ;; wdired
 ;; allow in-place file name editing within dired mode
@@ -175,7 +176,7 @@
 ;; let's not get carried away with hiding files, however
 (setq dired-omit-extensions nil)
 
-(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+;(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
 
 ;;======================================================================
 ;; thumbs

@@ -91,7 +91,7 @@
        (concat HOME_DIR "/org/fun.org")
        (concat HOME_DIR "/org/journal.org")
        (concat HOME_DIR "/org/navy.org")
-       (concat HOME_DIR "/org/Siemens.org")
+       (concat HOME_DIR "/org/siemens.org")
        (concat HOME_DIR "/org/reference.org")))
 
 ;;============================================================
@@ -105,12 +105,12 @@
 ;;============================================================
 ;; Set up the global tags list
 (setq org-tag-persistent-alist
-      '(("Emacs"      . ?e)
-        ("Navy"       . ?n)
-        ("Personal"   . ?p)
-        ("Seimens"    . ?s)
+      '(("emacs"      . ?e)
+        ("navy"       . ?n)
+        ("personal"   . ?p)
+        ("seimens"    . ?s)
         ("crypt"      . ?c)
-        ("Reference"  . ?r)))
+        ("reference"  . ?r)))
 
 ;;============================================================
 ;; set up encryption within org files. Use the 'crypt' tag to encrypt the
