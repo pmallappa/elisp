@@ -1,8 +1,6 @@
 ;;======================================================================
 ;; Set the colors
 ;; the default font is set in .emacs, the fixed-font should match this
-(global-hl-line-mode)
-
 ;;======================================================================
 ;; Set the fonts
 (if (eq system-type 'darwin)
@@ -58,11 +56,23 @@
 ; increase the space between lines
 (setq-default line-spacing 0)
 
-; Syntax highlighting
-(global-font-lock-mode t)
-
 ; Lets us see col # at the bottom. very handy.
 (column-number-mode 1)
+
+;;======================================================================
+;; Syntax highlighting
+
+(global-font-lock-mode t)
+(global-hl-line-mode -1)
+(setq global-hl-line-sticky-flag nil)
+
+;; highlight the entire s-expression under point
+(hl-sexp-mode 1)
+
+;; highlight symbol shows the current symbol across the entire buffer
+(highlight-symbol-mode 1)
+
+
 
 ;;======================================================================
 ;; Color Theme
