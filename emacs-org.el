@@ -316,6 +316,13 @@ Return output file name."
 
 
 ;;============================================================
+;; Org trello integration
+(require 'org-trello)
+;; activate for each org file
+;(add-hook 'org-mode-hook 'org-trello-mode)
+
+
+;;============================================================
 ;; integrate Mobile Org using Dropbox
 ;; After capturing notes or making changes on the device to your Org
 ;; files, be sure to sync in MobileOrg. Then run org-mobile-pull from
