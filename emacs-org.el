@@ -166,12 +166,14 @@
 
 ;; Set up the TODO states
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "OPEN(o!)" "|" "DONE(d!/!)")))
+      '((sequence "TODO(t)" "OPEN(o)" "WAITING(w@/!)" "|" "DONE(d@)" "CANCELED(c@)")))
 
 (setq org-todo-keyword-faces
-      '(("TODO"      . (:foreground "red"          :weight normal))
-	("OPEN"      . (:foreground "blue"         :weight normal))
-	("DONE"      . (:foreground "forestGreen"  :weight normal))))
+      '(("TODO"      . (:foreground "IndianRed3"  :weight bold))
+ 	("OPEN"      . (:foreground "Orange2"     :weight bold))
+        ("WAITING"   . (:foreground "Orange4"     :weight bold))
+	("DONE"      . (:foreground "ForestGreen" :weight bold))
+	("CANCELED"  . (:foreground "ForestGreen" :weight bold))))
 
 ;; log and add notes when completing a task
 (setq org-log-done 'note)
