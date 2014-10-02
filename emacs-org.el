@@ -22,6 +22,10 @@
 (setq org-return-follows-link t)
 
 ;;============================================================
+;; set the archive file location
+(setq org-archive-location (concat HOME_DIR "/org/archives/%s_archive::"))
+
+;;============================================================
 ;; capture templates (replaces remember)
 
 (global-set-key (kbd "C-c c") 'org-capture)
@@ -316,6 +320,11 @@ Return output file name."
 ;;============================================================
 ;; Org trello integration
 (require 'org-trello)
+
+;; trace is more verbose
+;(setq *orgtrello-log/level* *OT/DEBUG*)
+(setq *orgtrello-log/level* *OT/TRACE*)
+
 ;; activate for each org file
 ;(add-hook 'org-mode-hook 'org-trello-mode)
 
