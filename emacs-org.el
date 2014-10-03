@@ -32,6 +32,18 @@
 
 (setq org-capture-templates
       '(
+        ;; Pending input to file later
+        ("t" "Todo" entry
+         (file "~/org/pending.org")
+         "* TODO %^{Task Description} %^g\n  Added:  %U\n  %?\n  %a\n")
+        ("a" "Appointment" entry
+         (file "~/org/pending.org")
+         "* %^{Appt Description}  %^g\n  %^T\n  %i%?\n  %a\n")
+        ("n" "note" entry
+         (file "~/org/journal.org")
+         "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
+
+        ;; Journal
         ("j" "Journal")
         ("jt" "Todo" entry
          (file+olp "~/org/journal.org" "Tasks")
@@ -56,14 +68,14 @@
          "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
 
         ;; Navy entries
-        ("n" "Navy")
-        ("nt" "Todo" entry
+        ("N" "Navy")
+        ("Nt" "Todo" entry
          (file+olp "~/org/navy.org" "Tasks")
          "* TODO %^{Task Description} %^g\n  Added: %U\n  %?\n  %a\n")
-        ("na" "Appointment" entry
+        ("Na" "Appointment" entry
          (file+olp "~/org/navy.org" "Appointments")
          "* %^{Appt Description}  %^g\n  %^T\n  %i%?\n  %a\n")
-        ("nn" "Note" entry
+        ("Nn" "Note" entry
          (file+olp "~/org/navy.org" "Notes")
          "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
 
@@ -92,11 +104,10 @@
 ;; Set up org files
 (setq org-agenda-files 
       (list 
-       (concat HOME_DIR "/org/fun.org")
        (concat HOME_DIR "/org/journal.org")
        (concat HOME_DIR "/org/navy.org")
        (concat HOME_DIR "/org/siemens.org")
-       (concat HOME_DIR "/org/reference.org")))
+       (concat HOME_DIR "/org/pending.org")))
 
 ;;============================================================
 ;; Set up the keys
@@ -317,16 +328,17 @@ Return output file name."
         ))
 
 
-;;============================================================
-;; Org trello integration
-(require 'org-trello)
-
-;; trace is more verbose
-;(setq *orgtrello-log/level* *OT/DEBUG*)
-(setq *orgtrello-log/level* *OT/TRACE*)
-
-;; activate for each org file
-;(add-hook 'org-mode-hook 'org-trello-mode)
+;;;============================================================
+;;; Org trello integration
+;;; forces too many changes in the way I interact with org right now
+;(require 'org-trello)
+;
+;;; trace is the most verbose
+;;(setq *orgtrello-log/level* *OT/TRACE*)
+;(setq *orgtrello-log/level* *OT/ERROR*)
+;
+;;; activate for each org file
+;;(add-hook 'org-mode-hook 'org-trello-mode)
 
 
 ;;============================================================
