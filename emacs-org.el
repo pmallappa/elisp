@@ -39,17 +39,24 @@
         ("a" "Appointment" entry (file "~/org/pending.org")
          "* %^{Appt Description}  %^g\n  %^T\n  %i%?\n  %a\n")
         ("n" "Note" entry (file "~/org/pending.org")
-         "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
+         "* %^{Note Description}  %^g\n  %U\n  %i%?\n  %a\n")
         ("m" "Meeting" entry (file "~/org/pending.org")
-         "* Meeting with %^{With whom} :MEETING:\n  %?" :clock-in t :jump-to-captured)
+         "* Meeting with %^{With whom} :meeting:\n  %?" :clock-in t :jump-to-captured)
         ("p" "Phone Call" entry (file "~/org/pending.org")
-         "* Phone Call with %^{With whom} :PHONE:\n  %?" :clock-in t :jump-to-captured)
+         "* Phone Call with %^{With whom} :phone:\n  %?" :clock-in t :jump-to-captured)
         ("b" "Bill" entry (file+olp "~/org/finances.org" "Bills")
          "* Paid %^{Bill Paid|AT&T|Matrix|USAA Auto Ins|USAA Master Card} %T\n   Amount: $%^{Amount $}\n   Source: %^{Source Acct|Fifth-Third|NFCU chkg}\n  Confirm: %^{Confirmation #}\n")
         ("f" "Funds" entry (file+olp "~/org/finances.org" "Funds")
-         "* Transferred Money %T\n     From: %^{Transferred From:|Fifth-Third Chkg|NFCU Chkg|NFCU Svgs}\n       To: %^{To:|NFCU Svgs|NFCU Chkg|Fifth-Third Chk}\n   Amount: $%^{Amount $}\n  Confirm: %^{Confirmation #}\n")
+         "* Transferred Money %U\n     From: %^{Transferred From:|Fifth-Third Chkg|NFCU Chkg|NFCU Svgs}\n       To: %^{To:|NFCU Svgs|NFCU Chkg|Fifth-Third Chk}\n   Amount: $%^{Amount $}\n  Confirm: %^{Confirmation #}\n")
         ("w" "Password" table-line (file+olp "~/org/passwords.gpg" "Passwords")
          "| %^{Title} | %^{Username} | %^{Password} | %^{URL} |")))
+
+
+;;============================================================
+;; Targets include this file and any file contributing to the agenda - up to
+;; 3 levels deep for refiling entries (C-c C-w)
+(setq org-refile-targets (quote ((nil :maxlevel . 3)
+                                 (org-agenda-files :maxlevel . 3))))
 
 ;;============================================================
 ;; various settings
@@ -128,12 +135,16 @@
       "now - - - - - - - - - - - - - -")
 
 (setq org-agenda-custom-commands
-      '(("d" "Agenda and all tasks"
+      '(
+        ("d" "Agenda and all tasks"
          ((agenda)
           (todo))
          ((org-agenda-start-on-weekday 1)) ; start on Monday
          ("~/.org-agenda.txt"))
-        ))
+        ("n" "Agenda and all TODO's"
+         ((agenda "")
+          (alltodo "")))))
+
 
 ;; To use the GeekTool agenda from a command line, put the following
 ;; in the shell command field. Note, emacs server must be running for
@@ -141,6 +152,7 @@
 ;; usually have it open anyway.
 ;; 'emacsclient -e "(progn (org-store-agenda-views))" ; cat ~/.org-agenda.txt'
 
+;;============================================================
 ;; Set up the TODO states
 (setq org-todo-keywords
       '((sequence "TODO(t)" "OPEN(o)" "WAITING(w@/!)" "|" "DONE(d@)" "CANCELED(c@)")))
