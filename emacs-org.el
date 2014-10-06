@@ -26,68 +26,30 @@
 (setq org-archive-location (concat HOME_DIR "/org/archives/%s_archive::"))
 
 ;;============================================================
-;; capture templates (replaces remember)
+;; needed for the calculator conversion table in the fun.org file
+(require 'calc-funcs)
 
+;;============================================================
+;; capture templates (replaces remember)
 (global-set-key (kbd "C-c c") 'org-capture)
 
 (setq org-capture-templates
-      '(
-        ;; Pending input to file later
-        ("t" "Todo" entry
-         (file "~/org/pending.org")
+      '(("t" "Todo" entry (file "~/org/pending.org")
          "* TODO %^{Task Description} %^g\n  Added:  %U\n  %?\n  %a\n")
-        ("a" "Appointment" entry
-         (file "~/org/pending.org")
+        ("a" "Appointment" entry (file "~/org/pending.org")
          "* %^{Appt Description}  %^g\n  %^T\n  %i%?\n  %a\n")
-        ("n" "note" entry
-         (file "~/org/journal.org")
+        ("n" "Note" entry (file "~/org/pending.org")
          "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
-
-        ;; Journal
-        ("j" "Journal")
-        ("jt" "Todo" entry
-         (file+olp "~/org/journal.org" "Tasks")
-         "* TODO %^{Task Description} %^g\n  Added:  %U\n  %?\n  %a\n")
-        ("ja" "Appointment" entry
-         (file+olp "~/org/journal.org" "Appointments")
-         "* %^{Appt Description}  %^g\n  %^T\n  %i%?\n  %a\n")
-        ("jn" "Note" entry
-         (file+olp "~/org/journal.org" "Notes")
-         "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
-
-        ;; Siemens entries
-        ("s" "Siemens")
-        ("st" "Todo" entry
-         (file+olp "~/org/siemens.org" "Tasks")
-         "* TODO %^{Task Description} %^g\n  Added: %U\n  %?\n  %a\n")
-        ("sa" "Appointment" entry
-         (file+olp "~/org/siemens.org" "Appointments")
-         "* %^{Appt Description}  %^g\n  %^T\n  %i%?\n  %a\n")
-        ("sn" "Note" entry
-         (file+olp "~/org/siemens.org" "Notes")
-         "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
-
-        ;; Navy entries
-        ("N" "Navy")
-        ("Nt" "Todo" entry
-         (file+olp "~/org/navy.org" "Tasks")
-         "* TODO %^{Task Description} %^g\n  Added: %U\n  %?\n  %a\n")
-        ("Na" "Appointment" entry
-         (file+olp "~/org/navy.org" "Appointments")
-         "* %^{Appt Description}  %^g\n  %^T\n  %i%?\n  %a\n")
-        ("Nn" "Note" entry
-         (file+olp "~/org/navy.org" "Notes")
-         "* %^{Note Description}  %^g\n  %T\n  %i%?\n  %a\n")
-
-        ("b" "Bill" entry
-         (file+olp "~/org/journal.org" "Bills")
-         "* Paid %^{Bill Paid|AT&T|Matrix|USAA Auto Ins|USAA Master Card} %T\n   Amount: $%^{Amount $}\n   Source: %^{Source Acct|Fifth-Third|NFCU chkg}\n  Confirm: %^{Confirmation #}\n    Notes: %^{Notes}\n")
-        ("f" "Funds" entry
-         (file+olp "~/org/journal.org" "Funds")
+        ("m" "Meeting" entry (file "~/org/pending.org")
+         "* Meeting with %^{With whom} :MEETING:\n  %?" :clock-in t :jump-to-captured)
+        ("p" "Phone Call" entry (file "~/org/pending.org")
+         "* Phone Call with %^{With whom} :PHONE:\n  %?" :clock-in t :jump-to-captured)
+        ("b" "Bill" entry (file+olp "~/org/finances.org" "Bills")
+         "* Paid %^{Bill Paid|AT&T|Matrix|USAA Auto Ins|USAA Master Card} %T\n   Amount: $%^{Amount $}\n   Source: %^{Source Acct|Fifth-Third|NFCU chkg}\n  Confirm: %^{Confirmation #}\n")
+        ("f" "Funds" entry (file+olp "~/org/finances.org" "Funds")
          "* Transferred Money %T\n     From: %^{Transferred From:|Fifth-Third Chkg|NFCU Chkg|NFCU Svgs}\n       To: %^{To:|NFCU Svgs|NFCU Chkg|Fifth-Third Chk}\n   Amount: $%^{Amount $}\n  Confirm: %^{Confirmation #}\n")
-        ("p" "Password" entry
-         (file+olp "~/org/passwords.gpg" "Passwords")
-         "* %^{Title}\n  :PROPERTIES:\n  :Update:   %u\n  :Url:      %^{Url}\n  :Username: %^{Username}\n  :Password: %^{Password}\n  :Notes:    %^{Notes}\n  :END:")))
+        ("w" "Password" table-line (file+olp "~/org/passwords.gpg" "Passwords")
+         "| %^{Title} | %^{Username} | %^{Password} | %^{URL} |")))
 
 ;;============================================================
 ;; various settings
@@ -202,49 +164,6 @@
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
 
-;;;============================================================
-;;; publishing functions 
-(defun org-pandoc-publish-to-md (plist filename pub-dir)
-  "Publish an org file to Markdown using Pandoc.
-
-FILENAME is the filename of the Org file to be published.  PLIST
-is the property list for the given project.  PUB-DIR is the
-publishing directory.
-
-Return output file name."
-  (org-publish-org-to 'pandoc filename
-		      (concat
-                       "."
-                       (or (plist-get plist :md-extension) "md"))
-		      plist pub-dir))
-
-(defun org-pandoc-publish-to-html (plist filename pub-dir)
-  "Publish an org file to Markdown using Pandoc.
-
-FILENAME is the filename of the Org file to be published.  PLIST
-is the property list for the given project.  PUB-DIR is the
-publishing directory.
-
-Return output file name."
-  (org-publish-org-to 'pandoc filename
-		      (concat
-                       "."
-                       (or (plist-get plist :html-extension) "html"))
-		      plist pub-dir))
-
-(defun org-md-publish-to-md (plist filename pub-dir)
-  "Publish an org file to Markdown using ox-md.
-
-FILENAME is the filename of the Org file to be published.  PLIST
-is the property list for the given project.  PUB-DIR is the
-publishing directory.
-
-Return output file name."
-  (org-publish-org-to 'md filename
-		      (concat
-                       "."
-                       (or (plist-get plist :md-extension) "md"))
-		      plist pub-dir))
 
 ;;============================================================
 ;; Make org files behave in ediff
@@ -266,6 +185,36 @@ Return output file name."
     (message "ERR: not in Org mode")
     (ding))))
 
+;;;============================================================
+;;; publishing functions 
+(defun org-pandoc-publish-to-md (plist filename pub-dir)
+  "Publish an org file to Markdown using Pandoc.
+
+FILENAME is the filename of the Org file to be published.  PLIST
+is the property list for the given project.  PUB-DIR is the
+publishing directory.
+
+Return output file name."
+  (org-publish-org-to 'pandoc filename
+		      (concat
+                       "."
+                       (or (plist-get plist :md-extension) "md"))
+		      plist pub-dir))
+
+(defun org-md-publish-to-md (plist filename pub-dir)
+  "Publish an org file to Markdown using ox-md.
+
+FILENAME is the filename of the Org file to be published.  PLIST
+is the property list for the given project.  PUB-DIR is the
+publishing directory.
+
+Return output file name."
+  (org-publish-org-to 'md filename
+		      (concat
+                       "."
+                       (or (plist-get plist :md-extension) "md"))
+		      plist pub-dir))
+
 ;;============================================================
 ;; settings to export and publish
 
@@ -285,12 +234,6 @@ Return output file name."
          :with-sub-superscript nil
          :publishing-function org-html-publish-to-html
          :preserve-breaks t)
-        ("panhtml"
-         :base-directory "~/org" 
-         :base-extension "org"
-         :publishing-directory "~/public/pandoc_html"
-         :html-extension "html"
-         :publishing-function org-pandoc-publish-to-html)
         ("orgmd"
          :base-directory "~/org" 
          :base-extension "org"
@@ -305,23 +248,15 @@ Return output file name."
          :publishing-directory "~/public/pandoc_md"
          :publishing-function org-pandoc-publish-to-md
          :preserve-breaks t)
-        ("orgstatic"
+        ("static"
          :base-directory "~/org/"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
          :recursive t
          :publishing-directory "~/public/org_html/"
          :publishing-function org-publish-attachment)
-        ("panstatic"
-         :base-directory "~/org/"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-         :recursive t
-         :publishing-directory "~/public/pandoc_html/"
-         :publishing-function org-publish-attachment)
-        ("html-org"
-         :components ("orghtml" "orgstatic"))
-        ("html-pandoc"
-         :components ("panhtml" "panstatic"))
-        ("markdown-org"
+        ("html"
+         :components ("orghtml" "static"))
+        ("markdown"
          :components ("orgmd"))
         ("markdown-pandoc"
          :components ("panmd"))
