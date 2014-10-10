@@ -107,14 +107,14 @@
 (put 'downcase-region 'disabled nil)
 
 ;;======================================================================
-;; Sensibly split windows horizontally column threshold
-(setq split-width-threshold 160)
-
-;;======================================================================
 ;; Enable the commands `narrow-to-region' ("C-x n n") and
 ;;`eval-expression' ("M-ESC", or "ESC ESC").
 (put 'narrow-to-region 'disabled nil)
 (put 'eval-expression 'disabled nil)
+
+;;======================================================================
+;; Sensibly split windows horizontally column threshold
+(setq split-width-threshold 140)
 
 ;;======================================================================
 ;; ediff configuration
@@ -184,7 +184,6 @@
   (interactive "MList lines matching regexp: ")
   (require 'dired)
   (multi-occur (mapcar 'find-file (dired-get-marked-files)) string))
-
 
 ;;======================================================================
 ;; Join the current and subsequent lines

@@ -132,6 +132,12 @@
 (setq backup-directory-alist (quote ((".*" . "~/.backups"))))
 
 ;;=====================================================================
+;; easypg settings
+;; prevents symmetric-encrypted files from repeatedly prompting for
+;; passwords
+(setq epa-file-cache-passphrase-for-symmetric-encryption t)
+
+;;=====================================================================
 ;; Set the environment (OSX or Cygwin)
 (if (eq system-type 'darwin)
   (progn
@@ -167,6 +173,7 @@
 (require 'emacs-help)         ; keybindings for help functions
 (require 'emacs-ui)           ; theme, fonts and eye candy
 (require 'emacs-modeline)     ; mode-line settings
+(require 'emacs-sql)          ; database interaction
 
 ;;=====================================================================
 ;; start the emacsserver that listens to emacsclient

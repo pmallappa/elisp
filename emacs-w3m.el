@@ -19,7 +19,7 @@
 ;(defadvice w3m-process-filter (before w3m-remember-proxy-login activate)
 ;"Pass the proxy username and password to w3m"
 ;  (setq w3m-process-proxy-user MY_PROXY_USER)
-;  (setq w3m-process-proxy-password "tmdv&kds")
+;  (setq w3m-process-proxy-password "<password>")
 ;  (setq w3m-no-proxy-domains '("local.com" "ngc.com")))
 ;
 ;(setq url-proxy-services '(("no_proxy" . "ngc\\.com")

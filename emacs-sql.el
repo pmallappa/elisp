@@ -7,11 +7,11 @@
 
 (setq sql-oracle-program "sqlplus")
 (setq password-cache t)
-(setq password-cache-expiry 60)
+(setq password-cache-expiry 3600)
 
 (setq sql-oracle-login-params
       '((user     :default "sales")
-        (password :default (password-read "Password:" "webtst"))
+        (password :default (password-read "Password:" "webtest"))
         (database :default "localhost:21521/webtst")))
 
 ;;==============================
@@ -32,11 +32,13 @@
 ;; note, required changing the source code sqlplus.el to work, commented out lines 3385-3398
 ;; will send a change proposal to the author
 (set-face-background 'sqlplus-table-even-rows-face (sqlplus-shine-color (face-background 'default) -10))
-(set-face-background 'sqlplus-table-odd-rows-face (sqlplus-shine-color (face-background 'default) -20))
+(set-face-background 'sqlplus-table-odd-rows-face  (sqlplus-shine-color (face-background 'default) -20))
+(set-face-background 'sqlplus-table-head-face      (sqlplus-shine-color (face-background 'default) -30))
 
+;;==============================
 ;; Use org table to store connection info.
 ;; See the password.gpg file for current connections
-(defvar sqlplus-x-columns '(sqlplus-x-service sqlplus-x-user sqlplus-x-pwd))
+(defvar sqlplus-x-columns '(sp-service sp-user sp-pwd sp-key))
 (defun sqlplus-x-connect ()
   "Build a connection string and make a connection. The point must be in an org-mode table.
 Columns of the table must correspond to the `sqlplus-x-columns' variable.
@@ -50,16 +52,20 @@ Default table format is
   (org-table-force-dataline)
   (let
       ((cur-row (nth (org-table-current-dline) (org-table-to-lisp)))
-       (is-user-selected (= (org-table-current-column) (+ 1 (position 'sqlplus-x-user sqlplus-x-columns)))))
+       (is-user-selected (= (org-table-current-column) (+ 1 (position 'sp-user sqlplus-x-columns)))))
     (sqlplus
      (format
       "%s/%s@%s"
       (if is-user-selected
           (thing-at-point 'symbol)
-        (nth (position 'sqlplus-x-user sqlplus-x-columns) cur-row))
-      (nth (position 'sqlplus-x-pwd sqlplus-x-columns) cur-row)
-      (nth (position 'sqlplus-x-service sqlplus-x-columns) cur-row))
-     (concat (nth (position 'sqlplus-x-service sqlplus-x-columns) cur-row) ".sqp"))))
+        (nth (position 'sp-user sqlplus-x-columns) cur-row))
+      (nth (position 'sp-pwd sqlplus-x-columns) cur-row)
+      (nth (position 'sp-service sqlplus-x-columns) cur-row))
+     (concat (nth (position 'sp-service sqlplus-x-columns) cur-row) ".sqp"))
+    (password-cache-add
+     (nth (position 'sp-key sqlplus-x-columns) cur-row)
+     (nth (position 'sp-pwd sqlplus-x-columns) cur-row))))
 
 (global-set-key [f4] 'sqlplus-x-connect)
 
+(provide 'emacs-sql)

@@ -61,6 +61,15 @@
 ;;======================================================================
 ;; Syntax highlighting
 
+;; blatantly stolen from sqlplus-shine-color
+(defun cm-adjust-color (color percent)
+  (when (equal color "unspecified-bg")
+    (setq color (if (< percent 0) "white" "black")))
+  (apply 'format "#%02x%02x%02x" 
+         (mapcar (lambda (value)
+                   (min 65535 (max 0 (* (+ (/ value 650) percent) 650))))
+                 (color-values color))))
+
 (global-font-lock-mode t)
 (global-hl-line-mode -1)
 (setq global-hl-line-sticky-flag nil)
@@ -72,10 +81,14 @@
 (highlight-symbol-mode 1)
 
 
-
 ;;======================================================================
 ;; Color Theme
 (load-theme 'sanityinc-solarized-light t nil)
+;(load-theme 'hc-zenburn t nil)
+;(load-theme 'zenburn t nil)
+
+;; with some adjustments
+(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -20))
 
 ;;; set the fringe background to match the default background color
 ;(set-face-background 'default (face-attribute 'fringe :background))
