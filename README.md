@@ -2,6 +2,8 @@
 
 Files for emacs configuration for the MacBook
 
+Access through SSH and HTTPS
+
 ### What is this repository for? ###
 
 * Backup of files
