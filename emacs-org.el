@@ -89,12 +89,11 @@
 ;;============================================================
 ;; Set up the global tags list
 (setq org-tag-persistent-alist
-      '(("emacs"      . ?e)
-        ("navy"       . ?n)
-        ("personal"   . ?p)
-        ("seimens"    . ?s)
-        ("crypt"      . ?c)
-        ("reference"  . ?r)))
+      '(("phone"       . ?p)
+        ("appointment" . ?a)
+        ("meeting"     . ?m)
+        ("note"        . ?n)
+        ("crypt"       . ?c)))
 
 ;;============================================================
 ;; set up encryption within org files. Use the 'crypt' tag to encrypt the
@@ -173,7 +172,8 @@
   (let (org-log-done org-log-states)   ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
-(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+;; interfering with notes on child-todo states
+;(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
 
 
