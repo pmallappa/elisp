@@ -137,6 +137,11 @@
 ;; passwords
 (setq epa-file-cache-passphrase-for-symmetric-encryption t)
 
+;; use the internal password cache
+(require 'password-cache)
+(setq password-cache t)
+(setq password-cache-expiry 3600)
+
 ;;=====================================================================
 ;; Set the environment (OSX or Cygwin)
 (if (eq system-type 'darwin)

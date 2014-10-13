@@ -6,9 +6,6 @@
 ;;
 
 (setq sql-oracle-program "sqlplus")
-(setq password-cache t)
-(setq password-cache-expiry 3600)
-
 (setq sql-oracle-login-params
       '((user     :default "sales")
         (password :default (password-read "Password:" "webtest"))

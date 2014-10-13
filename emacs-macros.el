@@ -437,8 +437,23 @@ paragraphs in the current region into long lines."
   (shell-command
    (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
 	   " --auto-mount=favorites"
-	   " --password=\"" (read-passwd "Passphrase: ") "\""))
-  (message "Drives Mounted"))
+	   " --password=\"" (password-read-and-add "Password: " "truecrypt") "\"")))
+
+(defun tcmount1 ()
+  "Mount the truecrypt volume JAVA_LIB01 from the Passport2TB"
+  (interactive)
+  (shell-command
+   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
+           " /Volumes/MyBook3TB/Java/3tb-java_lib01 /Volumes/3TB_JAVA1"
+	   " --password=\"" (password-read-and-add "Password: " "truecrypt") "\"")))
+
+(defun tcmount2 ()
+  "Mount the truecrypt volume JAVA_LIB02 from Passport2TB"
+  (interactive) 
+  (shell-command
+   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
+           " /Volumes/MyBook3TB/Java/3tb-java_lib02 /Volumes/3TB_JAVA2"
+	   " --password=\"" (password-read-and-add "Password: " "truecrypt") "\"")))
 
 (defun tcdmount ()
   "Unmount the truecrypt favorite volumes"
@@ -446,22 +461,6 @@ paragraphs in the current region into long lines."
   (shell-command
    "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt --dismount")
   (message "Drives Dismounted"))
-
-(defun tcmount1 ()
-  "Mount the truecrypt volume JAVA_LIB01 from the Passport2TB"
-  (interactive)
-  (shell-command
-   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
-           " /Volumes/Passport2TB/Java/2tb-java_lib01 /Volumes/JAVA_LIB01"
-	   " --password=\"" (read-passwd "Passphrase: ") "\"")))
-
-(defun tcmount2 ()
-  "Mount the truecrypt volume JAVA_LIB02 from Passport2TB"
-  (interactive) 
-  (shell-command
-   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
-           " /Volumes/Passport2TB/Java/2tb-java_lib02 /Volumes/JAVA_LIB02"
-	   " --password=\"" (read-passwd "Passphrase: ") "\"")))
 
 (defun tclist ()
   "List the mounted TrueCrypt directories"
