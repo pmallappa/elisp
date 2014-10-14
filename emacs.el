@@ -98,9 +98,6 @@
 (if (eq system-type 'darwin)
     (setq ns-popup-frames nil))
 
-(defvar my_email_address "cmcmahan@gmail.com"
-  "email address to use in emacs configuration")
-
 ;;==============================
 ;; size, colors and fonts
 ;; abcedfghijklmnopqrstuvwxyz

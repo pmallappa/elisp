@@ -22,13 +22,10 @@
 
 (global-set-key (kbd "C-c f a") 'cmframe-frame-adjust)
 (global-set-key (kbd "C-c f s") 'cmframe-frame-shrink)
-(global-set-key (kbd "C-c f e") 'cmframe-toggle-frame-enlarge)
-(global-set-key (kbd "C-c f m") 'cmframe-toggle-frame-maximize)
+(global-set-key (kbd "C-c f e") 'toggle-frame-maximized)
+(global-set-key (kbd "C-c f m") 'toggle-frame-maximized)
+(global-set-key (kbd "C-c f f") 'toggle-frame-fullscreen)
 (global-set-key (kbd "C-c f t") 'cmframe-toggle-window-split)
-(if (and (>= emacs-major-version 24)
-         (>= emacs-minor-version 4))
-    (global-set-key (kbd "C-c f f") 'toggle-frame-fullscreen)
-  (global-set-key (kbd "C-c f f") 'cmframe-toggle-frame-maximize))
 
 ;;; ======================================================================
 ;; misc settings

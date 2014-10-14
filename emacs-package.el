@@ -22,6 +22,7 @@
     color-theme-sanityinc-solarized
     csv-mode
     dash
+    deferred
     diminish
     dired-hacks-utils
     elisp-slime-nav
@@ -49,8 +50,11 @@
     pkg-info
     popup
     rainbow-mode
+    request
+    request-deferred
     s
     smartparens
+    sqlplus
     starter-kit-eshell
     string-utils
     w3m
