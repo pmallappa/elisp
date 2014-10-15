@@ -93,6 +93,7 @@
         ("appointment" . ?a)
         ("meeting"     . ?m)
         ("note"        . ?n)
+        ("noexport"    . ?x)
         ("crypt"       . ?c)))
 
 ;;============================================================
@@ -159,7 +160,7 @@
 (setq org-todo-keyword-faces
       '(("TODO"      . (:foreground "IndianRed3"  :weight bold))
  	("OPEN"      . (:foreground "Orange2"     :weight bold))
-        ("WAITING"   . (:foreground "Orange4"     :weight bold))
+        ("WAITING"   . (:foreground "Orange2"     :weight bold))
 	("DONE"      . (:foreground "ForestGreen" :weight bold))
 	("CANCELED"  . (:foreground "ForestGreen" :weight bold))))
 
