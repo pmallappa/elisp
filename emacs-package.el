@@ -1,18 +1,17 @@
 ;; emacs package manager.
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa"         . "http://melpa.milkbox.net/packages/"))
-;             '("marmalade"     . "http://marmalade-repo.org/packages/"))
-;             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
+             '("melpa" . "http://melpa.milkbox.net/packages/")
+             '("org" . "http://orgmode.org/elpa/"))
 (package-initialize)
 
-;; Required packages
-;; everytime emacs starts, it will automatically check if those packages
-;; are missing
 ;(when (not package-archive-contents)
-;  (package-refresh-contents))
+;  (progn
+;    (message "%s" "Emacs is now refreshing its package database...")
+;    (package-refresh-contents)
+;    (message "%s" " done.")))
 
-(defvar cm/packages
+(defvar cm/packages                                                  
   '(
     auto-complete
     bm
@@ -32,6 +31,7 @@
     git-gutter+
     git-rebase-mode
     git-timemachine
+    hc-zenburn-theme
     highlight-symbol
     hl-sexp
     ht
@@ -59,28 +59,23 @@
     string-utils
     w3m
     windata
-    )
-  "A list of packages to ensure are installed at launch")
+    zenburn-theme)
+  "Packages that will be installed/updated to the latest version on startup")
 
-(if (eq system-type 'darwin)
-    (add-to-list 'cm/packages 'exec-path-from-shell))
+;; cycle through the package list and prompt to install as necessary
+(defun cm-package-refresh ()
+  (interactive)
+  (if (y-or-n-p-with-timeout "Check packages? " 3 nil)
+      (progn
+	(dolist (pkg cm/packages)
+	  (if (not (package-installed-p pkg))
+	      (progn
+		(if (y-or-n-p (format "%s %s " "install missing package:" pkg))
+                    (package-install pkg))))))))
 
-(defun cm-packages-installed-p ()
-  (loop for p in cm/packages
-        when (not (package-installed-p p)) do (return nil)
-        finally (return t)))
+;; now execute the refresh code
+(cm-package-refresh)
 
-(unless (cm-packages-installed-p)
-  ;; check for new packages (package versions)
-  (message "%s" "Emacs is now refreshing its package database...")
-  (package-refresh-contents)
-  (message "%s" " done.")
-  ;; install the missing packages
-  (dolist (p cm/packages)
-    (when (not (package-installed-p p))
-      (package-install p))))
-
-;; Change the width of the package list displayed. Currently doing this by
 ;; redefining the entire method. Long term would be to introduce a patch to
 ;; allow user-defined widths, or based on the width of the emacs frame
 (define-derived-mode package-menu-mode tabulated-list-mode "Package Menu"
@@ -95,5 +90,18 @@ Letters do not insert themselves; instead, they are commands.
   (setq tabulated-list-padding 2)
   (setq tabulated-list-sort-key (cons "Status" nil))
   (tabulated-list-init-header))
+
+;; display installed packages that are not in the cm-packages list
+(defun package-list-unaccounted-packages ()                          
+  "Like `package-list-packages', but shows only the packages that    
+            are installed and are not in `jpk-packages'.  Useful for           
+            cleaning out unwanted packages."                                   
+  (interactive)                                                      
+  (package-show-package-list                                         
+   (remove-if-not (lambda (x) (and (not (memq x cm/packages))       
+                                   (not (package-built-in-p x))             
+                                   (package-installed-p x)))                
+                  (mapcar 'car package-archive-contents))))
+
 
 (provide 'emacs-package)

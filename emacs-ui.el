@@ -82,12 +82,15 @@
 
 
 ;;======================================================================
-;; Color Theme
-(load-theme 'sanityinc-solarized-light t nil)
+;; Color Themes
+;; Zenburn theme with some tweaks
 ;(load-theme 'hc-zenburn t nil)
-;(load-theme 'zenburn t nil)
+;(set-face-background 'default (cm-adjust-color (face-background 'default) +10))
+;(set-face-background 'region (cm-adjust-color (face-background 'default) +15))
+;(set-face-background 'lazy-highlight (cm-adjust-color (face-background 'isearch-fail) -5))
 
-;; with some adjustments
+;; A better Solarized theme with some adjustments
+(load-theme 'sanityinc-solarized-light t nil)
 (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -20))
 
 ;;; set the fringe background to match the default background color
