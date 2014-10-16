@@ -67,21 +67,20 @@
 (defun cm-package-refresh ()
   (interactive)
   (setf missing-pkgs nil)
-  (if (y-or-n-p-with-timeout "Check packages? " 4 nil)
-      (progn
-	(dolist (pkg cm/packages)
-	  (if (not (package-installed-p pkg))
-              (add-to-list 'missing-pkgs pkg)))
-        ; for any missing packages, ask to load them all
-        (if (and (> (length missing-pkgs) 0)
-                 (y-or-n-p-with-timeout
-                  (format "%s %s " "install missing packages:" missing-pkgs) 4 nil))
-                  (dolist (mpkg missing-pkgs)
-                    (package-install mpkg)))))
+  (dolist (pkg cm/packages)
+    (if (not (package-installed-p pkg))
+        (add-to-list 'missing-pkgs pkg)))
+  ;; for any missing packages, ask to load them all
+  (if (and (> (length missing-pkgs) 0)
+           (y-or-n-p-with-timeout
+            (format "%s %s " "install missing packages:" missing-pkgs) 4 nil))
+      (dolist (mpkg missing-pkgs)
+        (package-install mpkg)))
   (message "%s" "done"))
 
-;; now execute the refresh code
-(cm-package-refresh)
+;; now check for missing packages
+(if (y-or-n-p-with-timeout "Check packages? " 4 nil)
+    (cm-package-refresh))
 
 ;; redefining the entire method. Long term would be to introduce a patch to
 ;; allow user-defined widths, or based on the width of the emacs frame
