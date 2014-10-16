@@ -63,15 +63,22 @@
   "Packages that will be installed/updated to the latest version on startup")
 
 ;; cycle through the package list and prompt to install as necessary
+(defvar missing-pkgs '())
 (defun cm-package-refresh ()
   (interactive)
-  (if (y-or-n-p-with-timeout "Check packages? " 3 nil)
+  (setf missing-pkgs nil)
+  (if (y-or-n-p-with-timeout "Check packages? " 4 nil)
       (progn
 	(dolist (pkg cm/packages)
 	  (if (not (package-installed-p pkg))
-	      (progn
-		(if (y-or-n-p (format "%s %s " "install missing package:" pkg))
-                    (package-install pkg))))))))
+              (add-to-list 'missing-pkgs pkg)))
+        ; for any missing packages, ask to load them all
+        (if (and (> (length missing-pkgs) 0)
+                 (y-or-n-p-with-timeout
+                  (format "%s %s " "install missing packages:" missing-pkgs) 4 nil))
+                  (dolist (mpkg missing-pkgs)
+                    (package-install mpkg)))))
+  (message "%s" "done"))
 
 ;; now execute the refresh code
 (cm-package-refresh)
