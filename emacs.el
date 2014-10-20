@@ -137,7 +137,7 @@
 ;; use the internal password cache
 (require 'password-cache)
 (setq password-cache t)
-(setq password-cache-expiry 3600)
+(setq password-cache-expiry 360)
 
 ;;=====================================================================
 ;; Set the environment (OSX or Cygwin)

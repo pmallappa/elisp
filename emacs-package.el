@@ -11,6 +11,10 @@
 ;    (package-refresh-contents)
 ;    (message "%s" " done.")))
 
+;; a good way to get a formatted list of the packages loaded is with the
+;; following shell command:
+;; ls | sed -e s/-[0-9.].*//
+
 (defvar cm/packages                                                  
   '(
     auto-complete
@@ -31,7 +35,6 @@
     git-gutter+
     git-rebase-mode
     git-timemachine
-    hc-zenburn-theme
     highlight-symbol
     hl-sexp
     ht
@@ -49,6 +52,7 @@
     paredit
     pkg-info
     popup
+    projectile
     rainbow-mode
     request
     request-deferred
@@ -100,7 +104,7 @@ Letters do not insert themselves; instead, they are commands.
 ;; display installed packages that are not in the cm-packages list
 (defun package-list-unaccounted-packages ()                          
   "Like `package-list-packages', but shows only the packages that    
-            are installed and are not in `jpk-packages'.  Useful for           
+            are installed and are not in `cm/packages'.  Useful for           
             cleaning out unwanted packages."                                   
   (interactive)                                                      
   (package-show-package-list                                         
@@ -108,6 +112,5 @@ Letters do not insert themselves; instead, they are commands.
                                    (not (package-built-in-p x))             
                                    (package-installed-p x)))                
                   (mapcar 'car package-archive-contents))))
-
 
 (provide 'emacs-package)
