@@ -63,6 +63,12 @@
 
 ;; blatantly stolen from sqlplus-shine-color
 (defun cm-adjust-color (color percent)
+  "Return the hex numeric value of the color provided adjusted by
+the percent specified, An example of usage to adjust the color of
+a face would be:
+
+(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -20))"
+
   (when (equal color "unspecified-bg")
     (setq color (if (< percent 0) "white" "black")))
   (apply 'format "#%02x%02x%02x" 
@@ -82,6 +88,16 @@
 
 
 ;;======================================================================
+;; auto dim background buffers
+;(add-hook 'after-init-hook (lambda ()
+;  (when (fboundp 'auto-dim-other-buffers-mode)
+;    (auto-dim-other-buffers-mode t))))
+;
+;(set-face-background 'auto-dim-other-buffers-face
+;                     (cm-adjust-color (face-background 'default) -1.5))
+
+
+;;======================================================================
 ;; Color Themes
 ;; Zenburn theme with some tweaks
 ;(load-theme 'hc-zenburn t nil)
@@ -92,6 +108,8 @@
 ;; A better Solarized theme with some adjustments
 (load-theme 'sanityinc-solarized-light t nil)
 (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -20))
+;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -5))
+(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -1))
 
 ;;; set the fringe background to match the default background color
 ;(set-face-background 'default (face-attribute 'fringe :background))

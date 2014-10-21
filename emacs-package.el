@@ -53,7 +53,6 @@
     pkg-info
     popup
     projectile
-    rainbow-mode
     request
     request-deferred
     s
@@ -63,7 +62,7 @@
     string-utils
     w3m
     windata
-    zenburn-theme)
+    )
   "Packages that will be installed/updated to the latest version on startup")
 
 ;; cycle through the package list and prompt to install as necessary
