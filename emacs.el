@@ -48,7 +48,7 @@
 
 ;;=====================================================================
 ;; select your preferred programs for html and media here
-; Mac OS X
+;; Mac OS X
 (if (eq system-type 'darwin)
     (progn
       (defconst MEDIA_PLAYER "/Applications/VLC.app/"
@@ -61,7 +61,7 @@
         "points to the Google Chrome browser location")
       (defconst BROWSER FIREFOX_PRG
         "set the default browser to use within emacs")))
-; Windows
+;; Windows
 (if (eq system-type 'windows-nt)
   (progn
     (defconst MEDIA_PLAYER "c:/Program Files/Windows Media Player/wmplayer.exe"
@@ -74,6 +74,7 @@
         "points to the Google Chrome browser location")
     (defconst BROWSER CHROME_PRG
       "set the default browser to use within emacs")))
+;; cygwin emacs
 (if (eq system-type 'cygwin)
   (progn
     (defconst MEDIA_PLAYER "/c/Program Files/Windows Media Player/wmplayer.exe"
@@ -176,10 +177,6 @@
 (require 'emacs-ui)           ; theme, fonts and eye candy
 (require 'emacs-modeline)     ; mode-line settings
 (require 'emacs-sql)          ; database interaction
-
-;;=====================================================================
-;; start the emacsserver that listens to emacsclient
-(server-start)
 
 ;;=====================================================================
 ;; some reference stuff

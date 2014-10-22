@@ -109,6 +109,12 @@
 (eval-after-load "dired" '(load-library "wdired"))
 
 ;;======================================================================
+;; dired+
+(setq diredp-hide-details-initially-flag nil)
+(require 'dired+)
+
+
+;;======================================================================
 ;; dired-x
 ;;; dired-x provides added functions to dired, including the ability
 ;;; to save a dired listing for later use as XXXXX.dired and the

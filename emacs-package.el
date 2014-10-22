@@ -14,10 +14,12 @@
 ;; a good way to get a formatted list of the packages loaded is with the
 ;; following shell command:
 ;; ls | sed -e s/-[0-9.].*//
-
-(defvar cm/packages                                                  
+(defvar cm/packages nil
+  "Packages that will be installed/updated to the latest version on startup")
+(setq cm/packages                                                  
   '(
     auto-complete
+    auto-dim-other-buffers
     bm
     browse-url-dwim
     bs-ext
@@ -35,6 +37,7 @@
     git-gutter+
     git-rebase-mode
     git-timemachine
+    hc-zenburn-theme
     highlight-symbol
     hl-sexp
     ht
@@ -62,8 +65,7 @@
     string-utils
     w3m
     windata
-    )
-  "Packages that will be installed/updated to the latest version on startup")
+    ))
 
 ;; cycle through the package list and prompt to install as necessary
 (defvar missing-pkgs '())
@@ -72,14 +74,17 @@
   (setf missing-pkgs nil)
   (dolist (pkg cm/packages)
     (if (not (package-installed-p pkg))
-        (add-to-list 'missing-pkgs pkg)))
+        (progn
+          (add-to-list 'missing-pkgs pkg)
+          (setq cm-message "Done"))
+      (setq cm-message "Nothing missing")))
   ;; for any missing packages, ask to load them all
   (if (and (> (length missing-pkgs) 0)
            (y-or-n-p-with-timeout
             (format "%s %s " "install missing packages:" missing-pkgs) 4 nil))
-      (dolist (mpkg missing-pkgs)
+       (dolist (mpkg missing-pkgs)
         (package-install mpkg)))
-  (message "%s" "done"))
+  (message "%s" cm-message))
 
 ;; now check for missing packages
 (if (y-or-n-p-with-timeout "Check packages? " 4 nil)
