@@ -15,6 +15,8 @@
 
 (if (eq system-type 'windows-nt)
     (setq magit-git-executable "c:/tools/Git/bin/git.exe"))
+(if (eq system-type 'cygwin)
+    (setq magit-git-executable "/usr/bin/git"))
 
 (require 'ediff)
 

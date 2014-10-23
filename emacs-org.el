@@ -14,7 +14,7 @@
 (setq org-hide-leading-stars t)
 
 ;; hide underline and bold fonts
-(eval-after-load "org" '(clean-fonts))
+;(eval-after-load "org" '(clean-fonts))
 
 ;;============================================================
 ;; Set the return key to activate a link
@@ -121,13 +121,10 @@
 ;; To decrypt, place the cursor on the heading and execute
 ;; M-x org-decrypt-entry
 
-
 ;;============================================================
 ;; Create custom agenda views
 ;; good resource is 
 ;; http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
-
-
 (setq org-agenda-block-separator 
       "===================================================================")
 
@@ -144,7 +141,6 @@
         ("n" "Agenda and all TODO's"
          ((agenda "")
           (alltodo "")))))
-
 
 ;; To use the GeekTool agenda from a command line, put the following
 ;; in the shell command field. Note, emacs server must be running for
@@ -172,11 +168,6 @@
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
   (let (org-log-done org-log-states)   ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
-
-;; interfering with notes on child-todo states
-;(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-
-
 
 ;;============================================================
 ;; Make org files behave in ediff
@@ -208,11 +199,9 @@ is the property list for the given project.  PUB-DIR is the
 publishing directory.
 
 Return output file name."
-  (org-publish-org-to 'pandoc filename
-		      (concat
-                       "."
-                       (or (plist-get plist :md-extension) "md"))
-		      plist pub-dir))
+  (org-publish-org-to
+   'pandoc filename (concat "." (or (plist-get plist :md-extension) "md"))
+   plist pub-dir))
 
 (defun org-md-publish-to-md (plist filename pub-dir)
   "Publish an org file to Markdown using ox-md.
@@ -222,11 +211,36 @@ is the property list for the given project.  PUB-DIR is the
 publishing directory.
 
 Return output file name."
-  (org-publish-org-to 'md filename
-		      (concat
-                       "."
-                       (or (plist-get plist :md-extension) "md"))
-		      plist pub-dir))
+  (org-publish-org-to
+   'md filename (concat "." (or (plist-get plist :md-extension) "md"))
+   plist pub-dir))
+
+;;============================================================
+;; fix the default styles
+(setq org-html-head-include-default-style nil)
+(setq org-html-use-unicode-chars t)
+
+;; fix the default table attributes (UGH!!)
+(setq org-html-table-default-attributes
+      '(:border "1px solid" :cellspacing "0" :cellpadding "1"))
+
+;; always use the infojs options when publishing
+(setq org-html-use-infojs t)
+
+;; set the infojs options here
+(setq org-html-infojs-options
+      '((path . "http://orgmode.org/org-info.js")
+;      '((path . "js/org-info.js")
+        (view . "info")
+        (toc . :with-toc)
+        (ftoc . "0")
+        (tdepth . "2")
+        (sdepth . "max")
+        (mouse . "underline")
+        (buttons . "0")
+        (ltoc . "1")))
+;        (up . :html-link-up)
+;        (home . :html-link-home)))
 
 ;;============================================================
 ;; settings to export and publish
@@ -244,7 +258,9 @@ Return output file name."
          :base-extension "org"
          :publishing-directory "~/public/org_html"
          :html-extension "html"
+         :html-link-home "index.html"
          :with-sub-superscript nil
+         :with-toc t
          :publishing-function org-html-publish-to-html
          :preserve-breaks t)
         ("orgmd"
@@ -274,37 +290,6 @@ Return output file name."
         ("markdown-pandoc"
          :components ("panmd"))
         ))
-
-
-;;;============================================================
-;;; Org trello integration
-;;; forces too many changes in the way I interact with org right now
-;(require 'org-trello)
-;
-;;; trace is the most verbose
-;;(setq *orgtrello-log/level* *OT/TRACE*)
-;(setq *orgtrello-log/level* *OT/ERROR*)
-;
-;;; activate for each org file
-;;(add-hook 'org-mode-hook 'org-trello-mode)
-
-
-;;============================================================
-;; integrate Mobile Org using Dropbox
-;; After capturing notes or making changes on the device to your Org
-;; files, be sure to sync in MobileOrg. Then run org-mobile-pull from
-;; Emacs to integrate your changes. After integrating, you can run
-;; org-mobile-push to make sure MobileOrg has access to the latest
-;; version of your files.
-
-;; Set to the location of your Org files on your local system
-(setq org-directory "~/org")
-
-;; Set to the name of the file where new notes will be stored
-(setq org-mobile-inbox-for-pull "~/org/flagged.org")
-
-;; Set to <your Dropbox root directory>/MobileOrg.
-(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
 
 (provide 'emacs-org)
 
