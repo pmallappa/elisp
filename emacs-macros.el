@@ -4,38 +4,6 @@
 ;; convience functions
 ;;======================================================================
 
-(require 'thingatpt)
-
-;;======================================================================
-;; convert a string of 3 decimal numbers to hex and place the result
-;; into the kill ring for pasting
-(defun rgb (red green blue)
-  "Convert decimal RGB color specification to hexidecimal place into the kill ring"
-  (interactive "nRed: 
-nGreen: 
-nBlue: ")
-  (let ((s (concat (format "#%02x%02x%02x" red green blue))))
-           (message (concat "DEC RGB: "
-                            (int-to-string red) " "
-                            (int-to-string green) " "
-                            (int-to-string blue) "    HEX: " s))
-           ; place into the kill ring for pasting
-           (kill-new s)))
-
-(defun h2d (nbr)
-  "Convert hexidecimal number to decimal and place into the kill ring"
-  (interactive "sHex Number: ")
-  (let ((decNbr (string-to-number nbr 16)))
-    (message "Hex %s is Dec %d" nbr decNbr)
-    (kill-new (int-to-string decNbr))))
-
-(defun d2h (nbr)
-  "Convert decimal number to hexidecimal and place into the kill ring"
-  (interactive "nDec Number: ")
-  (let ((hexNbr (format "%02x" nbr)))
-    (message "Dec %d is Hex %s" nbr hexNbr)
-    (kill-new hexNbr)))
-
 ;;======================================================================
 ;; Convert degrees, minutes and seconds to decimal format.
 ;; Place the results into the kill ring for pasting

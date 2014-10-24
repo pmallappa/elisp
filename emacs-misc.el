@@ -271,4 +271,70 @@ prompt the user for a coding system."
 (setq read-file-name-completion-ignore-case 't)
 (setq read-buffer-completion-ignore-case 't)
 
+
+;;======================================================================
+;; Color convenience functions
+
+;;======================================================================
+(require 'thingatpt)
+
+(defun rgb (red green blue)
+  "Convert decimal RGB color specification to hexidecimal place into the kill ring"
+  (interactive "nRed: 
+nGreen: 
+nBlue: ")
+  (let ((s (concat (format "#%02x%02x%02x" red green blue))))
+           (message (concat "DEC RGB: "
+                            (int-to-string red) " "
+                            (int-to-string green) " "
+                            (int-to-string blue) "    HEX: " s))
+           ; place into the kill ring for pasting
+           (kill-new s)))
+
+(defun h2d (nbr)
+  "Convert hexidecimal number to decimal and place into the kill ring"
+  (interactive "sHex Number: ")
+  (let ((decNbr (string-to-number nbr 16)))
+    (message "Hex %s is Dec %d" nbr decNbr)
+    (kill-new (int-to-string decNbr))))
+
+(defun d2h (nbr)
+  "Convert decimal number to hexidecimal and place into the kill ring"
+  (interactive "nDec Number: ")
+  (let ((hexNbr (format "%02x" nbr)))
+    (message "Dec %d is Hex %s" nbr hexNbr)
+    (kill-new hexNbr)))
+
+;; blatantly stolen from sqlplus-shine-color
+(defun cm-adjust-color-32bit (color percent)
+  "Return the 16-bit hex numeric value of the color provided
+adjusted by the percent specified. Places the result into the kill ring.
+
+An example usage to adjust the color of a face would be:
+  (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -20))
+For css compatible #xxxxxx colors see the function `cm-adjust-color'"
+  (when (equal color "unspecified-bg")
+    (setq color (if (< percent 0) "white" "black")))
+  (kill-new
+   (apply 'format "#%02x%02x%02x" 
+          (mapcar (lambda (value)
+                    (min 65535 (max 0 (* (+ (/ value 655) percent) 655))))
+                  (color-values color)))))
+
+(defun cm-adjust-color (color percent)
+  "Return the 16-bit hex numeric value of the color provided
+adjusted by the percent specified. Places the result into the kill ring.
+
+An example usage to adjust the color of a face would be:
+  (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -20))
+For more precision (32-bit) see the function `cm-adjust-color-32bit'"
+  (when (equal color "unspecified-bg")
+    (setq color (if (< percent 0) "white" "black")))
+  (kill-new
+   (apply 'format "#%02x%02x%02x"
+          (mapcar
+           (lambda (value)
+             (/ (min 65535 (max 0 (* (+ (/ value 655) percent) 655))) 256))
+           (color-values color)))))
+
 (provide 'emacs-misc)

@@ -227,21 +227,6 @@ Return output file name."
 ;; always use the infojs options when publishing
 (setq org-html-use-infojs t)
 
-;; set the infojs options here
-(setq org-html-infojs-options
-      '((path . "http://orgmode.org/org-info.js")
-;      '((path . "js/org-info.js")
-        (view . "info")
-        (toc . :with-toc)
-        (ftoc . "0")
-        (tdepth . "2")
-        (sdepth . "max")
-        (mouse . "underline")
-        (buttons . "0")
-        (ltoc . "1")))
-;        (up . :html-link-up)
-;        (home . :html-link-home)))
-
 ;;============================================================
 ;; settings to export and publish
 
@@ -258,9 +243,7 @@ Return output file name."
          :base-extension "org"
          :publishing-directory "~/public/org_html"
          :html-extension "html"
-         :html-link-home "index.html"
          :with-sub-superscript nil
-         :with-toc t
          :publishing-function org-html-publish-to-html
          :preserve-breaks t)
         ("orgmd"

@@ -1,15 +1,9 @@
 ;; emacs package manager.
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/")
+             '("melpa" . "http://melpa.org/packages/")
              '("org" . "http://orgmode.org/elpa/"))
 (package-initialize)
-
-;(when (not package-archive-contents)
-;  (progn
-;    (message "%s" "Emacs is now refreshing its package database...")
-;    (package-refresh-contents)
-;    (message "%s" " done.")))
 
 ;; a good way to get a formatted list of the packages loaded is with the
 ;; following shell command:

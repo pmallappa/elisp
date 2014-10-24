@@ -61,21 +61,6 @@
 ;;======================================================================
 ;; Syntax highlighting
 
-;; blatantly stolen from sqlplus-shine-color
-(defun cm-adjust-color (color percent)
-  "Return the hex numeric value of the color provided adjusted by
-the percent specified, An example of usage to adjust the color of
-a face would be:
-
-(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -20))"
-
-  (when (equal color "unspecified-bg")
-    (setq color (if (< percent 0) "white" "black")))
-  (apply 'format "#%02x%02x%02x" 
-         (mapcar (lambda (value)
-                   (min 65535 (max 0 (* (+ (/ value 650) percent) 650))))
-                 (color-values color))))
-
 (global-font-lock-mode t)
 (global-hl-line-mode -1)
 (setq global-hl-line-sticky-flag nil)
