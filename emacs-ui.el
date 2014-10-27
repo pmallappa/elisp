@@ -73,14 +73,64 @@
 
 
 ;;======================================================================
-;; auto dim background buffers
-;(add-hook 'after-init-hook (lambda ()
-;  (when (fboundp 'auto-dim-other-buffers-mode)
-;    (auto-dim-other-buffers-mode t))))
-;
-;(set-face-background 'auto-dim-other-buffers-face
-;                     (cm-adjust-color (face-background 'default) -1.5))
+;; mode-line modifications
 
+;; set the modeline to display path and filename
+(defun long-file-name ()
+  "Display the full file path and name in the modeline"
+  (interactive "*")
+  (setq-default mode-line-buffer-identification
+    '("%S:"(buffer-file-name "%f"))))
+
+;; set the modeline to display filename only
+(defun short-file-name ()
+  "Display the file name without path in the modeline"
+  (interactive "*")
+  (setq-default mode-line-buffer-identification '("%12b")))
+
+;; turn on column line mode
+(setq column-number-mode nil)
+
+;; time and date
+(setq display-time-format " %a %m/%d %H:%M ")     ;;Fri 08/19 15:26
+(setq display-time-day-and-date t)
+(display-time)
+
+;; format for the filename in the modeline
+;; The default, "%12b", just displays the filename.
+;; You can find the complete path by invoking the macro 'M-x path',
+;; defined in .emacs-macros.el
+(setq-default mode-line-buffer-identification '("%12b"))
+
+;; format for the title on the titlebar
+(setq frame-title-format
+      (concat invocation-name " on "
+              system-name
+	      " -- %f"))
+
+;; minimize extraneous info
+(require 'diminish)
+(diminish 'abbrev-mode)
+(diminish 'elisp-slime-nav-mode)
+(diminish 'magit-auto-revert-mode)
+(diminish 'smartparens-mode)
+(diminish 'auto-complete-mode)
+
+;; display the function the point is in within the modeline if any
+(setq which-func-unknown "")
+(which-function-mode)
+
+;;;======================================================================
+;;; auto-dim-other-buffers
+;;; changes the default background face when buffer is not in focus
+;(add-hook
+; 'after-init-hook
+; (lambda ()
+;   (when (fboundp 'auto-dim-other-buffers-mode)
+;     (progn (auto-dim-other-buffers-mode t)
+;            (set-face-background
+;             'auto-dim-other-buffers-face
+;             (cm-adjust-color (face-background 'default) -2))))))
 
 ;;======================================================================
 ;; Color Themes
@@ -92,12 +142,10 @@
 
 ;; A better Solarized theme with some adjustments
 (load-theme 'sanityinc-solarized-light t nil)
-(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -20))
-;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -5))
-(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -1))
+(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -10))
+(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -10))
 
 ;;; set the fringe background to match the default background color
-;(set-face-background 'default (face-attribute 'fringe :background))
 (set-face-background 'fringe (face-attribute 'default :background))
 
 (provide 'emacs-ui)

@@ -306,13 +306,12 @@ nBlue: ")
     (kill-new hexNbr)))
 
 ;; blatantly stolen from sqlplus-shine-color
-(defun cm-adjust-color-32bit (color percent)
-  "Return the 16-bit hex numeric value of the color provided
-adjusted by the percent specified. Places the result into the kill ring.
+(defun cm-adjust-color-16bit (color percent)
+  "Returns the 16-bit hex value (65k) of the RGB color
+adjusted by the percent specified and places the result into the
+kill ring.
 
-An example usage to adjust the color of a face would be:
-  (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -20))
-For css compatible #xxxxxx colors see the function `cm-adjust-color'"
+See `cm-adjust-color' for details"
   (when (equal color "unspecified-bg")
     (setq color (if (< percent 0) "white" "black")))
   (kill-new
@@ -322,19 +321,30 @@ For css compatible #xxxxxx colors see the function `cm-adjust-color'"
                   (color-values color)))))
 
 (defun cm-adjust-color (color percent)
-  "Return the 16-bit hex numeric value of the color provided
-adjusted by the percent specified. Places the result into the kill ring.
+  "Returns the 8-bit hex value of the RGB color (256 colors)
+adjusted by the percent specified and places the result into the
+kill ring.
 
-An example usage to adjust the color of a face would be:
-  (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -20))
-For more precision (32-bit) see the function `cm-adjust-color-32bit'"
+COLOR can be in the form of a color name (SteelBlue4),
+or a hex representation (#36648b).
+
+PERCENT is a decimal number. Negative values darken the
+output color, and positive value brighten it.
+
+An example usage to adjust the background color of a face in
+relation to the default background would be:
+  (set-face-background 'mode-line (cm-adjust-color (face-background 'default) -10))
+
+Also see `cm-adjust-color-16bit' for a version which returns 16-bits per RGB color (65k)"
   (when (equal color "unspecified-bg")
     (setq color (if (< percent 0) "white" "black")))
   (kill-new
    (apply 'format "#%02x%02x%02x"
           (mapcar
            (lambda (value)
-             (/ (min 65535 (max 0 (* (+ (/ value 655) percent) 655))) 256))
+             (/
+              (min 65535 (max 0 (* (+ (/ value 655) percent) 655)))
+              256))
            (color-values color)))))
 
 (provide 'emacs-misc)
