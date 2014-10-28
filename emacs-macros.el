@@ -399,6 +399,53 @@ paragraphs in the current region into long lines."
 
 ;;======================================================================
 ;; TrueCrypt shortcuts
+;; Replaced by OSX native encrypted disk image capabilities
+;; Good explanation at
+;; http://www.theinstructional.com/guides/disk-management-from-the-command-line-part-3
+;;
+;; example command-lines
+;;
+;; Create new encrypted disk image
+;; hdiutil create -size {size} -encryption {aes-128|aes-256} -volname {Name of volume} -fs {filesystem} {filename.dmg}
+;; so 
+;; hdiutil create -size 150g -encryption aes-128 -volname JAVA_LIB -fs HFS+ java_lib.dmg 
+;;
+;; mount the encrypted disk image with a password prompt from the shell
+;; hdiutil attach /path/to/image.dmg
+;; so
+;; hdiutil attach -stdinpass /Volumes/Passport2TB/Java.dmg
+;;
+;; unmount
+;; hdiutil detach /Volumes/Passport2TB/Java_Lib
+;;
+;; increase disk size
+;; hdiutil resize -size {new size} {imagename}.dmg
+;; so to increase from 40 to 60g
+;; hdiutil resize -size 60g -stdinpass /Volumes/Passport2TB/Java.dmg
+
+(defun hdi-mount (dmgfile)
+  "Mount the JAVA_LIB volume"
+   (shell-command
+    (concat "hdiutil attach " dmgfile)))
+     
+(defun hdi-dmount (volume)
+  "Unmount the JAVA_LIB volume"
+   (shell-command
+    (concat "hdiutil detach " volume)))
+
+(defun jmount ()
+  "Mount the Java.dmg disk"
+  (interactive)
+  (hdi-mount "/Volumes/Passport2TB/Java.dmg"))
+
+(defun jdmount ()
+  "Unmount the Java.dmg disk"
+  (interactive)
+  (hdi-dmount "/Volumes/JAVA_LIB"))
+
+
+
+
 (defun tcmount ()
   "Mount the truecrypt favorite volumes"
   (interactive)
