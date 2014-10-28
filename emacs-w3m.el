@@ -1,19 +1,5 @@
-;;; using customize, since there appears to be no hook into the
-;;; w3m-search function to activate
-
-;(if (= emacs-major-version 23)
-;	(require 'w3m-ems)
-;  (require 'w3m))
-
-
-;(load-library "w3m")
-;(load-library "w3m-search")
-;(autoload 'w3m-region "w3m"
-;  "Render region in current buffer and replace with result." t)
-
-
-; column at which w3m buffer will wrap. Set to negative to set fill
-; column n places from the right of the visible window
+;; column at which w3m buffer will wrap. Set to negative to set fill
+;; column n places from the right of the visible window
 (setq w3m-fill-column 80)
 
 ;(defadvice w3m-process-filter (before w3m-remember-proxy-login activate)
@@ -28,8 +14,7 @@
 
 (setq w3m-command "w3m")
 (setq w3m-use-toolbar nil)
-
-;(setq w3m-command-arguments '("-no-graph"))
+(setq w3m-command-arguments '("-no-graph"))
 
 ;; use programs contributed with the w3m distribution
 (autoload 'w3m-find-file "w3m" "w3m interface function for local file." t)
@@ -39,7 +24,7 @@
 (setq w3m-use-form t)
 
 ; set the default save directory
-(setq w3m-default-save-directory (concat HOME_DIR "/download"))
+(setq w3m-default-save-directory (concat HOME_DIR "/downloads"))
 
 ; use ange-ftp for ftp downloads
 (setq w3m-use-ange-ftp t)
