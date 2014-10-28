@@ -21,8 +21,8 @@
 ;; e.g. sales/paSSW0rd@localhost:21521/webtst
 
 (require 'org-table)
-;; don't use adjacent tables, present results as expected
-(setq sqlplus-multi-output-tables-default-flag t)
+;; format display results side-by-side
+(setq sqlplus-multi-output-tables-default-flag nil)
 
 ;; adjust the table faces to lighten the background up a bit
 ;; default was -20 and -30
