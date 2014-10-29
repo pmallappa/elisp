@@ -241,7 +241,7 @@ Return output file name."
         ("orghtml"
          :base-directory "~/org" 
          :base-extension "org"
-         :publishing-directory "~/public/org_html"
+         :publishing-directory "~/public/html"
          :html-extension "html"
          :with-sub-superscript nil
          :publishing-function org-html-publish-to-html
@@ -264,7 +264,7 @@ Return output file name."
          :base-directory "~/org/"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
          :recursive t
-         :publishing-directory "~/public/org_html/"
+         :publishing-directory "~/public/html/"
          :publishing-function org-publish-attachment)
         ("html"
          :components ("orghtml" "static"))

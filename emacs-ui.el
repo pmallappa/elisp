@@ -109,12 +109,12 @@
 	      " -- %f"))
 
 ;; minimize extraneous info
-(require 'diminish)
-(diminish 'abbrev-mode)
-(diminish 'elisp-slime-nav-mode)
-(diminish 'magit-auto-revert-mode)
-(diminish 'smartparens-mode)
-(diminish 'auto-complete-mode)
+;(require 'diminish)
+;(diminish 'abbrev-mode)
+;(diminish 'elisp-slime-nav-mode)
+;(diminish 'magit-auto-revert-mode)
+;(diminish 'smartparens-mode)
+;(diminish 'auto-complete-mode)
 
 ;; display the function the point is in within the modeline if any
 (setq which-func-unknown "")
@@ -122,7 +122,7 @@
 
 ;;;======================================================================
 ;;; auto-dim-other-buffers
-;;; changes the default background face when buffer is not in focus
+;;; changes the default background color when buffer is not in focus
 ;(add-hook
 ; 'after-init-hook
 ; (lambda ()
@@ -138,12 +138,14 @@
 ;(load-theme 'hc-zenburn t nil)
 ;(set-face-background 'default (cm-adjust-color (face-background 'default) +10))
 ;(set-face-background 'region (cm-adjust-color (face-background 'default) +15))
+;(set-face-background 'isearch (cm-adjust-color (face-background 'default) -20))
 ;(set-face-background 'lazy-highlight (cm-adjust-color (face-background 'isearch-fail) -5))
 
 ;; A better Solarized theme with some adjustments
 (load-theme 'sanityinc-solarized-light t nil)
 (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -10))
-(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -10))
+(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -15))
+(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -5))
 
 ;;; set the fringe background to match the default background color
 (set-face-background 'fringe (face-attribute 'default :background))
