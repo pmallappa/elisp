@@ -106,9 +106,10 @@ Letters do not insert themselves; instead, they are commands.
             cleaning out unwanted packages."                                   
   (interactive)                                                      
   (package-show-package-list                                         
-   (remove-if-not (lambda (x) (and (not (memq x cm/packages))       
-                                   (not (package-built-in-p x))             
-                                   (package-installed-p x)))                
+   (remove-if-not (lambda (x)
+                    (and (not (memq x cm/packages))       
+                         (not (package-built-in-p x))             
+                         (package-installed-p x)))                
                   (mapcar 'car package-archive-contents))))
 
 (provide 'emacs-package)

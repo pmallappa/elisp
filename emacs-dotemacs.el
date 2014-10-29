@@ -28,6 +28,8 @@
 ;; basic setup
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(when (fboundp 'horizontal-scroll-bar-mode)
+  (horizontal-scroll-bar-mode -1))
 
 ;; set up the home directory
 (if (eq system-type 'darwin)
