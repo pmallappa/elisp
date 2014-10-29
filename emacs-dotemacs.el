@@ -52,3 +52,8 @@
 
 ;; go to the home directory
 (cd HOME_DIR)
+
+;;=====================================================================
+;; start the emacsserver that listens to emacsclient
+(server-start)
+
