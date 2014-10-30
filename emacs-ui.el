@@ -143,9 +143,9 @@
 
 ;; A better Solarized theme with some adjustments
 (load-theme 'sanityinc-solarized-light t nil)
-(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -10))
+(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -15))
 (set-face-background 'mode-line (cm-adjust-color (face-background 'default) -15))
-(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -5))
+(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
 
 ;;; set the fringe background to match the default background color
 (set-face-background 'fringe (face-attribute 'default :background))

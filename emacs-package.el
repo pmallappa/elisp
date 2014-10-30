@@ -19,6 +19,7 @@
         color-moccur
         color-theme-sanityinc-solarized
         csv-mode
+        cygwin-mount
         dash
         deferred
         diminish

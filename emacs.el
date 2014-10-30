@@ -47,6 +47,27 @@
 (defvar MY_DEFAULT_WIDTH 130)
 
 ;;=====================================================================
+;; load path for various single-file packages
+(setq load-path
+      (append
+       (list (concat EMACS_CONFIGS "")
+             (concat EMACS_CONFIGS "/misc"))
+       load-path))
+
+;; Specify where backup files are stored
+(setq backup-directory-alist (quote ((".*" . "~/.backups"))))
+
+;;=====================================================================
+;; Set the environment (OSX or Cygwin)
+(if (eq system-type 'darwin)
+  (progn
+    (require 'exec-path-from-shell)
+    (exec-path-from-shell-initialize)))
+
+(if (eq system-type 'windows-nt)
+    (require 'emacs-cygwin))
+
+;;=====================================================================
 ;; select your preferred programs for html and media here
 ;; Mac OS X
 (if (eq system-type 'darwin)
@@ -119,17 +140,6 @@
 
 
 ;;=====================================================================
-;; load path for various single-file packages
-(setq load-path
-      (append
-       (list (concat EMACS_CONFIGS "")
-             (concat EMACS_CONFIGS "/misc"))
-       load-path))
-
-;; Specify where backup files are stored
-(setq backup-directory-alist (quote ((".*" . "~/.backups"))))
-
-;;=====================================================================
 ;; easypg settings
 ;; prevents symmetric-encrypted files from repeatedly prompting for
 ;; passwords
@@ -139,16 +149,6 @@
 (require 'password-cache)
 (setq password-cache t)
 (setq password-cache-expiry 360)
-
-;;=====================================================================
-;; Set the environment (OSX or Cygwin)
-(if (eq system-type 'darwin)
-  (progn
-    (require 'exec-path-from-shell)
-    (exec-path-from-shell-initialize)))
-
-(if (eq system-type 'windows-nt)
-      (require 'emacs-cygwin))
 
 ;;=====================================================================
 ;; Load the customize configurations files
@@ -175,17 +175,16 @@
 (require 'emacs-help)         ; keybindings for help functions
 (require 'emacs-ui)           ; theme, fonts, modeline and eye candy
 (require 'emacs-sql)          ; database interaction
-;(require 'emacs-javascript)   ; javascript development and REPL
 
 ;;=====================================================================
 ;; some reference stuff
 ;; Flash a message in the echo area. This works well for debugging an
 ;; .emacs file by placing various messages throughout
-;(message "Hello, this is .emacs speaking")
-;(sit-for 3) ; 3 seconds
-;
+;;(message "Hello, this is .emacs speaking")
+;;(sit-for 3) ; 3 seconds
+;;
 ;; set a break point in elisp by adding this:
-;(debug)
+;;(debug)
 
 ;;======================================================================
 ;; Local variables
