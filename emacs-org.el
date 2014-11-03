@@ -13,6 +13,9 @@
 (set-face-foreground 'org-hide (face-attribute 'default :background))
 (setq org-hide-leading-stars t)
 
+;; highlight source code
+(setq org-src-fontify-natively t)
+
 ;; hide underline and bold fonts
 ;(eval-after-load "org" '(clean-fonts))
 

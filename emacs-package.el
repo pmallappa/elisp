@@ -17,7 +17,6 @@
         browse-url-dwim
         bs-ext
         color-moccur
-        color-theme-sanityinc-solarized
         csv-mode
         cygwin-mount
         dash
@@ -31,7 +30,6 @@
         git-gutter+
         git-rebase-mode
         git-timemachine
-        hc-zenburn-theme
         highlight-symbol
         hl-sexp
         ht
@@ -60,6 +58,13 @@
         string-utils
         w3m
         windata
+
+        ;; theme related
+        load-theme-buffer-local
+        color-theme-sanityinc-solarized
+        hc-zenburn-theme
+        base16-theme
+        flatui-theme
         ))
 
 ;; cycle through the package list and prompt to install as necessary
@@ -72,7 +77,7 @@
         (progn
           (add-to-list 'missing-pkgs pkg)
           (setq cm-message "Done"))
-      (setq cm-message "Nothing missing")))
+      (setq cm-message "Packages checked")))
   ;; for any missing packages, ask to load them all
   (if (and (> (length missing-pkgs) 0)
            (y-or-n-p-with-timeout
@@ -82,8 +87,9 @@
   (message "%s" cm-message))
 
 ;; now check for missing packages
-(if (y-or-n-p-with-timeout "Check packages? " 4 nil)
-    (cm-package-refresh))
+;; only ask if some are missing... a lot less intrusive this way
+(cm-package-refresh)
+
 
 ;; redefining the entire method. Long term would be to introduce a patch to
 ;; allow user-defined widths, or based on the width of the emacs frame
