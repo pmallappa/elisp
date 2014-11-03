@@ -74,27 +74,29 @@
 ;; hdiutil resize -size 60g -stdinpass /Volumes/Passport2TB/Java.dmg
 
 (defun hdi-mount (dmgfile)
-  "Mount the JAVA_LIB volume"
+  "Mount the dmgfile using hdiutil"
    (shell-command
     (concat "hdiutil attach " dmgfile)))
-     
 (defun hdi-dmount (volume)
-  "Unmount the JAVA_LIB volume"
+  "Unmount the volume using hdiutil"
    (shell-command
     (concat "hdiutil detach " volume)))
-
 (defun jmount ()
-  "Mount the Java.dmg disk"
+  "Mount the JAVA_LIB disk"
   (interactive)
-  (hdi-mount "/Volumes/Passport2TB/Java.dmg"))
-
+  (hdi-mount "/Volumes/Passport2TB/Java/java_lib.dmg"))
 (defun jdmount ()
-  "Unmount the Java.dmg disk"
+  "Unmount the JAVA_LIB disk"
   (interactive)
   (hdi-dmount "/Volumes/JAVA_LIB"))
-
-
-
+(defun jmount2 ()
+  "Mount the JAVA_LIB2 disk"
+  (interactive)
+  (hdi-mount "/Volumes/MyBook3TB/Java/java_lib.dmg"))
+(defun jdmount2 ()
+  "Unmount the JAVA_LIB2 disk"
+  (interactive)
+  (hdi-dmount "/Volumes/JAVA_LIB2"))
 
 (defun tcmount ()
   "Mount the truecrypt favorite volumes"
