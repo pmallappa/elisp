@@ -143,9 +143,9 @@
 
 ;; A better Solarized theme with some adjustments
 (load-theme 'sanityinc-solarized-light t nil)
-(set-face-background 'default "#e0e1dc")
+;(set-face-background 'default "#e0e1dc")
 (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -15))
-(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -15))
+(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -10))
 (set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
 
 ;; regardless of the theme, match the fringe the default background
@@ -158,8 +158,6 @@
 ;;(load-theme 'base16-mocha t nil)
 ;;(load-theme 'base16-ocean t nil)
 ;;(load-theme 'base16-tomorrow t nil)
-;;(load-theme 'flatui t nil)
-;;(load-theme 'hc-zenburn t nil)
 
 
 (provide 'emacs-ui)

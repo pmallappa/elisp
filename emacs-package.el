@@ -60,11 +60,8 @@
         windata
 
         ;; theme related
-        load-theme-buffer-local
         color-theme-sanityinc-solarized
-        hc-zenburn-theme
         base16-theme
-        flatui-theme
         ))
 
 ;; cycle through the package list and prompt to install as necessary
