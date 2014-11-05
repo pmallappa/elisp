@@ -62,6 +62,17 @@
                                  (org-agenda-files :maxlevel . 3))))
 
 ;;============================================================
+;; use associated apps for the following link types
+(setq org-file-apps
+      '((auto-mode . emacs)
+         ("\\.mm\\'" . default)
+         ("\\.x?html?\\'" . default)
+         ("\\.pdf\\'" . default)
+         ("\\.docx?\\'" . default)
+         ("\\.png\\'" . default)
+         (directory . emacs)))
+
+;;============================================================
 ;; various settings
 (setq org-agenda-include-diary t
       org-agenda-remove-tags t
