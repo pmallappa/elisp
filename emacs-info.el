@@ -15,7 +15,7 @@
 ;; display Info mode buffers in proportional font
 ;; http://yoo2080.wordpress.com/2013/05/30/monospace-font-in-tables-and-source-code-blocks-in-org-mode-proportional-font-in-other-parts/
 
-(add-hook 'Info-mode-hook 'variable-pitch-mode)
+;(add-hook 'Info-mode-hook 'variable-pitch-mode)
 
 ;;; but code examples in monospace font
 (defvar my-rx-info-code (rx bol "     " (* not-newline) eol))
