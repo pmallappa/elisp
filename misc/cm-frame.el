@@ -114,23 +114,19 @@ determined by `is-right-monitor`"
   (interactive)
 
   ; determine and set the frame size
-  (set-frame-size 
-   (selected-frame)
+  (set-frame-size (selected-frame)
+                  (get-frame-width 
+                   (if (is-right-monitor)
+                       cmframe-monitor2-width
+                     (cm-display-pixel-width)))
+                  (get-frame-height
+                   (if (is-right-monitor)
+                       cmframe-monitor2-height
+                     (display-pixel-height))))
 
-   (get-frame-width 
-    (if (is-right-monitor)
-        cmframe-monitor2-width
-      (cm-display-pixel-width)))
-
-   (get-frame-height
-    (if (is-right-monitor)
-        cmframe-monitor2-height
-      (display-pixel-height))))
-
-  (set-frame-position 
-   (selected-frame)
-   (max 0 (frame-position-left))
-   cmframe-top-margin))
+  (set-frame-position (selected-frame)
+                      (max 0 (frame-position-left))
+                      cmframe-top-margin))
 
 (defun frame-position-left ()
   (-
@@ -165,7 +161,7 @@ move to the right side of the screen"
   (set-enlarged-off)
   (cmframe-frame-adjust))
 
-(defun frame-right()
+(defun cmframe-right()
   "Move the frame to the right monitor while maintaining its size
 relative to the screen.
 
@@ -180,7 +176,7 @@ If the variable `cmframe-monitor2-p' is nil, the frame will remain on the left."
       (sit-for 3)
       (message ""))))
 
-(defun frame-left()
+(defun cmframe-left()
   "Move the frame to the left monitor while maintaining 
 its size (relative to the screen)"
   (interactive)
@@ -205,9 +201,7 @@ With prefix argument ARG, include proportional fonts"
   "Maximize Emacs window"
   (interactive)
   (modify-frame-parameters nil '((my-frame-state . 't)))
-   (if (eq system-type 'darwin)
-       (toggle-frame-fullscreen)
-     (w32-send-sys-command ?\xf030)))
+  (toggle-frame-maximized))
 
 (defun cmframe-frame-restore ()
    "Restore Emacs window in Win32"

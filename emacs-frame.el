@@ -11,20 +11,21 @@
 
 
 ;; is there a secondary monitor to the right of the primary?
-(setq cmframe-monitor2-p 'nil)
+(setq cmframe-monitor2-p t)
 
 ;; if so, set its dimensions here
-;(setq cmframe-monitor2-width 1280)
-;(setq cmframe-monitor2-height 1024)
+(setq cmframe-monitor2-width 1920)
+(setq cmframe-monitor2-height 1080)
 
 ; set the right margin (add window manager space here as well)
 (setq cmframe-right-margin 15)
 
-(global-set-key (kbd "C-c f a") 'cmframe-frame-adjust)
-(global-set-key (kbd "C-c f s") 'cmframe-frame-shrink)
-(global-set-key (kbd "C-c f e") 'toggle-frame-maximized)
-(global-set-key (kbd "C-c f m") 'toggle-frame-maximized)
+(global-set-key (kbd "C-c f e") 'cmframe-toggle-frame-enlarge)
 (global-set-key (kbd "C-c f f") 'toggle-frame-fullscreen)
+(global-set-key (kbd "C-c f l") 'cmframe-left)
+(global-set-key (kbd "C-c f m") 'toggle-frame-maximized)
+(global-set-key (kbd "C-c f r") 'cmframe-right)
+(global-set-key (kbd "C-c f s") 'cmframe-frame-shrink)
 (global-set-key (kbd "C-c f t") 'cmframe-toggle-window-split)
 
 ;;; ======================================================================
