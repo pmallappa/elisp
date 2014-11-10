@@ -14,12 +14,6 @@
 ;; following URL
 ;; javascript:void(prompt('',gApplication.getMap().getCenter()));
 
-;; Lat Lon for home
-;;              | Latitude           | Longitude
-;;  -----------------------------------------------------
-;;  Decimal     | 39.297148366108196 | -84.27733540534973
-;;  Deg Min Sec | 39 17' 49.7322"    | -84 16' 38.4054"
-
 ;Degrees Minutes Seconds:
 ;Lat 391823N   Lon 0841648W
 ;Lat 39.30639  Lon -84.28
@@ -35,7 +29,7 @@
 ;;;------------------------------
 ;;; Diary
 ;;;------------------------------
-(setq diary-file (concat HOME_DIR "/.diary"))
+(setq diary-file (concat HOME_DIR "/org/diary"))
 
 ;;; number of diary entries to display, from Sunday to Saturday
 (setq number-of-diary-entries [2 1 1 1 1 4 2])

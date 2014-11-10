@@ -52,7 +52,7 @@
         ("f" "Funds" entry (file+olp "~/org/finances.org" "Funds")
          "* Transferred Money %U\n     From: %^{Transferred From:|Fifth-Third Chkg|NFCU Chkg|NFCU Svgs}\n       To: %^{To:|NFCU Svgs|NFCU Chkg|Fifth-Third Chk}\n   Amount: $%^{Amount $}\n  Confirm: %^{Confirmation #}\n")
         ("w" "Password" table-line (file+olp "~/org/passwords.gpg" "Passwords")
-         "| %^{Title} | %^{Username} | %^{Password} | %^{URL} |")))
+         "| %^{Title} | %^{Username} | %^{Password} | %^{URL} | %^{Notes}")))
 
 
 ;;============================================================

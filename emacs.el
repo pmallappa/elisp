@@ -159,6 +159,7 @@
 (require 'emacs-browse)       ; external browser convenience functions
 (require 'emacs-autocomplete) ; autocompletion goodness
 (require 'emacs-eshell)       ; customized eshell settings
+(require 'emacs-shell)        ; customized shell settings
 (require 'emacs-frame)        ; customized frame functions
 (require 'emacs-git)          ; emacs git integration
 (require 'emacs-misc)         ; various settings
