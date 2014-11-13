@@ -69,6 +69,7 @@
          ("\\.x?html?\\'" . default)
          ("\\.pdf\\'" . default)
          ("\\.docx?\\'" . default)
+         ("\\.xlsx?\\'" . default)
          ("\\.png\\'" . default)
          (directory . emacs)))
 
