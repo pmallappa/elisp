@@ -61,7 +61,10 @@
 
         ;; theme related
         color-theme-sanityinc-solarized
-        base16-theme
+        anti-zenburn-theme
+        flatui-theme
+        heroku-theme
+        oldlace-theme
         ))
 
 ;; cycle through the package list and prompt to install as necessary

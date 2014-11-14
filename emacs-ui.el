@@ -102,19 +102,19 @@
 ;; defined in .emacs-macros.el
 (setq-default mode-line-buffer-identification '("%12b"))
 
-;; format for the title on the titlebar
+;; Titlebar text
 (setq frame-title-format
       (concat invocation-name " on "
               system-name
 	      " -- %f"))
 
 ;; minimize extraneous info
-;(require 'diminish)
-;(diminish 'abbrev-mode)
-;(diminish 'elisp-slime-nav-mode)
-;(diminish 'magit-auto-revert-mode)
-;(diminish 'smartparens-mode)
-;(diminish 'auto-complete-mode)
+(require 'diminish)
+(diminish 'abbrev-mode)
+(diminish 'elisp-slime-nav-mode)
+(diminish 'magit-auto-revert-mode)
+(diminish 'smartparens-mode)
+(diminish 'auto-complete-mode)
 
 ;; display the function the point is in within the modeline if any
 (setq which-func-unknown "")
@@ -134,6 +134,13 @@
 
 ;;======================================================================
 ;; Color Themes
+
+;;------------------------------
+;; standard light colors with gray background
+;(set-face-background 'default "#cfcfcf")
+;(set-face-foreground 'default "#556b73")
+
+;;------------------------------
 ;; Zenburn theme with some tweaks
 ;(load-theme 'hc-zenburn t nil)
 ;(set-face-background 'default (cm-adjust-color (face-background 'default) +10))
@@ -141,23 +148,25 @@
 ;(set-face-background 'isearch (cm-adjust-color (face-background 'default) -20))
 ;(set-face-background 'lazy-highlight (cm-adjust-color (face-background 'isearch-fail) -5))
 
-;; A better Solarized theme with some adjustments
-(load-theme 'sanityinc-solarized-light t nil)
-;(set-face-background 'default "#e0e1dc")
-(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -15))
-(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -10))
-(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
+;;;------------------------------
+;;; A better Solarized theme with some adjustments
+;(load-theme 'sanityinc-solarized-light t nil)
+;(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -15))
+;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -10))
+;(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
+;(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +5))
 
+;;------------------------------
+;; an excellent flat gray theme
+(load-theme 'anti-zenburn t nil)
+(set-face-foreground 'default "#535363")
+
+;;(load-theme 'flatui t nil)
+;;(load-theme 'heroku t nil)
+;;(load-theme 'oldlace t nil)
+
+;;------------------------------
 ;; regardless of the theme, match the fringe the default background
 (set-face-background 'fringe (face-attribute 'default :background))
-
-;;(load-theme 'base16-chalk t nil)
-;;(load-theme 'base16-default t nil)
-;;(load-theme 'base16-eighties t nil)
-;;(load-theme 'base16-greenscreen t nil)
-;;(load-theme 'base16-mocha t nil)
-;;(load-theme 'base16-ocean t nil)
-;;(load-theme 'base16-tomorrow t nil)
-
 
 (provide 'emacs-ui)

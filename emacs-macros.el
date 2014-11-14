@@ -7,7 +7,7 @@
   (cond
    ((string-equal system-type "windows-nt")
     (w32-shell-execute "open" 
-                       (concat (getenv "PROGRAMFILES") "\\VideoLAN\\VLC\\vlc.exe")
+                       (concat (getenv "ProgramFiles(x86)") "\\VideoLAN\\VLC\\vlc.exe")
                        "http://cpr2.streamguys.net/wguc-nopreroll"))
    ((string-equal system-type "darwin")
      (shell-command "open /Applications/vlc.app http://cpr2.streamguys.net/wguc-nopreroll"))))
