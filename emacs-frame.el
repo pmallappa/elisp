@@ -7,8 +7,7 @@
 ;; adjust the top position of the frame
 (if (eq system-type 'darwin)
     (setq cmframe-top-margin 27)
-  (setq cmframe-top-margin 10))
-
+  (setq cmframe-top-margin 0))
 
 ;; is there a secondary monitor to the right of the primary?
 (setq cmframe-monitor2-p t)
@@ -18,7 +17,7 @@
 (setq cmframe-monitor2-height 1080)
 
 ; set the right margin (add window manager space here as well)
-(setq cmframe-right-margin 15)
+(setq cmframe-horizontal-margin 15)
 
 (global-set-key (kbd "C-c f e") 'cmframe-toggle-frame-enlarge)
 (global-set-key (kbd "C-c f f") 'toggle-frame-fullscreen)

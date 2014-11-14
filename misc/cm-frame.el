@@ -1,8 +1,8 @@
-;;;_.======================================================================
-;;;_. set the frame variables and support functions
+;;======================================================================
+;; set the frame variables and support functions
 
 ;; to get the width of the main monitor on 24.4
-;;(nth 4 (assq 'geometry (car (display-monitor-attributes-list))))
+;; (nth 4 (assq 'geometry (car (display-monitor-attributes-list))))
 
 (defun cm-display-pixel-width ()
   "Return width of current display"
@@ -78,7 +78,7 @@ Final frame size is determined by the value returned by
 desired
 If the size of the frame exceeds the screen width, shrink to fit the screen"
   (if (is-enlarged)
-      (pixels-to-cols (- screen-width (* 2 cmframe-horizontal-margin)))
+      (+ 1 (pixels-to-cols (- screen-width (* 2 cmframe-horizontal-margin))))
 
     ; If user-defined default width is too wide, fit within the monitor
     (min 
