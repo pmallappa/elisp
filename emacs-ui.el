@@ -24,17 +24,17 @@
 (when (fboundp 'horizontal-scroll-bar-mode)
   (horizontal-scroll-bar-mode -1))
 
-;; enable buffer-face mode to provide buffer-local fonts
-(buffer-face-mode)
-
-;; These require fixed-pitch fonts to format correctly
-(add-hook 'text-mode-hook 'fixed-pitch-mode)
-(add-hook 'dired-mode-hook 'fixed-pitch-mode)
-(add-hook 'calendar-mode-hook 'fixed-pitch-mode)
-(add-hook 'org-agenda-mode-hook 'fixed-pitch-mode)
-(add-hook 'shell-mode-hook 'fixed-pitch-mode)
-(add-hook 'eshell-mode-hook 'fixed-pitch-mode)
-(add-hook 'bs-mode-hook 'fixed-pitch-mode)
+;;; enable buffer-face mode to provide buffer-local fonts
+;(buffer-face-mode)
+;
+;;; These require fixed-pitch fonts to format correctly
+;(add-hook 'text-mode-hook 'fixed-pitch-mode)
+;(add-hook 'dired-mode-hook 'fixed-pitch-mode)
+;(add-hook 'calendar-mode-hook 'fixed-pitch-mode)
+;(add-hook 'org-agenda-mode-hook 'fixed-pitch-mode)
+;(add-hook 'shell-mode-hook 'fixed-pitch-mode)
+;(add-hook 'eshell-mode-hook 'fixed-pitch-mode)
+;(add-hook 'bs-mode-hook 'fixed-pitch-mode)
 
 ;;======================================================================
 ;; Eye candy
@@ -52,8 +52,8 @@
 ;    (set-face-attribute face nil :weight 'normal :underline nil))
 ;  (face-list))
 
-; increase the space between lines
-(setq-default line-spacing 0)
+; adjust the space between lines
+;(setq-default line-spacing 0)
 
 ; Lets us see col # at the bottom. very handy.
 (column-number-mode 1)
@@ -71,10 +71,8 @@
 ;; highlight symbol shows the current symbol across the entire buffer
 (highlight-symbol-mode 1)
 
-
 ;;======================================================================
 ;; mode-line modifications
-
 ;; set the modeline to display path and filename
 (defun long-file-name ()
   "Display the full file path and name in the modeline"
@@ -88,8 +86,9 @@
   (interactive "*")
   (setq-default mode-line-buffer-identification '("%12b")))
 
-;; turn on column line mode
-(setq column-number-mode nil)
+;; turn on column and line numbers
+;(setq line-number-mode t)
+;(setq column-number-mode t)
 
 ;; time and date
 (setq display-time-format " %a %m/%d %H:%M ")     ;;Fri 08/19 15:26
@@ -108,13 +107,13 @@
               system-name
 	      " -- %f"))
 
-;; minimize extraneous info
-(require 'diminish)
-(diminish 'abbrev-mode)
-(diminish 'elisp-slime-nav-mode)
-(diminish 'magit-auto-revert-mode)
-(diminish 'smartparens-mode)
-(diminish 'auto-complete-mode)
+;;; minimize extraneous info
+;(require 'diminish)
+;(diminish 'abbrev-mode)
+;(diminish 'elisp-slime-nav-mode)
+;(diminish 'magit-auto-revert-mode)
+;(diminish 'smartparens-mode)
+;(diminish 'auto-complete-mode)
 
 ;; display the function the point is in within the modeline if any
 (setq which-func-unknown "")
@@ -135,35 +134,28 @@
 ;;======================================================================
 ;; Color Themes
 
-;;------------------------------
-;; standard light colors with gray background
-;(set-face-background 'default "#cfcfcf")
-;(set-face-foreground 'default "#556b73")
-
-;;------------------------------
-;; Zenburn theme with some tweaks
-;(load-theme 'hc-zenburn t nil)
-;(set-face-background 'default (cm-adjust-color (face-background 'default) +10))
-;(set-face-background 'region (cm-adjust-color (face-background 'default) +15))
-;(set-face-background 'isearch (cm-adjust-color (face-background 'default) -20))
-;(set-face-background 'lazy-highlight (cm-adjust-color (face-background 'isearch-fail) -5))
-
-;;;------------------------------
-;;; A better Solarized theme with some adjustments
-;(load-theme 'sanityinc-solarized-light t nil)
-;(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -15))
-;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -10))
-;(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
-;(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +5))
-
-;;------------------------------
-;; an excellent flat gray theme
-(load-theme 'anti-zenburn t nil)
-(set-face-foreground 'default "#535363")
-
 ;;(load-theme 'flatui t nil)
 ;;(load-theme 'heroku t nil)
 ;;(load-theme 'oldlace t nil)
+
+;;------------------------------
+;; A better Solarized theme with some adjustments
+(load-theme 'sanityinc-solarized-light t nil)
+(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -8))
+(set-face-background 'mode-line-inactive (face-background 'default))
+
+;;------------------------------
+;; an excellent flat gray theme
+;(load-theme 'anti-zenburn t nil)
+;(set-face-foreground 'default "#535363")
+
+;;------------------------------
+;; standard light colors with gray background
+;(set-face-background 'default "ivory2")
+;(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -15))
+;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -10))
+;(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -5))
+;(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +10))
 
 ;;------------------------------
 ;; regardless of the theme, match the fringe the default background
