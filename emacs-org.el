@@ -47,6 +47,8 @@
          "* Meeting with %^{With whom} :meeting:\n  %?" :clock-in t :jump-to-captured)
         ("p" "Phone Call" entry (file "~/org/pending.org")
          "* Phone Call with %^{With whom} :phone:\n  %?" :clock-in t :jump-to-captured)
+        ("r" "Transport" entry (file+olp "~/org/siemens.org" "Support" "Completed" "Transports")
+         "* TODO Transport %^{Transport Number}\n  Added:  %U\n  %?\n\n")
         ("b" "Bill" entry (file+olp "~/org/finances.org" "Bills")
          "* Paid %^{Bill Paid|AT&T|Matrix|USAA Auto Ins|USAA Master Card} %T\n   Amount: $%^{Amount $}\n   Source: %^{Source Acct|Fifth-Third|NFCU chkg}\n  Confirm: %^{Confirmation #}\n")
         ("f" "Funds" entry (file+olp "~/org/finances.org" "Funds")

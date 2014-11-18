@@ -12,11 +12,13 @@
   "Packages that will be installed/updated to the latest version on startup")
 (setq cm/packages                                                  
       '(
+        anti-zenburn-theme
         auto-complete
         bm
         browse-url-dwim
         bs-ext
         color-moccur
+        color-theme-sanityinc-solarized
         csv-mode
         cygwin-mount
         dash
@@ -26,6 +28,8 @@
         elisp-slime-nav
         epl
         esh-help
+        frame-cmds
+        frame-fns
         git-commit-mode
         git-gutter+
         git-rebase-mode
@@ -39,8 +43,10 @@
         list-utils
         magit
         markdown-mode
+        multi-web-mode
         names
         neotree
+        oldlace-theme
         org
         org-dotemacs
         ox-pandoc
@@ -57,14 +63,9 @@
         starter-kit-eshell
         string-utils
         w3m
+        web-mode
         windata
-
-        ;; theme related
-        color-theme-sanityinc-solarized
-        anti-zenburn-theme
-        flatui-theme
-        heroku-theme
-        oldlace-theme
+        yasnippet
         ))
 
 ;; cycle through the package list and prompt to install as necessary
