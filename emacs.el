@@ -116,6 +116,9 @@
 ;;=====================================================================
 ;; various startup settings
 
+;; load an updated rect.el that provides preview of string-rectangle
+(load-file (concat HOME_DIR "/elisp/misc/rect.el"))
+
 ;; prevent new frames in emacsclient on darwin
 (if (eq system-type 'darwin)
     (setq ns-popup-frames nil))
