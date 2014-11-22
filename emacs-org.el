@@ -50,7 +50,7 @@
         ("r" "Transport" entry (file+olp "~/org/siemens.org" "Support" "Completed" "Transports")
          "* TODO Transport %^{Transport Number}\n  Added:  %U\n  %?\n\n")
         ("b" "Bill" entry (file+olp "~/org/finances.org" "Bills")
-         "* Paid %^{Bill Paid|AT&T|Matrix|USAA Auto Ins|USAA Master Card} %T\n   Amount: $%^{Amount $}\n   Source: %^{Source Acct|Fifth-Third|NFCU chkg}\n  Confirm: %^{Confirmation #}\n")
+         "* Paid %^{Bill Paid|AT&T|Matrix|USAA Auto Ins|USAA Master Card}\n  %U\n  Amount: $%^{Amount $}\n  Source: %^{Source Acct|Fifth-Third|NFCU chkg}\n  Confirm: %^{Confirmation #}\n")
         ("f" "Funds" entry (file+olp "~/org/finances.org" "Funds")
          "* Transferred Money %U\n     From: %^{Transferred From:|Fifth-Third Chkg|NFCU Chkg|NFCU Svgs}\n       To: %^{To:|NFCU Svgs|NFCU Chkg|Fifth-Third Chk}\n   Amount: $%^{Amount $}\n  Confirm: %^{Confirmation #}\n")
         ("w" "Password" table-line (file+olp "~/org/passwords.gpg" "Passwords")
@@ -93,6 +93,7 @@
        (concat HOME_DIR "/org/journal.org")
        (concat HOME_DIR "/org/navy.org")
        (concat HOME_DIR "/org/siemens.org")
+       (concat HOME_DIR "/org/finances.org")
        (concat HOME_DIR "/org/pending.org")))
 
 ;;============================================================
