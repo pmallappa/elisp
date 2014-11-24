@@ -297,6 +297,19 @@ Return output file name."
          :components ("panmd"))
         ))
 
+;; prevent mode hooks from running when exporting to speed things up
+(defun is-buffer-file-temp ()
+  (interactive)
+  "If (buffer-file-name) is nil or a temp file or HTML file converted from org file"
+  (let ((f (buffer-file-name))
+        (rlt t))
+    (if f
+        (if (and (not (string-match temporary-file-directory f))
+                 (not (file-exists-p (replace-regexp-in-string "\.html$" ".org" f))))
+          (setq rlt nil)))
+    rlt))
+
+
 (provide 'emacs-org)
 
 ;;======================================================================
