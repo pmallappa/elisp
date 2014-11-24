@@ -12,6 +12,7 @@
   "Packages that will be installed/updated to the latest version on startup")
 (setq cm/packages                                                  
       '(
+        2048-game
         anti-zenburn-theme
         auto-complete
         bm
@@ -46,7 +47,6 @@
         multi-web-mode
         names
         neotree
-        oldlace-theme
         org
         org-dotemacs
         ox-pandoc
@@ -55,6 +55,7 @@
         pkg-info
         popup
         projectile
+        rainbow-mode
         request
         request-deferred
         s
