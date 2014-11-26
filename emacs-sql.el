@@ -11,6 +11,28 @@
         (password :default (password-read "Password:" "webtest"))
         (database :default "localhost:21521/webtst")))
 
+;; to start a sql session, open a file or buffer and put into sql mode
+;; then from that buffer, execute the commands
+;;   sql-set-product <ret> oracle
+;;   sql-product-interactive
+;; to open an interactive oracle sql buffer
+;;
+;; type your commands in the original *SQL* buffer, and use the following
+;; commands to send to the active oracle process
+;;
+;; C-c C-b         sql-send-buffer
+;; C-c C-c         sql-send-paragraph
+;; C-c TAB         sql-product-interactive
+;; C-c C-l         Prefix Command
+;; C-c C-r         sql-send-region
+;; C-c C-s         sql-send-string
+;; 
+;; C-M-q           prog-indent-sexp
+;; 
+;; C-c C-l a       sql-list-all
+;; C-c C-l t       sql-list-table
+
+
 ;;==============================
 ;; sqlplus package provides formatted query results
 (require 'sqlplus)
