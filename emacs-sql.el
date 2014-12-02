@@ -1,16 +1,5 @@
 ;; Ensure tunnelier is up and running to redirect ports
 
-;; Handy SQL queries
-;;   select table_name from user_tables order by table_name;
-;;   desc <tablename>
-;;   set pagesize 9999
-;;   set linesize 32767;
-;;   column portfolio_name format a40;
-;;   column port_solution_name format a40;
-;;   column prnbr format a15;
-;;   column date_modified format a12;
-;;   column modified_by format a15;
-
 (setq sql-oracle-program "sqlplus")
 (setq sql-oracle-login-params
       '((user     :default "sales")
@@ -38,6 +27,16 @@
 ;; C-c C-l a       sql-list-all
 ;; C-c C-l t       sql-list-table
 
+;; Handy SQL queries
+;;   select table_name from user_tables order by table_name;
+;;   desc <tablename>
+;;   set pagesize 9999
+;;   set linesize 32767;
+;;   column portfolio_name format a40;
+;;   column port_solution_name format a40;
+;;   column prnbr format a15;
+;;   column date_modified format a12;
+;;   column modified_by format a15;
 
 ;;==============================
 ;; sqlplus package provides formatted query results
