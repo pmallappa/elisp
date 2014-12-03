@@ -73,4 +73,17 @@
     (while (pcomplete-here (pcomplete-entries))))))
 
 
+;; redifine C-a to take you to the end of your prompt instead of the
+;; beginning of your line
+;; from http://www.emacswiki.org/emacs-en/EshellFunctions
+(defun eshell-maybe-bol ()
+  (interactive)
+  (let ((p (point)))
+    (eshell-bol)
+    (if (= p (point))
+        (beginning-of-line))))
+
+(add-hook 'eshell-mode-hook
+          '(lambda () (define-key eshell-mode-map "\C-a" 'eshell-maybe-bol)))
+
 (provide 'emacs-eshell)
