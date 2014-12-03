@@ -1,10 +1,5 @@
 ;; Ensure tunnelier is up and running to redirect ports
 
-;; Handy SQL queries
-;;   Display all tables in user space
-;;   select table_name from user_tables order by table_name;
-;;
-
 (setq sql-oracle-program "sqlplus")
 (setq sql-oracle-login-params
       '((user     :default "sales")
@@ -32,17 +27,21 @@
 ;; C-c C-l a       sql-list-all
 ;; C-c C-l t       sql-list-table
 
+;; Handy SQL queries
+;;   select table_name from user_tables order by table_name;
+;;   desc <tablename>
+;;   set pagesize 9999
+;;   set linesize 32767;
+;;   column portfolio_name format a40;
+;;   column port_solution_name format a40;
+;;   column prnbr format a15;
+;;   column date_modified format a12;
+;;   column modified_by format a15;
 
 ;;==============================
 ;; sqlplus package provides formatted query results
 (require 'sqlplus)
 
-;; use an org table to store sql connection parameters
-;; connection string format is:
-;; user/pwd@sid
-;; e.g. sales/paSSW0rd@localhost:21521/webtst
-
-(require 'org-table)
 ;; format display results side-by-side
 (setq sqlplus-multi-output-tables-default-flag nil)
 
@@ -55,8 +54,14 @@
 (set-face-background 'sqlplus-table-head-face      (sqlplus-shine-color (face-background 'default) -30))
 
 ;;==============================
-;; Use org table to store connection info.
+;; use an org table to store sql connection parameters
+;; connection string format is:
+;; user/pwd@sid
+;; e.g. sales/paSSW0rd@localhost:21521/webtst
 ;; See the password.gpg file for current connections
+
+(require 'org-table)
+
 (defvar sqlplus-x-columns '(sp-service sp-user sp-pwd sp-key))
 (defun sqlplus-x-connect ()
   "Build a connection string and make a connection. The point must be in an org-mode table.
