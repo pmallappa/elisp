@@ -151,20 +151,28 @@
 
 (setq org-agenda-custom-commands
       '(
-        ("c" "Combined agenda and tasks"
+        ("a" "Combined agenda and tasks"
          ((agenda)
           (todo))
          ((org-agenda-start-on-weekday 1)) ; start on Monday
          ("~/.org-agenda.txt"))
         ("w" "Work agenda and tasks"
          ((agenda)
-          (tags-todo "siemens"))
-          ((org-agenda-files '("~/org/siemens.org"))))
+          (tags-todo "siemens")
+          (tags-todo "pending"))
+         ((org-agenda-files '("~/org/siemens.org" "~/org/pending.org"))))
         ("n" "Navy agenda and tasks"
          ((agenda)
-          (tags-todo "navy"))
-          ((org-agenda-files '("~/org/navy.org"))))
-         ))
+          (tags-todo "navy")
+          (tags-todo "pending"))
+         ((org-agenda-files '("~/org/siemens.org" "~/org/pending.org"))))
+        ("c" "Calendar" agenda ""
+         ((org-agenda-ndays 7)
+          (org-agenda-start-on-weekday 1)
+          (org-agenda-time-grid nil)                    
+          (org-agenda-repeating-timestamp-show-all t)
+          (org-agenda-entry-types '(:timestamp :sexp))))
+        ))
 
 ;; To use the GeekTool agenda from a command line, put the following
 ;; in the shell command field. Note, emacs server must be running for
