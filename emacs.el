@@ -156,7 +156,7 @@
 ;;=====================================================================
 ;; Load the customize configurations files
 (require 'emacs-macros)       ; various macros and functions
-;(require 'emacs-desktop)      ; save and restore emacs sessions
+(require 'emacs-desktop)      ; save and restore emacs sessions
 (require 'emacs-org)          ; emacs org mode settings
 (require 'emacs-bm)           ; bookmark enhancements
 (require 'emacs-bs)           ; buffer switch setting
