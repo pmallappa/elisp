@@ -165,7 +165,12 @@
          ((agenda)
           (tags-todo "navy")
           (tags-todo "pending"))
-         ((org-agenda-files '("~/org/siemens.org" "~/org/pending.org"))))
+         ((org-agenda-files '("~/org/navy.org" "~/org/pending.org"))))
+        ("p" "Personal agenda and tasks"
+         ((agenda)
+          (tags-todo "personal")
+          (tags-todo "pending"))
+         ((org-agenda-files '("~/org/journal.org" "~/org/pending.org"))))
         ("c" "Calendar" agenda ""
          ((org-agenda-ndays 7)
           (org-agenda-start-on-weekday 1)
