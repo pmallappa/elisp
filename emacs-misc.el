@@ -114,7 +114,7 @@
 
 ;;======================================================================
 ;; Sensibly split windows horizontally column threshold
-(setq split-width-threshold 140)
+(setq split-width-threshold (+ 10 MY_DEFAULT_WIDTH))
 
 ;;======================================================================
 ;; ediff configuration
