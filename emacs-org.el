@@ -280,6 +280,7 @@ Return output file name."
          :base-extension "org"
          :publishing-directory "~/public/html"
          :html-extension "html"
+         :exclude "pending.org"
          :with-sub-superscript nil
          :publishing-function org-html-publish-to-html
          :preserve-breaks t)
@@ -287,6 +288,7 @@ Return output file name."
          :base-directory "~/org" 
          :base-extension "org"
          :md-extension "markdown"
+         :exclude "pending.org"
          :publishing-directory "~/public/org_md"
          :publishing-function org-md-publish-to-md
          :preserve-breaks t)
@@ -294,6 +296,7 @@ Return output file name."
          :base-directory "~/org" 
          :base-extension "org"
          :md-extension "markdown"
+         :exclude "pending.org"
          :publishing-directory "~/public/pandoc_md"
          :publishing-function org-pandoc-publish-to-md
          :preserve-breaks t)

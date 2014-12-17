@@ -27,14 +27,17 @@
         diminish
         dired-hacks-utils
         elisp-slime-nav
+        emmet-mode
         epl
         esh-help
+        f
         frame-cmds
         frame-fns
         git-commit-mode
-        git-gutter+
+        git-gutter
         git-rebase-mode
         git-timemachine
+        hc-zenburn-theme
         highlight-symbol
         hl-sexp
         ht
@@ -47,6 +50,7 @@
         multi-web-mode
         names
         neotree
+        oldlace-theme
         org
         org-dotemacs
         ox-pandoc
@@ -56,6 +60,7 @@
         popup
         projectile
         rainbow-mode
+        rect+
         request
         request-deferred
         s
@@ -66,7 +71,9 @@
         w3m
         web-mode
         windata
+        wsd-mode
         yasnippet
+        zenburn-theme
         ))
 
 ;; cycle through the package list and prompt to install as necessary
@@ -91,7 +98,6 @@
 ;; now check for missing packages
 ;; only ask if some are missing... a lot less intrusive this way
 (cm-package-refresh)
-
 
 ;; redefining the entire method. Long term would be to introduce a patch to
 ;; allow user-defined widths, or based on the width of the emacs frame
