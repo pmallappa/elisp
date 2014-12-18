@@ -7,9 +7,9 @@
 ;; point the packages to the appropriate info directory
 (cond ((eq system-type 'windows-nt)
        (add-to-list 'Info-additional-directory-list "c:/cygwin/usr/share/info")
-       (add-to-list 'Info-additional-directory-list "c:/emacs-24.4/share/info")))
-;(cond ((eq system-type 'darwin)
-;      (add-to-list  'Info-default-directory-list "/usr/share/info")))
+       (add-to-list 'Info-additional-directory-list "c:/emacs-w64/share/info")))
+;;(cond ((eq system-type 'darwin)
+;;      (add-to-list  'Info-default-directory-list "/usr/share/info")))
 
 ;;============================================================
 ;; display Info mode buffers in proportional font

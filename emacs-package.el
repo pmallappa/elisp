@@ -14,6 +14,7 @@
       '(
         2048-game
         anti-zenburn-theme
+        async
         auto-complete
         bm
         browse-url-dwim
@@ -35,9 +36,13 @@
         frame-fns
         git-commit-mode
         git-gutter
+        git-gutter+
         git-rebase-mode
         git-timemachine
         hc-zenburn-theme
+        helm
+        helm-ls-git
+        helm-projectile
         highlight-symbol
         hl-sexp
         ht
@@ -64,8 +69,8 @@
         request
         request-deferred
         s
+        setup-cygwin
         smartparens
-        sqlplus
         starter-kit-eshell
         string-utils
         w3m

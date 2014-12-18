@@ -38,58 +38,58 @@
 ;;   column date_modified format a12;
 ;;   column modified_by format a15;
 
-;;==============================
-;; sqlplus package provides formatted query results
-(require 'sqlplus)
+;;;==============================
+;;; sqlplus package provides formatted query results
+;(require 'sqlplus)
+;
+;;; format display results side-by-side
+;(setq sqlplus-multi-output-tables-default-flag nil)
+;
+;;; adjust the table faces to lighten the background up a bit
+;;; default was -20 and -30
+;;; note, required changing the source code sqlplus.el to work, commented out lines 3385-3398
+;;; will send a change proposal to the author
+;(set-face-background 'sqlplus-table-even-rows-face (sqlplus-shine-color (face-background 'default) -10))
+;(set-face-background 'sqlplus-table-odd-rows-face  (sqlplus-shine-color (face-background 'default) -20))
+;(set-face-background 'sqlplus-table-head-face      (sqlplus-shine-color (face-background 'default) -30))
 
-;; format display results side-by-side
-(setq sqlplus-multi-output-tables-default-flag nil)
-
-;; adjust the table faces to lighten the background up a bit
-;; default was -20 and -30
-;; note, required changing the source code sqlplus.el to work, commented out lines 3385-3398
-;; will send a change proposal to the author
-(set-face-background 'sqlplus-table-even-rows-face (sqlplus-shine-color (face-background 'default) -10))
-(set-face-background 'sqlplus-table-odd-rows-face  (sqlplus-shine-color (face-background 'default) -20))
-(set-face-background 'sqlplus-table-head-face      (sqlplus-shine-color (face-background 'default) -30))
-
-;;==============================
-;; use an org table to store sql connection parameters
-;; connection string format is:
-;; user/pwd@sid
-;; e.g. sales/paSSW0rd@localhost:21521/webtst
-;; See the password.gpg file for current connections
-
-(require 'org-table)
-
-(defvar sqlplus-x-columns '(sp-service sp-user sp-pwd sp-key))
-(defun sqlplus-x-connect ()
-  "Build a connection string and make a connection. The point must be in an org-mode table.
-Columns of the table must correspond to the `sqlplus-x-columns' variable.
-Default table format is
-
-   | Service (sid)          | user  | pwd       |
-   |------------------------+-------+-----------|
-   | localhost:21521/webtst | sales | <password>|"
-  
-  (interactive)
-  (org-table-force-dataline)
-  (let
-      ((cur-row (nth (org-table-current-dline) (org-table-to-lisp)))
-       (is-user-selected (= (org-table-current-column) (+ 1 (position 'sp-user sqlplus-x-columns)))))
-    (sqlplus
-     (format
-      "%s/%s@%s"
-      (if is-user-selected
-          (thing-at-point 'symbol)
-        (nth (position 'sp-user sqlplus-x-columns) cur-row))
-      (nth (position 'sp-pwd sqlplus-x-columns) cur-row)
-      (nth (position 'sp-service sqlplus-x-columns) cur-row))
-     (concat (nth (position 'sp-service sqlplus-x-columns) cur-row) ".sqp"))
-    (password-cache-add
-     (nth (position 'sp-key sqlplus-x-columns) cur-row)
-     (nth (position 'sp-pwd sqlplus-x-columns) cur-row))))
-
-(global-set-key [f4] 'sqlplus-x-connect)
+;;;==============================
+;;; use an org table to store sql connection parameters for sqlplus package
+;;; connection string format is:
+;;; user/pwd@sid
+;;; e.g. sales/paSSW0rd@localhost:21521/webtst
+;;; See the password.gpg file for current connections
+;
+;(require 'org-table)
+;
+;(defvar sqlplus-x-columns '(sp-service sp-user sp-pwd sp-key))
+;(defun sqlplus-x-connect ()
+;  "Build a connection string and make a connection. The point must be in an org-mode table.
+;Columns of the table must correspond to the `sqlplus-x-columns' variable.
+;Default table format is
+;
+;   | Service (sid)          | user  | pwd       |
+;   |------------------------+-------+-----------|
+;   | localhost:21521/webtst | sales | <password>|"
+;  
+;  (interactive)
+;  (org-table-force-dataline)
+;  (let
+;      ((cur-row (nth (org-table-current-dline) (org-table-to-lisp)))
+;       (is-user-selected (= (org-table-current-column) (+ 1 (position 'sp-user sqlplus-x-columns)))))
+;    (sqlplus
+;     (format
+;      "%s/%s@%s"
+;      (if is-user-selected
+;          (thing-at-point 'symbol)
+;        (nth (position 'sp-user sqlplus-x-columns) cur-row))
+;      (nth (position 'sp-pwd sqlplus-x-columns) cur-row)
+;      (nth (position 'sp-service sqlplus-x-columns) cur-row))
+;     (concat (nth (position 'sp-service sqlplus-x-columns) cur-row) ".sqp"))
+;    (password-cache-add
+;     (nth (position 'sp-key sqlplus-x-columns) cur-row)
+;     (nth (position 'sp-pwd sqlplus-x-columns) cur-row))))
+;
+;(global-set-key [f4] 'sqlplus-x-connect)
 
 (provide 'emacs-sql)

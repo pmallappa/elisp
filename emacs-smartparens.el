@@ -1,4 +1,3 @@
-
 ;;;;;;;;;
 ;; global
 (require 'smartparens-config)
