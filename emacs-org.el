@@ -81,6 +81,7 @@
          ("\\.xlsx?\\'" . default)
          ("\\.png\\'" . default)
          ("\\.jsp\\'" . emacs)
+         ("_archive\\'" . emacs) ; org-mode archive files
          (directory . emacs)))
 
 ;;============================================================
