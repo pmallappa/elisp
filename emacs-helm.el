@@ -25,6 +25,7 @@
 ;; C-c h M-y: helm-show-kill-ring
 
 ;; enable helm universally
+(require 'helm)
 (require 'helm-config)
 
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
@@ -32,6 +33,13 @@
 ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
 (global-unset-key (kbd "C-x c"))
+
+;; display google suggestions in helm
+(global-set-key (kbd "C-c h g") 'helm-google-suggest)
+
+;; quickly find files within a project, defined in this case by a .git
+;; directory
+(require 'helm-ls-git)
 
 ;; other keybindings
 (global-set-key (kbd "M-x") 'helm-M-x)
@@ -49,5 +57,6 @@
 
 (helm-mode 1)
 
+(provide 'emacs-helm)
 
 
