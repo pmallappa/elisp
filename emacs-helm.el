@@ -34,26 +34,44 @@
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
 (global-unset-key (kbd "C-x c"))
 
-;; display google suggestions in helm
-(global-set-key (kbd "C-c h g") 'helm-google-suggest)
-
-;; quickly find files within a project, defined in this case by a .git
-;; directory
-(require 'helm-ls-git)
-
 ;; other keybindings
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x c o") 'helm-occur)
+(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-c h o") 'helm-occur)
 
-(setq helm-M-x-fuzzy-match t)
+(setq helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match    t)
+
+(helm-autoresize-mode 1)
+(setq helm-autoresize-min-height 20)
+(setq helm-autoresize-max-height 40)
 
 ;; load various helm packages
 
-;; quickly find files within a project, defined in this case by a .git
-;; directory
+;; display google suggestions in helm
+(global-set-key (kbd "C-c h g") 'helm-google-suggest)
+
+;; ==============================
+;; Helm git interfaces
+
+;; quickly find files within a project
 (require 'helm-ls-git)
+
+;; helm git-grep provides an interface to git grep
+(global-set-key (kbd "C-c g") 'helm-git-grep)
+
+;;Invoke `helm-git-grep' from isearch.
+(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
+
+;; Invoke `helm-git-grep' from other helm.
+(eval-after-load 'helm
+  '(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm))
+
+
+
 
 (helm-mode 1)
 

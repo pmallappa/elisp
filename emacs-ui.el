@@ -119,23 +119,8 @@
 (setq which-func-unknown "")
 (which-function-mode)
 
-;;;======================================================================
-;;; auto-dim-other-buffers
-;;; changes the default background color when buffer is not in focus
-;(add-hook
-; 'after-init-hook
-; (lambda ()
-;   (when (fboundp 'auto-dim-other-buffers-mode)
-;     (progn (auto-dim-other-buffers-mode t)
-;            (set-face-background
-;             'auto-dim-other-buffers-face
-;             (cm-adjust-color (face-background 'default) -2))))))
-
 ;;======================================================================
 ;; Color Themes
-
-;;(load-theme 'flatui t nil)
-;;(load-theme 'heroku t nil)
 ;;(load-theme 'oldlace t nil)
 
 ;;------------------------------
