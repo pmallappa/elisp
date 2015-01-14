@@ -12,7 +12,7 @@
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
       (set-face-font 'default "Consolas-10")
-      (set-face-font 'variable-pitch "Lucida Sans Unicode-8")
+      (set-face-font 'variable-pitch "Verdana-10")
       (copy-face 'default 'fixed-pitch)))
 
 ;; Fix the UI
