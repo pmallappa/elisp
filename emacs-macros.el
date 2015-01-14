@@ -48,8 +48,7 @@
   (read-kbd-macro "M-x set-justification-none"))
 
 ;;======================================================================
-;; TrueCrypt shortcuts
-;; Replaced by OSX native encrypted disk image capabilities
+;; OSX native encrypted disk
 ;; Good explanation at
 ;; http://www.theinstructional.com/guides/disk-management-from-the-command-line-part-3
 ;;
@@ -97,45 +96,6 @@
   "Unmount the JAVA_LIB2 disk"
   (interactive)
   (hdi-dmount "/Volumes/JAVA_LIB2"))
-
-(defun tcmount ()
-  "Mount the truecrypt favorite volumes"
-  (interactive)
-  (shell-command
-   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
-	   " --auto-mount=favorites"
-	   " --password=\"" (password-read-and-add "Password: " "truecrypt") "\"")))
-
-(defun tcmount1 ()
-  "Mount the truecrypt volume JAVA_LIB01 from the Passport2TB"
-  (interactive)
-  (shell-command
-   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
-           " /Volumes/MyBook3TB/Java/3tb-java_lib01 /Volumes/3TB_JAVA1"
-	   " --password=\"" (password-read-and-add "Password: " "truecrypt") "\"")))
-
-(defun tcmount2 ()
-  "Mount the truecrypt volume JAVA_LIB02 from Passport2TB"
-  (interactive) 
-  (shell-command
-   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
-           " /Volumes/MyBook3TB/Java/3tb-java_lib02 /Volumes/3TB_JAVA2"
-	   " --password=\"" (password-read-and-add "Password: " "truecrypt") "\"")))
-
-(defun tcdmount ()
-  "Unmount the truecrypt favorite volumes"
-  (interactive)
-  (shell-command
-   "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt --dismount")
-  (message "Drives Dismounted"))
-
-(defun tclist ()
-  "List the mounted TrueCrypt directories"
-  (interactive)
-  (shell-command
-   (concat "/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt"
-           " --list")))
-
 
 ;; load the page in browser and save the file name to the clipboard
 ;;| filename | url |
