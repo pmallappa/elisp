@@ -38,21 +38,28 @@
 
 (setq org-capture-templates
       '(("t" "Todo" entry (file "~/org/pending.org")
-         "* TODO %^{Task Description} %^g\n  Added:  %U\n  %?\n  %a\n")
+         "* TODO %^{Task Description} %^g\n  Added:  %U\n  %?\n  %a" :empty-lines-after 1)
         ("a" "Appointment" entry (file "~/org/pending.org")
-         "* %^{Appt Description}  %^g\n  %^T\n  %i%?\n  %a\n")
+         "* %^{Appt Description}  %^g\n  %^T\n  %i%?\n  %a" :empty-lines-after 1)
         ("n" "Note" entry (file "~/org/pending.org")
-         "* %^{Note Description}  %^g\n  %U\n  %i%?\n  %a\n")
+         "* %^{Note Description}  %^g\n  %U\n  %i%?\n  %a" :empty-lines-after 1)
         ("m" "Meeting" entry (file "~/org/pending.org")
          "* Meeting with %^{With whom} :meeting:\n  %?" :clock-in t :jump-to-captured)
         ("p" "Phone Call" entry (file "~/org/pending.org")
          "* Phone Call with %^{With whom} :phone:\n  %?" :clock-in t :jump-to-captured)
-        ("r" "Transport" entry (file+olp "~/org/siemens.org" "Support" "Completed" "Transports")
-         "* TODO Transport %^{Transport Number}\n  Added:  %U\n  %?\n\n")
-        ("b" "Bill" entry (file+olp "~/org/finances.org" "Bills")
-         "* Paid %^{Bill Paid|AT&T|Matrix|USAA Auto Ins|USAA Master Card}\n  %U\n  Amount: $%^{Amount $}\n  Source: %^{Source Acct|Fifth-Third|NFCU chkg}\n  Confirm: %^{Confirmation #}\n")
-        ("f" "Funds" entry (file+olp "~/org/finances.org" "Funds")
-         "* Transferred Money %U\n     From: %^{Transferred From:|Fifth-Third Chkg|NFCU Chkg|NFCU Svgs}\n       To: %^{To:|NFCU Svgs|NFCU Chkg|Fifth-Third Chk}\n   Amount: $%^{Amount $}\n  Confirm: %^{Confirmation #}\n")
+
+        ("s" "Siemens capture templates")
+        ("st" "Transport" entry (file+olp "~/org/siemens.org" "Support" "Completed" "Transports")
+         "* TODO Transport %^{Transport Number}\n  Added:  %U\n  %?" :empty-lines-after 1)
+        ("ss" "Support" entry (file+olp "~/org/siemens.org" "Support")
+        "* %^{Ticket|AHD|JIRA}-%^{Number} - %^{Description}\n  Added: %U\n** TODO Complete %\\1-%\\2 - %\\3" :empty-lines-after 1)
+
+        ("f" "Financial capture templates")
+        ("fb" "Bill" entry (file+olp "~/org/finances.org" "Bills")
+         "* Paid %^{Bill Paid|AT&T|Matrix|USAA Auto Ins|USAA Master Card}\n  %U\n  Amount: $%^{Amount $}\n  Source: %^{Source Acct|Fifth-Third|NFCU chkg}\n  Confirm: %^{Confirmation #}" :empty-lines-after 1)
+        ("ff" "Funds" entry (file+olp "~/org/finances.org" "Funds")
+         "* Transferred Money %U\n     From: %^{Transferred From:|Fifth-Third Chkg|NFCU Chkg|NFCU Svgs}\n       To: %^{To:|NFCU Svgs|NFCU Chkg|Fifth-Third Chk}\n   Amount: $%^{Amount $}\n  Confirm: %^{Confirmation #}" :empty-lines-after 1)
+
         ("w" "Password" table-line (file+olp "~/org/passwords.gpg" "Passwords")
          "| %^{Title} | %^{Username} | %^{Password} | %^{URL} | %^{Notes}")))
 
@@ -74,6 +81,7 @@
          ("\\.xlsx?\\'" . default)
          ("\\.png\\'" . default)
          ("\\.jsp\\'" . emacs)
+         ("_archive\\'" . emacs) ; org-mode archive files
          (directory . emacs)))
 
 ;;============================================================

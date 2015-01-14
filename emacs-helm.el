@@ -25,29 +25,52 @@
 ;; C-c h M-y: helm-show-kill-ring
 
 ;; enable helm universally
-(require 'helm-config)
+(require 'helm)
 
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
 ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
 (global-unset-key (kbd "C-x c"))
+(require 'helm-config)
 
 ;; other keybindings
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x c o") 'helm-occur)
+(global-set-key (kbd "C-c h o") 'helm-occur)
+(global-set-key (kbd "C-x b") 'helm-mini)
 
-(setq helm-M-x-fuzzy-match t)
+(setq helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match    t)
+
+(helm-autoresize-mode 1)
+(setq helm-autoresize-min-height 40)
+(setq helm-autoresize-max-height 40)
+
+;; open helm buffer inside current window, not occupy whole other window
+(setq helm-split-window-in-side-p t)
 
 ;; load various helm packages
 
-;; quickly find files within a project, defined in this case by a .git
-;; directory
+;; display google suggestions in helm
+(global-set-key (kbd "C-c h g") 'helm-google-suggest)
+
+;; ==============================
+;; Helm git interfaces
+
+;; quickly find files within a project
 (require 'helm-ls-git)
+(global-set-key (kbd "C-x C-d") 'helm-browse-project)
+
+;; helm git-grep provides an interface to git grep
+(global-set-key (kbd "C-c g") 'helm-git-grep)
+(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
+(eval-after-load 'helm
+  '(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm))
 
 (helm-mode 1)
 
+(provide 'emacs-helm)
 
 
