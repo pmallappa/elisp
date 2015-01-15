@@ -9,10 +9,12 @@
       (set-face-font 'variable-pitch "Verdana-12")
       (copy-face 'default 'fixed-pitch)))
 
+;; you can get the 'Source Code Pro' font at
+;; https://github.com/adobe-fonts/source-code-pro
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
-      (set-face-font 'default "Consolas-10")
-      (set-face-font 'variable-pitch "Verdana-10")
+      (set-face-font 'default "Source Code Pro Semibold-9")
+      (set-face-font 'variable-pitch "Segoe UI Semibold-9")
       (copy-face 'default 'fixed-pitch)))
 
 ;; Fix the UI
@@ -41,16 +43,12 @@
 
 (load-library "linum")
 
-(defalias 'toggle-line-numbers
-  (read-kbd-macro "M-x linum-mode"))
-
-;;; I don't like bold/underline fonts
-;(set-face-bold-p 'bold nil)
-;;;(set-face-underline-p 'underline nil)
-;(mapc
-;  (lambda (face)
-;    (set-face-attribute face nil :weight 'normal :underline nil))
-;  (face-list))
+(defun toggle-line-numbers()
+  "Easy to remember shortcut to M-x linum-mode"
+  (interactive)
+  (if linum-mode
+      (linum-mode -1)
+    (linum-mode 1)))
 
 ; adjust the space between lines
 ;(setq-default line-spacing 0)

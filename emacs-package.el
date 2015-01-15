@@ -13,12 +13,18 @@
 (setq cm/packages                                                  
       '(
         2048-game
+        ac-cider
+        ac-helm
+        ace-isearch
+        ace-jump-mode
         anti-zenburn-theme
         async
         auto-complete
         bm
         browse-url-dwim
         bs-ext
+        cider
+        clojure-mode
         color-moccur
         color-theme-sanityinc-solarized
         csv-mode
@@ -35,14 +41,14 @@
         frame-cmds
         frame-fns
         git-commit-mode
-        git-gutter
         git-gutter+
+        git-gutter
         git-rebase-mode
         git-timemachine
         hc-zenburn-theme
         helm
         helm-ls-git
-        helm-projectile
+        helm-swoop
         highlight-symbol
         hl-sexp
         ht
@@ -63,7 +69,7 @@
         paredit
         pkg-info
         popup
-        projectile
+        queue
         rainbow-mode
         rect+
         request
