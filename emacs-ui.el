@@ -11,6 +11,7 @@
 
 ;; you can get the 'Source Code Pro' font at
 ;; https://github.com/adobe-fonts/source-code-pro
+;; a copy has also been place in my dropbox account
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
       (set-face-font 'default "Source Code Pro Semibold-9")
