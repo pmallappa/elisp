@@ -14,7 +14,9 @@
     (calc-eval (format "%s * %s"
                        (number-to-string n)
                        (factorial--1 (- n 1))))))
+(factorial 5)
 
+;;============================================================
 (defun deg2dec (deg min sec)
   "Convert degrees, minutes, seconds to decimal equivilent"
   (interactive "nDeg: 

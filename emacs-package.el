@@ -18,6 +18,7 @@
         ace-isearch
         ace-jump-mode
         anti-zenburn-theme
+        archives
         async
         auto-complete
         bm
@@ -47,7 +48,10 @@
         git-timemachine
         hc-zenburn-theme
         helm
+        helm-emmet
+        helm-git-grep
         helm-ls-git
+        helm-package
         helm-swoop
         highlight-symbol
         hl-sexp
