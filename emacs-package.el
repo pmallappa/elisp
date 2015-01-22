@@ -18,7 +18,6 @@
         ace-isearch
         ace-jump-mode
         anti-zenburn-theme
-        archives
         async
         auto-complete
         bm
