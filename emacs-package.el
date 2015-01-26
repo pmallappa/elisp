@@ -17,6 +17,7 @@
         ac-helm
         ace-isearch
         ace-jump-mode
+        ace-window
         anti-zenburn-theme
         async
         auto-complete

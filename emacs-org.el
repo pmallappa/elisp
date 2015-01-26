@@ -46,22 +46,23 @@
         ("m" "Meeting" entry (file "~/org/pending.org")
          "* Meeting with %^{With whom} :meeting:\n  %?" :clock-in t :jump-to-captured)
         ("p" "Phone Call" entry (file "~/org/pending.org")
-         "* Phone Call with %^{With whom} :phone:\n  %?" :clock-in t :jump-to-captured)
+         "* %^{Mode|IM|Phone Call} with %^{With whom} :phone:\n  %?" :clock-in t :jump-to-captured)
+        ("w" "Password" table-line (file+olp "~/org/passwords.gpg" "Passwords")
+         "| %^{Title} | %^{Username} | %^{Password} | %^{URL} | %^{Notes}")
 
         ("s" "Siemens capture templates")
         ("st" "Transport" entry (file+olp "~/org/siemens.org" "Support" "Completed" "Transports")
          "* TODO Transport %^{Transport Number}\n  Added:  %U\n  %?" :empty-lines-after 1)
         ("ss" "Support" entry (file+olp "~/org/siemens.org" "Support")
-        "* %^{Ticket|AHD|JIRA}-%^{Number} - %^{Description}\n  Added: %U\n** TODO Complete %\\1-%\\2 - %\\3" :empty-lines-after 1)
+        "* %^{Ticket|AHD|JIRA}-%^{Number} - %^{Description}\n  Added: %U\n** TODO Complete %\\1-%\\2 - %\\3\n   Added: %U" :empty-lines-after 1)
 
         ("f" "Financial capture templates")
         ("fb" "Bill" entry (file+olp "~/org/finances.org" "Bills")
          "* Paid %^{Bill Paid|AT&T|Matrix|USAA Auto Ins|USAA Master Card}\n  %U\n  Amount: $%^{Amount $}\n  Source: %^{Source Acct|Fifth-Third|NFCU chkg}\n  Confirm: %^{Confirmation #}" :empty-lines-after 1)
         ("ff" "Funds" entry (file+olp "~/org/finances.org" "Funds")
          "* Transferred Money %U\n     From: %^{Transferred From:|Fifth-Third Chkg|NFCU Chkg|NFCU Svgs}\n       To: %^{To:|NFCU Svgs|NFCU Chkg|Fifth-Third Chk}\n   Amount: $%^{Amount $}\n  Confirm: %^{Confirmation #}" :empty-lines-after 1)
+        ))
 
-        ("w" "Password" table-line (file+olp "~/org/passwords.gpg" "Passwords")
-         "| %^{Title} | %^{Username} | %^{Password} | %^{URL} | %^{Notes}")))
 
 
 ;;============================================================

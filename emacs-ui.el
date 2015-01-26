@@ -118,6 +118,7 @@
 (setq which-func-unknown "")
 (which-function-mode)
 
+
 ;;======================================================================
 ;; Color Themes
 ;;(load-theme 'oldlace t nil)

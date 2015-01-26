@@ -27,6 +27,36 @@
 (global-set-key (kbd "C-c f s") 'cmframe-frame-shrink)
 (global-set-key (kbd "C-c f t") 'cmframe-toggle-window-split)
 
+;;======================================================================
+;; Moving around windows
+(defun sacha/vsplit-last-buffer (prefix)
+  "Split the window vertically and keep the cursor in the previous buffer."
+  (interactive "p")
+  (split-window-vertically)
+  (other-window 1 nil)
+  (if (= prefix 1)
+      (switch-to-next-buffer)))
+
+(defun sacha/hsplit-last-buffer (prefix)
+  "Split the window horizontally and keep the cursor in the previous buffer."
+  (interactive "p")
+  (split-window-horizontally)
+  (other-window 1 nil)
+  (if (= prefix 1)
+      (switch-to-next-buffer)))
+
+;(bind-key "C-x 2" 'sacha/vsplit-last-buffer)
+;(bind-key "C-x 3" 'sacha/hsplit-last-buffer)
+
+;; Ace Window
+;; When prefixed with one `universal-argument', instead of switching
+;; to selected window, the selected window is swapped with current one.
+
+;; When prefixed with two `universal-argument', the selected window is
+;; deleted instead.
+(global-set-key (kbd "M-p") 'ace-window)
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+
 ;;; ======================================================================
 ;; misc settings
 (eval-when-compile (require 'cl))
@@ -34,7 +64,7 @@
   (interactive)
   (if (/= (cadr (frame-parameter nil 'alpha)) 100)
       (set-frame-parameter nil 'alpha '(100 100))
-    (set-frame-parameter nil 'alpha '(90 90)))) ;focused / background
+    (set-frame-parameter nil 'alpha '(90 20)))) ;focused / background
 (global-set-key (kbd "C-c t") 'toggle-transparency)
 
 ;; Set transparency of emacs
@@ -42,9 +72,6 @@
   "Sets the transparency of the frame window. 0=transparent/100=opaque"
   (interactive "nTransparency Value 0 (transparent) to 100 (opaque): ")
   (set-frame-parameter (selected-frame) 'alpha value))
-
-;; modify the keybinding to switch frames
-(global-set-key "\M-o" 'other-window)
 
 ;; adjust the frame to fit the current resolution on launching
 ;(add-hook 'after-make-frame-functions 'my-screen-right)
