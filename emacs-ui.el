@@ -5,7 +5,7 @@
 ;; Set the fonts
 (if (eq system-type 'darwin)
     (progn
-      (set-face-font 'default "Bitstream Vera Sans Mono-12")
+      (set-face-font 'default "Source Code Pro Regular-13")
       (set-face-font 'variable-pitch "Verdana-12")
       (copy-face 'default 'fixed-pitch)))
 
@@ -26,18 +26,6 @@
 (set-scroll-bar-mode nil)
 (when (fboundp 'horizontal-scroll-bar-mode)
   (horizontal-scroll-bar-mode -1))
-
-;;; enable buffer-face mode to provide buffer-local fonts
-;(buffer-face-mode)
-;
-;;; These require fixed-pitch fonts to format correctly
-;(add-hook 'text-mode-hook 'fixed-pitch-mode)
-;(add-hook 'dired-mode-hook 'fixed-pitch-mode)
-;(add-hook 'calendar-mode-hook 'fixed-pitch-mode)
-;(add-hook 'org-agenda-mode-hook 'fixed-pitch-mode)
-;(add-hook 'shell-mode-hook 'fixed-pitch-mode)
-;(add-hook 'eshell-mode-hook 'fixed-pitch-mode)
-;(add-hook 'bs-mode-hook 'fixed-pitch-mode)
 
 ;;======================================================================
 ;; Eye candy
