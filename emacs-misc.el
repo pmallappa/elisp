@@ -341,8 +341,8 @@ nSec: ")
   (unless (eq (window-end) (point-max))
     (scroll-up n)))
 
-(global-set-key "\M-n" 'scroll-up-in-place)
-(global-set-key "\M-p" 'scroll-down-in-place)
+;(global-set-key (kbd "M-n") 'scroll-up-in-place)
+;(global-set-key "\M-p" 'scroll-down-in-place)
 
 ;;======================================================================
 ;; toggle truncate lines and redraw the display

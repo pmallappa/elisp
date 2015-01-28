@@ -10,7 +10,7 @@
 ;; ls | sed -e s/-[0-9.].*//
 (defvar cm/packages nil
   "Packages that will be installed/updated to the latest version on startup")
-(setq cm/packages                                                  
+(setq cm/packages
       '(
         2048-game
         ac-cider
@@ -42,8 +42,8 @@
         frame-cmds
         frame-fns
         git-commit-mode
-        git-gutter+
         git-gutter
+        git-gutter+
         git-rebase-mode
         git-timemachine
         hc-zenburn-theme
@@ -83,6 +83,7 @@
         smartparens
         starter-kit-eshell
         string-utils
+        tablist
         w3m
         web-mode
         windata
