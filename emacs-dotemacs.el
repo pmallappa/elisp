@@ -55,7 +55,4 @@
 
 ;;=====================================================================
 ;; start the emacsserver that listens to emacsclient
-(when (display-graphic-p)
-  (if (not (server-running-p))
-      (server-start)))
-
+(server-start)
