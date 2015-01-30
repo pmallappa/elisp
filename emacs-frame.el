@@ -29,33 +29,30 @@
 
 ;;======================================================================
 ;; Moving around windows
-(defun sacha/vsplit-last-buffer (prefix)
-  "Split the window vertically and keep the cursor in the previous buffer."
-  (interactive "p")
-  (split-window-vertically)
-  (other-window 1 nil)
-  (if (= prefix 1)
-      (switch-to-next-buffer)))
+(require 'hydra)
+(key-chord-mode 1)
 
-(defun sacha/hsplit-last-buffer (prefix)
-  "Split the window horizontally and keep the cursor in the previous buffer."
-  (interactive "p")
-  (split-window-horizontally)
-  (other-window 1 nil)
-  (if (= prefix 1)
-      (switch-to-next-buffer)))
+(defun hydra-universal-argument (arg)
+  (interactive "P")
+  (setq prefix-arg (if (consp arg)
+                       (list (* 4 (car arg)))
+                     (if (eq arg '-)
+                         (list -4)
+                       '(4)))))
 
-;(bind-key "C-x 2" 'sacha/vsplit-last-buffer)
-;(bind-key "C-x 3" 'sacha/hsplit-last-buffer)
+ (defhydra hydra-window (global-map "C-M-o")
+  "window"
+  ("h" windmove-left "left")
+  ("j" windmove-down "down")
+  ("k" windmove-up "up")
+  ("l" windmove-right "right")
+  ("a" ace-window "ace")
+  ("u" hydra-universal-argument "universal")
+  ("s" (lambda () (interactive) (ace-window 4)) "swap")
+  ("d" (lambda () (interactive) (ace-window 16)) "delete")
+  ("o"))
 
-;; Ace Window
-;; When prefixed with one `universal-argument', instead of switching
-;; to selected window, the selected window is swapped with current one.
-
-;; When prefixed with two `universal-argument', the selected window is
-;; deleted instead.
-(global-set-key (kbd "M-p") 'ace-window)
-(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+(key-chord-define-global "yy" 'hydra-window/body)
 
 ;;; ======================================================================
 ;; misc settings

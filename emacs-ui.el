@@ -103,8 +103,8 @@
 ;(diminish 'auto-complete-mode)
 
 ;; display the function the point is in within the modeline if any
-(setq which-func-unknown "")
-(which-function-mode)
+;(setq which-func-unknown "")
+;(which-function-mode)
 
 
 ;;======================================================================
