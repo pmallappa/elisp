@@ -42,10 +42,10 @@
 
  (defhydra hydra-window (global-map "C-M-o")
   "window"
-  ("h" windmove-left "left")
-  ("j" windmove-down "down")
-  ("k" windmove-up "up")
-  ("l" windmove-right "right")
+  ("b" windmove-left "left")
+  ("n" windmove-down "down")
+  ("p" windmove-up "up")
+  ("f" windmove-right "right")
   ("a" ace-window "ace")
   ("u" hydra-universal-argument "universal")
   ("s" (lambda () (interactive) (ace-window 4)) "swap")
