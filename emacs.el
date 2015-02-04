@@ -167,6 +167,7 @@
 (require 'emacs-shell)        ; customized shell settings
 (require 'emacs-frame)        ; customized frame functions
 (require 'emacs-git)          ; emacs git integration
+(require 'emacs-hydra)        ; multiple commands strung together
 (require 'emacs-misc)         ; various settings
 (require 'emacs-info)         ; setting up info
 (require 'emacs-tramp)        ; remote file access

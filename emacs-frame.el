@@ -27,33 +27,6 @@
 (global-set-key (kbd "C-c f s") 'cmframe-frame-shrink)
 (global-set-key (kbd "C-c f t") 'cmframe-toggle-window-split)
 
-;;======================================================================
-;; Moving around windows
-(require 'hydra)
-(key-chord-mode 1)
-
-(defun hydra-universal-argument (arg)
-  (interactive "P")
-  (setq prefix-arg (if (consp arg)
-                       (list (* 4 (car arg)))
-                     (if (eq arg '-)
-                         (list -4)
-                       '(4)))))
-
- (defhydra hydra-window (global-map "C-M-o")
-  "window"
-  ("b" windmove-left "left")
-  ("n" windmove-down "down")
-  ("p" windmove-up "up")
-  ("f" windmove-right "right")
-  ("a" ace-window "ace")
-  ("u" hydra-universal-argument "universal")
-  ("s" (lambda () (interactive) (ace-window 4)) "swap")
-  ("d" (lambda () (interactive) (ace-window 16)) "delete")
-  ("o"))
-
-(key-chord-define-global "yy" 'hydra-window/body)
-
 ;;; ======================================================================
 ;; misc settings
 (eval-when-compile (require 'cl))
@@ -76,4 +49,3 @@
 (run-with-idle-timer 0.1 nil 'cmframe-frame-adjust)
 
 (provide 'emacs-frame)
-
