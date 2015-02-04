@@ -1,41 +1,30 @@
-q;;======================================================================
-;; Moving around windows
+;;======================================================================
+;; Setting for Hydra multiple key command package
 (require 'hydra)
-;(key-chord-mode 1)
+(require 'hydra-examples)
 
-(defun hydra-universal-argument (arg)
-  (interactive "P")
-  (setq prefix-arg (if (consp arg)
-                       (list (* 4 (car arg)))
-                     (if (eq arg '-)
-                         (list -4)
-                       '(4)))))
+;; Moving around windows
 (global-set-key
- (kbd "C-c C-v")
- (defhydra hydra-toggle (:color blue)
-   "toggle"
-   ("a" abbrev-mode "abbrev")
-   ("d" toggle-debug-on-error "debug")
-   ("f" auto-fill-mode "fill")
-   ("t" toggle-truncate-lines "truncate")
-   ("w" whitespace-mode "whitespace")
+ (kbd "C-M-o")
+ (defhydra hydra-window ()
+   "window"
+   ("b" windmove-left "L")
+   ("f" windmove-right "R")
+   ("p" windmove-up "U")
+   ("n" windmove-down "D")
+   ("v" (lambda ()
+          (interactive)
+          (split-window-right)
+          (windmove-right)) "vert")
+   ("x" (lambda ()
+          (interactive)
+          (split-window-below)
+          (windmove-down)) "horz")
+   ("h" hydra-move-splitter-left)
+   ("j" hydra-move-splitter-down)
+   ("k" hydra-move-splitter-up)
+   ("l" hydra-move-splitter-right)
+   ("d" delete-other-windows "1" :color blue)
    ("q" nil "cancel")))
 
-(global-set-key
- (kbd "C-c C-w")
- (defhydra hydra-window (:color blue)
-  "window"
-  ("b" windmove-left "left")
-  ("n" windmove-down "down")
-  ("p" windmove-up "up")
-  ("f" windmove-right "right")
-  ("a" ace-window "ace")
-  ("u" hydra-universal-argument "universal")
-  ("s" (lambda () (interactive) (ace-window 4)) "swap")
-  ("d" (lambda () (interactive) (ace-window 16)) "delete")
-  ("q" nil "cancel")))
-
-;(key-chord-define-global "yy" 'hydra-window/body)
-
 (provide 'emacs-hydra)
-
