@@ -33,6 +33,16 @@
 (require 'calc-funcs)
 
 ;;============================================================
+;; enable babel code execute functions
+(require 'ob-calc)
+(require 'ob-sql)
+(require 'ob-latex)
+(require 'ob-gnuplot)
+
+(require 'ob-ditaa)
+(setq org-ditaa-jar-path "/usr/local/bin/ditaa")
+
+;;============================================================
 ;; capture templates (replaces remember)
 (global-set-key (kbd "C-c c") 'org-capture)
 
