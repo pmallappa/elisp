@@ -15,9 +15,6 @@
         2048-game
         ac-cider
         ac-helm
-        ace-isearch
-        ace-jump-mode
-        ace-window
         anti-zenburn-theme
         async
         auto-complete
@@ -43,7 +40,7 @@
         frame-fns
         git-commit-mode
         git-gutter
-        git-gutter+
+        git-gutter
         git-rebase-mode
         git-timemachine
         hc-zenburn-theme
@@ -57,6 +54,7 @@
         hl-sexp
         ht
         htmlize
+        hydra
         igrep
         js2-mode
         list-utils
