@@ -54,7 +54,7 @@
         ("n" "Note" entry (file "~/org/pending.org")
          "* %^{Note Description}  %^g\n  %U\n  %i%?\n  %a" :empty-lines-after 1)
         ("m" "Meeting" entry (file "~/org/pending.org")
-         "* Meeting with %^{With whom} :meeting:\n  %?" :clock-in t :jump-to-captured)
+         "* %^{With whom} :meeting:\n  %?" :clock-in t :jump-to-captured)
         ("p" "Phone Call" entry (file "~/org/pending.org")
          "* %^{Mode|IM|Phone Call} with %^{With whom} :phone:\n  %?" :clock-in t :jump-to-captured)
         ("w" "Password" table-line (file+olp "~/org/passwords.gpg" "Passwords")
