@@ -3,15 +3,14 @@
 ;; the default font is set in .emacs, the fixed-font should match this
 ;;======================================================================
 ;; Set the fonts
+;; you can get the 'Source Code Pro' font at
+;; https://github.com/adobe-fonts/source-code-pro
+;; a copy has also been place in my dropbox account
 (if (eq system-type 'darwin)
     (progn
       (set-face-font 'default "Source Code Pro Regular-13")
       (set-face-font 'variable-pitch "Verdana-12")
       (copy-face 'default 'fixed-pitch)))
-
-;; you can get the 'Source Code Pro' font at
-;; https://github.com/adobe-fonts/source-code-pro
-;; a copy has also been place in my dropbox account
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
       (set-face-font 'default "Source Code Pro Semibold-9")
