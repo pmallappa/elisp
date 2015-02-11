@@ -64,7 +64,7 @@
         ("st" "Transport" entry (file+olp "~/org/siemens.org" "Support" "Completed" "Transports")
          "* TODO Transport %^{Transport Number}\n  Added:  %U\n  %?" :empty-lines-after 1)
         ("ss" "Support" entry (file+olp "~/org/siemens.org" "Support")
-        "* %^{Ticket|AHD|JIRA}-%^{Number} - %^{Description}\n  Added: %U\n** TODO Complete %\\1-%\\2 - %\\3\n   Added: %U" :empty-lines-after 1)
+        "* %^{Ticket|AHD-|JIRA }%^{Number} - %^{Description}\n  Added: %U\n** TODO Complete %\\1-%\\2 - %\\3\n   Added: %U" :empty-lines-after 1)
 
         ("f" "Financial capture templates")
         ("fb" "Bill" entry (file+olp "~/org/finances.org" "Bills")
@@ -72,8 +72,6 @@
         ("ff" "Funds" entry (file+olp "~/org/finances.org" "Funds")
          "* Transferred Money %U\n     From: %^{Transferred From:|Fifth-Third Chkg|NFCU Chkg|NFCU Svgs}\n       To: %^{To:|NFCU Svgs|NFCU Chkg|Fifth-Third Chk}\n   Amount: $%^{Amount $}\n  Confirm: %^{Confirmation #}" :empty-lines-after 1)
         ))
-
-
 
 ;;============================================================
 ;; Targets include this file and any file contributing to the agenda - up to
