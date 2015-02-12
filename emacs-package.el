@@ -122,7 +122,7 @@
 Letters do not insert themselves; instead, they are commands.
 \\<package-menu-mode-map>
 \\{package-menu-mode-map}"
-  (setq tabulated-list-format [("Package" 28 package-menu--name-predicate)
+  (setq tabulated-list-format [("Package" 32 package-menu--name-predicate)
 			       ("Version" 18 nil)
 			       ("Status"  12 package-menu--status-predicate)
 			       ("Description" 0 nil)])
