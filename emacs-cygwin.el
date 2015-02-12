@@ -1,4 +1,4 @@
-;;;======================================================================
+;;======================================================================
 (if (eq system-type 'windows-nt)
     (progn
       (require 'setup-cygwin)))
@@ -43,7 +43,5 @@
 
       (add-to-list 'file-name-handler-alist '("^[Cc]:" . cygwin-name-hook))      
       ))
-    
-
 
 (provide 'emacs-cygwin)
