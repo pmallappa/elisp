@@ -42,11 +42,13 @@
         frame-fns
         git-commit-mode
         git-gutter
-        git-gutter
+        git-gutter+
         git-rebase-mode
         git-timemachine
         hc-zenburn-theme
         helm
+        helm-bm
+        helm-c-moccur
         helm-emmet
         helm-git-grep
         helm-ls-git
@@ -62,6 +64,7 @@
         list-utils
         magit
         markdown-mode
+        minesweeper
         multi-web-mode
         names
         neotree
