@@ -49,6 +49,12 @@
 (setq backup-directory-alist (quote ((".*" . "~/.backups"))))
 
 ;;=====================================================================
+;; set up a http proxy if necessary
+;(setq url-proxy-services '(("no_proxy" . "siemens\\.com")
+;                           ("http" . "http://mil-fsprx.net.plm.eds.com:3128")))
+;(setq url-using-proxy "http://mil-fsprx.net.plm.eds.com:3128")
+
+;;=====================================================================
 ;; Set the environment (OSX or Cygwin)
 (if (eq system-type 'darwin)
   (progn

@@ -13,9 +13,12 @@
       (copy-face 'default 'fixed-pitch)))
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
-      (set-face-font 'default "Source Code Pro Semibold-9")
-      (set-face-font 'variable-pitch "Segoe UI Semibold-9")
+      (set-face-font 'variable-pitch "MS Reference Sans Serif-8")
+      (set-face-font 'default "Source Code Pro Semibold-8")
       (copy-face 'default 'fixed-pitch)))
+
+;      (set-face-font 'variable-pitch "Calibri-9")
+;      (set-face-font 'variable-pitch "Segoe UI Semibold-9")
 
 ;; Fix the UI
 (setq visible-bell nil)

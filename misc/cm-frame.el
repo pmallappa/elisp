@@ -1,9 +1,6 @@
 ;;======================================================================
 ;; set the frame variables and support functions
 
-;; to get the width of the main monitor on 24.4
-;; (nth 4 (assq 'geometry (car (display-monitor-attributes-list))))
-
 (defun cm-display-pixel-width ()
   "Return width of current display"
   ; emacs 24.4 changed the return value of display-pixel-width
