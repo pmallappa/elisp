@@ -14,7 +14,7 @@
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
       (set-face-font 'variable-pitch "MS Reference Sans Serif-8")
-      (set-face-font 'default "Source Code Pro Semibold-8")
+      (set-face-font 'default "Source Code Pro Semibold-9")
       (copy-face 'default 'fixed-pitch)))
 
 ;      (set-face-font 'variable-pitch "Calibri-9")

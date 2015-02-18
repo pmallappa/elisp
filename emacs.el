@@ -51,8 +51,9 @@
 ;;=====================================================================
 ;; set up a http proxy if necessary
 ;(setq url-proxy-services '(("no_proxy" . "siemens\\.com")
-;                           ("http" . "http://mil-fsprx.net.plm.eds.com:3128")))
-;(setq url-using-proxy "http://mil-fsprx.net.plm.eds.com:3128")
+;                           ("http" . "http://127.0.0.1:3124")))
+;(setq url-using-proxy "http://127.0.0.1:3124")
+;;(setq url-using-proxy "http://mil-fsprx.net.plm.eds.com:3128")
 
 ;;=====================================================================
 ;; Set the environment (OSX or Cygwin)

@@ -16,16 +16,17 @@
 (setq cmframe-monitor2-width 1920)
 (setq cmframe-monitor2-height 1080)
 
-; set the right margin (add window manager space here as well)
+;; set the right margin (add window manager space here as well)
 (setq cmframe-horizontal-margin 15)
 
-(global-set-key (kbd "C-c f e") 'cmframe-toggle-frame-enlarge)
-(global-set-key (kbd "C-c f f") 'toggle-frame-fullscreen)
-(global-set-key (kbd "C-c f l") 'cmframe-left)
-(global-set-key (kbd "C-c f m") 'toggle-frame-maximized)
-(global-set-key (kbd "C-c f r") 'cmframe-right)
-(global-set-key (kbd "C-c f s") 'cmframe-frame-shrink)
-(global-set-key (kbd "C-c f t") 'cmframe-toggle-window-split)
+;; see the file emacs-hydra for keybindings
+;(global-set-key (kbd "C-c f e") 'cmframe-toggle-frame-enlarge)
+;(global-set-key (kbd "C-c f f") 'toggle-frame-fullscreen)
+;(global-set-key (kbd "C-c f l") 'cmframe-left)
+;(global-set-key (kbd "C-c f m") 'toggle-frame-maximized)
+;(global-set-key (kbd "C-c f r") 'cmframe-right)
+;(global-set-key (kbd "C-c f s") 'cmframe-frame-shrink)
+;(global-set-key (kbd "C-c f t") 'cmframe-toggle-window-split)
 
 ;;; ======================================================================
 ;; misc settings
@@ -35,7 +36,6 @@
   (if (/= (cadr (frame-parameter nil 'alpha)) 100)
       (set-frame-parameter nil 'alpha '(100 100))
     (set-frame-parameter nil 'alpha '(90 20)))) ;focused / background
-(global-set-key (kbd "C-c t") 'toggle-transparency)
 
 ;; Set transparency of emacs
 (defun transparency (value)
