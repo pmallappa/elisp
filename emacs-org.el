@@ -350,7 +350,8 @@ Return output file name."
 (defun insert-org-timestamp-now ()
   "Insert the current date-time into org buffer."
   (interactive)
-  (org-insert-time-stamp (org-current-time org-clock-rounding-minutes) 'with-hm 'inactive))
+  (org-insert-time-stamp (org-current-time 1) 'with-hm 'inactive))
+;  (org-insert-time-stamp (now) 'with-hm 'inactive))
 (define-key global-map (kbd "C-c t") 'insert-org-timestamp-now)
 
 (provide 'emacs-org)
