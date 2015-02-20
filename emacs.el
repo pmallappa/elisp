@@ -21,16 +21,7 @@
 ;; you're using XEmacs, C-h C-l does this.
 
 ;;=====================================================================
-;;; set up the environment (moved to .emacs)
-;(if (eq system-type 'darwin)
-;    (defconst HOME_DIR  (concat "/Users/" (getenv "USER"))))
-;(if (eq system-type 'windows-nt)
-;    (defconst HOME_DIR  (concat "c:/cygwin/home/" (getenv "USERNAME"))))
-;(if (eq system-type 'cygwin)
-;    (defconst HOME_DIR (concat "/home/" (getenv "USERNAME"))))
-;;; set up the home directory
-;(setenv "HOME" HOME_DIR)
-
+;; set up the environment
 (defconst EMACS_CONFIGS (concat HOME_DIR "/elisp")
   "Directory for the emacs pkgs and configuration files.
  Default uses `HOME_DIR' as a prefix")
@@ -56,6 +47,13 @@
 
 ;; Specify where backup files are stored
 (setq backup-directory-alist (quote ((".*" . "~/.backups"))))
+
+;;=====================================================================
+;; set up a http proxy if necessary
+;(setq url-proxy-services '(("no_proxy" . "siemens\\.com")
+;                           ("http" . "http://127.0.0.1:3124")))
+;(setq url-using-proxy "http://127.0.0.1:3124")
+;;(setq url-using-proxy "http://mil-fsprx.net.plm.eds.com:3128")
 
 ;;=====================================================================
 ;; Set the environment (OSX or Cygwin)
@@ -156,7 +154,6 @@
 ;;=====================================================================
 ;; Load the customize configurations files
 (require 'emacs-macros)       ; various macros and functions
-;(require 'emacs-desktop)      ; save and restore emacs sessions
 (require 'emacs-helm)         ; helm integration
 (require 'emacs-org)          ; emacs org mode settings
 (require 'emacs-bm)           ; bookmark enhancements

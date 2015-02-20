@@ -45,7 +45,7 @@
       helm-recentf-fuzzy-match    t)
 
 (helm-autoresize-mode 1)
-(setq helm-autoresize-min-height 40)
+(setq helm-autoresize-min-height 10)
 (setq helm-autoresize-max-height 40)
 
 ;; open helm buffer inside current window, not occupy whole other window
