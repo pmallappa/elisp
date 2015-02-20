@@ -8,53 +8,72 @@
 ;; Creating and moving around windows
 (global-set-key
  (kbd "C-c m")
- (defhydra hydra-window ()
-   "Window"
-   ("b" windmove-left "Left")
-   ("f" windmove-right "Right")
-   ("p" windmove-up "Up")
-   ("n" windmove-down "Down")
+ (defhydra hydra-window (:color red)
+   "Window
+   _b_ Left
+   _f_ Right
+   _p_ Up
+   _n_ Down
+   _v_ Split Vertically
+   _x_ Split Horizontally
+   _d_ Delete other windows
+   _h_ Move split left
+   _l_ Move split right
+   _k_ Move split up
+   _j_ Move split down
+
+"   
+
+   ("b" windmove-left nil)
+   ("f" windmove-right nil)
+   ("p" windmove-up nil)
+   ("n" windmove-down nil)
    ("v" (lambda ()
           (interactive)
           (split-window-right)
-          (windmove-right)) "Vert")
-   ("d" delete-other-windows "Delete other windows")
+          (windmove-right)) nil)
+   ("d" delete-other-windows nil)
    ("x" (lambda ()
           (interactive)
           (split-window-below)
-          (windmove-down)) "horz")
-   ("h" hydra-move-splitter-left "Adj Left")
-   ("j" hydra-move-splitter-down "Down")
-   ("k" hydra-move-splitter-up "Up")
-   ("l" hydra-move-splitter-right "Right")
+          (windmove-down)) nil)
+   ("h" hydra-move-splitter-left nil)
+   ("j" hydra-move-splitter-down nil)
+   ("k" hydra-move-splitter-up nil)
+   ("l" hydra-move-splitter-right nil)
    ("q" nil "quit" :color blue)))
 
 ;; ==============================
 ;; Setting and adjusting the frame
 (global-set-key
  (kbd "C-c f")
- (defhydra hydra-frame (:color red)
-  "Frame"
-  ("e" cmframe-toggle-frame-enlarge "Enlarge")
-   ("f" toggle-frame-fullscreen "Fullscreen")
-   ("l" cmframe-left "Left Monitor")
-   ("m" toggle-frame-maximized "Maximized")
-   ("r" cmframe-right "Right Monitor")
-   ("s" cmframe-frame-shrink "Shrink")
-   ("t" cmframe-toggle-window-split "Toggle Split")
-   ("q" nil "quit" :color blue)))
+ (defhydra hydra-frame (:color blue)
+   "Frame
+   _s_ Shrink
+   _e_ Enlarge %`enlarged-p
+   _m_ Maximize
+   _f_ Fullscreen
+   _l_ Frame left
+   _r_ Frame right
+   _t_ Toggle Split
 
+"
+   ("e" cmframe-toggle-frame-enlarge nil)
+   ("f" toggle-frame-fullscreen nil)
+   ("s" cmframe-frame-shrink nil)
+   ("m" toggle-frame-maximized nil)
+   ("l" cmframe-left nil)
+   ("r" cmframe-right nil)
+   ("t" cmframe-toggle-window-split nil)
+   ("q" nil "quit" :color blue)))
 
 ;; ==============================
 ;; Goto line
 (global-set-key
  (kbd "M-g")
- (defhydra hydra-goto-line (global-map "M-g"
-                           :pre (linum-mode 1)
-                           :post (linum-mode -1)
-                           :color red)
-  ("g" goto-line "line")
-  ("c" goto-char "char")))
-
+ (defhydra hydra-goto-line (:pre (linum-mode 1)
+                            :post (linum-mode -1)
+                            :color blue)
+   ("g" goto-line "line")))
 
 (provide 'emacs-hydra)
