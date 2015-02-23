@@ -29,7 +29,7 @@ _d_ Delete other windows
           (interactive)
           (split-window-right)
           (windmove-right)) nil)
-   ("d" delete-other-windows nil)
+   ("d" delete-other-windows :color blue)
    ("x" (lambda ()
           (interactive)
           (split-window-below)
@@ -42,6 +42,9 @@ _d_ Delete other windows
 
 ;; ==============================
 ;; Setting and adjusting the frame
+;; TODO Fix frame maximized and frame shrink to toggle fullframe off if
+;; necessary
+
 (global-set-key
  (kbd "C-c f")
  (defhydra hydra-frame (:exit t)
