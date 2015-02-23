@@ -120,17 +120,37 @@
 
 ;; redefining the entire method. Long term would be to introduce a patch to
 ;; allow user-defined widths, or based on the width of the emacs frame
+;; <<<< here you have to adapt the number to your needs >>>>
+(defcustom package-menu-column-width 30
+  "Width of the package column in the package list."
+  :type 'number
+  :group 'package)
+
+(defcustom version-menu-column-width 18
+  "Width of the version column in the package list."
+  :type 'number
+  :group 'package)
+
+(defcustom status-menu-column-width 12
+  "Width of the staus column in the package list."
+  :type 'number
+  :group 'package)
+
 (define-derived-mode package-menu-mode tabulated-list-mode "Package Menu"
   "Major mode for browsing a list of packages.
 Letters do not insert themselves; instead, they are commands.
 \\<package-menu-mode-map>
 \\{package-menu-mode-map}"
-  (setq tabulated-list-format [("Package" 32 package-menu--name-predicate)
-			       ("Version" 18 nil)
-			       ("Status"  12 package-menu--status-predicate)
-			       ("Description" 0 nil)])
+  (setq tabulated-list-format
+        `[("Package" ,package-menu-column-width package-menu--name-predicate)
+          ("Version" ,version-menu-column-width nil)
+          ("Status"  ,status-menu-column-width package-menu--status-predicate)
+          ,@(if (cdr package-archives)
+                '(("Archive" 10 package-menu--archive-predicate)))
+          ("Description" 0 nil)])
   (setq tabulated-list-padding 2)
   (setq tabulated-list-sort-key (cons "Status" nil))
+  (add-hook 'tabulated-list-revert-hook 'package-menu--refresh nil t)
   (tabulated-list-init-header))
 
 ;; display installed packages that are not in the cm-packages list
