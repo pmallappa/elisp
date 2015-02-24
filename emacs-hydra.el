@@ -60,7 +60,7 @@ _t_ Toggle Split
    ("e" cmframe-toggle-frame-enlarge nil)
    ("f" toggle-frame-fullscreen nil)
    ("s" cmframe-frame-shrink nil)
-   ("m" toggle-frame-maximized nil)
+   ("m" cmframe-frame-maximize nil)
    ("l" cmframe-left nil)
    ("r" cmframe-right nil)
    ("t" cmframe-toggle-window-split nil)

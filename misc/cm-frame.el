@@ -1,5 +1,41 @@
 ;;======================================================================
 ;; set the frame variables and support functions
+;; TODO
+;;
+;; Use the new frame functions in emacs to programmatically obtain the
+;; monitor configurations and sizes
+;;
+;; See the function
+;; (display-monitor-attributes-list)
+;; for details on getting this information
+;;
+;; The first display on the list is the 'main' display that contains the
+;; window start menu and such
+;;
+;; In this case, the configuration is
+;;                +---------------+ +---------------+
+;; +------------+ |               | |               |
+;; |            | | Main display  | |               |
+;; | 1366x768   | | 1920x1080     | | 1920x1080     |
+;; |            | | Emacs frame   | |               |
+;; +------------+ +---------------+ +---------------+
+;;
+;; (((geometry 0 0 1920 1080)
+;;   (workarea 0 0 1920 1080)
+;;   (mm-size 677 381)
+;;   (name . "\\\\.\\DISPLAY2")
+;;   (frames #<frame emacs on PL1USMIF0388NB --  0000000001CD1C48>))
+;;  ((geometry -1366 312 1366 768)
+;;   (workarea -1366 312 1366 768)
+;;   (mm-size 482 271)
+;;   (name . "\\\\.\\DISPLAY1")
+;;   (frames))
+;;  ((geometry 1920 0 1920 1080)
+;;   (workarea 1920 0 1920 1080)
+;;   (mm-size 677 381)
+;;   (name . "\\\\.\\DISPLAY3")
+;;   (frames)))
+
 
 (defun cm-display-pixel-width ()
   "Return width of current display"
@@ -69,7 +105,7 @@ The default value is the same as the primary monitor")
   (eq enlarged-p 't))
 
 (defun get-frame-width(screen-width)
-  "Return the number of columns for a frame in a given screen width. 
+  "Return the number of columns for a frame in a given screen width.
 Final frame size is determined by the value returned by
 `is-enlarged', which shows whether a large or standard frame is
 desired
@@ -77,9 +113,9 @@ If the size of the frame exceeds the screen width, shrink to fit the screen"
   (if (is-enlarged)
       (+ 1 (pixels-to-cols (- screen-width (* 2 cmframe-horizontal-margin))))
 
-    ; If user-defined default width is too wide, fit within the monitor
-    (min 
-     MY_DEFAULT_WIDTH 
+    ;; If user-defined default width is too wide, fit within the monitor
+    (min
+     MY_DEFAULT_WIDTH
      (pixels-to-cols (- screen-width (* 2 cmframe-horizontal-margin))))))
 
 (defun get-frame-height(screen-height)
@@ -104,6 +140,13 @@ If the size of the frame exceeds the screen width, shrink to fit the screen"
   ; take the fringe on either side into account
   (* (+ 2 columns) (frame-char-width)))
 
+(defun is-frame-fullscreen ()
+  (or (eq (frame-parameter nil 'fullscreen) 'fullscreen)
+      (eq (frame-parameter nil 'fullscreen) 'fullboth)))
+
+(defun is-frame-maximized ()
+  (eq (frame-parameter nil 'fullscreen) 'maximized))
+
 (defun cmframe-frame-adjust()
   "Resize the frame size to an enlarged or standard size, based
 on the status returned by `is-enlarged', and move to the screen
@@ -111,16 +154,15 @@ determined by `is-right-monitor`"
   (interactive)
 
   ;; ensure the frame is not currently fullscreen or maximized
-  (if (or (eq (frame-parameter nil 'fullscreen) 'fullscreen)
-          (eq (frame-parameter nil 'fullscreen) 'fullboth))
+  (if (is-frame-fullscreen)
       (toggle-frame-fullscreen))
-  
-  (if (eq (frame-parameter nil 'fullscreen) 'maximized)
+
+  (if (is-frame-maximized)
       (toggle-frame-maximized))
 
   ;; determine and set the frame size
   (set-frame-size (selected-frame)
-                  (get-frame-width 
+                  (get-frame-width
                    (if (is-right-monitor)
                        cmframe-monitor2-width
                      (cm-display-pixel-width)))
@@ -137,7 +179,7 @@ determined by `is-right-monitor`"
   (-
       (if (is-right-monitor)
           (+ (cm-display-pixel-width)
-             (- cmframe-monitor2-width 
+             (- cmframe-monitor2-width
                 (cols-to-pixels (get-frame-width cmframe-monitor2-width))))
         ;; left monitor
         (- (cm-display-pixel-width)
@@ -173,7 +215,7 @@ relative to the screen.
 If the variable `cmframe-monitor2-p' is nil, the frame will remain on the left."
   (interactive)
   (if (eq cmframe-monitor2-p t)
-      (progn 
+      (progn
       (set-monitor-right)
       (cmframe-frame-adjust))
     (progn
@@ -182,7 +224,7 @@ If the variable `cmframe-monitor2-p' is nil, the frame will remain on the left."
       (message ""))))
 
 (defun cmframe-left()
-  "Move the frame to the left monitor while maintaining 
+  "Move the frame to the left monitor while maintaining
 its size (relative to the screen)"
   (interactive)
   (set-monitor-left)
@@ -206,15 +248,15 @@ With prefix argument ARG, include proportional fonts"
   "Maximize Emacs window"
   (interactive)
   (modify-frame-parameters nil '((my-frame-state . 't)))
+  (if (is-frame-fullscreen)
+      (toggle-frame-fullscreen))
   (toggle-frame-maximized))
 
 (defun cmframe-frame-restore ()
-   "Restore Emacs window in Win32"
+   "Restore Emacs window from maximized"
    (interactive)
    (modify-frame-parameters nil '((my-frame-state . nil)))
-   (if (eq system-type 'darwin)
-       (cmframe-toggle-frame-maximize)
-     (w32-send-sys-command ?\xF120)))
+       (cmframe-toggle-frame-maximize))
 
 (defun cmframe-toggle-frame-maximize ()
   "Maximize/Restore Emacs frame based on `my-frame-state'"

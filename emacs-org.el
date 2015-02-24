@@ -158,6 +158,7 @@
 
 ;; To decrypt, place the cursor on the heading and execute
 ;; M-x org-decrypt-entry
+(define-key org-mode-map (kbd "C-c /") 'org-decrypt-entry)
 
 ;;============================================================
 ;; Create custom agenda views
@@ -208,14 +209,14 @@
 ;;============================================================
 ;; Set up the TODO states
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "OPEN(o)" "WAITING(w@/!)" "|" "DONE(d@)" "CANCELED(c@)")))
+      '((sequence "TODO(t)" "OPEN(o)" "WAIT(w@/!)" "|" "DONE(d@)" "CANX(c@)")))
 
 (setq org-todo-keyword-faces
-      '(("TODO"      . (:foreground "IndianRed3"  :weight bold))
- 	("OPEN"      . (:foreground "Orange2"     :weight bold))
-        ("WAITING"   . (:foreground "Orange2"     :weight bold))
-	("DONE"      . (:foreground "ForestGreen" :weight bold))
-	("CANCELED"  . (:foreground "ForestGreen" :weight bold))))
+      '(("TODO" . (:foreground "Burlywood3"))
+ 	("OPEN" . (:foreground "ForestGreen"))
+        ("WAIT" . (:foreground "Firebrick3"))
+	("DONE" . (:foreground "Wheat4"))
+	("CANX" . (:foreground "Wheat4"))))
 
 ;; log and add notes when completing a task
 (setq org-log-done 'note)
