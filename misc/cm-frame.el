@@ -111,7 +111,8 @@ determined by `is-right-monitor`"
   (interactive)
 
   ;; ensure the frame is not currently fullscreen or maximized
-  (if (eq (frame-parameter nil 'fullscreen) 'fullscreen)
+  (if (or (eq (frame-parameter nil 'fullscreen) 'fullscreen)
+          (eq (frame-parameter nil 'fullscreen) 'fullboth))
       (toggle-frame-fullscreen))
   
   (if (eq (frame-parameter nil 'fullscreen) 'maximized)
