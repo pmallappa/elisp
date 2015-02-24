@@ -62,9 +62,11 @@
 
         ("s" "Siemens capture templates")
         ("st" "Transport" entry (file+olp "~/org/siemens.org" "Support" "Completed" "Transports")
-         "* TODO Transport %^{Transport Number}\n  Added:  %U\n  %?" :empty-lines-after 1)
-        ("ss" "Support" entry (file+olp "~/org/siemens.org" "Support")
-        "* %^{Ticket|AHD-|JIRA }%^{Number} - %^{Description}\n  Added: %U\n** TODO Complete %\\1%\\2 - %\\3\n   Added: %U\n** Details\n" :empty-lines-after 1)
+         "* TODO Transport %^{Transport Number}\n  Added:  %U\n  %?" :empty-lines-after 1 :jump-to-captured)
+        ("sa" "AHD Ticket" entry (file+olp "~/org/siemens.org" "Support" "AHD")
+        "* AHD-%^{AHD Number} - %^{Description}\n  Added: %U\n** TODO Complete AHD-%\\1 - %\\2\n   Added: %U\n** Details\n" :empty-lines-after 1 :jump-to-captured)
+        ("sj" "JIRA Ticket" entry (file+olp "~/org/siemens.org" "Support" "JIRA")
+        "* JIRA %^{JIRA Number} - %^{Description}\n  Added: %U\n** TODO Complete JIRA %\\1 - %\\2\n   Added: %U\n** Details\n" :empty-lines-after 1 :jump-to-captured)
 
         ("f" "Financial capture templates")
         ("fb" "Bill" entry (file+olp "~/org/finances.org" "Bills")

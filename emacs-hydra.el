@@ -10,14 +10,13 @@
  (kbd "C-c m")
  (defhydra hydra-window (:color red)
    "
-Window
--------------------------------------------
-_b_ Left             _f_ Right
-_p_ Up               _n_ Down
-_v_ Split Vertically _x_ Split Horizontally
-_h_ Move split left  _l_ Move split right
-_k_ Move split up    _j_ Move split down
-_t_ Toggle Split
+Window Methods
+--------------------------------------------
+_b_ Left              _f_ Right
+_p_ Up                _n_ Down
+_v_ Split Vertically  _x_ Split Horizontally
+_h_ Move split left   _l_ Move split right
+_k_ Move split up     _j_ Move split down
 _d_ Delete other windows
 
 "   
@@ -29,7 +28,7 @@ _d_ Delete other windows
           (interactive)
           (split-window-right)
           (windmove-right)) nil)
-   ("d" delete-other-windows nil)
+   ("d" delete-other-windows :color blue)
    ("x" (lambda ()
           (interactive)
           (split-window-below)
@@ -43,15 +42,19 @@ _d_ Delete other windows
 
 ;; ==============================
 ;; Setting and adjusting the frame
+;; TODO Fix frame maximized and frame shrink to toggle fullframe off if
+;; necessary
+
 (global-set-key
  (kbd "C-c f")
- (defhydra hydra-frame (:color blue)
+ (defhydra hydra-frame (:exit t)
    "
-Frame
+Frame Methods
 --------------------------------
 _s_ Shrink       _e_ Enlarge
 _m_ Maximize     _f_ Fullscreen
 _l_ Frame left   _r_ Frame right
+_t_ Toggle Split
 
 "
    ("e" cmframe-toggle-frame-enlarge nil)
@@ -60,7 +63,8 @@ _l_ Frame left   _r_ Frame right
    ("m" toggle-frame-maximized nil)
    ("l" cmframe-left nil)
    ("r" cmframe-right nil)
-   ("q" nil "quit" :color blue)))
+   ("t" cmframe-toggle-window-split nil)
+   ("q" nil "quit")))
 
 ;; ==============================
 ;; Goto line

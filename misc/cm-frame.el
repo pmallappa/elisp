@@ -110,7 +110,14 @@ on the status returned by `is-enlarged', and move to the screen
 determined by `is-right-monitor`"
   (interactive)
 
-  ; determine and set the frame size
+  ;; ensure the frame is not currently fullscreen or maximized
+  (if (eq (frame-parameter nil 'fullscreen) 'fullscreen)
+      (toggle-frame-fullscreen))
+  
+  (if (eq (frame-parameter nil 'fullscreen) 'maximized)
+      (toggle-frame-maximized))
+
+  ;; determine and set the frame size
   (set-frame-size (selected-frame)
                   (get-frame-width 
                    (if (is-right-monitor)
@@ -131,7 +138,7 @@ determined by `is-right-monitor`"
           (+ (cm-display-pixel-width)
              (- cmframe-monitor2-width 
                 (cols-to-pixels (get-frame-width cmframe-monitor2-width))))
-        ; left monitor
+        ;; left monitor
         (- (cm-display-pixel-width)
            (cols-to-pixels (get-frame-width (cm-display-pixel-width)))))
       cmframe-horizontal-margin))
