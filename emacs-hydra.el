@@ -9,21 +9,18 @@
 (global-set-key
  (kbd "C-c m")
  (defhydra hydra-window (:color red)
-   "Window
-   _b_ Left
-   _f_ Right
-   _p_ Up
-   _n_ Down
-   _v_ Split Vertically
-   _x_ Split Horizontally
-   _d_ Delete other windows
-   _h_ Move split left
-   _l_ Move split right
-   _k_ Move split up
-   _j_ Move split down
+   "
+Window
+-------------------------------------------
+_b_ Left             _f_ Right
+_p_ Up               _n_ Down
+_v_ Split Vertically _x_ Split Horizontally
+_h_ Move split left  _l_ Move split right
+_k_ Move split up    _j_ Move split down
+_t_ Toggle Split
+_d_ Delete other windows
 
 "   
-
    ("b" windmove-left nil)
    ("f" windmove-right nil)
    ("p" windmove-up nil)
@@ -41,6 +38,7 @@
    ("j" hydra-move-splitter-down nil)
    ("k" hydra-move-splitter-up nil)
    ("l" hydra-move-splitter-right nil)
+   ("t" cmframe-toggle-window-split nil)
    ("q" nil "quit" :color blue)))
 
 ;; ==============================
@@ -48,14 +46,12 @@
 (global-set-key
  (kbd "C-c f")
  (defhydra hydra-frame (:color blue)
-   "Frame
-   _s_ Shrink
-   _e_ Enlarge %`enlarged-p
-   _m_ Maximize
-   _f_ Fullscreen
-   _l_ Frame left
-   _r_ Frame right
-   _t_ Toggle Split
+   "
+Frame
+--------------------------------
+_s_ Shrink       _e_ Enlarge
+_m_ Maximize     _f_ Fullscreen
+_l_ Frame left   _r_ Frame right
 
 "
    ("e" cmframe-toggle-frame-enlarge nil)
@@ -64,7 +60,6 @@
    ("m" toggle-frame-maximized nil)
    ("l" cmframe-left nil)
    ("r" cmframe-right nil)
-   ("t" cmframe-toggle-window-split nil)
    ("q" nil "quit" :color blue)))
 
 ;; ==============================
