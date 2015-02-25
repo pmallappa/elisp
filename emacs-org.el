@@ -209,13 +209,14 @@
 ;;============================================================
 ;; Set up the TODO states
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "OPEN(o)" "WAIT(w@/!)" "|" "DONE(d@)" "CANX(c@)")))
+      '((sequence "TODO(t)" "OPEN(o)" "WAIT(w@/!)" "|" "DONE(d@)" "TRFX(f@)" "CANX(c@)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" . (:foreground "Burlywood3"))
  	("OPEN" . (:foreground "ForestGreen"))
         ("WAIT" . (:foreground "Firebrick3"))
 	("DONE" . (:foreground "Wheat4"))
+	("TRFX" . (:foreground "Wheat4"))
 	("CANX" . (:foreground "Wheat4"))))
 
 ;; log and add notes when completing a task

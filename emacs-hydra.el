@@ -10,14 +10,10 @@
  (kbd "C-c m")
  (defhydra hydra-window (:color red)
    "
-Window Methods
---------------------------------------------
-_b_ Left              _f_ Right
-_p_ Up                _n_ Down
-_v_ Split Vertically  _x_ Split Horizontally
-_h_ Move split left   _l_ Move split right
-_k_ Move split up     _j_ Move split down
-_d_ Delete other windows
+Move to window  Move split
+    _p_            _k_      _v_ Split Vertically
+ _b_  +_f_      _h_  +_l_   _x_ Split Horizontally
+    _n_            _j_      _d_ Delete other windows
 
 "   
    ("b" windmove-left nil)
@@ -28,7 +24,7 @@ _d_ Delete other windows
           (interactive)
           (split-window-right)
           (windmove-right)) nil)
-   ("d" delete-other-windows :color blue)
+   ("d" delete-other-windows "Delete" :color blue)
    ("x" (lambda ()
           (interactive)
           (split-window-below)
@@ -38,7 +34,7 @@ _d_ Delete other windows
    ("k" hydra-move-splitter-up nil)
    ("l" hydra-move-splitter-right nil)
    ("t" cmframe-toggle-window-split nil)
-   ("q" nil "quit" :color blue)))
+   ("q" nil "Quit" :color blue)))
 
 ;; ==============================
 ;; Setting and adjusting the frame
@@ -49,11 +45,9 @@ _d_ Delete other windows
  (kbd "C-c f")
  (defhydra hydra-frame (:exit t)
    "
-Frame Methods
---------------------------------
-_s_ Shrink       _e_ Enlarge
-_m_ Maximize     _f_ Fullscreen
-_l_ Frame left   _r_ Frame right
+_s_ Shrink Frame  _e_ Enlarge
+_m_ Maximize      _f_ Fullscreen
+_l_ Frame left    _r_ Frame right
 _t_ Toggle Split
 
 "
@@ -70,9 +64,28 @@ _t_ Toggle Split
 ;; Goto line
 (global-set-key
  (kbd "M-g")
- (defhydra hydra-goto-line (:pre (linum-mode 1)
-                            :post (linum-mode -1)
-                            :color blue)
-   ("g" goto-line "line")))
+ (defhydra hydra-goto-line (goto-map ""
+                            :pre (linum-mode 1)
+                            :post (linum-mode -1))
+   "goto-line"
+   ("g" goto-line "go")
+   ("m" set-mark-command "mark" :bind nil)
+   ("q" nil "quit")))
+
+
+(global-set-key
+ (kbd "C-c r")
+ (defhydra hydra-minframe (:exit t)
+   "
+Core Frame Function
+--------------------
+_m_ Maximize _f_ Fullscreen
+_v_ Vertical _h_ Horizontal
+
+"
+   ("m" toggle-frame-maximized nil)
+   ("f" toggle-frame-fullscreen nil)
+   ("v" split-window-right nil)
+   ("h" split-window-below nil)))
 
 (provide 'emacs-hydra)
