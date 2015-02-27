@@ -10,10 +10,10 @@
  (kbd "C-c m")
  (defhydra hydra-window (:color red)
    "
-Move to window  Move split
-    _p_            _k_      _v_ Split Vertically
- _b_  +_f_      _h_  +_l_   _x_ Split Horizontally
-    _n_            _j_      _d_ Delete other windows
+Select window  Move split
+    ^_p_^             ^_k_^         _v_ Split Vertically
+  _b_ + _f_         _h_ + _l_       _x_ Split Horizontally
+    ^_n_^             ^_j_^         _d_ Delete other windows
 
 "   
    ("b" windmove-left nil)
