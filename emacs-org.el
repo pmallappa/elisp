@@ -61,7 +61,7 @@
          "| %^{Title} | %^{Username} | %^{Password} | %^{URL} | %^{Notes}")
 
         ("s" "Siemens capture templates")
-        ("st" "Transport" entry (file+olp "~/org/siemens.org" "Support" "Completed" "Transports")
+        ("st" "Transport" entry (file+olp "~/org/siemens.org" "Support" "Transports")
          "* TODO Transport %^{Transport Number}\n  Added:  %U\n  %?" :empty-lines-after 1 :jump-to-captured)
         ("sa" "AHD Ticket" entry (file+olp "~/org/siemens.org" "Support" "AHD")
         "* AHD-%^{AHD Number} - %^{Description}\n  Added: %U\n** TODO Complete AHD-%\\1 - %\\2\n   Added: %U\n** Details\n" :empty-lines-after 1 :jump-to-captured)
@@ -181,6 +181,7 @@
          ((agenda)
           (tags-todo "+siemens+AHD")
           (tags-todo "+siemens+JIRA")
+          (tags-todo "+siemens+TRANSPORTS")
           (tags-todo "pending"))
          ((org-agenda-files '("~/org/siemens.org" "~/org/pending.org"))))
         ("n" "Navy agenda and tasks"
@@ -199,7 +200,7 @@
           (org-agenda-time-grid nil)                    
           (org-agenda-repeating-timestamp-show-all t)
           (org-agenda-entry-types '(:timestamp :sexp))))
-        )
+        ))
 
 ;; To use the GeekTool agenda from a command line, put the following
 ;; in the shell command field. Note, emacs server must be running for
