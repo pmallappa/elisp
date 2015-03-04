@@ -119,8 +119,10 @@ If the size of the frame exceeds the screen width, shrink to fit the screen"
      (pixels-to-cols (- screen-width (* 2 cmframe-horizontal-margin))))))
 
 (defun get-frame-height(screen-height)
-  "Return the number of rows for a frame in a given screen height"
-  (pixels-to-rows (- screen-height (+ cmframe-windowmgr-offset cmframe-top-margin))))
+  "Return the number of rows for a frame in a given screen height."
+  (pixels-to-rows
+   (- screen-height
+      (+ cmframe-windowmgr-offset cmframe-top-margin))))
 
 (defun pixels-to-rows(pixels)
   "Return the frame pixel width for the given number of columns"
@@ -156,21 +158,22 @@ determined by `is-right-monitor`"
   ;; ensure the frame is not currently fullscreen or maximized
   (if (is-frame-fullscreen)
       (toggle-frame-fullscreen))
-
   (if (is-frame-maximized)
       (toggle-frame-maximized))
 
-  ;; determine and set the frame size
+  ;; frame size
   (set-frame-size (selected-frame)
+                  ;; frame width
                   (get-frame-width
                    (if (is-right-monitor)
                        cmframe-monitor2-width
                      (cm-display-pixel-width)))
-                  (get-frame-height
-                   (if (is-right-monitor)
-                       cmframe-monitor2-height
-                     (display-pixel-height))))
+                  ;; frame height
+                  (if (is-right-monitor)
+                      (get-frame-height cmframe-monitor2-height)
+                    (- (get-frame-height (display-pixel-height)) 2)))
 
+  ;; frame position
   (set-frame-position (selected-frame)
                       (max 0 (frame-position-left))
                       cmframe-top-margin))
