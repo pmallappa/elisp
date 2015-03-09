@@ -17,7 +17,8 @@
       (set-face-font 'default "Consolas-10") 
       (copy-face 'default 'fixed-pitch)))
 
-;;      (set-face-font 'default "Consolas-10") 
+;;      (set-face-font 'default "NK57 Monospace Sc Rg-9")
+;;      (set-face-font 'default "Consolas-10")
 ;;      (set-face-font 'default "Source Code Pro Semibold-9")
 ;;      (set-face-font 'default "Source Code Pro Medium-9")
 ;;      (set-face-font 'variable-pitch "Calibri-9")
@@ -99,17 +100,17 @@
               system-name
 	      " -- %f"))
 
-;;; minimize extraneous info
-;(require 'diminish)
-;(diminish 'abbrev-mode)
-;(diminish 'elisp-slime-nav-mode)
-;(diminish 'magit-auto-revert-mode)
-;(diminish 'smartparens-mode)
-;(diminish 'auto-complete-mode)
+;; minimize extraneous info
+(require 'diminish)
+(diminish 'abbrev-mode)
+(diminish 'elisp-slime-nav-mode)
+(diminish 'magit-auto-revert-mode)
+(diminish 'smartparens-mode)
+(diminish 'auto-complete-mode)
 
 ;; display the function the point is in within the modeline if any
-;(setq which-func-unknown "")
-;(which-function-mode)
+(setq which-func-unknown "")
+(which-function-mode)
 
 
 ;;======================================================================
