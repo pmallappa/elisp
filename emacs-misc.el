@@ -583,7 +583,15 @@ Useful for placing unicode within Eastern European files to accurately
 represent the extended characters, while using the normal ASCII characters 
 where possible
 
-For a list of unicode characters,see `unicode-table'"
+For a list of unicode characters,see `unicode-table'
+
+Look into this method to recover the codepoint for a given
+character as well
+http://stackoverflow.com/questions/236097/finding-the-unicode-codepoint-of-a-character-in-gnu-emacs
+
+  (or (get-char-property (point) 'untranslated-utf-8)
+      (encode-char (char-after) 'ucs)))
+"
   (interactive "r")
   ;; preserve case sensitivity
   (setq-local case-fold-search 'nil)
