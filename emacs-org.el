@@ -153,9 +153,7 @@
 ;; start Org.
 
 ;; To turn it off only locally, you can insert this:
-;;
 ;; # -*- buffer-auto-save-file-name: nil; -*-
-(setq auto-save-default nil)
 
 ;; To decrypt, place the cursor on the heading and execute
 ;; M-x org-decrypt-entry
@@ -349,6 +347,61 @@ Return output file name."
                  (not (file-exists-p (replace-regexp-in-string "\.html$" ".org" f))))
           (setq rlt nil)))
     rlt))
+
+
+;;======================================================================
+;; https://github.com/abo-abo/worf/blob/master/worf.el
+;; Thanks to Leo Ufimtsev
+;; in Stack Overflow
+;; http://stackoverflow.com/questions/28030946/emacs-org-mode-search-only-headers
+;;
+;; use M-x worf-goto to search org headers
+;;
+;; Type a number to limit to that header depth
+;; continue with the search string
+;; Or just type a search string to search all headers
+;;
+(defun worf--pretty-heading (str lvl)
+  "Prettify heading STR or level LVL."
+  (setq str (or str ""))
+  (setq str (propertize str 'face (nth (1- lvl) org-level-faces)))
+  (let (desc)
+    (while (and (string-match org-bracket-link-regexp str)
+                (stringp (setq desc (match-string 3 str))))
+      (setq str (replace-match
+                 (propertize desc 'face 'org-link)
+                 nil nil str)))
+    str))
+(defun worf--pattern-transformer (x)
+  "Transform X to make 1-9 select the heading level in `worf-goto'."
+  (if (string-match "^[1-9]" x)
+      (setq x (format "^%s" x))
+    x))
+
+(defun goto-org-heading ()
+  "Jump to a heading with `helm'."
+  (interactive)
+  (require 'helm-match-plugin)
+  (let ((candidates
+         (org-map-entries
+          (lambda ()
+            (let ((comp (org-heading-components))
+                  (h (org-get-heading)))
+              (cons (format "%d%s%s" (car comp)
+                            (make-string (1+ (* 2 (1- (car comp)))) ?\ )
+                            (if (get-text-property 0 'fontified h)
+                                h
+                              (worf--pretty-heading (nth 4 comp) (car comp))))
+                    (point))))))
+        helm-update-blacklist-regexps
+        helm-candidate-number-limit)
+    (helm :sources
+          `((name . "Headings")
+            (candidates . ,candidates)
+            (action . (lambda (x) (goto-char x)
+                        (call-interactively 'show-branches)
+                        (worf-more)))
+            (pattern-transformer . worf--pattern-transformer)))))
 
 
 ;;======================================================================
