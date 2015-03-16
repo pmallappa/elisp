@@ -8,7 +8,7 @@
 ;; a copy has also been place in my dropbox account
 (if (eq system-type 'darwin)
     (progn
-      (set-face-font 'default "Source Code Pro Regular-13")
+      (set-face-font 'default "Consolas-14")
       (set-face-font 'variable-pitch "Verdana-12")
       (copy-face 'default 'fixed-pitch)))
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
