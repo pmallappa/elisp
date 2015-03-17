@@ -61,18 +61,7 @@ _t_ Toggle Split
    ("q" nil "quit")))
 
 ;; ==============================
-;; Goto line
-(global-set-key
- (kbd "M-g")
- (defhydra hydra-goto-line (goto-map ""
-                            :pre (linum-mode 1)
-                            :post (linum-mode -1))
-   "goto-line"
-   ("g" goto-line "go")
-   ("m" set-mark-command "mark" :bind nil)
-   ("q" nil "quit")))
-
-
+;; more hydra frame stuff
 (global-set-key
  (kbd "C-c r")
  (defhydra hydra-minframe (:exit t)
@@ -87,5 +76,24 @@ _v_ Vertical _h_ Horizontal
    ("f" toggle-frame-fullscreen nil)
    ("v" split-window-right nil)
    ("h" split-window-below nil)))
+
+;; ==============================
+;; Goto line
+(global-set-key
+ (kbd "M-g")
+ (defhydra hydra-goto-line (goto-map ""
+                            :pre (linum-mode 1)
+                            :post (linum-mode -1))
+   "goto-line"
+   ("g" goto-line "go")
+   ("m" set-mark-command "mark" :bind nil)
+   ("q" nil "quit")))
+
+;; ==============================
+;; Apropos (in the hydra examples)
+(global-set-key (kbd "C-c h") 'hydra-apropos/body)
+
+
+
 
 (provide 'emacs-hydra)

@@ -27,6 +27,10 @@
 ;; enable helm universally
 (require 'helm)
 
+;; fix some faces
+(copy-face 'helm-ff-directory 'helm-ff-dotted-directory)
+(copy-face 'default 'helm-lisp-show-completion)
+
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
 ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
