@@ -177,10 +177,11 @@
          ("~/.org-agenda.txt"))
         ("w" "Work agenda and tasks"
          ((agenda)
+          (tags-todo "+siemens+task")
+          (tags-todo "pending")
           (tags-todo "+siemens+AHD")
           (tags-todo "+siemens+JIRA")
-          (tags-todo "+siemens+TRANSPORTS")
-          (tags-todo "pending"))
+          (tags-todo "+siemens+TRANSPORTS"))
          ((org-agenda-files '("~/org/siemens.org" "~/org/pending.org"))))
         ("n" "Navy agenda and tasks"
          ((agenda)
@@ -276,6 +277,7 @@ Return output file name."
 
 ;;============================================================
 ;; fix the default styles
+;; set the css by modifying the file ~/org/templates/org-html.txt
 (setq org-html-head-include-default-style nil)
 (setq org-html-use-unicode-chars t)
 

@@ -93,7 +93,14 @@ _v_ Vertical _h_ Horizontal
 ;; Apropos (in the hydra examples)
 (global-set-key (kbd "C-c h") 'hydra-apropos/body)
 
-
-
+;; ==============================
+;; Zoom in and out
+(global-set-key
+ (kbd "C-c z")
+ (defhydra hydra-zoom ()
+    "zoom"
+    ("i" text-scale-increase "in")
+    ("o" text-scale-decrease "out")
+    ("q" nil "quit")))
 
 (provide 'emacs-hydra)
