@@ -81,11 +81,10 @@ _v_ Vertical _h_ Horizontal
 ;; Goto line
 (global-set-key
  (kbd "M-g")
- (defhydra hydra-goto-line (goto-map ""
-                            :pre (linum-mode 1)
-                            :post (linum-mode -1))
+ (defhydra hydra-goto-line (goto-map "")
    "goto-line"
    ("g" goto-line "go")
+   ("l" linum-mode "linum")
    ("m" set-mark-command "mark" :bind nil)
    ("q" nil "quit")))
 

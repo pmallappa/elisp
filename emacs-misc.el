@@ -372,7 +372,7 @@ nSec: ")
 (defvar insert-time-format "%H:%M"
   "*Format for \\[insert-time]. See `format-time-string' for info on how to format.")
 
-(defvar insert-date-format "%Y-%m-%d %a"
+(defvar insert-date-format "%Y-%m"
   "*Format for \\[insert-date]. See `format-time-string' for info on how to format.")
 
 (defun insert-time ()
@@ -384,6 +384,7 @@ nSec: ")
   "Insert the current date according to the variable `insert-date-format'."
   (interactive "*")
   (insert (concat (format-time-string insert-date-format (current-time)))))
+
 
 (defun insert-date-time ()
   "Insert the current date formatted with `insert-date-format',
