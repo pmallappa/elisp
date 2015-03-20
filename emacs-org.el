@@ -177,8 +177,8 @@
          ("~/.org-agenda.txt"))
         ("w" "Work agenda and tasks"
          ((agenda)
-          (tags-todo "+siemens+task")
           (tags-todo "pending")
+          (tags-todo "+siemens+task")
           (tags-todo "+siemens+AHD")
           (tags-todo "+siemens+JIRA")
           (tags-todo "+siemens+TRANSPORTS"))

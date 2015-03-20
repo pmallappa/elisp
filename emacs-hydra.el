@@ -89,6 +89,16 @@ _v_ Vertical _h_ Horizontal
    ("q" nil "quit")))
 
 ;; ==============================
+;; Insert date
+(global-set-key
+ (kbd "C-c d")
+ (defhydra hydra-insert-date (:exit t)
+   "Insert Date"
+   ("t" (insert-date-time) "date/time")
+   ("d" (insert-date) "date")
+   ("q" nil "quit")))
+
+;; ==============================
 ;; Apropos (in the hydra examples)
 (global-set-key (kbd "C-c h") 'hydra-apropos/body)
 
