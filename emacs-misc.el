@@ -369,32 +369,32 @@ nSec: ")
 ;; Functions to insert the date, the time, and the date and time at
 ;; point.
 ;; Useful for keeping records and automatically creating program headers
-(defvar insert-time-format "%H:%M"
+(defvar insert-time-format "%k:%M"
   "*Format for \\[insert-time]. See `format-time-string' for info on how to format.")
+(setq insert-time-format "%k:%M") ;; 08:09
 
-(defvar insert-date-format "%Y-%m"
+(defvar insert-date-format "%Y-%m-%d"
   "*Format for \\[insert-date]. See `format-time-string' for info on how to format.")
+(setq insert-date-format "%Y-%m-%d %a") ;; 2015-03-26 Thu
 
-(defun insert-time ()
-  "Insert the current time according to the variable `insert-time-format'."
+(defun insert-time (&optional time-format)
+  "Insert the current time. Optional time format defaults to `insert-time-format'."
   (interactive "*")
-  (insert (concat (format-time-string insert-time-format (current-time)))))
+  (let ((tformat (or time-format insert-time-format)))
+    (insert (concat (format-time-string tformat (current-time))))))
 
-(defun insert-date ()
-  "Insert the current date according to the variable `insert-date-format'."
+(defun insert-date (&optional date-format)
+  "Insert the current date. Option format defaults to  `insert-date-format'."
   (interactive "*")
-  (insert (concat (format-time-string insert-date-format (current-time)))))
-
+  (insert-time (or date-format insert-date-format)))
 
 (defun insert-date-time ()
   "Insert the current date formatted with `insert-date-format',
 then a space, then the current time formatted with
 `insert-time-format'."
   (interactive "*")
-  (progn
-    (insert-date)
-    (insert " ")
-    (insert-time)))
+  (insert-time
+   (concat insert-date-format " " insert-time-format)))
 
 (defun idt ()
   "Shortcut to `insert-date-time'"

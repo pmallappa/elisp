@@ -96,6 +96,8 @@ _v_ Vertical _h_ Horizontal
    "Insert Date"
    ("t" (insert-date-time) "date/time")
    ("d" (insert-date) "date")
+   ("o" (insert-date "[%Y-%m-%d %a %k:%M]") "org inactive stamp")
+   ("O" (insert-date "<%Y-%m-%d %a %k:%M>") "org active stamp")
    ("q" nil "quit")))
 
 ;; ==============================
