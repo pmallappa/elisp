@@ -60,8 +60,8 @@
 ;; Helm git interfaces
 
 ;; quickly find files within a project
-(require 'helm-ls-git)
-(global-set-key (kbd "C-x C-d") 'helm-browse-project)
+;(require 'helm-ls-git)
+;(global-set-key (kbd "C-x C-d") 'helm-browse-project)
 
 ;; helm git-grep provides an interface to git grep
 (global-set-key (kbd "C-c g") 'helm-git-grep)

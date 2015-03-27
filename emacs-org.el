@@ -220,6 +220,11 @@
 	("TRFX" . (:foreground "Wheat4"))
 	("CANX" . (:foreground "Wheat4"))))
 
+(setq org-priority-faces
+      '((?A . (:foreground "red"))
+        (?B . (:foreground "Wheat4"))
+        (?C . (:foreground "grey"))))
+
 ;; log and add notes when completing a task
 (setq org-log-done 'note)
 
