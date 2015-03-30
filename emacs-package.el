@@ -15,16 +15,15 @@
 (setq cm/packages
       '(
         2048-game
-        ac-cider
         ac-helm
-        anti-zenburn-theme
+        ace-jump-mode
+        ace-link
         async
         auto-complete
+        bind-key
         bm
         browse-url-dwim
         bs-ext
-        cider
-        clojure-mode
         color-moccur
         color-theme-sanityinc-solarized
         csv-mode
@@ -32,7 +31,6 @@
         dash
         deferred
         diminish
-        dired-hacks-utils
         elisp-slime-nav
         emmet-mode
         epl
@@ -41,17 +39,17 @@
         frame-cmds
         frame-fns
         git-commit-mode
-        git-gutter
         git-gutter+
+        git-gutter
         git-rebase-mode
         git-timemachine
-        hc-zenburn-theme
         helm
         helm-bm
         helm-c-moccur
         helm-emmet
+        helm-firefox
+        helm-git
         helm-git-grep
-        helm-ls-git
         helm-package
         helm-swoop
         highlight-symbol
@@ -64,7 +62,9 @@
         list-utils
         magit
         markdown-mode
+        material-theme
         minesweeper
+        monokai-theme
         multi-web-mode
         names
         neotree
@@ -72,6 +72,7 @@
         org
         org-dotemacs
         ox-pandoc
+        package+
         pandoc-mode
         paredit
         pkg-info
@@ -87,6 +88,7 @@
         starter-kit-eshell
         string-utils
         tablist
+        use-package
         w3m
         web-mode
         windata

@@ -72,42 +72,16 @@
 ;; so to increase from 40 to 60g
 ;; hdiutil resize -size 60g -stdinpass /Volumes/Passport2TB/Java.dmg
 
-(defun hdi-mount (dmgfile)
-  "Mount the dmgfile using hdiutil"
-   (shell-command
-    (concat "hdiutil attach " dmgfile)))
-(defun hdi-dmount (volume)
-  "Unmount the volume using hdiutil"
-   (shell-command
-    (concat "hdiutil detach " volume)))
-(defun jmount ()
-  "Mount the JAVA_LIB disk"
-  (interactive)
-  (hdi-mount "/Volumes/Passport2TB/Java/java_lib.dmg"))
-(defun jdmount ()
-  "Unmount the JAVA_LIB disk"
-  (interactive)
-  (hdi-dmount "/Volumes/JAVA_LIB"))
-(defun jmount2 ()
-  "Mount the JAVA_LIB2 disk"
-  (interactive)
-  (hdi-mount "/Volumes/MyBook3TB/Java/java_lib.dmg"))
-(defun jdmount2 ()
-  "Unmount the JAVA_LIB2 disk"
-  (interactive)
-  (hdi-dmount "/Volumes/JAVA_LIB2"))
-
-;; load the page in browser and save the file name to the clipboard
-;;| filename | url |
-(fset 'loadvid
-   [?\C-a tab ?\C-  ?\M-e ?\M-w tab ?\M-x ?f ?x return return])
-
-;; Create a file link in org mode to the current dired file 
-;; Two buffers showing: org file listing, and dired listing with files to link
-;; Start with the cursor on the filename in the dired buffer
-;; | filename | url |
-(fset 'filevid
-   [?\C-c ?l ?\C-  ?\C-e ?\M-b ?\C-b ?\M-w ?\C-x ?o ?\M-< ?\C-s ?\M-y ?\C-  ?\M-a ?\C-c ?\C-l return ?\C-x ?o ?\C-n])
+(if (eq system-type 'darwin)
+    (progn
+      (defun hdi-mount (dmgfile)
+        "Mount the dmgfile using hdiutil"
+        (shell-command
+         (concat "hdiutil attach " dmgfile)))
+      (defun hdi-dmount (volume)
+        "Unmount the volume using hdiutil"
+        (shell-command
+         (concat "hdiutil detach " volume)))))
 
 (provide 'emacs-macros)
 
