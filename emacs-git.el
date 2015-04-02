@@ -13,6 +13,10 @@
 
 (setq magit-diff-options '("-b")) ; ignore whitespace
 
+;; I've seen these instructions, so don't display them on loading magit
+;; anymore
+(setq magit-last-seen-setup-instructions "1.4.0")
+
 (if (eq system-type 'windows-nt)
     (setq magit-git-executable "c:/tools/Git/bin/git.exe"))
 (if (eq system-type 'cygwin)

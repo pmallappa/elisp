@@ -123,47 +123,64 @@
 
 ;;======================================================================
 ;; Color Themes
+
+
 ;;(load-theme 'oldlace t nil)
 
 ;;------------------------------
 ;; A better Solarized theme with some adjustments
 ;; here's the canonical colors as defined in the solarized source site
 ;; http://ethanschoonover.com/solarized
-;; | SOLARIZED | HEX     | 16/8 | TERMCOL   | XTERM/HEX   | RGB         | HSB         |
-;; |-----------+---------+------+-----------+-------------+-------------+-------------|
-;; | base03    | #002b36 | 8/4  | brblack   | 234 #1c1c1c | 0  43  54   | 193 100  21 |
-;; | base02    | #073642 | 0/4  | black     | 235 #262626 | 7  54  66   | 192  90  26 |
-;; | base01    | #586e75 | 10/7 | brgreen   | 240 #585858 | 88 110 117  | 194  25  46 |
-;; | base00    | #657b83 | 11/7 | bryellow  | 241 #626262 | 101 123 131 | 195  23  51 |
-;; | base0     | #839496 | 12/6 | brblue    | 244 #808080 | 131 148 150 | 186  13  59 |
-;; | base1     | #93a1a1 | 14/4 | brcyan    | 245 #8a8a8a | 147 161 161 | 180   9  63 |
-;; | base2     | #eee8d5 | 7/7  | white     | 254 #e4e4e4 | 238 232 213 | 44  11  93  |
-;; | base3     | #fdf6e3 | 15/7 | brwhite   | 230 #ffffd7 | 253 246 227 | 44  10  99  |
-;; | yellow    | #b58900 | 3/3  | yellow    | 136 #af8700 | 181 137   0 | 45 100  71  |
-;; | orange    | #cb4b16 | 9/3  | brred     | 166 #d75f00 | 203  75  22 | 18  89  80  |
-;; | red       | #dc322f | 1/1  | red       | 160 #d70000 | 220  50  47 | 1  79  86   |
-;; | magenta   | #d33682 | 5/5  | magenta   | 125 #af005f | 211  54 130 | 331  74  83 |
-;; | violet    | #6c71c4 | 13/5 | brmagenta | 61 #5f5faf  | 108 113 196 | 237  45  77 |
-;; | blue      | #268bd2 | 4/4  | blue      | 33 #0087ff  | 38 139 210  | 205  82  82 |
-;; | cyan      | #2aa198 | 6/6  | cyan      | 37 #00afaf  | 42 161 152  | 175  74  63 |
-;; | green     | #859900 | 2/2  | green     | 64 #5f8700  | 133 153   0 | 68 100  60  |
+;; See org/reference.org for an org-table version
+;;
+;;
+;; : COLOR   : HEX     :         RGB :         HSB :   XTERM/HEX :
+;; :---------+---------+-------------+-------------+-------------:
+;; : base03  : #002b36 :   0  43  54 : 193 100  21 : 234 #1c1c1c :
+;; : base02  : #073642 :   7  54  66 : 192  90  26 : 235 #262626 :
+;; : base01  : #586e75 :  88 110 117 : 194  25  46 : 240 #585858 :
+;; : base00  : #657b83 : 101 123 131 : 195  23  51 : 241 #626262 :
+;; : base0   : #839496 : 131 148 150 : 186  13  59 : 244 #808080 :
+;; : base1   : #93a1a1 : 147 161 161 : 180   9  63 : 245 #8a8a8a :
+;; : base2   : #eee8d5 : 238 232 213 :  44  11  93 : 254 #e4e4e4 :
+;; : base3   : #fdf6e3 : 253 246 227 :  44  10  99 : 230 #ffffd7 :
+;; : yellow  : #b58900 : 181 137   0 :  45 100  71 : 136 #af8700 :
+;; : orange  : #cb4b16 : 203  75  22 :  18  89  80 : 166 #d75f00 :
+;; : red     : #dc322f : 220  50  47 :   1  79  86 : 160 #d70000 :
+;; : magenta : #d33682 : 211  54 130 : 331  74  83 : 125 #af005f :
+;; : violet  : #6c71c4 : 108 113 196 : 237  45  77 :  61 #5f5faf :
+;; : blue    : #268bd2 :  38 139 210 : 205  82  82 :  33 #0087ff :
+;; : cyan    : #2aa198 :  42 161 152 : 175  74  63 :  37 #00afaf :
+;; : green   : #859900 : 133 153   0 :  68 100  60 :  64 #5f8700 :
 
 (load-theme 'sanityinc-solarized-light t nil)
-(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -8))
-(set-face-background 'mode-line-inactive (face-background 'default))
+(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
+(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
+(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
+(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
 
 ;;------------------------------
 ;; an excellent flat gray theme
 ;(load-theme 'anti-zenburn t nil)
 ;(set-face-foreground 'default "#535363")
 
+;; excellent blue/green colors
+;; #50717C
+;; #416470
+
 ;;------------------------------
 ;; standard light colors with gray background
-;(set-face-background 'default "ivory2")
-;(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -15))
-;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -10))
-;(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -5))
-;(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +10))
+;;(set-face-background 'default "#50717C")
+;;(set-face-foreground 'mode-line (cm-adjust-color (face-background 'default) +32))
+;;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
+;;(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-background 'default) +24))
+;;(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -4))
+
+;;(set-face-foreground 'font-lock-comment-face (cm-adjust-color (face-foreground 'font-lock-comment-face) +10))
+;;(set-face-foreground 'font-lock-comment-delimiter-face (face-foreground 'font-lock-comment-face))
+
+;;(set-face-background 'default (cm-adjust-color (face-background 'default) -4))
+
 
 ;;------------------------------
 ;; regardless of the theme, match the fringe the default background
