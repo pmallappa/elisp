@@ -63,7 +63,7 @@
 ;; Syntax highlighting
 
 (global-font-lock-mode t)
-(global-hl-line-mode -1)
+(global-hl-line-mode 1)
 (setq global-hl-line-sticky-flag nil)
 
 ;; highlight the entire s-expression under point
@@ -111,7 +111,7 @@
 ;; minimize extraneous info
 (require 'diminish)
 (diminish 'abbrev-mode)
-(diminish 'elisp-slime-nav-mode)
+;(diminish 'elisp-slime-nav-mode)
 (diminish 'magit-auto-revert-mode)
 (diminish 'smartparens-mode)
 (diminish 'auto-complete-mode)

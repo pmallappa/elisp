@@ -110,7 +110,7 @@
 
 ;;======================================================================
 ;; dired+
-(setq diredp-hide-details-initially-flag nil)
+;(setq diredp-hide-details-initially-flag nil)
 ;(require 'dired+)
 
 

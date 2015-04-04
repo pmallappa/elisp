@@ -85,15 +85,15 @@
 (global-git-gutter+-mode -1)
 (global-set-key (kbd "C-x G") 'global-git-gutter+-mode)
 
-(eval-after-load 'git-gutter+
-  '(progn
-     ;;; Jump between hunks
-     (define-key git-gutter+-mode-map (kbd "C-x n") 'git-gutter+-next-hunk)
-     (define-key git-gutter+-mode-map (kbd "C-x p") 'git-gutter+-previous-hunk)
-
-     ;;; Act on hunks
-     (define-key git-gutter+-mode-map (kbd "C-x v =") 'git-gutter+-show-hunk)
-     (define-key git-gutter+-mode-map (kbd "C-x v r") 'git-gutter+-revert-hunks)))
+;;(eval-after-load 'git-gutter+
+;;  '(progn
+;;     ;;; Jump between hunks
+;;     (define-key git-gutter+-mode-map (kbd "C-x n") 'git-gutter+-next-hunk)
+;;     (define-key git-gutter+-mode-map (kbd "C-x p") 'git-gutter+-previous-hunk)
+;;
+;;     ;;; Act on hunks
+;;     (define-key git-gutter+-mode-map (kbd "C-x v =") 'git-gutter+-show-hunk)
+;;     (define-key git-gutter+-mode-map (kbd "C-x v r") 'git-gutter+-revert-hunks)))
 
 
 ;; fix the neon git gutter faces 

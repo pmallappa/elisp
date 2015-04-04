@@ -4,10 +4,10 @@
 (define-key 'help-command (kbd "C-k") 'find-function-on-key)
 (define-key 'help-command (kbd "C-v") 'find-variable)
 
-;; elisp slime nave provides a good way to browse elisp sources
-(require 'elisp-slime-nav)
-(dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
-(add-hook hook 'elisp-slime-nav-mode))
+;;; elisp slime nav provides a good way to browse elisp sources
+;(require 'elisp-slime-nav)
+;(dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
+;(add-hook hook 'elisp-slime-nav-mode))
 
 ;;======================================================================
 ;; Look up a word under the point in an online dictionary
