@@ -13,7 +13,7 @@
 ;; ls | sed -e s/-[0-9.].*//
 (defvar cm/packages nil
   "Packages that will be installed/updated to the latest version on startup")
-(setq cm/packages
+(setq my/packages
       '(auto-complete
         bm
         browse-url-dwim
@@ -39,6 +39,9 @@
         rainbow-mode
         smartparens
         w3m))
+
+(if (eq system-type 'darwin)
+    (add-to-list 'my/packages 'exec-path-from-shell))
 
 ;; the list from the directory also includes the following, in addition to
 ;; the packages (dependencies)
@@ -139,30 +142,24 @@
 
 
 
+;; Ensure packages are installed at startup. Prompt for any that are missing
+;; Adapted from
+;; http://camdez.com/blog/2014/12/07/automatically-installing-your-emacs-packages/
+(require 'cl-lib)
 
-
-;; cycle through the package list and prompt to install as necessary
-(defvar missing-pkgs '())
-(defun cm-package-refresh ()
+(defun my/install-packages ()
+  "Ensure the packages I use are installed. See `my/packages'."
   (interactive)
-  (setf missing-pkgs nil)
-  (dolist (pkg cm/packages)
-    (if (not (package-installed-p pkg))
-        (progn
-          (add-to-list 'missing-pkgs pkg)
-          (setq cm-message "Done"))
-      (setq cm-message "Packages checked")))
-  ;; for any missing packages, ask to load them all
-  (if (and (> (length missing-pkgs) 0)
-           (y-or-n-p-with-timeout
-            (format "%s %s " "install missing packages:" missing-pkgs) 4 nil))
-       (dolist (mpkg missing-pkgs)
-        (package-install mpkg)))
-  (message "%s" cm-message))
+  (let ((missing-packages (cl-remove-if #'package-installed-p my/packages)))
+    (when missing-packages
+      (if (y-or-n-p-with-timeout
+	   (format "%s %s " "install missing packages?" missing-packages) 4 nil)
+	  (progn
+	    (message "Installing %d missing package(s)" (length missing-packages))
+	    (package-refresh-contents)
+	    (mapc #'package-install missing-packages))))))
 
-;; now check for missing packages
-;; only ask if some are missing... a lot less intrusive this way
-(cm-package-refresh)
+(my/install-packages)
 
 ;; redefining the entire method. Long term would be to introduce a patch to
 ;; allow user-defined widths, or based on the width of the emacs frame

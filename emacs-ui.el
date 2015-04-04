@@ -33,8 +33,8 @@
 ;;      (set-face-font 'variable-pitch "MS Reference Sans Serif-9")
 
 ;; Fix the UI
-(setq visible-bell nil)
-(setq ring-bell-visible nil)
+(setq visible-bell nil) 
+(setq ring-bell-function 'ignore)
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
 (set-scroll-bar-mode nil)
