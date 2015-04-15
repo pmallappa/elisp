@@ -109,9 +109,58 @@ _v_ Vertical _h_ Horizontal
 (global-set-key
  (kbd "C-c z")
  (defhydra hydra-zoom ()
-    "zoom"
-    ("i" text-scale-increase "in")
-    ("o" text-scale-decrease "out")
-    ("q" nil "quit")))
+   "zoom"
+   ("i" text-scale-increase "in")
+   ("o" text-scale-decrease "out")
+   ("q" nil "quit")))
+
+;;     (defhydra hydra-zoom (global-map "<f2>")
+;;       "zoom"
+;;       ("g" text-scale-increase "in")
+;;       ("l" text-scale-decrease "out"))
+
+
+(defhydra hydra-global-org (:color blue
+                            :hint nil)
+  "
+Timer^^ ^Clock^ ^Capture^
+--------------------------------------------------
+s_t_art _w_ clock in _c_apture
+ _s_top _o_ clock out _l_ast capture
+_r_eset _j_ clock goto
+_p_rint
+"
+  ("t" org-timer-start)
+  ("s" org-timer-stop)
+  ;; Need to be at timer
+  ("r" org-timer-set-timer)
+  ;; Print timer value to buffer
+  ("p" org-timer)
+  ("w" (org-clock-in '(4)))
+  ("o" org-clock-out)
+  ;; Visit the clocked task from any buffer
+  ("j" org-clock-goto)
+  ("c" org-capture)
+  ("l" org-capture-goto-last-stored))
+
+(defhydra hydra-refile (:hint nil
+                        :color teal)
+  "
+Refile:^^ _k_eep: %`org-refile-keep
+----------------------------------
+_l_ast _a_rchive
+_o_ther
+_t_his
+
+"
+  ("t" worf-refile-this)
+  ("o" worf-refile-other)
+  ("l" worf-refile-last)
+  ("k" (setq org-refile-keep (not org-refile-keep))
+   :exit nil)
+  ("a" (org-archive-subtree))
+  ("q" nil "quit"))
+
 
 (provide 'emacs-hydra)
+

@@ -35,9 +35,6 @@
 (setq-default indent-tabs-mode nil)
 (setq-default fill-column 76)
 
-;; Replace 'yes' and 'no' with 'y' and 'n'
-;(fset 'yes-or-no-p 'y-or-n-p)
-
 ;;======================================================================
 ;; Set the cursor styles
 ;Values are interpreted as follows:
@@ -85,17 +82,6 @@
 		    (y-or-n-p (format "Directory %s does not exist. Create it?" dir)))
 	   (make-directory dir t)))))
 
-;;;======================================================================
-;;; crontab mode
-;;; edit and automatically apply changes to the crontab file
-;;; use the command C-cC-c to apply the changes.
-;;; The local variable crontab-apply-after-save in the crontab file
-;;; will apply the changes automatically on saving the local .crontab
-;;; file as well
-;(require 'crontab-mode)
-;(add-to-list 'auto-mode-alist '("\\.cron\\(tab\\)?\\'" . crontab-mode))
-
-
 ;;======================================================================
 ;; provide unique names for buffers with the same filename loaded
 (require 'uniquify)
@@ -121,7 +107,7 @@
 ;; split windows horizontally:
 (setq ediff-split-window-function 'split-window-horizontally)
 
-;; only hilight current diff:
+;; only highlight current diff:
 (setq-default ediff-highlight-all-diffs 'nil)
 
 ;; turn off whitespace checking:
@@ -131,51 +117,6 @@
 ;; to switch from one to the other interactively, use the command
 ;; ediff-toggle-multiframe
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-
-
-;;;======================================================================
-;;; adds a bitmap to the fringe that marks the current mark. Handy
-;;; when popping off the ring
-;;; overlay an arrow where the mark is
-;(defvar mp-overlay-arrow-position)
-;(make-variable-buffer-local 'mp-overlay-arrow-position)
-;(add-to-list 'overlay-arrow-variable-list  'mp-overlay-arrow-position)  
-;
-;(defun mp-mark-hook ()
-;  ;; (make-local-variable 'mp-overlay-arrow-position)
-;  (unless (or (minibufferp (current-buffer)) (not (mark)))
-;    (set
-;     'mp-overlay-arrow-position
-;     (save-excursion
-;       (goto-char (mark))
-;       (forward-line 0)
-;       (point-marker)))))
-;(add-hook 'post-command-hook 'mp-mark-hook)
-;
-;;; If you want to change the bitmap (defaults to the left arrow)
-;;(put 'mp-overlay-arrow-position 'overlay-arrow-bitmap 'right-triangle)
-;
-;;; or you can make a custom one, here's mine:
-;;; make the mark fringe bitmap look cool dude
-;(define-fringe-bitmap 'mp-hollow-right-arrow [128 192 96 48 24 48 96 192 128] 9 8 'center)
-;(put 'mp-overlay-arrow-position 'overlay-arrow-bitmap 'mp-hollow-right-arrow)
-
-
-;;;======================================================================
-;;; For Mac users, swap the command and option keys between mac and windows keyboards
-;(defun swap-meta-and-super ()
-;  "Swap the mapping of meta and super. Very useful for people using their Mac
-;with a Windows external keyboard from time to time."
-;  (interactive)
-;  (if (eq mac-command-modifier 'super)
-;      (progn
-;        (setq mac-command-modifier 'meta)
-;        (setq mac-option-modifier 'super)
-;        (message "Command is now bound to META and Option is bound to SUPER."))
-;    (progn
-;      (setq mac-command-modifier 'super)
-;      (setq mac-option-modifier 'meta)
-;      (message "Command is now bound to SUPER and Option is bound to META."))))
 
 ;;======================================================================
 ;; Search for a regexp across all marked files within dired
@@ -258,7 +199,7 @@ prompt the user for a coding system."
 
 ;;======================================================================
 ;; convience functions
-;;======================================================================
+
 
 ;;======================================================================
 ;; Convert degrees, minutes and seconds to decimal format.
@@ -416,7 +357,6 @@ then a space, then the current time formatted with
   (interactive)
   (insert (buffer-file-name (current-buffer))))
 
-
 ;;======================================================================
 ;; byte compile the current buffer on saving it
 (defvar mode-specific-after-save-buffer-hooks nil
@@ -532,8 +472,7 @@ if its name ends in `.el' and the `.elc' file also exists."
     (goto-char (point-min))
 
     ; set the 'q' key to hide the window
-    (local-set-key "q" (quote delete-window))
-  )
+    (local-set-key "q" (quote delete-window)))
 
 ;;======================================================================
 (defun explore ()
@@ -736,8 +675,8 @@ paragraphs in the current region into long lines."
     (set-face-attribute face nil :weight 'normal :underline nil))
   (face-list)))
 
-;;;_*======================================================================
-;;;_* get the font information for the text under the cursor
+;;======================================================================
+;; get the font information for the text under the cursor
 (defun what-face (point)
   "Return the font-lock face information at the current point
 Thanks to Miles Bader <miles@lsi.nec.co.jp> for this (gnus.emacs.help)"

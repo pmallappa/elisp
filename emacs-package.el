@@ -1,8 +1,8 @@
 ;; emacs package manager.
 (require 'package)
 (add-to-list 'package-archives  '("elpa"         . "http://elpa.gnu.org/packages/") t)
-(add-to-list 'package-archives  '("melpa"        . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives  '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+;(add-to-list 'package-archives  '("melpa"        . "http://melpa.org/packages/") t)
 ;(add-to-list 'package-archives  '("org"          . "http://orgmode.org/elpa/") t)
 ;(add-to-list 'package-archives  '("marmalade"    . "https://marmalade-repo.org/packages/") t)
 
@@ -14,7 +14,8 @@
 (defvar cm/packages nil
   "Packages that will be installed/updated to the latest version on startup")
 (setq my/packages
-      '(auto-complete
+      '(aggressive-indent
+        auto-complete
         bm
         browse-url-dwim
         color-theme-sanityinc-solarized
@@ -35,10 +36,11 @@
         magit-find-file
         multi-web-mode
         org
-        org-pandoc
+        ox-pandoc
         rainbow-mode
         smartparens
-        w3m))
+        w3m
+        xkcd))
 
 (if (eq system-type 'darwin)
     (add-to-list 'my/packages 'exec-path-from-shell))

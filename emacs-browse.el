@@ -4,8 +4,11 @@
 ;; Load various web pages into the browser of choice
 ;;======================================================================
 
+
 (require 'browse-url-dwim)
 (browse-url-dwim-mode 1)
+
+(setq browse-url-generic-program IE_PRG)
 
 (defun cmBrowse (browser &optional url)
   "Launch the browser specified with the optional page or home page if nil"
@@ -54,8 +57,8 @@ Local or Remote (web-based) copies available"
     (w3m-goto-url "http://www.htmlhelp.com/reference/html40/"))
 
 (defun gmail ()
-  "Load the gmail page into the chrome browser"
+  "Load the gmail page into Firefox"
   (interactive)
-  (cmBrowse CHROME_PRG "https://mail.google.com"))
+  (cmBrowse FIREFOX_PRG "https://mail.google.com"))
 
 (provide 'emacs-browse)
