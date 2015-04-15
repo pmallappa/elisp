@@ -129,16 +129,15 @@
 (setq default-frame-alist
       '((menu-bar-lines . 0)
 	(tool-bar-lines . 0)
-        (height . 60)
-        (width . 130)))
+        (width . 130)
+        (height . 60)))
 
 (setq initial-frame-alist
       '((menu-bar-lines . 0)
 	(tool-bar-lines . 0)
-        (height . 60)
         (width . 130)
+        (height. 60)
         (alpha 100 100)))     ; focus background
-
 
 ;;=====================================================================
 ;; easypg settings
