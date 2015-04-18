@@ -8,7 +8,7 @@
 (require 'browse-url-dwim)
 (browse-url-dwim-mode 1)
 
-(setq browse-url-generic-program IE_PRG)
+;(setq browse-url-generic-program IE_PRG)
 
 (defun cmBrowse (browser &optional url)
   "Launch the browser specified with the optional page or home page if nil"
