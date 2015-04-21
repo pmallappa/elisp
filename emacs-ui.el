@@ -154,19 +154,31 @@
 ;; : green   : #859900 : 133 153   0 :  68 100  60 :  64 #5f8700 :
 
 (load-theme 'sanityinc-solarized-light t nil)
+;; to differentiate from matched parenthesis
+(set-face-background 'cursor "#d33682")
+;; a little easier on old eyes
+(set-face-background 'default "oldlace")
+(set-background-color "oldlace")
+(add-to-list 'default-frame-alist '(background-color . "oldlace"))
+;; make the current modeline stand out more
 (set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
 (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
 (set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
 (set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
 
 ;;------------------------------
-;; an excellent flat gray theme
-;(load-theme 'anti-zenburn t nil)
-;(set-face-foreground 'default "#535363")
-
-;; excellent blue/green colors
-;; #50717C
-;; #416470
+;; nice green background (in progress)
+;; #627E72 (feedly subscription list background)
+;; #EFEFEF (feedly subscription list foreground)
+;;(set-face-background 'default "#627E72")
+;;(set-face-foreground 'default "#fdf6e3")
+;;(set-face-background 'hl-line "#50717C")
+;;(set-face-background 'hl-line (cm-adjust-color (face-background 'default) +8))
+;;(set-face-background 'region (cm-adjust-color (face-background 'default) +16))
+;;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) +12))
+;;(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) +8))
+;;(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
+;;(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) -12))
 
 ;;------------------------------
 ;; standard light colors with gray background
