@@ -134,37 +134,44 @@
 ;; See org/reference.org for an org-table version
 ;;
 ;;
-;; : COLOR   : HEX     :         RGB :         HSB :   XTERM/HEX :
-;; :---------+---------+-------------+-------------+-------------:
-;; : base03  : #002b36 :   0  43  54 : 193 100  21 : 234 #1c1c1c :
-;; : base02  : #073642 :   7  54  66 : 192  90  26 : 235 #262626 :
-;; : base01  : #586e75 :  88 110 117 : 194  25  46 : 240 #585858 :
-;; : base00  : #657b83 : 101 123 131 : 195  23  51 : 241 #626262 :
-;; : base0   : #839496 : 131 148 150 : 186  13  59 : 244 #808080 :
-;; : base1   : #93a1a1 : 147 161 161 : 180   9  63 : 245 #8a8a8a :
-;; : base2   : #eee8d5 : 238 232 213 :  44  11  93 : 254 #e4e4e4 :
-;; : base3   : #fdf6e3 : 253 246 227 :  44  10  99 : 230 #ffffd7 :
-;; : yellow  : #b58900 : 181 137   0 :  45 100  71 : 136 #af8700 :
-;; : orange  : #cb4b16 : 203  75  22 :  18  89  80 : 166 #d75f00 :
-;; : red     : #dc322f : 220  50  47 :   1  79  86 : 160 #d70000 :
-;; : magenta : #d33682 : 211  54 130 : 331  74  83 : 125 #af005f :
-;; : violet  : #6c71c4 : 108 113 196 : 237  45  77 :  61 #5f5faf :
-;; : blue    : #268bd2 :  38 139 210 : 205  82  82 :  33 #0087ff :
-;; : cyan    : #2aa198 :  42 161 152 : 175  74  63 :  37 #00afaf :
-;; : green   : #859900 : 133 153   0 :  68 100  60 :  64 #5f8700 :
+;; | COLOR   | HEX     |         RGB |         HSB |   XTERM/HEX |
+;; |---------+---------+-------------+-------------+-------------|
+;; | base03  | #002b36 |   0  43  54 | 193 100  21 | 234 #1c1c1c |
+;; | base02  | #073642 |   7  54  66 | 192  90  26 | 235 #262626 |
+;; | base01  | #586e75 |  88 110 117 | 194  25  46 | 240 #585858 |
+;; | base00  | #657b83 | 101 123 131 | 195  23  51 | 241 #626262 |
+;; | base0   | #839496 | 131 148 150 | 186  13  59 | 244 #808080 |
+;; | base1   | #93a1a1 | 147 161 161 | 180   9  63 | 245 #8a8a8a |
+;; | base2   | #eee8d5 | 238 232 213 |  44  11  93 | 254 #e4e4e4 |
+;; | base3   | #fdf6e3 | 253 246 227 |  44  10  99 | 230 #ffffd7 |
+;; | yellow  | #b58900 | 181 137   0 |  45 100  71 | 136 #af8700 |
+;; | orange  | #cb4b16 | 203  75  22 |  18  89  80 | 166 #d75f00 |
+;; | red     | #dc322f | 220  50  47 |   1  79  86 | 160 #d70000 |
+;; | magenta | #d33682 | 211  54 130 | 331  74  83 | 125 #af005f |
+;; | violet  | #6c71c4 | 108 113 196 | 237  45  77 |  61 #5f5faf |
+;; | blue    | #268bd2 |  38 139 210 | 205  82  82 |  33 #0087ff |
+;; | cyan    | #2aa198 |  42 161 152 | 175  74  63 |  37 #00afaf |
+;; | green   | #859900 | 133 153   0 |  68 100  60 |  64 #5f8700 |
 
 (load-theme 'sanityinc-solarized-light t nil)
 ;; to differentiate from matched parenthesis
 (set-face-background 'cursor "#d33682")
-;; a little easier on old eyes
-(set-face-background 'default "oldlace")
-(set-background-color "oldlace")
-(add-to-list 'default-frame-alist '(background-color . "oldlace"))
 ;; make the current modeline stand out more
 (set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
 (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
 (set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
 (set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
+
+;;------------------------------
+;; Color theme from http://www.ft.com
+;; #FFF1E0
+;; #F6E9D8
+;; #E9DECF
+;; #A7A59B
+;; #535353
+;; #4781AA
+;; #9E2F50
+;; #FA9D3A
 
 ;;------------------------------
 ;; nice green background (in progress)
