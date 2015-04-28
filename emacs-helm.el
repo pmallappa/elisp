@@ -45,8 +45,16 @@
       helm-recentf-fuzzy-match    t)
 
 (helm-autoresize-mode 1)
-(setq helm-autoresize-min-height 10)
-(setq helm-autoresize-max-height 40)
+
+;; force the helm window to the bottom of the fram, with a height of 40%
+(add-to-list 'display-buffer-alist
+             `(,(rx bos "*helm" (* not-newline) "*" eos)
+               (display-buffer-in-side-window)
+               (inhibit-same-window . t)
+               (window-height . 0.4)))
+
+;;(setq helm-autoresize-min-height 10)
+;;(setq helm-autoresize-max-height 40)
 
 ;; open helm buffer inside current window, not occupy whole other window
 (setq helm-split-window-in-side-p t)
@@ -58,10 +66,6 @@
 
 ;; ==============================
 ;; Helm git interfaces
-
-;; quickly find files within a project
-;(require 'helm-ls-git)
-;(global-set-key (kbd "C-x C-d") 'helm-browse-project)
 
 ;; helm git-grep provides an interface to git grep
 (global-set-key (kbd "C-c g") 'helm-git-grep)

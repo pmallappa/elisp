@@ -14,8 +14,7 @@
 (defvar cm/packages nil
   "Packages that will be installed/updated to the latest version on startup")
 (setq my/packages
-      '(aggressive-indent
-        auto-complete
+      '(auto-complete
         bm
         browse-url-dwim
         color-theme-sanityinc-solarized
