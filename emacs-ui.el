@@ -124,9 +124,6 @@
 ;;======================================================================
 ;; Color Themes
 
-
-;;(load-theme 'oldlace t nil)
-
 ;;------------------------------
 ;; A better Solarized theme with some adjustments
 ;; here's the canonical colors as defined in the solarized source site
@@ -165,8 +162,7 @@
 ;;------------------------------
 ;; Color theme from http://www.ft.com
 ;; #FFF1E0
-;; #F6E9D8
-;; #E9DECF
+;; #E4DFCB
 ;; #A7A59B
 ;; #535353
 ;; #4781AA
@@ -179,7 +175,6 @@
 ;; #EFEFEF (feedly subscription list foreground)
 ;;(set-face-background 'default "#627E72")
 ;;(set-face-foreground 'default "#fdf6e3")
-;;(set-face-background 'hl-line "#50717C")
 ;;(set-face-background 'hl-line (cm-adjust-color (face-background 'default) +8))
 ;;(set-face-background 'region (cm-adjust-color (face-background 'default) +16))
 ;;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) +12))
@@ -194,12 +189,9 @@
 ;;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
 ;;(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-background 'default) +24))
 ;;(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -4))
-
 ;;(set-face-foreground 'font-lock-comment-face (cm-adjust-color (face-foreground 'font-lock-comment-face) +10))
 ;;(set-face-foreground 'font-lock-comment-delimiter-face (face-foreground 'font-lock-comment-face))
-
 ;;(set-face-background 'default (cm-adjust-color (face-background 'default) -4))
-
 
 ;;------------------------------
 ;; regardless of the theme, match the fringe the default background
