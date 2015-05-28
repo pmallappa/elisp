@@ -4,7 +4,7 @@
 (require 'hydra-examples)
 (hydra-add-font-lock)
 
-;; ==============================
+;;==============================
 ;; Creating and moving around windows
 (global-set-key
  (kbd "C-c m")
@@ -91,7 +91,7 @@ _v_ Vertical _h_ Horizontal
 ;; ==============================
 ;; Insert date
 (global-set-key
- (kbd "C-c d")
+ (kbd "C-c C-d")
  (defhydra hydra-insert-date (:exit t)
    "Insert Date"
    ("t" (insert-date-time) "date/time")
@@ -99,6 +99,17 @@ _v_ Vertical _h_ Horizontal
    ("o" (insert-date "[%Y-%m-%d %a %k:%M]") "org inactive stamp")
    ("O" (insert-date "<%Y-%m-%d %a %k:%M>") "org active stamp")
    ("q" nil "quit")))
+
+;;==============================
+;; load convience URLs
+(global-set-key
+ (kbd "C-c C-b")
+ (defhydra hydra-browse (:exit t)
+   "Browse the following pages"
+   ("a" (ie "https://helpdesk.industrysoftware.automation.siemens.com/CAisd/pdmweb.exe") "AHD")
+   ("j" (ie "https://jira.industrysoftware.automation.siemens.com/secure/Dashboard.jspa") "JIRA")
+   ("f" (crm "http://www.feedly.com") "Feedly")
+   ("g" (crm "https://mail.google.com") "Gmail")))
 
 ;; ==============================
 ;; Apropos (in the hydra examples)
