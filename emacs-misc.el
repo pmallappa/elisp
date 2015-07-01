@@ -99,10 +99,6 @@
 (put 'eval-expression 'disabled nil)
 
 ;;======================================================================
-;; Sensibly split windows horizontally column threshold
-(setq split-width-threshold (+ 10 MY_DEFAULT_WIDTH))
-
-;;======================================================================
 ;; ediff configuration
 ;; split windows horizontally:
 (setq ediff-split-window-function 'split-window-horizontally)
@@ -647,7 +643,8 @@ if it's >= 0x6
        ("ʠ"."\\u02A0")("ʡ"."\\u02A1")("ʢ"."\\u02A2")("ʣ"."\\u02A3")
        ("ʤ"."\\u02A4")("ʥ"."\\u02A5")("ʦ"."\\u02A6")("ʧ"."\\u02A7")
        ("ʨ"."\\u02A8")("ʩ"."\\u02A9")("ʪ"."\\u02AA")("ʫ"."\\u02AB")
-       ("ʬ"."\\u02AC")("ʭ"."\\u02AD"))
+       ("ʬ"."\\u02AC")("ʭ"."\\u02AD")("ș"."\\u0219")("ț"."\\u021b")
+       ("’"."\\u2019")("'"."\\u0027"))
      nil beg end)))
 
 ;;======================================================================

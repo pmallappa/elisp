@@ -102,12 +102,6 @@
 ;; defined in .emacs-macros.el
 (setq-default mode-line-buffer-identification '("%12b"))
 
-;; Titlebar text
-(setq frame-title-format
-      (concat invocation-name " on "
-              system-name
-	      " -- %f"))
-
 ;; minimize extraneous info
 (require 'diminish)
 (diminish 'abbrev-mode)
@@ -116,10 +110,19 @@
 (diminish 'smartparens-mode)
 (diminish 'auto-complete-mode)
 
-;; display the function the point is in within the modeline if any
-(setq which-func-unknown "")
-(which-function-mode)
+;;; display the function the point is in within the modeline if any
+;(setq which-func-unknown "")
+;(which-function-mode)
 
+;; Titlebar text
+(setq frame-title-format
+      (concat invocation-name " on "
+              system-name
+	      " -- %f"))
+
+;;======================================================================
+;; Sensibly split windows horizontally column threshold
+(setq split-width-threshold 160)
 
 ;;======================================================================
 ;; Color Themes
