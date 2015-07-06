@@ -81,6 +81,12 @@
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
 ;;==============================
+;; add command to magit ediff popup to show unstaged changes in the same
+;; way as pre-version 2.10 ediff buffers
+(magit-define-popup-action 'magit-ediff-popup
+  ?e "Show" 'magit-ediff-show-unstaged)
+  
+;;==============================
 ;; git gutter shows changes in the left fringe
 (global-git-gutter+-mode -1)
 (global-set-key (kbd "C-x G") 'global-git-gutter+-mode)
