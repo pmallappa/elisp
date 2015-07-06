@@ -21,9 +21,8 @@
         color-moccur
         diminish
         esh-help
-        git-commit-mode
+        git-commit
         git-gutter+
-        git-rebase-mode
         git-timemachine
         gitconfig-mode
         helm
@@ -32,7 +31,6 @@
         hydra
         js2-mode
         magit
-        magit-find-file
         multi-web-mode
         org
         ox-pandoc

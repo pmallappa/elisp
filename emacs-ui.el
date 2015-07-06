@@ -106,7 +106,6 @@
 (require 'diminish)
 (diminish 'abbrev-mode)
 ;(diminish 'elisp-slime-nav-mode)
-(diminish 'magit-auto-revert-mode)
 (diminish 'smartparens-mode)
 (diminish 'auto-complete-mode)
 
