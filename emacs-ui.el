@@ -14,7 +14,7 @@
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
       (set-face-font 'variable-pitch "Segoe UI Semibold-9")
-      (set-face-font 'default "Consolas-10")
+      (set-face-font 'default "Source Code Pro Semibold-9")
       (copy-face 'default 'fixed-pitch)))
 
 ;; Consolas, courier font has the best unicode support of the ones listed
@@ -24,8 +24,8 @@
 ;;      (set-face-font 'default "Source Code Pro Medium-9")
 ;;      (set-face-font 'default "Courier New-9")
 ;;      (set-face-font 'default "Lucida Console-9")
-;;      (set-face-font 'default "Lucida Sans Typewriter-9")
-;;      (set-face-font 'default "Lucida Console-9")
+;;      (set-face-font 'default "Lucida Sans Typewriter-8")
+
 ;;      (set-face-font 'variable-pitch "Calibri-10")
 ;;      (set-face-font 'variable-pitch "Verdana-9")
 ;;      (set-face-font 'variable-pitch "Segoe UI Semibold-10")

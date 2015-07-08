@@ -80,11 +80,11 @@
 
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
-;;==============================
-;; Add command to new Magit-2.10 popup to enable side-by-side comparison in
-;; the same way as older versions of magit
-(magit-define-popup-action 'magit-ediff-popup
-  ?e "Show" 'magit-ediff-show-unstaged)
+;;;==============================
+;;; Add command to new Magit-2.10 popup to enable side-by-side comparison in
+;;; the same way as older versions of magit
+;(magit-define-popup-action 'magit-ediff-popup
+;  ?e "Show" 'magit-ediff-show-unstaged)
   
 ;;==============================
 ;; git gutter shows changes in the left fringe
