@@ -13,8 +13,8 @@
       (copy-face 'default 'fixed-pitch)))
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
-      (set-face-font 'variable-pitch "Segoe UI Semibold-9")
-      (set-face-font 'default "Source Code Pro Semibold-9")
+      (set-face-font 'variable-pitch "InputSans-9")
+      (set-face-font 'default "Consolas-10")
       (copy-face 'default 'fixed-pitch)))
 
 ;; Consolas, courier font has the best unicode support of the ones listed
@@ -25,12 +25,14 @@
 ;;      (set-face-font 'default "Courier New-9")
 ;;      (set-face-font 'default "Lucida Console-9")
 ;;      (set-face-font 'default "Lucida Sans Typewriter-8")
+;;      (set-face-font 'default "InputMono-8")
 
 ;;      (set-face-font 'variable-pitch "Calibri-10")
 ;;      (set-face-font 'variable-pitch "Verdana-9")
 ;;      (set-face-font 'variable-pitch "Segoe UI Semibold-10")
 ;;      (set-face-font 'variable-pitch "Segoe UI Semibold-9")
 ;;      (set-face-font 'variable-pitch "MS Reference Sans Serif-9")
+;;      (set-face-font 'variable-pitch "InputSans-9")
 
 ;; Fix the UI
 (setq visible-bell nil) 
@@ -109,10 +111,6 @@
 (diminish 'smartparens-mode)
 (diminish 'auto-complete-mode)
 
-;;; display the function the point is in within the modeline if any
-;(setq which-func-unknown "")
-;(which-function-mode)
-
 ;; Titlebar text
 (setq frame-title-format
       (concat invocation-name " on "
@@ -153,8 +151,11 @@
 ;; | green   | #859900 | 133 153   0 |  68 100  60 |  64 #5f8700 |
 
 (load-theme 'sanityinc-solarized-light t nil)
+;(set-face-background 'default "#ded6c5")
+
 ;; to differentiate from matched parenthesis
 (set-face-background 'cursor "#d33682")
+
 ;; make the current modeline stand out more
 (set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
 (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
@@ -162,27 +163,9 @@
 (set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
 
 ;;------------------------------
-;; Color theme from http://www.ft.com
-;; #FFF1E0
-;; #E4DFCB
-;; #A7A59B
-;; #535353
-;; #4781AA
-;; #9E2F50
-;; #FA9D3A
-
-;;------------------------------
-;; nice green background (in progress)
-;; #627E72 (feedly subscription list background)
-;; #EFEFEF (feedly subscription list foreground)
-;;(set-face-background 'default "#627E72")
-;;(set-face-foreground 'default "#fdf6e3")
-;;(set-face-background 'hl-line (cm-adjust-color (face-background 'default) +8))
-;;(set-face-background 'region (cm-adjust-color (face-background 'default) +16))
-;;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) +12))
-;;(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) +8))
-;;(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
-;;(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) -12))
+;; Alec themes, light and dark versions
+;(load-theme 'alect-light t)
+;(load-theme 'alect-dark t)
 
 ;;------------------------------
 ;; standard light colors with gray background
