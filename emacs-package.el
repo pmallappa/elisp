@@ -20,6 +20,7 @@
         color-theme-sanityinc-solarized
         color-moccur
         diminish
+        emacs-eclim
         esh-help
         git-commit
         git-gutter+
@@ -37,6 +38,7 @@
         rainbow-mode
         smartparens
         w3m
+        web-mode
         xkcd))
 
 (if (eq system-type 'darwin)

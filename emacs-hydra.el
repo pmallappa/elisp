@@ -83,8 +83,8 @@ _v_ Vertical _h_ Horizontal
  (kbd "M-g")
  (defhydra hydra-goto-line (goto-map "")
    "goto-line"
-   ("g" goto-line "go")
-   ("l" linum-mode "linum")
+   ("g" goto-line "go" :exit t)
+   ("l" linum-mode "linum" :exit t)
    ("m" set-mark-command "mark" :bind nil)
    ("q" nil "quit")))
 
