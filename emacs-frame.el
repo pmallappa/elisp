@@ -1,32 +1,63 @@
 ;; ======================================================================
 ;; Frame sizing and movement
 
-;;; set the frame variables and support functions
-(require 'cm-frame)
+(require 'frame-cmds)
 
-;; adjust the top position of the frame
-(if (eq system-type 'darwin)
-    (setq cmframe-top-margin 27)
-  (setq cmframe-top-margin 0))
+(defun cm-restore-frame ()
+  "Restore frame to default width and height"
+  (interactive)
+  (set-frame-width (selected-frame)
+                   MY_DEFAULT_WIDTH)
+  (maximize-frame-vertically (selected-frame)))
 
-;; is there a secondary monitor to the right of the primary?
-(setq cmframe-monitor2-p t)
+(defun cm-move-frame-to-screen-right ()
+  "hydra-capable version of `move-frame-to-screen-left'"
+  (interactive)
+  (move-frame-to-screen-right 0 (selected-frame)))
 
-;; if so, set its dimensions here
-(setq cmframe-monitor2-width 1920)
-(setq cmframe-monitor2-height 1080)
+(defun cm-move-frame-to-screen-left ()
+  "hydra-capable version of `move-frame-to-screen-left'"
+  (interactive)
+  (move-frame-to-screen-left 0 (selected-frame)))
 
-;; set the right margin (add window manager space here as well)
-(setq cmframe-horizontal-margin 15)
+;; To get information on multi-displays, look into the functions
+;; (display-monitor-attributes-list)
+;; (frame-monitor-attributes)
 
-;; see the file emacs-hydra for keybindings
-;(global-set-key (kbd "C-c f e") 'cmframe-toggle-frame-enlarge)
-;(global-set-key (kbd "C-c f f") 'toggle-frame-fullscreen)
-;(global-set-key (kbd "C-c f l") 'cmframe-left)
-;(global-set-key (kbd "C-c f m") 'toggle-frame-maximized)
-;(global-set-key (kbd "C-c f r") 'cmframe-right)
-;(global-set-key (kbd "C-c f s") 'cmframe-frame-shrink)
-;(global-set-key (kbd "C-c f t") 'cmframe-toggle-window-split)
+;;;_.======================================================================
+;;;_. Toggle 2 windows between vertical and horizontal split
+;;From: "Fabrice Niessen" <tdhkhcidiacy@spammotel.com>
+;;Subject: Re: Toggle between Vertical and Horizontal Windows Splitting
+;;Newsgroups: gnu.emacs.help
+;;Date: Fri, 14 Nov 2008 14:54:46 +0100
+(defun cmframe-toggle-window-split ()
+  "Vertical split shows more of each line, horizontal split shows
+more lines. This code toggles between them. It only works for
+frames with exactly two windows."
+
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+	     (next-win-buffer (window-buffer (next-window)))
+	     (this-win-edges (window-edges (selected-window)))
+	     (next-win-edges (window-edges (next-window)))
+	     (this-win-2nd (not (and (<= (car this-win-edges)
+					 (car next-win-edges))
+				     (<= (cadr this-win-edges)
+					 (cadr next-win-edges)))))
+	     (splitter
+	      (if (= (car this-win-edges)
+		     (car (window-edges (next-window))))
+		  'split-window-horizontally
+		'split-window-vertically)))
+	(delete-other-windows)
+	(let ((first-win (selected-window)))
+	  (funcall splitter)
+	  (if this-win-2nd (other-window 1))
+	  (set-window-buffer (selected-window) this-win-buffer)
+	  (set-window-buffer (next-window) next-win-buffer)
+	  (select-window first-win)
+	  (if this-win-2nd (other-window 1))))))
 
 ;;; ======================================================================
 ;; misc settings
@@ -44,8 +75,8 @@
   (set-frame-parameter (selected-frame) 'alpha value))
 
 ;; adjust the frame to fit the current resolution on launching
-;(add-hook 'after-make-frame-functions 'my-screen-right)
-;(add-hook 'window-setup-hook 'my-screen-right)
-(run-with-idle-timer 0.1 nil 'cmframe-frame-adjust)
+(add-hook 'window-setup-hook 'cm-restore-frame)
+(add-hook 'window-setup-hook 'cm-move-frame-to-screen-right)
+
 
 (provide 'emacs-frame)

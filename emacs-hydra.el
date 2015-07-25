@@ -45,19 +45,20 @@ Select window  Move split
  (kbd "C-c f")
  (defhydra hydra-frame (:exit t)
    "
-_s_ Shrink Frame  _e_ Enlarge
-_m_ Maximize      _f_ Fullscreen
-_l_ Frame left    _r_ Frame right
-_t_ Toggle Split
+_m_ Maximize    _f_ Fullscreen
+_l_ Frame Left  _r_ Frame Right
+_v_ Vertical    _h_ Horizontal
+_s_ Shrink      _t_ Toggle Split
 
 "
-   ("e" cmframe-toggle-frame-enlarge nil)
+   ("m" toggle-frame-maximized nil)
    ("f" toggle-frame-fullscreen nil)
-   ("s" cmframe-frame-shrink nil)
-   ("m" cmframe-frame-maximize nil)
-   ("l" cmframe-left nil)
-   ("r" cmframe-right nil)
+   ("l" cm-move-frame-to-screen-left nil)
+   ("r" cm-move-frame-to-screen-right nil)
    ("t" cmframe-toggle-window-split nil)
+   ("v" split-window-right nil)
+   ("h" split-window-below nil)
+   ("s" cm-restore-frame nil)
    ("q" nil "quit")))
 
 ;; ==============================
@@ -68,12 +69,9 @@ _t_ Toggle Split
    "
 Core Frame Function
 --------------------
-_m_ Maximize _f_ Fullscreen
 _v_ Vertical _h_ Horizontal
 
 "
-   ("m" toggle-frame-maximized nil)
-   ("f" toggle-frame-fullscreen nil)
    ("v" split-window-right nil)
    ("h" split-window-below nil)))
 
