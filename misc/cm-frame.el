@@ -171,7 +171,10 @@ determined by `is-right-monitor`"
                   ;; frame height
                   (if (is-right-monitor)
                       (get-frame-height cmframe-monitor2-height)
-                    (- (get-frame-height (display-pixel-height)) 2)))
+                    (progn ;; main monitor
+                      (if (is-darwin)
+                          (get-frame-height (display-pixel-height))
+                        (- (get-frame-height (display-pixel-height)) 2)))))
 
   ;; frame position
   (set-frame-position (selected-frame)

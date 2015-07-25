@@ -57,18 +57,20 @@
 
 ;;=====================================================================
 ;; Set the environment (OSX or Cygwin)
-(if (eq system-type 'darwin)
+(defun is-darwin ()
+  "true if OSX, false if otherwise"
+  (eq system-type 'darwin))
+
+(if (is-darwin)
   (progn
     (require 'exec-path-from-shell)
-    (exec-path-from-shell-initialize)))
-
-(if (eq system-type 'windows-nt)
-    (require 'emacs-cygwin))
+    (exec-path-from-shell-initialize))
+  (require 'emacs-cygwin))
 
 ;;=====================================================================
 ;; select your preferred programs for html and media here
 ;; Mac OS X
-(if (eq system-type 'darwin)
+(if (is-darwin)
     (progn
       (defconst MEDIA_PLAYER "/Applications/VLC.app/"
         "Media Player program, video and streaming audio")
@@ -118,7 +120,7 @@
 (load-file (concat HOME_DIR "/elisp/misc/rect.el"))
 
 ;; prevent new frames in emacsclient on darwin
-(if (eq system-type 'darwin)
+(if (is-darwin)
     (setq ns-popup-frames nil))
 
 ;;==============================
