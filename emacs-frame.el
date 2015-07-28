@@ -1,31 +1,52 @@
 ;; ======================================================================
 ;; Frame sizing and movement
 
-(require 'frame-cmds)
+;;; set the frame variables and support functions
+(require 'cm-frame)
 
-(defun cm-restore-frame ()
-  "Restore frame to default width and height"
-  (interactive)
-  (set-frame-width (selected-frame)
-                   MY_DEFAULT_WIDTH)
-  (maximize-frame-vertically (selected-frame)))
+;; adjust the top position of the frame
+(if (eq system-type 'darwin)
+    (setq cmframe-top-margin 27)
+  (setq cmframe-top-margin 10))
 
-(defun cm-move-frame-to-screen-right ()
-  "hydra-capable version of `move-frame-to-screen-left'"
-  (interactive)
-  (move-frame-to-screen-right 0 (selected-frame)))
+;; is there a secondary monitor to the right of the primary?
+(setq cmframe-monitor2-p t)
 
-(defun cm-move-frame-to-screen-left ()
-  "hydra-capable version of `move-frame-to-screen-left'"
-  (interactive)
-  (move-frame-to-screen-left 0 (selected-frame)))
+;; if so, set its dimensions here
+(setq cmframe-monitor2-width 1920)
+(setq cmframe-monitor2-height 1080)
 
-;; To get information on multi-displays, look into the functions
-;; (display-monitor-attributes-list)
-;; Here's the results at work (1366x768 _>)
-;; In this windows configuration the commands to move right and left are not working
-;; (((geometry 0 0 1920 1080) (workarea 0 0 1920 1050) (mm-size 677 381) (name . "\\\\.\\DISPLAY1") (frames #<frame emacs on PL1USMIF0388NB -- c:/cygwin/home/ndr5mz/elisp/emacs-frame.el 0000000001CD1C48>)) ((geometry -1366 312 1366 768) (workarea -1366 312 1366 768) (mm-size 482 271) (name . "\\\\.\\DISPLAY2") (frames)) ((geometry 1920 0 1920 1080) (workarea 1920 0 1920 1080) (mm-size 677 381) (name . "\\\\.\\DISPLAY3") (frames)))
-;; (frame-monitor-attributes)
+; set the right margin (add window manager space here as well)
+(setq cmframe-right-margin 15)
+
+;;; ======================================================================
+;;; Using frame-cmds package. Still not working on Windows
+;(require 'frame-cmds)
+;(defun cm-restore-frame ()
+;  "Restore frame to default width and height"
+;  (interactive)
+;  (set-frame-width (selected-frame)
+;                   MY_DEFAULT_WIDTH)
+;  (maximize-frame-vertically (selected-frame)))
+;
+;(defun cm-move-frame-to-screen-right ()
+;  "hydra-capable version of `move-frame-to-screen-left'"
+;  (interactive)
+;  (move-frame-to-screen-right 0 (selected-frame)))
+;
+;(defun cm-move-frame-to-screen-left ()
+;  "hydra-capable version of `move-frame-to-screen-left'"
+;  (interactive)
+;  (move-frame-to-screen-left 0 (selected-frame)))
+;
+;;; To get information on multi-displays, look into the functions
+;;; (display-monitor-attributes-list)
+;;; Here's the results at work with a configuration of 1366x768 -> 1920x1080 (with taskbar at bottom) -> 1920x1080
+;;; In this windows configuration the commands to move right and left are not working
+;;; (((geometry 0 0 1920 1080) (workarea 0 0 1920 1050) (mm-size 677 381) (name . "\\\\.\\DISPLAY1") (frames #<frame emacs on PL1USMIF0388NB -- c:/cygwin/home/ndr5mz/elisp/emacs-frame.el 0000000001CD1C48>))
+;;;  ((geometry -1366 312 1366 768) (workarea -1366 312 1366 768) (mm-size 482 271) (name . "\\\\.\\DISPLAY2") (frames))
+;;;  ((geometry 1920 0 1920 1080) (workarea 1920 0 1920 1080) (mm-size 677 381) (name . "\\\\.\\DISPLAY3") (frames)))
+;;; (frame-monitor-attributes)
 
 
 ;;;_.======================================================================
@@ -79,8 +100,9 @@ frames with exactly two windows."
   (set-frame-parameter (selected-frame) 'alpha value))
 
 ;; adjust the frame to fit the current resolution on launching
-(add-hook 'window-setup-hook 'cm-restore-frame)
-(add-hook 'window-setup-hook 'cm-move-frame-to-screen-right)
+;; (add-hook 'windows-setup-hook 'cmframe-frame-adjust)
+(run-with-idle-timer 0.1 nil 'cmframe-frame-adjust)
+
 
 
 (provide 'emacs-frame)

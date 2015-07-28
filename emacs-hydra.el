@@ -38,27 +38,21 @@ Select window  Move split
 
 ;; ==============================
 ;; Setting and adjusting the frame
-;; TODO Fix frame maximized and frame shrink to toggle fullframe off if
-;; necessary
-
 (global-set-key
  (kbd "C-c f")
  (defhydra hydra-frame (:exit t)
    "
 _m_ Maximize    _f_ Fullscreen
 _l_ Frame Left  _r_ Frame Right
-_v_ Vertical    _h_ Horizontal
 _s_ Shrink      _t_ Toggle Split
 
 "
-   ("m" toggle-frame-maximized nil)
    ("f" toggle-frame-fullscreen nil)
-   ("l" cm-move-frame-to-screen-left nil)
-   ("r" cm-move-frame-to-screen-right nil)
+   ("s" cmframe-frame-shrink nil)
+   ("m" cmframe-frame-maximize nil)
+   ("l" cmframe-left nil)
+   ("r" cmframe-right nil)
    ("t" cmframe-toggle-window-split nil)
-   ("v" split-window-right nil)
-   ("h" split-window-below nil)
-   ("s" cm-restore-frame nil)
    ("q" nil "quit")))
 
 ;; ==============================
