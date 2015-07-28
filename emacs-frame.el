@@ -22,7 +22,11 @@
 
 ;; To get information on multi-displays, look into the functions
 ;; (display-monitor-attributes-list)
+;; Here's the results at work (1366x768 _>)
+;; In this windows configuration the commands to move right and left are not working
+;; (((geometry 0 0 1920 1080) (workarea 0 0 1920 1050) (mm-size 677 381) (name . "\\\\.\\DISPLAY1") (frames #<frame emacs on PL1USMIF0388NB -- c:/cygwin/home/ndr5mz/elisp/emacs-frame.el 0000000001CD1C48>)) ((geometry -1366 312 1366 768) (workarea -1366 312 1366 768) (mm-size 482 271) (name . "\\\\.\\DISPLAY2") (frames)) ((geometry 1920 0 1920 1080) (workarea 1920 0 1920 1080) (mm-size 677 381) (name . "\\\\.\\DISPLAY3") (frames)))
 ;; (frame-monitor-attributes)
+
 
 ;;;_.======================================================================
 ;;;_. Toggle 2 windows between vertical and horizontal split
