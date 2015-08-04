@@ -179,6 +179,7 @@
          ((agenda)
           (tags-todo "pending")
           (tags-todo "+siemens+task")
+          (tags-todo "+siemens+note")
           (tags-todo "+siemens+AHD")
           (tags-todo "+siemens+JIRA")
           (tags-todo "+siemens+TRANSPORTS"))
