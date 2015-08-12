@@ -13,7 +13,7 @@
       (copy-face 'default 'fixed-pitch)))
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
-      (set-face-font 'variable-pitch "InputSans-9")
+      (set-face-font 'variable-pitch "MS Reference Sans Serif-8")
       (set-face-font 'default "Consolas-10")
       (copy-face 'default 'fixed-pitch)))
 

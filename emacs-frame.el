@@ -32,12 +32,12 @@
 ;(defun cm-move-frame-to-screen-right ()
 ;  "hydra-capable version of `move-frame-to-screen-left'"
 ;  (interactive)
-;  (move-frame-to-screen-right 0 (selected-frame)))
+;  (move-frame-to-screen-right 0))
 ;
 ;(defun cm-move-frame-to-screen-left ()
 ;  "hydra-capable version of `move-frame-to-screen-left'"
 ;  (interactive)
-;  (move-frame-to-screen-left 0 (selected-frame)))
+;  (move-frame-to-screen-left 0))
 ;
 ;;; To get information on multi-displays, look into the functions
 ;;; (display-monitor-attributes-list)

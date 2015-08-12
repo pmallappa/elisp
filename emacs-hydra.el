@@ -45,6 +45,7 @@ Select window  Move split
 _e_ Enlarge     _m_ Maximize       _f_ Fullscreen   
 _l_ Frame Left  _r_ Frame Right
 _s_ Shrink      _t_ Toggle Split
+_v_ Split V     _h_ Split H
 
 "
    ("f" toggle-frame-fullscreen nil)
@@ -54,21 +55,9 @@ _s_ Shrink      _t_ Toggle Split
    ("l" cmframe-left nil)
    ("r" cmframe-right nil)
    ("t" cmframe-toggle-window-split nil)
-   ("q" nil "quit")))
-
-;; ==============================
-;; more hydra frame stuff
-(global-set-key
- (kbd "C-c r")
- (defhydra hydra-minframe (:exit t)
-   "
-Core Frame Function
---------------------
-_v_ Vertical _h_ Horizontal
-
-"
    ("v" split-window-right nil)
-   ("h" split-window-below nil)))
+   ("h" split-window-below nil)
+   ("q" nil "quit")))
 
 ;; ==============================
 ;; Goto line
@@ -89,8 +78,8 @@ _v_ Vertical _h_ Horizontal
    "Insert Date"
    ("t" (insert-date-time) "date/time")
    ("d" (insert-date) "date")
-   ("o" (insert-date "[%Y-%m-%d %a %k:%M]") "org inactive stamp")
-   ("O" (insert-date "<%Y-%m-%d %a %k:%M>") "org active stamp")
+   ("O" (insert-date "[%Y-%m-%d %a %k:%M]") "org active stamp")
+   ("o" (insert-date "<%Y-%m-%d %a %k:%M>") "org inactive stamp")
    ("q" nil "quit")))
 
 ;;==============================
@@ -110,12 +99,17 @@ _v_ Vertical _h_ Horizontal
 
 ;; ==============================
 ;; Zoom in and out
+(defun cm_text-scale-reset ()
+  (interactive)
+  (text-scale-adjust 0))
+
 (global-set-key
- (kbd "C-c z")
+ (kbd "C-c C-z")
  (defhydra hydra-zoom ()
    "zoom"
    ("i" text-scale-increase "in")
    ("o" text-scale-decrease "out")
+   ("r" cm_text-scale-reset "reset")
    ("q" nil "quit")))
 
 ;;     (defhydra hydra-zoom (global-map "<f2>")
