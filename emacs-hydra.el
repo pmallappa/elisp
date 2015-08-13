@@ -73,7 +73,7 @@ _v_ Split V     _h_ Split H
 ;; ==============================
 ;; Insert date
 (global-set-key
- (kbd "C-c C-d")
+ (kbd "C-c d")
  (defhydra hydra-insert-date (:exit t)
    "Insert Date"
    ("t" (insert-date-time) "date/time")
