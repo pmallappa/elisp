@@ -104,19 +104,13 @@ _v_ Split V     _h_ Split H
   (text-scale-adjust 0))
 
 (global-set-key
- (kbd "C-c C-z")
+ (kbd "C-c z")
  (defhydra hydra-zoom ()
    "zoom"
    ("i" text-scale-increase "in")
    ("o" text-scale-decrease "out")
    ("r" cm_text-scale-reset "reset")
    ("q" nil "quit")))
-
-;;     (defhydra hydra-zoom (global-map "<f2>")
-;;       "zoom"
-;;       ("g" text-scale-increase "in")
-;;       ("l" text-scale-decrease "out"))
-
 
 (defhydra hydra-global-org (:color blue
                             :hint nil)
