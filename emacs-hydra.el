@@ -78,8 +78,8 @@ _v_ Split V     _h_ Split H
    "Insert Date"
    ("t" (insert-date-time) "date/time")
    ("d" (insert-date) "date")
-   ("O" (insert-date "[%Y-%m-%d %a %k:%M]") "org active stamp")
-   ("o" (insert-date "<%Y-%m-%d %a %k:%M>") "org inactive stamp")
+   ("O" (insert-date "<%Y-%m-%d %a %k:%M>") "org active stamp")
+   ("o" (insert-date "[%Y-%m-%d %a %k:%M]") "org inactive stamp")
    ("q" nil "quit")))
 
 ;;==============================
