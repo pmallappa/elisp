@@ -150,13 +150,9 @@
 ;; | cyan    | #2aa198 |  42 161 152 | 175  74  63 |  37 #00afaf |
 ;; | green   | #859900 | 133 153   0 |  68 100  60 |  64 #5f8700 |
 
+;; Solarized light theme
 (load-theme 'sanityinc-solarized-light t nil)
-;(set-face-background 'default "#ded6c5")
-
-;; to differentiate from matched parenthesis
-(set-face-background 'cursor "#d33682")
-
-;; make the current modeline stand out more
+(set-face-background 'cursor "red")
 (set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
 (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
 (set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))

@@ -2,7 +2,7 @@
 (require 'package)
 (add-to-list 'package-archives  '("elpa"         . "http://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives  '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-;(add-to-list 'package-archives  '("melpa"        . "http://melpa.org/packages/") t)
+;(add-to-list 'package-archives  '("melpa"        . "http://melpa.org/packages/") t);
 ;(add-to-list 'package-archives  '("org"          . "http://orgmode.org/elpa/") t)
 ;(add-to-list 'package-archives  '("marmalade"    . "https://marmalade-repo.org/packages/") t)
 
@@ -54,93 +54,6 @@
 ;;popup-20150315.612
 ;;string-utils-20140508.1341
 ;;yasnippet-0.8.0
-
-
-;(setq cm/packages
-;      '(
-;        2048-game
-;        ac-helm
-;        ace-jump-mode
-;        ace-link
-;        async
-;        auto-complete
-;        bind-key
-;        bm
-;        browse-url-dwim
-;        bs-ext
-;        color-moccur
-;        color-theme-sanityinc-solarized
-;        csv-mode
-;        cygwin-mount
-;        dash
-;        deferred
-;        diminish
-;        elisp-slime-nav
-;        emmet-mode
-;        epl
-;        esh-help
-;        f
-;        frame-cmds
-;        frame-fns
-;        git-commit-mode
-;        git-gutter+
-;        git-gutter
-;        git-rebase-mode
-;        git-timemachine
-;        helm
-;        helm-bm
-;        helm-c-moccur
-;        helm-emmet
-;        helm-firefox
-;        helm-git
-;        helm-git-grep
-;        helm-package
-;        helm-swoop
-;        highlight-symbol
-;        hl-sexp
-;        ht
-;        htmlize
-;        hydra
-;        igrep
-;        js2-mode
-;        list-utils
-;        magit
-;        markdown-mode
-;        material-theme
-;        minesweeper
-;        monokai-theme
-;        multi-web-mode
-;        names
-;        neotree
-;        oldlace-theme
-;        org
-;        org-dotemacs
-;        ox-pandoc
-;        package+
-;        pandoc-mode
-;        paredit
-;        pkg-info
-;        popup
-;        queue
-;        rainbow-mode
-;        rect+
-;        request
-;        request-deferred
-;        s
-;        setup-cygwin
-;        smartparens
-;        starter-kit-eshell
-;        string-utils
-;        tablist
-;        use-package
-;        w3m
-;        web-mode
-;        windata
-;        wsd-mode
-;        yasnippet
-;        zenburn-theme
-;        ))
-
 
 
 ;; Ensure packages are installed at startup. Prompt for any that are missing
