@@ -67,6 +67,8 @@
         "* AHD-%^{AHD Number} - %^{Description}\n  Added: %U\n** TODO Complete AHD-%\\1 - %\\2\n   Added: %U\n** Details for AHD-%\\1\n   %?\n** Notes for AHD-%\\1\n" :empty-lines-after 1 :jump-to-captured :unnarrowed)
         ("sj" "JIRA Ticket" entry (file+olp "~/org/siemens.org" "Support" "JIRA")
         "* JIRA %^{JIRA Number} - %^{Description}\n  Added: %U\n** TODO Complete JIRA %\\1 - %\\2\n   Added: %U\n** Details for %\\1\n   %?\n** Notes for %\\1\n" :empty-lines-after 1 :jump-to-captured :unnarrowed)
+        ("so" "One on One" entry (file+olp "~/org/siemens.org" "Notes")
+         "* One on One %u :meeting:onOne:\n  %?" :clock-in t :jump-to-captured :unnarrowed)
 
         ("f" "Financial capture templates")
         ("fb" "Bill" entry (file+olp "~/org/finances.org" "Bills")
