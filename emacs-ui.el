@@ -13,7 +13,7 @@
       (copy-face 'default 'fixed-pitch)))
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
-      (set-face-font 'variable-pitch "MS Reference Sans Serif-9")
+      (set-face-font 'variable-pitch "MS Reference Sans Serif-8")
       (set-face-font 'default "Source Code Pro Medium-9")
       (copy-face 'default 'fixed-pitch)))
 
@@ -29,10 +29,12 @@
 
 ;;      (set-face-font 'variable-pitch "Calibri-10")
 ;;      (set-face-font 'variable-pitch "Verdana-9")
+;;      (set-face-font 'variable-pitch "Arial-9")
 ;;      (set-face-font 'variable-pitch "Segoe UI Semibold-10")
 ;;      (set-face-font 'variable-pitch "Segoe UI Semibold-9")
-;;      (set-face-font 'variable-pitch "MS Reference Sans Serif-9")
-;;      (set-face-font 'variable-pitch "InputSans-9")
+;;      (set-face-font 'variable-pitch "MS Reference Sans Serif-8")
+;;      (set-face-font 'variable-pitch "InputSans-8")
+;;      (set-face-font 'variable-pitch "Source Sans Pro-10")
 
 ;; Fix the UI
 (setq visible-bell nil) 

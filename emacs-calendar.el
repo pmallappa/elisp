@@ -1,6 +1,6 @@
-;;;======================================================================
-;;; calendar mode stuff
-;;;======================================================================
+;;======================================================================
+;; calendar mode stuff
+;;======================================================================
 (require 'calendar)
 
 (setq calendar-view-diary-initially-flag nil)
@@ -26,18 +26,21 @@
 ;;; mark today as underlined
 (add-hook 'today-visible-calendar-hook 'calendar-mark-today)
 
-;;;------------------------------
-;;; Diary
-;;;------------------------------
+;;------------------------------
+;; Diary
+;;------------------------------
 (setq diary-file (concat HOME_DIR "/org/diary"))
 
 ;;; number of diary entries to display, from Sunday to Saturday
 (setq number-of-diary-entries [2 1 1 1 1 4 2])
 
+;; comments in diary entries
+;; useful for setting custom notification times
+(setq diary-comment-start "##")
 
-;;;------------------------------
-;;; Holidays
-;;;------------------------------
+;;------------------------------
+;; Holidays
+;;------------------------------
 ;(setq holiday-general-holidays t)
 
 (setq holiday-bahai-holidays 'nil)
@@ -58,9 +61,9 @@
 ;      '((holiday-fixed 12 25 "Christmas")))
 
 
-;;;------------------------------
-;;; Appointments
-;;;------------------------------
+;;------------------------------
+;; Appointments
+;;------------------------------
 (setq appt-message-warning-time 10)
 (setq appt-audible t)
 (setq appt-visible t)
@@ -75,9 +78,9 @@
 (appt-activate 1)
 
 
-;;;;------------------------------
-;;;; Cal-desk Calendar
-;;;;------------------------------
+;;------------------------------
+;; Cal-desk Calendar
+;;------------------------------
 ;(load-library "cal-desk-calendar")
 ;(add-hook 'diary-display-hook 'sort-diary-entries)
 ;(add-hook 'diary-display-hook 'fancy-schedule-display-desk-calendar t)
@@ -86,9 +89,9 @@
 ;(setq diary-default-schedule-start-time 800)
 ;(setq diary-default-schedule-stop-time 1700)
 
-;;;;------------------------------
-;;;; Fancy-diary
-;;;;------------------------------
+;;------------------------------
+;; Fancy-diary
+;;------------------------------
 ;;; use these if not using the cal-desk-calendar package
 ;(add-hook 'diary-display-hook 'fancy-diary-display)
 ;(add-hook 'list-diary-entries-hook 'sort-diary-entries t)
@@ -97,10 +100,10 @@
 ;(setq diary-duplicate-time-display 'nil)
 ;(setq diary-schedule-odd-times-get-separate-entry t)
 
-;;;------------------------------
-;;; redefine some keys for calendar movement. The Meta-X combination
-;;; to move by the month goes in line with the standard text method of
-;;; using the Meta key to go a larger ingrement (paragraph)
+;;------------------------------
+;; redefine some keys for calendar movement. The Meta-X combination
+;; to move by the month goes in line with the standard text method of
+;; using the Meta key to go a larger ingrement (paragraph)
 (define-key calendar-mode-map "\M-n" 'calendar-forward-month) ; was ESC-}
 (define-key calendar-mode-map "\M-p" 'calendar-backward-month) ; was ESC-{
 (define-key calendar-mode-map "\C-\M-n" 'calendar-forward-year) ; was C-x [
