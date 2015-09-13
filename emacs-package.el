@@ -23,7 +23,6 @@
         emacs-eclim
         esh-help
         git-commit
-        git-gutter+
         git-timemachine
         gitconfig-mode
         helm
