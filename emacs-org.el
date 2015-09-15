@@ -103,8 +103,8 @@
 (setq org-agenda-include-diary t
       org-agenda-remove-tags t
       org-agenda-include-all-todo t
-      org-agenda-tags-column -100
-      org-tags-column -100
+      org-agenda-tags-column -125
+      org-tags-column -125
       org-use-fast-todo-selection t
       org-confirm-elisp-link-function `y-or-n-p
       org-attach-directory (concat HOME_DIR "/org/data"))
