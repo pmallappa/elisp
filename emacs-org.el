@@ -33,6 +33,11 @@
 (require 'calc-funcs)
 
 ;;============================================================
+;; don't see scheduled tasks until the scheduled data
+(setq org-agenda-todo-ignore-scheduled 'future)
+(setq org-agenda-tags-todo-honor-ignore-options t)
+
+;;============================================================
 ;; enable babel code execute functions
 (require 'ob-calc)
 (require 'ob-sql)

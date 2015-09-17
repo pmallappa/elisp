@@ -74,10 +74,6 @@
       backup-by-copying t)
 
 ;;======================================================================
-;; change all yes or no promppts to y or n
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;;======================================================================
 ;; make intermediate directories if necessary when saving a file
 (add-hook 'before-save-hook
      (lambda()
