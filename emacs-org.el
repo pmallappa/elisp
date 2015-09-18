@@ -34,7 +34,11 @@
 
 ;;============================================================
 ;; don't see scheduled tasks until the scheduled data
-(setq org-agenda-todo-ignore-scheduled 'future)
+(setq org-agenda-todo-ignore-scheduled 'future
+      org-agenda-todo-ignore-with-date nil
+      org-agenda-todo-ignore-timestamp nil
+      org-agenda-todo-ignore-deadlines nil)
+
 (setq org-agenda-tags-todo-honor-ignore-options t)
 
 ;;============================================================
