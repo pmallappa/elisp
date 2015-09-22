@@ -124,10 +124,7 @@
     (setq ns-popup-frames nil))
 
 ;;==============================
-;; size, colors and fonts
-;; abcedfghijklmnopqrstuvwxyz
-;; ABCEDFGHIJKLMNOPQRSTUVWXYZ
-;; 0123456789
+;; size
 (setq default-frame-alist
       '((menu-bar-lines . 0)
 	(tool-bar-lines . 0)

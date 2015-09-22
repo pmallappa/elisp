@@ -6,6 +6,11 @@
 ;; you can get the 'Source Code Pro' font at
 ;; https://github.com/adobe-fonts/source-code-pro
 ;; a copy has also been place in my dropbox account
+;;
+;; abcedfghijklmnopqrstuvwxyz
+;; ABCEDFGHIJKLMNOPQRSTUVWXYZ
+;; 0123456789
+
 (if (eq system-type 'darwin)
     (progn
       (set-face-font 'default "Consolas-14")
@@ -45,6 +50,10 @@
 (set-scroll-bar-mode nil)
 (when (fboundp 'horizontal-scroll-bar-mode)
   (horizontal-scroll-bar-mode -1))
+
+;;======================================================================
+;; set preferred coding system
+(prefer-coding-system 'utf-8)
 
 ;;======================================================================
 ;; Eye candy
