@@ -52,23 +52,15 @@
   (horizontal-scroll-bar-mode -1))
 
 ;;======================================================================
-;; set preferred coding system
-(prefer-coding-system 'utf-8)
-
-;;======================================================================
 ;; Eye candy
 
 (load-library "linum")
-
 (defun toggle-line-numbers()
   "Easy to remember shortcut to M-x linum-mode"
   (interactive)
   (if linum-mode
       (linum-mode -1)
     (linum-mode 1)))
-
-; adjust the space between lines
-;(setq-default line-spacing 0)
 
 ; Lets us see col # at the bottom. very handy.
 (column-number-mode 1)
@@ -130,7 +122,7 @@
 	      " -- %f"))
 
 ;;======================================================================
-;; Sensibly split windows horizontally column threshold
+;; Split horizontally vice vertically when buffer exceeds this width
 (setq split-width-threshold 160)
 
 ;;======================================================================
