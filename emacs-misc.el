@@ -60,10 +60,6 @@
 (setq show-paren-style 'parenthesis)
 
 ;;======================================================================
-;; emacs bookmarks
-(setq bookmark-default-file (concat EMACS_CONFIGS "/emacs.bmk"))
-
-;;======================================================================
 ;; make backup files in a single directory and keep versions
 (defconst use-backup-dir t)
 (setq backup-directory-alist (quote ((".*" . "~/backups/temp/")))
