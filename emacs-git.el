@@ -12,6 +12,7 @@
 ;;; for details
 
 (setq magit-diff-options '("-b")) ; ignore whitespace
+(setq magit-log-arguments (quote ("--graph" "--color" "--decorate")))
 
 ;; I've seen these instructions, so don't display them on loading magit
 ;; anymore

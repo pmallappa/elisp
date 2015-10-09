@@ -111,7 +111,6 @@
 ;; minimize extraneous info
 (require 'diminish)
 (diminish 'abbrev-mode)
-;(diminish 'elisp-slime-nav-mode)
 (diminish 'smartparens-mode)
 (diminish 'auto-complete-mode)
 
@@ -156,7 +155,6 @@
 
 ;; Solarized light theme
 (load-theme 'sanityinc-solarized-light t nil)
-(set-face-background 'cursor "red")
 (set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
 (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
 (set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
@@ -166,6 +164,11 @@
 ;; Alec themes, light and dark versions
 ;(load-theme 'alect-light t)
 ;(load-theme 'alect-dark t)
+
+;;------------------------------
+;; Anti-zenburn theme
+;; low-contrast gray theme
+;(load-theme 'anti-zenburn t)
 
 ;;------------------------------
 ;; standard light colors with gray background
@@ -181,5 +184,6 @@
 ;;------------------------------
 ;; regardless of the theme, match the fringe the default background
 (set-face-background 'fringe (face-attribute 'default :background))
+(set-face-background 'cursor "red")
 
 (provide 'emacs-ui)
