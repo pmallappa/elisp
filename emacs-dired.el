@@ -102,6 +102,18 @@
 (add-hook 'dired-mode-hook 'dired-custom-dired-mode-hook)
 
 
+
+;;======================================================================
+;; change background color of dired buffers
+(custom-set-variables
+ '(buffer-face-mode-face (quote (:background "#fdf6e3"))))
+
+(add-hook 'dired-mode-hook 'buffer-face-mode)
+
+;;======================================================================
+;; hide the details from dired buffers. Show with (' key
+(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+
 ;;======================================================================
 ;; wdired
 ;; allow in-place file name editing within dired mode
