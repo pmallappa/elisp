@@ -18,6 +18,13 @@
 ;(defun eshell/emacs (file)  (find-file-other-window file))
 ;(defun eshell/w3m (file) (w3m-find-file file))
 
+;;======================================================================
+;; change background color of dired buffers
+(custom-set-variables
+ '(buffer-face-mode-face (quote (:background "#eee8d5"))))
+
+(add-hook 'eshell-mode-hook 'buffer-face-mode)
+
 ;;==================================================
 ;; Git Completion
 ;; http://tsdh.wordpress.com/2013/05/31/eshell-completion-for-git-bzr-and-hg/

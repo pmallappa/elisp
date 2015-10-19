@@ -105,14 +105,13 @@
 
 ;;======================================================================
 ;; change background color of dired buffers
-(custom-set-variables
- '(buffer-face-mode-face (quote (:background "#fdf6e3"))))
-
-(add-hook 'dired-mode-hook 'buffer-face-mode)
+;(custom-set-variables
+; '(buffer-face-mode-face (quote (:background "#eee8d5"))))
+;(add-hook 'dired-mode-hook 'buffer-face-mode)
 
 ;;======================================================================
 ;; hide the details from dired buffers. Show with (' key
-(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+;(add-hook 'dired-mode-hook 'dired-hide-details-mode)
 
 ;;======================================================================
 ;; wdired
