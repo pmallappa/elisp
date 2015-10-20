@@ -107,10 +107,10 @@ _v_ Split V     _h_ Split H
  (kbd "C-c z")
  (defhydra hydra-zoom ()
    "zoom"
-   ("i" text-scale-increase "in")
-   ("o" text-scale-decrease "out")
-   ("r" cm_text-scale-reset "reset")
-   ("q" nil "quit")))
+   ("+" text-scale-increase "in")
+   ("-" text-scale-decrease "out")
+   ("0" (text-scale-adjust 0) "reset")
+   ("q" nil "quit" :color blue)))
 
 (defhydra hydra-global-org (:color blue
                             :hint nil)

@@ -62,20 +62,20 @@
 
 
 ;;------------------------------
-;; Appointments
+;; Appointments and notifications
 ;;------------------------------
-(setq appt-message-warning-time 10)
-(setq appt-audible t)
-(setq appt-visible t)
-(setq appt-display-mode-line t)
-(setq appt-display-duration 10)
-(setq appt-display-interval 2)
-
-; set to window to allow growl to notify
-(setq appt-display-format 'window)
-
-; set to 1 to activate the appointment function
-(appt-activate 1)
+;(setq appt-message-warning-time 10)
+;(setq appt-audible t)
+;(setq appt-visible t)
+;(setq appt-display-mode-line nil)
+;(setq appt-display-duration 10)
+;(setq appt-display-interval 2)
+;
+;; set to window to allow growl to notify
+;(setq appt-display-format 'window)
+;
+;; set to 1 to activate the appointment function
+;(appt-activate 1)
 
 
 ;;------------------------------

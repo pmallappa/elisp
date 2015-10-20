@@ -43,13 +43,13 @@
 
 ;;============================================================
 ;; enable babel code execute functions
-(require 'ob-calc)
-(require 'ob-sql)
-(require 'ob-latex)
-(require 'ob-gnuplot)
-
-(require 'ob-ditaa)
-(setq org-ditaa-jar-path "/usr/local/bin/ditaa")
+;(require 'ob-calc)
+;(require 'ob-sql)
+;(require 'ob-latex)
+;(require 'ob-gnuplot)
+;
+;(require 'ob-ditaa)
+;(setq org-ditaa-jar-path "/usr/local/bin/ditaa")
 
 ;;============================================================
 ;; capture templates (replaces remember)
@@ -134,6 +134,7 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
+;; modify C-a and C-e to jump to beg and end of headlines
 (setq org-special-ctrl-a/e t)
 
 ;;============================================================
@@ -197,13 +198,13 @@
          ((org-agenda-files '("~/org/siemens.org" "~/org/pending.org"))))
         ("n" "Navy agenda and tasks"
          ((agenda)
-          (tags-todo "navy")
-          (tags-todo "pending"))
+          (tags-todo "pending")
+          (tags-todo "navy"))
          ((org-agenda-files '("~/org/navy.org" "~/org/pending.org"))))
         ("p" "Personal agenda and tasks"
          ((agenda)
-          (tags-todo "personal")
-          (tags-todo "pending"))
+          (tags-todo "pending")
+          (tags-todo "personal"))
          ((org-agenda-files '("~/org/journal.org" "~/org/finances.org" "~/org/pending.org"))))
         ("c" "Calendar" agenda ""
          ((org-agenda-ndays 7)
@@ -422,6 +423,12 @@ Return output file name."
                         (worf-more)))
             (pattern-transformer . worf--pattern-transformer)))))
 
+
+;;======================================================================
+;; Org-alert, growl style alerts within emacs!
+;(setq alert-default-style 'libnotify)
+;(setq org-alert-notification-title "*org*")
+;(org-alert-enable)
 
 ;;======================================================================
 ;; Convenience function
