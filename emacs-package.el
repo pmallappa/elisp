@@ -9,7 +9,7 @@
 (package-initialize)
 
 ;; a good way to get a formatted list of the packages loaded is with the
-;; following shell command:
+;; following shell command in the .emacs.d/elpa directory:
 ;; ls | sed -e s/-[0-9.].*//
 (defvar cm/packages nil
   "Packages that will be installed/updated to the latest version on startup")
@@ -33,6 +33,7 @@
         magit
         multi-web-mode
         org
+        orgit
         ox-pandoc
         rainbow-mode
         smartparens
@@ -42,18 +43,6 @@
 
 (if (eq system-type 'darwin)
     (add-to-list 'my/packages 'exec-path-from-shell))
-
-;; the list from the directory also includes the following, in addition to
-;; the packages (dependencies)
-;;archives
-;;async-1.2
-;;dash-2.10.0
-;;gnupg
-;;list-utils-20140508.1341
-;;popup-20150315.612
-;;string-utils-20140508.1341
-;;yasnippet-0.8.0
-
 
 ;; Ensure packages are installed at startup. Prompt for any that are missing
 ;; Adapted from

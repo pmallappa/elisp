@@ -423,22 +423,6 @@ Return output file name."
                         (worf-more)))
             (pattern-transformer . worf--pattern-transformer)))))
 
-
-;;======================================================================
-;; Org-alert, growl style alerts within emacs!
-;(setq alert-default-style 'libnotify)
-;(setq org-alert-notification-title "*org*")
-;(org-alert-enable)
-
-;;======================================================================
-;; Convenience function
-(defun insert-org-timestamp-now ()
-  "Insert the current date-time into org buffer."
-  (interactive)
-  (org-insert-time-stamp (org-current-time 1) 'with-hm 'inactive))
-;  (org-insert-time-stamp (now) 'with-hm 'inactive))
-(define-key global-map (kbd "C-c t") 'insert-org-timestamp-now)
-
 (provide 'emacs-org)
 
 ;;======================================================================
