@@ -1,15 +1,23 @@
-;;;======================================================================
-;;; git installation
+;;======================================================================
+;; git installation
 
-;;;_.======================================================================
-;;;_. magit git interface
+;;======================================================================
+;; magit git interface
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
 
-;;; ======================================================================
-;;; Use ediff as a merge tool from git
-;;; see http://stackoverflow.com/questions/1817370/using-ediff-as-git-mergetool
-;;; for details
+;;============================================================
+;; settings to export and publish magit links using orgit
+(require 'orgit)
+
+;; error message when exporting
+;; orgit-export: Cannot determine public remote for c:/workspace/PartnersXpress/
+(add-to-list 'orgit-export-alist '("[a-z]\:/[A-Za-z0-9].+" "file:///c/workspace/"))
+
+;; ======================================================================
+;; Use ediff as a merge tool from git
+;; see http://stackoverflow.com/questions/1817370/using-ediff-as-git-mergetool
+;; for details
 
 (setq magit-diff-options '("-b")) ; ignore whitespace
 ;(setq magit-log-arguments (quote ("--graph")))
@@ -81,19 +89,19 @@
 
 (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
-;;;==============================
-;;; Add command to new Magit-2.10 popup to enable side-by-side comparison in
-;;; the same way as older versions of magit
+;;==============================
+;; Add command to new Magit-2.10 popup to enable side-by-side comparison in
+;; the same way as older versions of magit
 ;(magit-define-popup-action 'magit-ediff-popup
 ;  ?e "Show" 'magit-ediff-show-unstaged)
   
 ;;(eval-after-load 'git-gutter+
 ;;  '(progn
-;;     ;;; Jump between hunks
+;;     ;; Jump between hunks
 ;;     (define-key git-gutter+-mode-map (kbd "C-x n") 'git-gutter+-next-hunk)
 ;;     (define-key git-gutter+-mode-map (kbd "C-x p") 'git-gutter+-previous-hunk)
 ;;
-;;     ;;; Act on hunks
+;;     ;; Act on hunks
 ;;     (define-key git-gutter+-mode-map (kbd "C-x v =") 'git-gutter+-show-hunk)
 ;;     (define-key git-gutter+-mode-map (kbd "C-x v r") 'git-gutter+-revert-hunks)))
 

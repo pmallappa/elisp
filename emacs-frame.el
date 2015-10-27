@@ -100,9 +100,6 @@ frames with exactly two windows."
   (set-frame-parameter (selected-frame) 'alpha value))
 
 ;; adjust the frame to fit the current resolution on launching
-;; (add-hook 'windows-setup-hook 'cmframe-frame-adjust)
 (run-with-idle-timer 0.1 nil 'cmframe-frame-adjust)
-
-
 
 (provide 'emacs-frame)

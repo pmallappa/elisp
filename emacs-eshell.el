@@ -19,10 +19,9 @@
 ;(defun eshell/w3m (file) (w3m-find-file file))
 
 ;;======================================================================
-;; change background color of dired buffers
+;; change background color of eshell
 (custom-set-variables
  '(buffer-face-mode-face (quote (:background "#eee8d5"))))
-
 (add-hook 'eshell-mode-hook 'buffer-face-mode)
 
 ;;==================================================
@@ -92,5 +91,8 @@
 
 (add-hook 'eshell-mode-hook
           '(lambda () (define-key eshell-mode-map "\C-a" 'eshell-maybe-bol)))
+
+(defun eshell/emacs (file)
+  (find-file file))
 
 (provide 'emacs-eshell)

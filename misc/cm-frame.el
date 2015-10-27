@@ -40,8 +40,9 @@
 (defun cm-display-pixel-width ()
   "Return width of current display"
   ; emacs 24.4 changed the return value of display-pixel-width
-  (if (and (>= emacs-major-version 24)
-           (>= emacs-minor-version 4))
+  (if (or (>= emacs-major-version 25)
+          (and (= emacs-major-version 24)
+               (>= emacs-minor-version 4)))
       (nth 3 (assq 'geometry (frame-monitor-attributes)))
     (display-pixel-width)))
 
