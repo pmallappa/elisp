@@ -1,35 +1,45 @@
 ;;======================================================================
-;; git installation
+;; git and magit installation
+
+;;======================================================================
+;; which git executable to use?
+(if (eq system-type 'windows-nt)
+    (setq magit-git-executable "c:/tools/Git/bin/git.exe"))
+(if (eq system-type 'cygwin)
+    (setq magit-git-executable "/usr/bin/git"))
 
 ;;======================================================================
 ;; magit git interface
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
 
+(setq magit-diff-options '("-b")) ; ignore whitespace
+(setq magit-log-arguments nil)    ; speed up log displays
+
 ;;============================================================
-;; settings to export and publish magit links using orgit
+;; magit links in org-mode using orgit
 (require 'orgit)
 
-;; error message when exporting
+;; Still not working correctly when exporting
 ;; orgit-export: Cannot determine public remote for c:/workspace/PartnersXpress/
 (add-to-list 'orgit-export-alist '("[a-z]\:/[A-Za-z0-9].+" "file:///c/workspace/"))
 
-;; ======================================================================
-;; Use ediff as a merge tool from git
-;; see http://stackoverflow.com/questions/1817370/using-ediff-as-git-mergetool
-;; for details
+;;============================================================
+;; full screen magit-status
+(defadvice magit-status (around magit-fullscreen activate)
+  (window-configuration-to-register :magit-fullscreen)
+  ad-do-it
+  (delete-other-windows))
+(defun magit-quit-session ()
+  "Restores the previous window configuration and kills the magit buffer"
+  (interactive)
+  (kill-buffer)
+  (jump-to-register :magit-fullscreen))
+(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
-(setq magit-diff-options '("-b")) ; ignore whitespace
-;(setq magit-log-arguments (quote ("--graph")))
-
-;; I've seen these instructions, so don't display them on loading magit
-;; anymore
-(setq magit-last-seen-setup-instructions "1.4.0")
-
-(if (eq system-type 'windows-nt)
-    (setq magit-git-executable "c:/tools/Git/bin/git.exe"))
-(if (eq system-type 'cygwin)
-    (setq magit-git-executable "/usr/bin/git"))
+;;============================================================
+;; use emacsclient for editing messages
+(setq git-mergetool-emacsclient-ediff-active nil)
 
 (require 'ediff)
 
@@ -75,37 +85,8 @@
 
 (add-hook 'ediff-after-quit-hooks 'git-mergetool-emacsclient-ediff-after-quit-hook 'append)
 
-;; full screen magit-status
-(defadvice magit-status (around magit-fullscreen activate)
-  (window-configuration-to-register :magit-fullscreen)
-  ad-do-it
-  (delete-other-windows))
 
-(defun magit-quit-session ()
-  "Restores the previous window configuration and kills the magit buffer"
-  (interactive)
-  (kill-buffer)
-  (jump-to-register :magit-fullscreen))
-
-(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
-
-;;==============================
-;; Add command to new Magit-2.10 popup to enable side-by-side comparison in
-;; the same way as older versions of magit
-;(magit-define-popup-action 'magit-ediff-popup
-;  ?e "Show" 'magit-ediff-show-unstaged)
-  
-;;(eval-after-load 'git-gutter+
-;;  '(progn
-;;     ;; Jump between hunks
-;;     (define-key git-gutter+-mode-map (kbd "C-x n") 'git-gutter+-next-hunk)
-;;     (define-key git-gutter+-mode-map (kbd "C-x p") 'git-gutter+-previous-hunk)
-;;
-;;     ;; Act on hunks
-;;     (define-key git-gutter+-mode-map (kbd "C-x v =") 'git-gutter+-show-hunk)
-;;     (define-key git-gutter+-mode-map (kbd "C-x v r") 'git-gutter+-revert-hunks)))
-
-
+;;============================================================
 ;; fix the neon git gutter faces 
 (copy-face 'diff-indicator-added 'git-gutter+-added)
 (copy-face 'diff-indicator-removed 'git-gutter+-deleted)
