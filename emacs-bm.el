@@ -11,6 +11,7 @@
 ;; speed things up
 (setq bmkp-propertize-bookmark-names-flag nil)
 (setq bmkp-bmenu-state-file nil)
+(setq bmkp-bmenu-commands-file nil)
 
 ;(autoload 'bm-toggle   "bm" "Toggle bookmark in current buffer." t)
 ;(autoload 'bm-next     "bm" "Goto bookmark."                     t)

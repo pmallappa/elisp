@@ -175,6 +175,18 @@
 ;; Create custom agenda views
 ;; good resource is 
 ;; http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
+
+;; set the agenda grid display
+;; default value is
+;;((daily today require-timed)
+;; "----------------"
+;; (800 1000 1200 1400 1600 1800 2000))
+(setq org-agenda-time-grid
+      '((daily)
+        "----------------"
+        (800 1000 1200 1400 1600 1800 2000)))
+
+
 (setq org-agenda-block-separator 
       "===================================================================")
 
