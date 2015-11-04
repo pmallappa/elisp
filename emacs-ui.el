@@ -13,7 +13,7 @@
 
 (if (eq system-type 'darwin)
     (progn
-      (set-face-font 'default "Menlo-13")
+      (set-face-font 'default "Consolas-14")
       (set-face-font 'variable-pitch "Verdana-13")))
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn

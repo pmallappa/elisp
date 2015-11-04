@@ -193,6 +193,13 @@ prompt the user for a coding system."
 ;; convience functions
 
 
+(defun edit-current-file-as-root ()
+  "Edit the file that is associated with the current buffer as root"
+  (interactive)
+  (let ((filep (buffer-file-name)))
+    (if filep (find-file (concat "/sudo::" filep))
+      (message "Current buffer does not have an associated file."))))
+
 ;;======================================================================
 ;; Convert degrees, minutes and seconds to decimal format.
 ;; Place the results into the kill ring for pasting

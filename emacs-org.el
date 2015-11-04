@@ -41,6 +41,11 @@
 
 (setq org-agenda-tags-todo-honor-ignore-options t)
 
+;;============================================================ prevent linum
+;; mode from activating in org buffers as it slows emacs to a crawl with
+;; large org files
+(add-hook 'org-mode-hook (lambda() (linum-mode -1)))
+
 ;;============================================================
 ;; enable babel code execute functions
 ;(require 'ob-calc)
