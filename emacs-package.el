@@ -33,7 +33,6 @@
         color-theme-sanityinc-solarized
         diminish
         esh-help
-        exec-path-from-shell
         frame-cmds
         git-timemachine
         gitconfig-mode
@@ -67,7 +66,7 @@
   (let ((missing-packages (cl-remove-if #'package-installed-p my/packages)))
     (when missing-packages
       (if (y-or-n-p-with-timeout
-	   (format "%s %s " "install missing packages?" missing-packages) 4 nil)
+	   (format "%s %s " "install missing packages?" missing-packages) 10 nil)
 	  (progn
 	    (message "Installing %d missing package(s)" (length missing-packages))
 	    (package-refresh-contents)

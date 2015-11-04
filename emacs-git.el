@@ -14,7 +14,7 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 
 (setq magit-diff-options '("-b")) ; ignore whitespace
-(setq magit-log-arguments nil)    ; speed up log displays
+(setq magit-log-arguments (quote ("--graph")))
 
 ;;============================================================
 ;; magit links in org-mode using orgit
