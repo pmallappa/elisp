@@ -24,14 +24,17 @@
 (defvar cm/packages nil
   "Packages that will be installed/updated to the latest version on startup")
 (setq my/packages
-      '(auto-complete
+      '(aggressive-indent
+        auto-complete
         bm
+        bookmark+
         browse-url-dwim
-        color-theme-sanityinc-solarized
         color-moccur
+        color-theme-sanityinc-solarized
         diminish
         esh-help
-        git-commit
+        exec-path-from-shell
+        frame-cmds
         git-timemachine
         gitconfig-mode
         helm
@@ -39,9 +42,9 @@
         hl-sexp
         hydra
         js2-mode
-        magit
+        magit-find-file
         multi-web-mode
-        org
+        org-pandoc
         orgit
         ox-pandoc
         rainbow-mode
