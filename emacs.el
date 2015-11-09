@@ -135,8 +135,7 @@
       '((menu-bar-lines . 0)
 	(tool-bar-lines . 0)
         (width . 130)
-        (height. 60)
-        (alpha 100 100)))     ; focus background
+        (height. 60)))
 
 ;;=====================================================================
 ;; easypg settings
