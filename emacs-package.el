@@ -1,20 +1,22 @@
 ;; emacs package manager.
 (require 'package)
-(add-to-list 'package-archives  '("elpa"         . "http://elpa.gnu.org/packages/") t)
-(add-to-list 'package-archives  '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-;(add-to-list 'package-archives  '("org"          . "http://orgmode.org/elpa/") t)
+(add-to-list 'package-archives '("elpa"         . "http://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa"        . "http://melpa.org/packages/") t)
 ;(add-to-list 'package-archives  '("marmalade"    . "https://marmalade-repo.org/packages/") t)
+;(add-to-list 'package-archives  '("org"          . "http://orgmode.org/elpa/") t)
 
 ;; prioritize the package repositories (emacs 25+)
 (if (>= emacs-major-version 25)
     (progn
      (setq package-archive-priorities
-      '(("melpa-stable" . 20)
-        ("marmalade" . 20)
-        ("gnu" . 10)
-        ("melpa" . 0)))
-     (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)))
+           '(("elpa" . 40)
+             ("melpa-stable" . 20)
+             ("melpa" . 10)
+;             ("marmalade" . 20)
+             ("gnu" . 10)))))
 
+(setq package-menu-hide-low-priority t)
 
 (package-initialize)
 
@@ -23,7 +25,7 @@
 ;; ls | sed -e s/-[0-9.].*//
 (defvar cm/packages nil
   "Packages that will be installed/updated to the latest version on startup")
-(setq my/packages
+(setq cm/packages
       '(aggressive-indent
         auto-complete
         bm
@@ -53,17 +55,17 @@
         xkcd))
 
 (if (eq system-type 'darwin)
-    (add-to-list 'my/packages 'exec-path-from-shell))
+    (add-to-list 'cm/packages 'exec-path-from-shell))
 
 ;; Ensure packages are installed at startup. Prompt for any that are missing
 ;; Adapted from
 ;; http://camdez.com/blog/2014/12/07/automatically-installing-your-emacs-packages/
 (require 'cl-lib)
 
-(defun my/install-packages ()
-  "Ensure the packages I use are installed. See `my/packages'."
+(defun cm/install-packages ()
+  "Ensure the packages I use are installed. See `cm/packages'."
   (interactive)
-  (let ((missing-packages (cl-remove-if #'package-installed-p my/packages)))
+  (let ((missing-packages (cl-remove-if #'package-installed-p cm/packages)))
     (when missing-packages
       (if (y-or-n-p-with-timeout
 	   (format "%s %s " "install missing packages?" missing-packages) 10 nil)
@@ -72,7 +74,7 @@
 	    (package-refresh-contents)
 	    (mapc #'package-install missing-packages))))))
 
-(my/install-packages)
+(cm/install-packages)
 
 ;; redefining the entire method. Long term would be to introduce a patch to
 ;; allow user-defined widths, or based on the width of the emacs frame
