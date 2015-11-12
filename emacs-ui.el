@@ -163,6 +163,28 @@
 (set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
 (set-face-attribute 'mode-line-inactive nil :box "#c0c0c0")
 
+;; the solarized annotate is unviewable, so revert to the default
+(setq vc-annotate-color-map 
+      '(
+        (20 . "#FFCCCC")
+        (40 . "#FFD8CC")
+        (60 . "#FFE4CC")
+        (80 . "#FFF0CC")
+        (100 . "#FFFCCC")
+        (120 . "#F6FFCC")
+        (140 . "#EAFFCC")
+        (160 . "#DEFFCC")
+        (180 . "#D2FFCC")
+        (200 . "#CCFFD2")
+        (220 . "#CCFFDE")
+        (240 . "#CCFFEA")
+        (260 . "#CCFFF6")
+        (280 . "#CCFCFF")
+        (300 . "#CCF0FF")
+        (320 . "#CCE4FF")
+        (340 . "#CCD8FF")
+        (360 . "#CCCCFF")))
+
 ;;------------------------------
 ;; Alec themes, light and dark versions
 ;(load-theme 'alect-light t)
