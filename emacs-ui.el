@@ -164,7 +164,8 @@
 (set-face-attribute 'mode-line-inactive nil :box "#c0c0c0")
 
 ;; the solarized annotate is unviewable, so revert to the default
-(setq vc-annotate-color-map 
+(eval-after-load "vc-annotate"
+  '(setq vc-annotate-color-map 
       '(
         (20 . "#FFCCCC")
         (40 . "#FFD8CC")
@@ -183,7 +184,7 @@
         (300 . "#CCF0FF")
         (320 . "#CCE4FF")
         (340 . "#CCD8FF")
-        (360 . "#CCCCFF")))
+        (360 . "#CCCCFF"))))
 
 ;;------------------------------
 ;; Alec themes, light and dark versions

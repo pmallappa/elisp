@@ -5,13 +5,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-term-color-vector
-   [unspecified "#151718" "#CE4045" "#9FCA56" "#DCCD69" "#55B5DB" "#A074C4" "#55B5DB" "#D4D7D6"] t)
  '(buffer-face-mode-face (quote (:background "#eee8d5")))
- '(cursor-type (quote bar))
  '(package-selected-packages
    (quote
-    (atom-one-dark-theme zenburn-theme yasnippet xkcd worf web-mode w3m smartparens s rainbow-mode pkg-info ox-pandoc orgit org-pandoc multi-web-mode magit-find-file js2-mode hl-sexp highlight-symbol gitconfig-mode git-timemachine frame-cmds esh-help diminish color-theme-sanityinc-solarized color-moccur browse-url-dwim bookmark+ bm bind-key auto-complete aggressive-indent))))
+    (alect-themes ample-zen-theme autumn-light-theme base16-theme darktooth-theme faff-theme zenburn-theme yasnippet xkcd worf web-mode w3m smartparens s rainbow-mode pkg-info ox-pandoc orgit org-pandoc multi-web-mode magit-find-file js2-mode hl-sexp highlight-symbol gitconfig-mode git-timemachine git-gutter-fringe frame-cmds esh-help diminish color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-moccur browse-url-dwim bookmark+ bm bind-key auto-complete atom-one-dark-theme aggressive-indent))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
