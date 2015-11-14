@@ -8,7 +8,7 @@
  '(buffer-face-mode-face (quote (:background "#eee8d5")))
  '(package-selected-packages
    (quote
-    (bm zenburn-theme yasnippet xkcd worf web-mode w3m smartparens s rainbow-mode pkg-info ox-pandoc orgit org-pandoc multi-web-mode magit-find-file js2-mode hl-sexp highlight-symbol gitconfig-mode git-timemachine frame-cmds esh-help diminish color-theme-sanityinc-solarized color-moccur browse-url-dwim bookmark+ bind-key auto-complete aggressive-indent))))
+    (zenburn-theme xkcd web-mode w3m smartparens rainbow-mode ox-pandoc orgit org-pandoc names multi-web-mode magit-find-file js2-mode hydra hl-sexp highlight-symbol helm gitconfig-mode git-timemachine frame-cmds exec-path-from-shell esh-help diminish color-theme-sanityinc-solarized color-moccur browse-url-dwim bookmark+ bm auto-complete aggressive-indent))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

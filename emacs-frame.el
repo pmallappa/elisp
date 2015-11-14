@@ -87,17 +87,6 @@ frames with exactly two windows."
 ;;; ======================================================================
 ;; misc settings
 (eval-when-compile (require 'cl))
-(defun toggle-transparency ()
-  (interactive)
-  (if (/= (cadr (frame-parameter nil 'alpha)) 100)
-      (set-frame-parameter nil 'alpha '(100 100))
-    (set-frame-parameter nil 'alpha '(90 20)))) ;focused / background
-
-;; Set transparency of emacs
-(defun transparency (value)
-  "Sets the transparency of the frame window. 0=transparent/100=opaque"
-  (interactive "nTransparency Value 0 (transparent) to 100 (opaque): ")
-  (set-frame-parameter (selected-frame) 'alpha value))
 
 ;; adjust the frame to fit the current resolution on launching
 (run-with-idle-timer 0.1 nil 'cmframe-frame-adjust)

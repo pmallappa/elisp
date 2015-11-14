@@ -154,24 +154,24 @@
 ;; | green   | #859900 | 133 153   0 |  68 100  60 |  64 #5f8700 |
 
 ;; Solarized light theme
-(load-theme 'sanityinc-solarized-light t nil)
-(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
-(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
-(set-face-attribute 'mode-line nil :box "#444444")
-
-(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
-(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
-(set-face-attribute 'mode-line-inactive nil :box "#c0c0c0")
-
-;;------------------------------
-;; Alec themes, light and dark versions
-;(load-theme 'alect-light t)
-;(load-theme 'alect-dark t)
+;(load-theme 'sanityinc-solarized-light t nil)
+;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
+;(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
+;(set-face-attribute 'mode-line nil :box "#444444")
+;
+;(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
+;(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
+;(set-face-attribute 'mode-line-inactive nil :box "#c0c0c0")
+;(set-face-background 'cursor "red")
 
 ;;------------------------------
 ;; Anti-zenburn theme
 ;; low-contrast gray theme
 ;(load-theme 'anti-zenburn t)
+
+;;------------------------------
+;; Zenburn theme
+(load-theme 'zenburn t)
 
 ;;------------------------------
 ;; standard light colors with gray background
@@ -187,6 +187,5 @@
 ;;------------------------------
 ;; regardless of the theme, match the fringe the default background
 (set-face-background 'fringe (face-attribute 'default :background))
-(set-face-background 'cursor "red")
 
 (provide 'emacs-ui)
