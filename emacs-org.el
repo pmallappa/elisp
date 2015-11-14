@@ -326,9 +326,9 @@ Return output file name."
 ;; settings to export and publish
 
 ;; enable markdown export
-(eval-after-load "org" '(require 'ox-md nil t))
-(eval-after-load "org" '(require 'ox-pandoc nil t))
-(eval-after-load "org" '(require 'ox-publish))
+;(eval-after-load "org" '(require 'ox-md nil t))
+;(eval-after-load "org" '(require 'ox-pandoc nil t))
+;(eval-after-load "org" '(require 'ox-publish))
 
 ;; set up the files for publishing
 (setq org-publish-project-alist
@@ -350,14 +350,14 @@ Return output file name."
          :publishing-directory "~/public/org_md"
          :publishing-function org-md-publish-to-md
          :preserve-breaks t)
-        ("panmd"
-         :base-directory "~/org" 
-         :base-extension "org"
-         :md-extension "markdown"
-         :exclude "pending.org"
-         :publishing-directory "~/public/pandoc_md"
-         :publishing-function org-pandoc-publish-to-md
-         :preserve-breaks t)
+;        ("panmd"
+;         :base-directory "~/org" 
+;         :base-extension "org"
+;         :md-extension "markdown"
+;         :exclude "pending.org"
+;         :publishing-directory "~/public/pandoc_md"
+;         :publishing-function org-pandoc-publish-to-md
+;         :preserve-breaks t)
         ("static"
          :base-directory "~/org/"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
@@ -368,8 +368,8 @@ Return output file name."
          :components ("orghtml" "static"))
         ("markdown"
          :components ("orgmd"))
-        ("markdown-pandoc"
-         :components ("panmd"))
+;        ("markdown-pandoc"
+;         :components ("panmd"))
         ))
 
 ;; prevent mode hooks from running when exporting to speed things up

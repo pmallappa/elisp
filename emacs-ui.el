@@ -154,15 +154,42 @@
 ;; | green   | #859900 | 133 153   0 |  68 100  60 |  64 #5f8700 |
 
 ;; Solarized light theme
-;(load-theme 'sanityinc-solarized-light t nil)
-;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
-;(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
-;(set-face-attribute 'mode-line nil :box "#444444")
-;
-;(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
-;(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
-;(set-face-attribute 'mode-line-inactive nil :box "#c0c0c0")
-;(set-face-background 'cursor "red")
+(load-theme 'sanityinc-solarized-light t nil)
+(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
+(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
+(set-face-attribute 'mode-line nil :box "#444444")
+
+(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
+(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
+(set-face-attribute 'mode-line-inactive nil :box "#c0c0c0")
+
+;; the solarized annotate is unviewable, so revert to the default
+(eval-after-load "vc-annotate"
+  '(setq vc-annotate-color-map 
+      '(
+        (20 . "#FFCCCC")
+        (40 . "#FFD8CC")
+        (60 . "#FFE4CC")
+        (80 . "#FFF0CC")
+        (100 . "#FFFCCC")
+        (120 . "#F6FFCC")
+        (140 . "#EAFFCC")
+        (160 . "#DEFFCC")
+        (180 . "#D2FFCC")
+        (200 . "#CCFFD2")
+        (220 . "#CCFFDE")
+        (240 . "#CCFFEA")
+        (260 . "#CCFFF6")
+        (280 . "#CCFCFF")
+        (300 . "#CCF0FF")
+        (320 . "#CCE4FF")
+        (340 . "#CCD8FF")
+        (360 . "#CCCCFF"))))
+
+;;------------------------------
+;; Alec themes, light and dark versions
+;(load-theme 'alect-light t)
+;(load-theme 'alect-dark t)
 
 ;;------------------------------
 ;; Anti-zenburn theme
@@ -171,7 +198,7 @@
 
 ;;------------------------------
 ;; Zenburn theme
-(load-theme 'zenburn t)
+;(load-theme 'zenburn t)
 
 ;;------------------------------
 ;; standard light colors with gray background
