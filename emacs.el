@@ -131,38 +131,15 @@
       '((menu-bar-lines . 0)
 	(tool-bar-lines . 0)
         (width . 130)
-        (height . 60)))
+        (height . 60)
+        (alpha 100 100)))
 
 (setq initial-frame-alist
       '((menu-bar-lines . 0)
 	(tool-bar-lines . 0)
         (width . 130)
-        (height. 60)))
-
-;;=====================================================================
-;; frame transparency
-(setq alpha-focused 93
-      alpha-background 85)
-
-(setq default-alpha-focused alpha-focused
-      default-alpha-background alpha-background)
-
-(defun toggle-transparency ()
-  (interactive)
-  (if (/= (cadr (frame-parameter nil 'alpha)) 100)
-        (transparent 100 100)
-    (transparent alpha-focused alpha-background)))
-
-(defun reset-transparency()
-  (interactive)
-  (transparent default-alpha-focused default-alpha-background))
-    
-;; Set transparency of emacs
-(defun transparent(alpha-f alpha-b)
- "Let's you make the window transparent"
- (interactive "nFocus level (0-100): \nnBackground level (0-100): ")
- (set-frame-parameter (selected-frame) 'alpha (list alpha-f alpha-b))
- (add-to-list 'default-frame-alist `(alpha ,alpha-f)))
+        (height. 60)
+        (alpha 100 100)))
 
 ;;=====================================================================
 ;; easypg settings

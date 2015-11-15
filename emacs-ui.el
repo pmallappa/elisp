@@ -120,6 +120,39 @@
               system-name
 	      " -- %f"))
 
+;;=====================================================================
+;; frame transparency
+(defvar alpha-focused 93
+  "When transparency is enabled, the value between
+0 (transparent) and 100 (opaque) to use when emacs has the
+focus")
+(defvar alpha-background 85
+  "When transparency is enabled, the value between
+0 (transparent) and 100 (opaque) to use when emacs does not have
+the focus")
+
+(setq default-alpha-focused alpha-focused
+      default-alpha-background alpha-background)
+
+(defun toggle-transparency ()
+  "Toggle between transparent and opaque background. 
+Uses the values for `alpha-focused' and `alpha-background'"
+  (interactive)
+  (if (/= (cadr (frame-parameter nil 'alpha)) 100)
+        (transparent 100 100)
+    (transparent alpha-focused alpha-background)))
+
+(defun reset-transparency()
+  (interactive)
+  (transparent default-alpha-focused default-alpha-background))
+    
+;; Set transparency of emacs
+(defun transparent(alpha-f alpha-b)
+ "Set the focus and background transparency"
+ (interactive "nFocus level (0-100): \nnBackground level (0-100): ")
+ (set-frame-parameter (selected-frame) 'alpha (list alpha-f alpha-b))
+ (add-to-list 'default-frame-alist `(alpha ,alpha-f)))
+
 ;;======================================================================
 ;; Split horizontally vice vertically when buffer exceeds this width
 (setq split-width-threshold 160)

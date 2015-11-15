@@ -19,10 +19,14 @@
 ;(defun eshell/w3m (file) (w3m-find-file file))
 
 ;;======================================================================
-;; change background color of eshell
-(custom-set-variables
- '(buffer-face-mode-face (quote (:background "#eee8d5"))))
-(add-hook 'eshell-mode-hook 'buffer-face-mode)
+;; change background color of eshell to a darker shade of the existing
+;; background
+(defun my/dark-background ()
+  (custom-set-variables
+   '(buffer-face-mode-face `(:background ,(cm-adjust-color (face-background 'default) -12))))
+  (buffer-face-mode))
+
+(add-hook 'eshell-mode-hook 'my/dark-background)
 
 ;;==================================================
 ;; Git Completion
