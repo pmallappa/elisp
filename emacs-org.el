@@ -181,6 +181,10 @@
 ;; good resource is 
 ;; http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 
+
+;; default to daily view
+(setq org-agenda-skip "day")
+
 ;; set the agenda grid display
 ;; default value is
 ;;((daily today require-timed)
@@ -197,38 +201,68 @@
 (setq org-agenda-current-time-string
       "now - - - - - - - - - - - - - - - - - - -")
 
+;; agenda views default to a single day
+(setq org-agenda-span 'day)
+
+;; set the org agenda items
 (setq org-agenda-custom-commands
       '(("a" "Combined agenda and tasks"
          ((agenda)
           (todo))
          ((org-agenda-start-on-weekday 1)) ; start on Monday
-         ("~/.org-agenda.txt"))
-        ("w" "Work agenda and tasks"
-         ((agenda)
-          (tags-todo "pending")
-          (tags-todo "+siemens+task")
-          (tags-todo "+siemens+note")
-          (tags-todo "+siemens+AHD")
-          (tags-todo "+siemens+JIRA")
-          (tags-todo "+siemens+TRANSPORTS"))
-         ((org-agenda-files '("~/org/siemens.org" "~/org/pending.org"))))
-        ("n" "Navy agenda and tasks"
-         ((agenda)
-          (tags-todo "pending")
-          (tags-todo "navy"))
-         ((org-agenda-files '("~/org/navy.org" "~/org/pending.org"))))
-        ("p" "Personal agenda and tasks"
-         ((agenda)
-          (tags-todo "pending")
-          (tags-todo "personal"))
-         ((org-agenda-files '("~/org/journal.org" "~/org/finances.org" "~/org/pending.org"))))
-        ("c" "Calendar" agenda ""
-         ((org-agenda-ndays 7)
-          (org-agenda-start-on-weekday 1)
-          (org-agenda-time-grid nil)                    
-          (org-agenda-repeating-timestamp-show-all t)
-          (org-agenda-entry-types '(:timestamp :sexp))))
-        ))
+         ("~/.org-agenda.txt"))))
+
+(add-to-list 'org-agenda-custom-commands
+             '("w" "Work agenda and tasks"
+               ((agenda)
+                (tags-todo "pending")
+                (tags-todo "+siemens+task")
+                (tags-todo "+siemens+note")
+                (tags-todo "+siemens+AHD")
+                (tags-todo "+siemens+JIRA")
+                (tags-todo "+siemens+TRANSPORTS"))
+               ((org-agenda-files '("~/org/siemens.org" "~/org/pending.org")))))
+
+(add-to-list 'org-agenda-custom-commands
+             '("n" "Navy agenda and tasks"
+               ((agenda)
+                (tags-todo "pending")
+                (tags-todo "navy"))
+               ((org-agenda-files '("~/org/navy.org" "~/org/pending.org")))))
+
+(add-to-list 'org-agenda-custom-commands
+             '("p" "Personal agenda and tasks"
+               ((agenda)
+                (tags-todo "pending")
+                (tags-todo "personal"))
+               ((org-agenda-files '("~/org/journal.org" "~/org/finances.org" "~/org/pending.org")))))
+
+(add-to-list 'org-agenda-custom-commands
+             '("c" "Calendar" agenda ""
+               ((org-agenda-ndays 7)
+                (org-agenda-start-on-weekday 1)
+                (org-agenda-time-grid nil)                    
+                (org-agenda-repeating-timestamp-show-all t)
+                (org-agenda-entry-types '(:timestamp :sexp)))))
+
+(add-to-list 'org-agenda-custom-commands
+             '("Q" . "Custom queries"))
+(add-to-list 'org-agenda-custom-commands
+             '("Qa" "Archive search" search ""
+              ((org-agenda-files (file-expand-wildcards "~/org/archives/*.org_archive")))))
+(add-to-list 'org-agenda-custom-commands
+             '("Qc" "Current files search" search ""
+              ((org-agenda-files (file-expand-wildcards "~/org/*.org")))))
+(add-to-list 'org-agenda-custom-commands
+             '("Qb" "Current and Archive" search ""
+               ((org-agenda-text-search-extra-files (file-expand-wildcards "~/org/archives/*.org_archive")))))
+(add-to-list 'org-agenda-custom-commands
+             '("QA" "Archive tags search" org-tags-view "" 
+               ((org-agenda-files (file-expand-wildcards "~/org/archives/*.org_archive")))))
+(add-to-list 'org-agenda-custom-commands
+             '("QC" "Current tags search" org-tags-view ""
+              ((org-agenda-files (file-expand-wildcards "~/org/*.org")))))
+
 
 ;; To use the GeekTool agenda from a command line, put the following
 ;; in the shell command field. Note, emacs server must be running for
@@ -239,7 +273,10 @@
 ;;============================================================
 ;; Set up the TODO states
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "OPEN(o)" "WAIT(w@/!)" "|" "DONE(d@)" "TRFX(f@)" "CANX(c@)")))
+      '((sequence "TODO(t)" "OPEN(o!)" "WAIT(w@/!)" "|" "DONE(d@)" "TRFX(f@)" "CANX(c@)")))
+
+;; set which items are shown in the log view ('l' from the agenda)
+(setq org-agenda-log-mode '(closed state clock))
 
 (setq org-todo-keyword-faces
       '(("TODO" . (:foreground "Burlywood3"))
