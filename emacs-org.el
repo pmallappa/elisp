@@ -248,19 +248,22 @@
 (add-to-list 'org-agenda-custom-commands
              '("Q" . "Custom queries"))
 (add-to-list 'org-agenda-custom-commands
+             '("QA" "Archive tags search" org-tags-view "" 
+               ((org-agenda-files (file-expand-wildcards "~/org/archives/*.org_archive")))))
+(add-to-list 'org-agenda-custom-commands
+             '("QB" "Current and Archive tags search" org-tags-view ""
+               ((org-agenda-files (file-expand-wildcards "~/org/archives/*.org_archive")))))
+(add-to-list 'org-agenda-custom-commands
+             '("QC" "Current tags search" org-tags-view ""
+              ((org-agenda-files (file-expand-wildcards "~/org/*.org")))))
+(add-to-list 'org-agenda-custom-commands
              '("Qa" "Archive search" search ""
               ((org-agenda-files (file-expand-wildcards "~/org/archives/*.org_archive")))))
-(add-to-list 'org-agenda-custom-commands
-             '("Qc" "Current files search" search ""
-              ((org-agenda-files (file-expand-wildcards "~/org/*.org")))))
 (add-to-list 'org-agenda-custom-commands
              '("Qb" "Current and Archive" search ""
                ((org-agenda-text-search-extra-files (file-expand-wildcards "~/org/archives/*.org_archive")))))
 (add-to-list 'org-agenda-custom-commands
-             '("QA" "Archive tags search" org-tags-view "" 
-               ((org-agenda-files (file-expand-wildcards "~/org/archives/*.org_archive")))))
-(add-to-list 'org-agenda-custom-commands
-             '("QC" "Current tags search" org-tags-view ""
+             '("Qc" "Current files search" search ""
               ((org-agenda-files (file-expand-wildcards "~/org/*.org")))))
 
 
