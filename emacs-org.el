@@ -78,9 +78,9 @@
         ("st" "Transport" entry (file+olp "~/org/siemens.org" "Support" "Transports (Support)")
          "* TODO Transport %^{Transport Number}\n  Added:  %U\n  %?" :empty-lines-after 1 :jump-to-captured :unnarrowed)
         ("sa" "AHD Ticket" entry (file+olp "~/org/siemens.org" "Support" "AHD (Support)")
-        "* AHD-%^{AHD Number} - %^{Description}\n  Added: %U\n** TODO Complete AHD-%\\1 - %\\2\n   Added: %U\n** Details for AHD-%\\1\n   %?\n** Notes for AHD-%\\1\n" :empty-lines-after 1 :jump-to-captured :unnarrowed)
+        "* AHD-%^{AHD Number} - %^{Description}\n  :PROPERTIES:\n  :ATTACH_DIR: c:/cygwin/home/ndr5mz/org/data/support/AHD-%\\1/\n  :ATTACH_DIR_INHERIT: t\n  :END:\n  Added: %U\n** TODO Complete AHD-%\\1 - %\\2\n   Added: %U\n** Details for AHD-%\\1\n   %?\n** Notes for AHD-%\\1\n" :empty-lines-after 1 :jump-to-captured :unnarrowed)
         ("sj" "JIRA Ticket" entry (file+olp "~/org/siemens.org" "Support" "JIRA (Support)")
-        "* JIRA %^{JIRA Number} - %^{Description}\n  Added: %U\n** TODO Complete JIRA %\\1 - %\\2\n   Added: %U\n** Details for %\\1\n   %?\n** Notes for %\\1\n" :empty-lines-after 1 :jump-to-captured :unnarrowed)
+        "* JIRA %^{JIRA Number} - %^{Description}\n  :PROPERTIES:\n  :ATTACH_DIR: c:/cygwin/home/ndr5mz/org/data/support/JIRA-%\\1\n  :ATTACH_DIR_INHERIT: t\n  :END:\n  Added: %U\n** TODO Complete JIRA %\\1 - %\\2\n   Added: %U\n** Details for %\\1\n   %?\n** Notes for %\\1\n" :empty-lines-after 1 :jump-to-captured :unnarrowed)
         ("so" "One on One" entry (file+olp "~/org/siemens.org" "Notes")
          "* One on One %u :meeting:onOne:\n  %?" :clock-in t :empty-lines-after 1 :jump-to-captured :unnarrowed)
 
@@ -205,15 +205,15 @@
 (setq org-agenda-span 'day)
 
 ;; set the org agenda items
-(setq org-agenda-custom-commands
-      '(("a" "Combined agenda and tasks"
-         ((agenda)
-          (todo))
-         ((org-agenda-start-on-weekday 1)) ; start on Monday
-         ("~/.org-agenda.txt"))))
+;;(setq org-agenda-custom-commands
+;;      '(("a" "Combined agenda and tasks"
+;;         ((agenda)
+;;          (todo))
+;;         ((org-agenda-start-on-weekday 1)) ; start on Monday
+;;         ("~/.org-agenda.txt"))))
 
-(add-to-list 'org-agenda-custom-commands
-             '("w" "Work agenda and tasks"
+(setq org-agenda-custom-commands
+             '(("w" "Work agenda and tasks"
                ((agenda)
                 (tags-todo "pending")
                 (tags-todo "+siemens+task")
@@ -221,7 +221,7 @@
                 (tags-todo "+siemens+AHD")
                 (tags-todo "+siemens+JIRA")
                 (tags-todo "+siemens+TRANSPORTS"))
-               ((org-agenda-files '("~/org/siemens.org" "~/org/pending.org")))))
+               ((org-agenda-files '("~/org/siemens.org" "~/org/pending.org"))))))
 
 (add-to-list 'org-agenda-custom-commands
              '("n" "Navy agenda and tasks"

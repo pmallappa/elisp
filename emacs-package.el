@@ -26,33 +26,49 @@
 (defvar cm/packages nil
   "Packages that will be installed/updated to the latest version on startup")
 (setq cm/packages
-      '(aggressive-indent
+      '(
+        aggressive-indent
+        alect-themes
+        ample-zen-theme
+        atom-one-dark-theme
         auto-complete
+        autumn-light-theme
+        base16-theme
+        bind-key
         bm
         bookmark+
         browse-url-dwim
         color-moccur
         color-theme-sanityinc-solarized
+        color-theme-sanityinc-tomorrow
+        darktooth-theme
         diminish
         esh-help
+        faff-theme
         frame-cmds
+        git-gutter-fringe
         git-timemachine
         gitconfig-mode
-        helm
         highlight-symbol
         hl-sexp
-        hydra
         js2-mode
         magit-find-file
         multi-web-mode
         org-pandoc
         orgit
         ox-pandoc
+        pkg-info
         rainbow-mode
+        s
         smartparens
+        swiper-helm
         w3m
         web-mode
-        xkcd))
+        worf
+        xkcd
+        yasnippet
+        zenburn-theme
+        ))
 
 (if (eq system-type 'darwin)
     (add-to-list 'cm/packages 'exec-path-from-shell))

@@ -51,6 +51,10 @@
      ("org cookbook"      . "http://home.fnal.gov/~neilsen/notebook/orgExamples/org-examples.html")
      ("org manual"        . "http://orgmode.org/manual/index.html")
 
+     ;; Siemens
+     ("AHD"               . "https://helpdesk.industrysoftware.automation.siemens.com/CAisd/pdmweb.exe")
+     ("JIRA"              . "https://jira.industrysoftware.automation.siemens.com/secure/Dashboard.jspa")
+
      ;; camping
      ("gear trade"        . "http://www.geartrade.com/browse/hiking-and-camping")
      ("gear swap forum"   . "http://www.backpackinglight.com/cgi-bin/backpackinglight/forums/display_forum.html?forum=19")
