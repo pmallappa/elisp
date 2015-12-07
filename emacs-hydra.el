@@ -11,7 +11,7 @@
  (defhydra hydra-window (:color red)
    "
 Select window  Move split
-    ^_p_^             ^_k_^         _v_ Split Vertically
+    ^_p_^             ^_k_^         _v_ Split Vertically          _o_ Next Window
   _b_ + _f_         _h_ + _l_       _x_ Split Horizontally
     ^_n_^             ^_j_^         _d_ Delete other windows
 
@@ -23,18 +23,26 @@ Select window  Move split
    ("v" (lambda ()
           (interactive)
           (split-window-right)
-          (windmove-right)) nil)
+          (windmove-right)))
    ("d" delete-other-windows "Delete" :color blue)
    ("x" (lambda ()
           (interactive)
           (split-window-below)
-          (windmove-down)) nil)
+          (windmove-down)))
    ("h" hydra-move-splitter-left nil)
    ("j" hydra-move-splitter-down nil)
    ("k" hydra-move-splitter-up nil)
    ("l" hydra-move-splitter-right nil)
+   ("o" (other-window 1) "Next window")
    ("t" cmframe-toggle-window-split nil)
    ("q" nil "Quit" :color blue)))
+
+;; ==============================
+;; easily move to other windows
+(defhydra hydra-other-window (global-map "C-x")
+  "hydra other window"
+  ("o" (other-window 1) "Next window")
+  ("q" nil "Quit" :color blue))
 
 ;; ==============================
 ;; Setting and adjusting the frame

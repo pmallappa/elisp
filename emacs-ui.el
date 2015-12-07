@@ -232,6 +232,9 @@ Uses the values for `alpha-focused' and `alpha-background'"
 ;;------------------------------
 ;; Zenburn theme
 ;(load-theme 'zenburn t)
+;(set-face-background 'hl-line (cm-adjust-color (face-background 'default) -5))
+;(set-face-background 'region (cm-adjust-color (face-background 'default) +10))
+;(set-face-foreground 'vertical-border (cm-adjust-color (face-background 'default) -10))
 
 ;;------------------------------
 ;; standard light colors with gray background
