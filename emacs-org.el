@@ -113,6 +113,15 @@
          (directory . emacs)))
 
 ;;============================================================
+;; default link description to only the filename
+(defun org-link-describe (link desc)
+  (if (file-exists-p link)
+      desc
+    (read-string "Description: " (file-name-nondirectory desc))))
+
+(setf org-make-link-description-function #'org-link-describe)
+
+;;============================================================
 ;; various settings
 (setq org-agenda-include-diary t
       org-agenda-remove-tags t
