@@ -38,7 +38,7 @@
 ;(global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-c h o") 'helm-occur)
+(global-set-key (kbd "C-x o") 'helm-occur)
 (global-set-key (kbd "C-x b") 'helm-mini)
 
 (setq helm-buffers-fuzzy-matching t

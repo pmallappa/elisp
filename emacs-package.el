@@ -27,47 +27,38 @@
   "Packages that will be installed/updated to the latest version on startup")
 (setq cm/packages
       '(
-        aggressive-indent
-        alect-themes
-        ample-zen-theme
-        atom-one-dark-theme
-        auto-complete
-        autumn-light-theme
-        base16-theme
-        bind-key
-        bm
-        bookmark+
-        browse-url-dwim
-        color-moccur
-        color-theme-sanityinc-solarized
-        color-theme-sanityinc-tomorrow
-        darktooth-theme
-        diminish
-        esh-help
-        faff-theme
-        frame-cmds
-        git-gutter-fringe
-        git-timemachine
-        gitconfig-mode
-        highlight-symbol
-        hl-sexp
-        js2-mode
-        magit-find-file
-        multi-web-mode
-        org-pandoc
-        orgit
-        ox-pandoc
-        pkg-info
-        rainbow-mode
-        s
-        smartparens
-        swiper-helm
-        w3m
-        web-mode
-        worf
-        xkcd
-        yasnippet
-        zenburn-theme
+        aggressive-indent                  ; Minor mode to aggressively keep your code always indented
+        auto-complete                      ; Auto Completion for GNU Emacs
+        bind-key                           ; A simple way to manage personal keybindings
+        bm                                 ; Visible bookmarks in buffer.
+        bookmark+                          ; Bookmark+: extensions to standard library `bookmark.el'.
+        browse-url-dwim                    ; Context-sensitive external browse URL or Internet search
+        color-moccur                       ; multi-buffer occur (grep) mode
+        color-theme-sanityinc-solarized    ; A version of Ethan Schoonover's Solarized themes
+        diminish                           ; Diminished modes are minor modes with no modeline display
+        esh-help                           ; Add some help functions and support for Eshell
+        frame-cmds                         ; Frame and window commands (interactive functions).
+        git-gutter-fringe                  ; Fringe version of git-gutter.el
+        git-timemachine                    ; Walk through git revisions of a file
+        gitconfig-mode                     ; Major mode for editing .gitconfig files
+        helm-swoop                         ; Efficiently hopping squeezed lines powered by helm interface
+        highlight-symbol                   ; automatic and manual symbol highlighting
+        hl-sexp                            ; highlight the current sexp
+        ht                                 ; The missing hash table library for Emacs
+        js2-mode                           ; Improved JavaScript editing mode
+        magit-find-file                    ; completing-read over all files in Git
+        multi-web-mode                     ; multiple major mode support for web editing
+        orgit                              ; support for Org links to Magit buffers
+        pkg-info                           ; Information about packages
+        rainbow-mode                       ; Colorize color names in buffers
+        s                                  ; The long lost Emacs string manipulation library.
+        smartparens                        ; Automatic insertion, wrapping and paredit-like navigation with user defined pairs.
+        w3m                                ; an Emacs interface to w3m
+        web-mode                           ; major mode for editing web templates
+        worf                               ; A warrior does not press so many keys! (in org-mode)
+        xkcd                               ; View xkcd from Emacs
+        yasnippet                          ; Yet another snippet extension for Emacs.
+        zenburn-theme                      ; A low contrast color theme for Emacs.
         ))
 
 (if (eq system-type 'darwin)
@@ -95,18 +86,23 @@
 ;; redefining the entire method. Long term would be to introduce a patch to
 ;; allow user-defined widths, or based on the width of the emacs frame
 ;; <<<< here you have to adapt the number to your needs >>>>
-(defcustom package-menu-column-width 30
+(defcustom package-menu-column-width 34
   "Width of the package column in the package list."
   :type 'number
   :group 'package)
 
-(defcustom version-menu-column-width 18
+(defcustom version-menu-column-width 14
   "Width of the version column in the package list."
   :type 'number
   :group 'package)
 
 (defcustom status-menu-column-width 12
   "Width of the staus column in the package list."
+  :type 'number
+  :group 'package)
+
+(defcustom archive-menu-column-width 14
+  "Width of the archive column in the package list."
   :type 'number
   :group 'package)
 
@@ -120,7 +116,7 @@ Letters do not insert themselves; instead, they are commands.
           ("Version" ,version-menu-column-width nil)
           ("Status"  ,status-menu-column-width package-menu--status-predicate)
           ,@(if (cdr package-archives)
-                '(("Archive" 10 package-menu--archive-predicate)))
+                `(("Archive" ,archive-menu-column-width package-menu--archive-predicate)))
           ("Description" 0 nil)])
   (setq tabulated-list-padding 2)
   (setq tabulated-list-sort-key (cons "Status" nil))

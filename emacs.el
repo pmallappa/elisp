@@ -155,8 +155,8 @@
 ;;=====================================================================
 ;; Load the customize configurations files
 (require 'emacs-macros)       ; various macros and functions
-;(require 'emacs-helm)         ; helm integration
-(require 'emacs-swiper)       ; ivy/counsel/swiper integration (in lieu of helm or ido-mode)
+(require 'emacs-helm)         ; helm integration
+;(require 'emacs-swiper)       ; ivy/counsel/swiper integration (in lieu of helm or ido-mode)
 (require 'emacs-org)          ; emacs org mode settings
 (require 'emacs-bm)           ; bookmark enhancements
 (require 'emacs-bs)           ; buffer switch setting

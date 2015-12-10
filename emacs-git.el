@@ -25,6 +25,10 @@
 (add-to-list 'orgit-export-alist '("[a-z]\:/[A-Za-z0-9].+" "file:///c/workspace/"))
 
 ;;============================================================
+;; magit-find-file
+(global-set-key (kbd "C-c C-f") 'magit-find-file-completing-read)
+
+;;============================================================
 ;; full screen magit-status
 (defadvice magit-status (around magit-fullscreen activate)
   (window-configuration-to-register :magit-fullscreen)
