@@ -13,8 +13,8 @@
            '(("elpa" . 40)
              ("melpa-stable" . 20)
              ("melpa" . 10)
-;             ("marmalade" . 20)
              ("gnu" . 10)))))
+;             ("marmalade" . 20)
 
 (setq package-menu-hide-low-priority t)
 
@@ -24,7 +24,8 @@
 ;; following shell command in the .emacs.d/elpa directory:
 ;; ls | sed -e s/-[0-9.].*//
 (defvar cm/packages nil
-  "Packages that will be installed/updated to the latest version on startup")
+  "Packages that will be installed/updated to the latest version on startup.
+These don't include the associated dependencies")
 (setq cm/packages
       '(
         aggressive-indent                  ; Minor mode to aggressively keep your code always indented

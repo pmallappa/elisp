@@ -321,7 +321,7 @@ nSec: ")
   "Insert the current time. Optional time format defaults to `insert-time-format'."
   (interactive "*")
   (let ((tformat (or time-format insert-time-format)))
-    (insert (concat (format-time-string tformat (current-time))))))
+    (insert (concat (format-time-string tformat (current-time)) " "))))
 
 (defun insert-date (&optional date-format)
   "Insert the current date. Option format defaults to  `insert-date-format'."
