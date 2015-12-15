@@ -186,15 +186,17 @@ Uses the values for `alpha-focused' and `alpha-background'"
 ;; | cyan    | #2aa198 |  42 161 152 | 175  74  63 |  37 #00afaf |
 ;; | green   | #859900 | 133 153   0 |  68 100  60 |  64 #5f8700 |
 
-;; Solarized light theme
+;;; Solarized light theme
 (load-theme 'sanityinc-solarized-light t nil)
+;(set-face-background 'default "cornsilk2")
+
 (set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
 (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
-(set-face-attribute 'mode-line nil :box "#444444")
-
 (set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
 (set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
-(set-face-attribute 'mode-line-inactive nil :box "#c0c0c0")
+(set-face-background 'hl-line (cm-adjust-color (face-background 'default) -8))
+(set-face-background 'helm-selection "#268bd2")
+(set-face-foreground 'helm-selection (face-background 'default))
 
 ;; the solarized annotate is unviewable, so revert to the default
 (eval-after-load "vc-annotate"
@@ -218,11 +220,6 @@ Uses the values for `alpha-focused' and `alpha-background'"
         (320 . "#CCE4FF")
         (340 . "#CCD8FF")
         (360 . "#CCCCFF"))))
-
-;;------------------------------
-;; Alec themes, light and dark versions
-;(load-theme 'alect-light t)
-;(load-theme 'alect-dark t)
 
 ;;------------------------------
 ;; Anti-zenburn theme
@@ -250,5 +247,11 @@ Uses the values for `alpha-focused' and `alpha-background'"
 ;;------------------------------
 ;; regardless of the theme, match the fringe the default background
 (set-face-background 'fringe (face-attribute 'default :background))
+;; and hide the org-mode leading stars
+(make-face 'org-hide)
+(set-face-foreground 'org-hide (face-attribute 'default :background))
+(set-face-background 'org-hide (face-attribute 'default :background))
+(setq org-hide-leading-stars t)
+
 
 (provide 'emacs-ui)

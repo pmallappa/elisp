@@ -87,7 +87,7 @@ These don't include the associated dependencies")
 ;; redefining the entire method. Long term would be to introduce a patch to
 ;; allow user-defined widths, or based on the width of the emacs frame
 ;; <<<< here you have to adapt the number to your needs >>>>
-(defcustom package-menu-column-width 34
+(defcustom package-menu-column-width 30
   "Width of the package column in the package list."
   :type 'number
   :group 'package)

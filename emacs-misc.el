@@ -227,16 +227,21 @@ nSec: ")
     (goto-char (point-max)))
   )
 
-;; From: Kevin Rodgers <kevin.d.rodgers@gmail.com>
-;; Subject: Re: How to get rid of *GNU Emacs* buffer on start-up?
-;; Newsgroups: gnu.emacs.help
-;; Date: Fri, 19 Sep 2008 20:35:08 -0600
-(defun switch-to-new-buffer ()
- "Switch to a new *scratch* buffer. Creates additional buffers if
- scratch is already in use"
+(defun create-scratch-buffer nil
+  "create a new scratch buffer to work in. (could be *scratch* - *scratchX*)"
   (interactive)
-  (switch-to-buffer (generate-new-buffer "*scratch*"))
-  (setq switch-to-new-buffer t))
+  (let ((n 0)
+        bufname)
+    (while (progn
+             (setq bufname (concat "*scratch"
+                                   (if (= n 0) "" (int-to-string n))
+                                   "*"))
+             (setq n (1+ n))
+             (get-buffer bufname)))
+    (switch-to-buffer (get-buffer-create bufname))
+    (emacs-lisp-mode)
+    ))
+
 
 ;;======================================================================
 ;; Generate a tabarall (tgz) from within dired
@@ -280,8 +285,8 @@ nSec: ")
   (unless (eq (window-end) (point-max))
     (scroll-up n)))
 
-;(global-set-key (kbd "M-n") 'scroll-up-in-place)
-;(global-set-key "\M-p" 'scroll-down-in-place)
+(global-set-key (kbd "M-n") 'scroll-up-in-place)
+(global-set-key "\M-p" 'scroll-down-in-place)
 
 ;;======================================================================
 ;; toggle truncate lines and redraw the display

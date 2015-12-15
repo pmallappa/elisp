@@ -7,7 +7,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (bookmark+ zenburn-theme yasnippet xkcd worf web-mode w3m smartparens s rainbow-mode pkg-info orgit multi-web-mode magit-find-file js2-mode ht hl-sexp highlight-symbol helm-swoop gitconfig-mode git-timemachine git-gutter-fringe frame-cmds esh-help diminish color-theme-sanityinc-solarized color-moccur browse-url-dwim bm bind-key auto-complete aggressive-indent))))
+    (zenburn-theme yasnippet xkcd worf web-mode w3m smartparens s rainbow-mode pkg-info orgit multi-web-mode magit-find-file js2-mode ht hl-sexp highlight-symbol helm-swoop helm-fuzzier helm-flx gitconfig-mode git-timemachine git-gutter-fringe frame-cmds esh-help diminish color-theme-sanityinc-solarized color-moccur browse-url-dwim bookmark+ bm bind-key auto-complete aggressive-indent))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

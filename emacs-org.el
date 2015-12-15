@@ -70,7 +70,7 @@
         ("m" "Meeting" entry (file "~/org/pending.org")
          "* %^{With whom} :meeting:\n  %?" :clock-in t :empty-lines-after 1 :jump-to-captured :unnarrowed)
         ("p" "Phone Call" entry (file "~/org/pending.org")
-         "* %^{Mode|IM|Phone Call} with %^{With whom} :phone:\n  %?" :clock-in t :empty-lines-after 1 :jump-to-captured :unnarrowed)
+         "* Phone Call with %^{With whom} :phone:\n  %?" :clock-in t :empty-lines-after 1 :jump-to-captured :unnarrowed)
         ("w" "Password" table-line (file+olp "~/org/passwords.gpg" "Passwords")
          "| %^{Title} | %^{Username} | %^{Password} | %^{URL} | %^{Notes}")
 
