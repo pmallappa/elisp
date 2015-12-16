@@ -186,9 +186,10 @@ Uses the values for `alpha-focused' and `alpha-background'"
 ;; | cyan    | #2aa198 |  42 161 152 | 175  74  63 |  37 #00afaf |
 ;; | green   | #859900 | 133 153   0 |  68 100  60 |  64 #5f8700 |
 
-;;; Solarized light theme
+;; Solarized light theme
 (load-theme 'sanityinc-solarized-light t nil)
-;(set-face-background 'default "cornsilk2")
+;; Ease the brightness off a bit
+(set-face-background 'default (cm-adjust-color (face-background 'default) -2))
 
 (set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
 (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
@@ -246,8 +247,8 @@ Uses the values for `alpha-focused' and `alpha-background'"
 
 ;;------------------------------
 ;; regardless of the theme, match the fringe the default background
+;; and hide org mode stars
 (set-face-background 'fringe (face-attribute 'default :background))
-;; and hide the org-mode leading stars
 (make-face 'org-hide)
 (set-face-foreground 'org-hide (face-attribute 'default :background))
 (set-face-background 'org-hide (face-attribute 'default :background))
