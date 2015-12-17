@@ -47,6 +47,7 @@ These don't include the associated dependencies")
         hl-sexp                            ; highlight the current sexp
         ht                                 ; The missing hash table library for Emacs
         js2-mode                           ; Improved JavaScript editing mode
+        load-theme-buffer-local            ; Install emacs24 color themes by buffer.
         magit-find-file                    ; completing-read over all files in Git
         multi-web-mode                     ; multiple major mode support for web editing
         orgit                              ; support for Org links to Magit buffers

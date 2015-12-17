@@ -5,9 +5,23 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(buffer-face-mode-face
+   (\`
+    (:background
+     (\,
+      (cm-adjust-color
+       (face-background
+        (quote default))
+       -12))
+     :foreground
+     (\,
+      (cm-adjust-color
+       (face-foreground
+        (quote default))
+       -12)))))
  '(package-selected-packages
    (quote
-    (zenburn-theme yasnippet xkcd worf web-mode w3m smartparens s rainbow-mode pkg-info orgit multi-web-mode magit-find-file js2-mode ht hl-sexp highlight-symbol helm-swoop helm-fuzzier helm-flx gitconfig-mode git-timemachine git-gutter-fringe frame-cmds esh-help diminish color-theme-sanityinc-solarized color-moccur browse-url-dwim bookmark+ bm bind-key auto-complete aggressive-indent))))
+    (zenburn-theme yasnippet xkcd worf web-mode w3m smartparens s rainbow-mode pkg-info orgit multi-web-mode magit-find-file load-theme-buffer-local js2-mode ht hl-sexp highlight-symbol helm-swoop helm-fuzzier helm-flx gitconfig-mode git-timemachine git-gutter-fringe frame-cmds esh-help diminish color-theme-sanityinc-solarized color-moccur browse-url-dwim bookmark+ bm bind-key auto-complete aggressive-indent))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

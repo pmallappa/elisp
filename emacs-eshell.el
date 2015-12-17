@@ -23,10 +23,18 @@
 ;; background
 (defun my/dark-background ()
   (custom-set-variables
-   '(buffer-face-mode-face `(:background ,(cm-adjust-color (face-background 'default) -12))))
+   '(buffer-face-mode-face
+     `(:background ,(cm-adjust-color (face-background 'default) -12)
+       :foreground ,(cm-adjust-color (face-foreground 'default) -12))))
   (buffer-face-mode))
 
+;; use the package load-theme-buffer-local to load a different theme
+;(defun my/dark-background()
+;     (load-theme-buffer-local
+;      'zenburn (current-buffer) t nil))
+
 (add-hook 'eshell-mode-hook 'my/dark-background)
+(add-hook 'shell-mode-hook  'my/dark-background)
 
 ;;==================================================
 ;; Git Completion
