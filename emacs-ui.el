@@ -17,7 +17,7 @@
       (set-face-font 'variable-pitch "Verdana-13")))
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
-      (set-face-font 'default "Source Code Pro Medium-9")
+      (set-face-font 'default "Source Code Pro Semibold-9")
       (set-face-font 'variable-pitch "MS Reference Sans Serif-8")))
 
 (copy-face 'default 'fixed-pitch)
@@ -232,6 +232,7 @@ Uses the values for `alpha-focused' and `alpha-background'"
 (load-theme 'zenburn t)
 (set-face-background 'hl-line (cm-adjust-color (face-background 'default) -5))
 (set-face-background 'hl-line (cm-adjust-color (face-background 'default) -5))
+(set-face-background 'region (cm-adjust-color (face-background 'default) +15))
 (set-face-foreground 'default (cm-adjust-color (face-foreground 'default) -6))
 (set-face-foreground 'vertical-border (cm-adjust-color (face-background 'default) +15))
 
