@@ -110,6 +110,14 @@
 ;; ediff-toggle-multiframe
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
+
+;;======================================================================
+;; Create an option to sort case-insensitive
+(defun sort-lines-nocase ()
+  (interactive)
+  (let ((sort-fold-case t))
+    (call-interactively 'sort-lines)))
+
 ;;======================================================================
 ;; Search for a regexp across all marked files within dired
 (defun my-dired-multi-occur (string)
