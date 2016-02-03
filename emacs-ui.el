@@ -18,7 +18,8 @@
 (if (or (eq system-type 'cygwin) (eq system-type 'windows-nt))
     (progn
       (set-face-font 'default "Source Code Pro Semibold-9")
-      (set-face-font 'variable-pitch "MS Reference Sans Serif-8")))
+      (set-face-font 'variable-pitch "Segoe UI Semibold-9")))
+;      (set-face-font 'variable-pitch "MS Reference Sans Serif-8")))
 
 (copy-face 'default 'fixed-pitch)
 
@@ -34,11 +35,11 @@
 ;; (set-face-font 'default "Menlo-13")
 
 ;; (set-face-font 'variable-pitch "Calibri-10")
-;; (set-face-font 'variable-pitch "Verdana-12")
+;; (set-face-font 'variable-pitch "Verdana-9")
 ;; (set-face-font 'variable-pitch "Arial-13")
 ;; (set-face-font 'variable-pitch "Segoe UI Semibold-12")
 ;; (set-face-font 'variable-pitch "Segoe UI Semibold-9")
-;; (set-face-font 'variable-pitch "MS Reference Sans Serif-8")
+;; (set-face-font 'variable-pitch "MS Reference Sans Serif-9")
 ;; (set-face-font 'variable-pitch "InputSans-12")
 ;; (set-face-font 'variable-pitch "Source Sans Pro-10")
 
@@ -186,41 +187,41 @@ Uses the values for `alpha-focused' and `alpha-background'"
 ;; | cyan    | #2aa198 |  42 161 152 | 175  74  63 |  37 #00afaf |
 ;; | green   | #859900 | 133 153   0 |  68 100  60 |  64 #5f8700 |
 
-;;; Solarized light theme
-;(load-theme 'sanityinc-solarized-light t nil)
-;;; Ease the brightness off a bit
-;(set-face-background 'default (cm-adjust-color (face-background 'default) -2))
-;
-;(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
-;(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
-;(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
-;(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
-;(set-face-background 'hl-line (cm-adjust-color (face-background 'default) -8))
-;(set-face-background 'helm-selection "#268bd2")
-;(set-face-foreground 'helm-selection (face-background 'default))
-;
-;;; the solarized annotate is unviewable, so revert to the default
-;(eval-after-load "vc-annotate"
-;  '(setq vc-annotate-color-map 
-;      '(
-;        (20 . "#FFCCCC")
-;        (40 . "#FFD8CC")
-;        (60 . "#FFE4CC")
-;        (80 . "#FFF0CC")
-;        (100 . "#FFFCCC")
-;        (120 . "#F6FFCC")
-;        (140 . "#EAFFCC")
-;        (160 . "#DEFFCC")
-;        (180 . "#D2FFCC")
-;        (200 . "#CCFFD2")
-;        (220 . "#CCFFDE")
-;        (240 . "#CCFFEA")
-;        (260 . "#CCFFF6")
-;        (280 . "#CCFCFF")
-;        (300 . "#CCF0FF")
-;        (320 . "#CCE4FF")
-;        (340 . "#CCD8FF")
-;        (360 . "#CCCCFF"))))
+;; Solarized light theme
+(load-theme 'sanityinc-solarized-light t nil)
+
+;; Ease the brightness off a bit
+(set-face-background 'default (cm-adjust-color (face-background 'default) -4))
+(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
+(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
+(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
+(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
+(set-face-background 'hl-line (cm-adjust-color (face-background 'default) -8))
+(set-face-background 'helm-selection "#268bd2")
+(set-face-foreground 'helm-selection (face-background 'default))
+
+;; the solarized annotate is unviewable, so revert to the default
+(eval-after-load "vc-annotate"
+  '(setq vc-annotate-color-map 
+      '(
+        (20 . "#FFCCCC")
+        (40 . "#FFD8CC")
+        (60 . "#FFE4CC")
+        (80 . "#FFF0CC")
+        (100 . "#FFFCCC")
+        (120 . "#F6FFCC")
+        (140 . "#EAFFCC")
+        (160 . "#DEFFCC")
+        (180 . "#D2FFCC")
+        (200 . "#CCFFD2")
+        (220 . "#CCFFDE")
+        (240 . "#CCFFEA")
+        (260 . "#CCFFF6")
+        (280 . "#CCFCFF")
+        (300 . "#CCF0FF")
+        (320 . "#CCE4FF")
+        (340 . "#CCD8FF")
+        (360 . "#CCCCFF"))))
 
 ;;------------------------------
 ;; Anti-zenburn theme
@@ -229,12 +230,12 @@ Uses the values for `alpha-focused' and `alpha-background'"
 
 ;;------------------------------
 ;; Zenburn theme
-(load-theme 'zenburn t)
-(set-face-background 'hl-line (cm-adjust-color (face-background 'default) -5))
-(set-face-background 'hl-line (cm-adjust-color (face-background 'default) -5))
-(set-face-background 'region (cm-adjust-color (face-background 'default) +15))
-(set-face-foreground 'default (cm-adjust-color (face-foreground 'default) -6))
-(set-face-foreground 'vertical-border (cm-adjust-color (face-background 'default) +15))
+;(load-theme 'zenburn t)
+;(set-face-background 'hl-line (cm-adjust-color (face-background 'default) -5))
+;(set-face-background 'hl-line (cm-adjust-color (face-background 'default) -5))
+;(set-face-background 'region (cm-adjust-color (face-background 'default) +15))
+;(set-face-foreground 'default (cm-adjust-color (face-foreground 'default) -6))
+;(set-face-foreground 'vertical-border (cm-adjust-color (face-background 'default) +15))
 
 ;;------------------------------
 ;; standard light colors with gray background

@@ -376,6 +376,7 @@ Return output file name."
 ;; settings to export and publish
 
 ;; enable markdown export
+(eval-after-load "org" '(require 'ox-twbs nil t))
 ;(eval-after-load "org" '(require 'ox-md nil t))
 ;(eval-after-load "org" '(require 'ox-pandoc nil t))
 ;(eval-after-load "org" '(require 'ox-publish))

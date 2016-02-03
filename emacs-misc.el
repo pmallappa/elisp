@@ -68,6 +68,7 @@
       kept-old-versions 2      ; Number of oldest versions to keep
       delete-old-versions t    ; Delete excess backup versions
       backup-by-copying t)
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
 ;;======================================================================
 ;; make intermediate directories if necessary when saving a file

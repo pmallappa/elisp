@@ -177,7 +177,7 @@
 (require 'emacs-csv)          ; comma-separated-value editing package
 (require 'emacs-java)         ; java development settings
 (require 'emacs-web)          ; web/html development settings
-(require 'emacs-smartparens)  ; better parenthesis highlighting and navigating
+;(require 'emacs-smartparens)  ; better parenthesis highlighting and navigating
 (require 'emacs-help)         ; keybindings for help functions
 (require 'emacs-sql)          ; database interaction
 (require 'emacs-ui)           ; theme, fonts, modeline and eye candy
