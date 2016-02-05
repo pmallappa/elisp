@@ -167,7 +167,6 @@ Uses the values for `alpha-focused' and `alpha-background'"
 ;; http://ethanschoonover.com/solarized
 ;; See org/reference.org for an org-table version
 ;;
-;;
 ;; | COLOR   | HEX     |         RGB |         HSB |   XTERM/HEX |
 ;; |---------+---------+-------------+-------------+-------------|
 ;; | base03  | #002b36 |   0  43  54 | 193 100  21 | 234 #1c1c1c |
@@ -187,55 +186,60 @@ Uses the values for `alpha-focused' and `alpha-background'"
 ;; | cyan    | #2aa198 |  42 161 152 | 175  74  63 |  37 #00afaf |
 ;; | green   | #859900 | 133 153   0 |  68 100  60 |  64 #5f8700 |
 
-;; Solarized light theme
-(load-theme 'sanityinc-solarized-light t nil)
+;; Solarized light theme adjustments Ease the brightness off a bit
+(defun cm-update-theme-solarized () 
+  (interactive)
+  (progn
+    (set-face-background 'default (cm-adjust-color (face-background 'default) -4))
+    (set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
+    (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
+    (set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
+    (set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
+    (set-face-background 'hl-line (cm-adjust-color (face-background 'default) -8))
+    (set-face-background 'helm-selection "#268bd2")
+    (set-face-foreground 'helm-selection (face-background 'default))
 
-;; Ease the brightness off a bit
-(set-face-background 'default (cm-adjust-color (face-background 'default) -4))
-(set-face-background 'mode-line (cm-adjust-color (face-background 'default) -12))
-(set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) -8))
-(set-face-background 'mode-line-inactive (cm-adjust-color (face-background 'default) -2))
-(set-face-foreground 'mode-line-inactive (cm-adjust-color (face-foreground 'default) +16))
-(set-face-background 'hl-line (cm-adjust-color (face-background 'default) -8))
-(set-face-background 'helm-selection "#268bd2")
-(set-face-foreground 'helm-selection (face-background 'default))
-
-;; the solarized annotate is unviewable, so revert to the default
-(eval-after-load "vc-annotate"
-  '(setq vc-annotate-color-map 
-      '(
-        (20 . "#FFCCCC")
-        (40 . "#FFD8CC")
-        (60 . "#FFE4CC")
-        (80 . "#FFF0CC")
-        (100 . "#FFFCCC")
-        (120 . "#F6FFCC")
-        (140 . "#EAFFCC")
-        (160 . "#DEFFCC")
-        (180 . "#D2FFCC")
-        (200 . "#CCFFD2")
-        (220 . "#CCFFDE")
-        (240 . "#CCFFEA")
-        (260 . "#CCFFF6")
-        (280 . "#CCFCFF")
-        (300 . "#CCF0FF")
-        (320 . "#CCE4FF")
-        (340 . "#CCD8FF")
-        (360 . "#CCCCFF"))))
+    ;; the solarized annotate is unviewable, so revert to the default
+    (eval-after-load "vc-annotate"
+      '(setq vc-annotate-color-map 
+             '(
+               (20 . "#FFCCCC")
+               (40 . "#FFD8CC")
+               (60 . "#FFE4CC")
+               (80 . "#FFF0CC")
+               (100 . "#FFFCCC")
+               (120 . "#F6FFCC")
+               (140 . "#EAFFCC")
+               (160 . "#DEFFCC")
+               (180 . "#D2FFCC")
+               (200 . "#CCFFD2")
+               (220 . "#CCFFDE")
+               (240 . "#CCFFEA")
+               (260 . "#CCFFF6")
+               (280 . "#CCFCFF")
+               (300 . "#CCF0FF")
+               (320 . "#CCE4FF")
+               (340 . "#CCD8FF")
+               (360 . "#CCCCFF"))))
+    ))
 
 ;;------------------------------
 ;; Anti-zenburn theme
 ;; low-contrast gray theme
 ;(load-theme 'anti-zenburn t)
 
-;;------------------------------
-;; Zenburn theme
+;;;------------------------------
+;;; Zenburn theme
 ;(load-theme 'zenburn t)
-;(set-face-background 'hl-line (cm-adjust-color (face-background 'default) -5))
-;(set-face-background 'hl-line (cm-adjust-color (face-background 'default) -5))
-;(set-face-background 'region (cm-adjust-color (face-background 'default) +15))
-;(set-face-foreground 'default (cm-adjust-color (face-foreground 'default) -6))
-;(set-face-foreground 'vertical-border (cm-adjust-color (face-background 'default) +15))
+(defun cm-update-theme-zenburn () 
+  (interactive)
+  (progn
+    (set-face-background 'hl-line (cm-adjust-color (face-background 'default) -5))
+    (set-face-background 'hl-line (cm-adjust-color (face-background 'default) -5))
+    (set-face-background 'region (cm-adjust-color (face-background 'default) +15))
+    (set-face-foreground 'default (cm-adjust-color (face-foreground 'default) -6))
+    (set-face-foreground 'vertical-border (cm-adjust-color (face-background 'default) +15))
+    ))
 
 ;;------------------------------
 ;; standard light colors with gray background
@@ -251,12 +255,24 @@ Uses the values for `alpha-focused' and `alpha-background'"
 ;;------------------------------
 ;; regardless of the theme, match the fringe the default background
 ;; and hide org mode stars
-(set-face-background 'fringe (face-attribute 'default :background))
-;; hide leading stars in org-mode
-(make-face 'org-hide)
-(set-face-foreground 'org-hide (face-attribute 'default :background))
-(set-face-background 'org-hide (face-attribute 'default :background))
-(setq org-hide-leading-stars t)
+(defun cm-update-ui () 
+  (interactive)
+  (progn
+    (set-face-background 'fringe (face-attribute 'default :background))
+    ;; hide leading stars in org-mode
+    (make-face 'org-hide)
+    (set-face-foreground 'org-hide (face-attribute 'default :background))
+    (set-face-background 'org-hide (face-attribute 'default :background))
+    (setq org-hide-leading-stars t)
+    ))
 
+;; Solarized light theme
+(load-theme 'sanityinc-solarized-light t nil)
+(cm-update-theme-solarized)
+(cm-update-ui)
+
+;(load-theme 'zenburn t)
+;(cm-update-theme-zenburn)
+;(cm-update-ui)
 
 (provide 'emacs-ui)
