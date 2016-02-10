@@ -83,6 +83,8 @@
         "* JIRA %^{JIRA Number} - %^{Description}\n  :PROPERTIES:\n  :ATTACH_DIR: c:/cygwin/home/ndr5mz/org/data/support/JIRA-%\\1\n  :ATTACH_DIR_INHERIT: t\n  :END:\n  Added: %U\n** TODO Complete JIRA %\\1 - %\\2\n   Added: %U\n** Details for %\\1\n   %?\n** Notes for %\\1\n" :empty-lines-after 1 :jump-to-captured :unnarrowed)
         ("so" "One on One" entry (file+olp "~/org/siemens.org" "Notes")
          "* One on One %u :meeting:onOne:\n  %?" :clock-in t :empty-lines-after 1 :jump-to-captured :unnarrowed)
+        ("sp" "WorklistEmail Password Reset" entry (file+olp "~/org/siemens.org" "Tasks")
+         "* TODO Change WLEmail Password\n  Added:  %U\n\n  [[file:Siemens.org::*WorkList%20Engine%20Email%20(McMahan)][WorkList Engine Email (McMahan)]]\n  %?" :empty-lines-after 1 :jump-to-captured :unnarrowed)
 
         ("f" "Financial capture templates")
         ("fb" "Bill" entry (file+olp "~/org/finances.org" "Bills")

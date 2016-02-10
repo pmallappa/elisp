@@ -236,7 +236,8 @@ Uses the values for `alpha-focused' and `alpha-background'"
   (set-face-background 'hl-line (cm-adjust-color (face-background 'default) -5))
   (set-face-background 'hl-line (cm-adjust-color (face-background 'default) -5))
   (set-face-background 'region (cm-adjust-color (face-background 'default) +15))
-  (set-face-foreground 'default (cm-adjust-color (face-foreground 'default) -6))
+  ;; warmer tone for default face
+  (set-face-foreground 'default "#ccccb0")
   (set-face-foreground 'vertical-border (cm-adjust-color (face-background 'default) +15)))
 
 ;;------------------------------
@@ -244,9 +245,10 @@ Uses the values for `alpha-focused' and `alpha-background'"
 (defun cm-update-theme-gruvbox ()
   (interactive)
   (load-theme 'gruvbox t nil)
-  (set-face-foreground 'default (cm-adjust-color (face-foreground 'default) -6))
+  (set-face-background 'default (cm-adjust-color (face-background 'default) +5))
+  (set-face-foreground 'default (cm-adjust-color (face-foreground 'default) -10))
   (set-face-background 'region (cm-adjust-color (face-background 'default) +15))
-  (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) +6))
+  (set-face-foreground 'mode-line (cm-adjust-color (face-foreground 'default) +15))
   (set-face-foreground 'vertical-border (cm-adjust-color (face-foreground 'default) -30)))
 
 ;;------------------------------
@@ -274,9 +276,9 @@ Uses the values for `alpha-focused' and `alpha-background'"
 
 ;;------------------------------
 ;; load the theme of choice
-(cm-update-theme-gruvbox)
+;(cm-update-theme-gruvbox)
 ;(cm-update-theme-darktooth)
-;(cm-update-theme-zenburn)
+(cm-update-theme-zenburn)
 ;(cm-update-theme-solarized)
 ;(cm-update-theme-idea-darkula)
 
