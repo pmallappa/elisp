@@ -57,7 +57,6 @@ These don't include the associated dependencies")
         smartparens                        ; Automatic insertion, wrapping and paredit-like navigation with user defined pairs.
         w3m                                ; an Emacs interface to w3m
         web-mode                           ; major mode for editing web templates
-        worf                               ; A warrior does not press so many keys! (in org-mode)
         xkcd                               ; View xkcd from Emacs
         yasnippet                          ; Yet another snippet extension for Emacs.
         zenburn-theme                      ; A low contrast color theme for Emacs.
